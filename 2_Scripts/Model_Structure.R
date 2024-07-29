@@ -88,7 +88,7 @@ library(microbenchmark, quiet = TRUE)
 # IF YOU DO NOT WANT MULTICORE SET keep_free_cores TO NA
 # 
 # 
-keep_free_cores <- 4
+keep_free_cores <- NA
 if (any(is.na(keep_free_cores), keep_free_cores<0)) {
   plan(sequential)
 } else {
