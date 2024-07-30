@@ -266,7 +266,7 @@ User_types <- c("Submitting company", "NICE", "EAG", "Committee", "NHSE", "Clini
 # The first part of this code pulls all of the named ranges from the excel workbook, expand the parameters table
 
 #Option to define Excel path on local machine - comment in this and comment out the code below to select file
-excel_path <- "./1_Data/ID6184_RCC_model inputs FAD version [ACIC redacted, cPAS redacted and CIC redacted].xlsm"
+excel_path <- "./1_Data/ID6186_RCC_model inputs FAD version [ACIC cPAS redacted and CIC redacted].xlsm"
 #i <- f_excel_extract(excel_path, verbose = TRUE)
 
 if (file.exists(excel_path)) {
