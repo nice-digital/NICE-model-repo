@@ -266,7 +266,7 @@ User_types <- c("Submitting company", "NICE", "EAG", "Committee", "NHSE", "Clini
 # The first part of this code pulls all of the named ranges from the excel workbook, expand the parameters table
 
 #Option to define Excel path on local machine - comment in this and comment out the code below to select file
-excel_path <- "./1_Data/ID6184_RCC_model inputs FAD version [ACIC redacted, cPAS redacted and CIC redacted].xlsm"
+excel_path <- "./1_Data/ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm"
 #i <- f_excel_extract(excel_path, verbose = TRUE)
 
 if (file.exists(excel_path)) {
@@ -778,7 +778,7 @@ if (i$dd_run_surv_reg == "Yes") {
 
 # option to load from pre-specified file path on local machine, uncomment this and comment out the line below to use
 
-RDS_path <- "./1_Data/Survival_analysis_noTTDorTTPorPPS[NoACIC].rds"
+RDS_path <- "./1_Data/survival_analysis_no_ipd_CompanyTTDTTPPPS_redacted.rds"
 if (file.exists(RDS_path)) {
   i$surv$reg <- readRDS(RDS_path)
 } else {
