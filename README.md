@@ -1,29 +1,44 @@
+<!--TODO: If you use this header, update to your repository URL-->
+
 <h1 align="center">
   <br>
   <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://raw.githubusercontent.com/pythonhealthdatascience/stars-eom-rcc/main/img/exeter_pentag.png" alt="Markdownify"></a>
   <br>
-  Exeter Oncology Model: Renal Cell Carcinoma edition produced as part of NICE's pathways pilot
+  Exeter Oncology Model: Renal Cell Carcinoma edition
   <br>
 </h1>
 
-[![Language](https://img.shields.io/badge/language-R-239120)](https://www.r-project.org/)
-[![GitHub release](https://img.shields.io/github/v/release/pythonhealthdatascience/stars-eom-rcc)](#)
-[![GitHub release date](https://img.shields.io/github/release-date/pythonhealthdatascience/stars-eom-rcc)](#)
-[![GitHub last commit](https://img.shields.io/github/last-commit/pythonhealthdatascience/stars-eom-rcc)](#)
-[![Valid CITATION.cff](https://github.com/pythonhealthdatascience/stars-eom-rcc/actions/workflows/cff_validation.yaml/badge.svg)](https://github.com/pythonhealthdatascience/stars-eom-rcc/actions/workflows/cff_validation.yaml)
+<p align="center">
+  <i align="center">Produced as part of NICE's pathways pilot</i>
+</p>
 
-<!--TODO: If use GitHub badges, update to your repository URL -->
+<!--I've used HTML for badges as this allows them to be centered and default to open in new tab.
+
+TODO: If you use the badges, update to your repository URL where relevant-->
+
+<p align="center">
+<center>
+    <a target="_blank" href="https://www.r-project.org/"><img src="https://img.shields.io/badge/language-R-239120" alt="Language"/></a>
+    <a href="#"><img src="https://img.shields.io/github/v/release/pythonhealthdatascience/stars-eom-rcc" alt="GitHub release" /></a>
+    <a href="#"><img src="https://img.shields.io/github/release-date/pythonhealthdatascience/stars-eom-rcc" alt="GitHub release date" /></a>
+    <a href="#"><img src="https://img.shields.io/github/last-commit/pythonhealthdatascience/stars-eom-rcc" alt="GitHub last commit" /></a>
+    <a target="_blank" href="https://github.com/pythonhealthdatascience/stars-eom-rcc/actions/workflows/cff_validation.yaml"><img src="https://github.com/pythonhealthdatascience/stars-eom-rcc/actions/workflows/cff_validation.yaml/badge.svg" alt="Valid CITATION.cff"/></a>
+    <a target="_blank" href="https://github.com/pythonhealthdatascience/stars-eom-rcc/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license"/></a>
+</center>
 
 ## Table of contents
 
-* [About the model](#-about-the-model)
-* [Using the model](#-using-the-model)
-* [Run time](#-run-time)
-* [Repository overview](#-repository-overview)
-* [Citation](#-citation)
-* [Acknowledgements](#-acknowledgements)
-* [License](#-license)
-* [Funding](#-funding)
+* [📊 About the model](#-about-the-model)
+* [💻 Using the model](#-using-the-model)
+    * [🔨 Install the model](#-install-the-model)
+    * [🚀 Run the model](#-run-the-model)
+    * [🔧 Vary model parameters](#-vary-model-parameters)
+* [⏱️ Run time](#-run-time)
+* [📂 Repository overview](#-repository-overview)
+* [📝 Citation](#-citation)
+* [🧍 Acknowledgements](#-acknowledgements)
+* [📜 License](#-license)
+* [💰 Funding](#-funding)
 
 ## 📊 About the model
 
@@ -31,9 +46,15 @@ The **Exeter Oncology Model: Renal Cell Carcinoma edition (EOM:RCC)** is a platf
 
 This model has been created as part of a National Institute for Health and Care Excellence (NICE) pilot aimed both at reducing the long-term resource requirements for appraisal within crowded treatment pathways and at assessing the feasibility of incorporating treatment sequences into decision making.
 
-The Exeter Oncology Model: RCC edition has been constructed as part of [pathways pilot appraisal ID6186](https://www.nice.org.uk/guidance/indevelopment/gid-ta11186) and the [appraisal of cabozantinib plus nivolumab ID6184](https://www.nice.org.uk/guidance/ta964). The development of this model is described in the publication:
+The Exeter Oncology Model: RCC edition has been constructed as part of:
 
-> Lee, D., Burns, D. & Wilson, E. NICE’s Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances. PharmacoEconomics Open (2024). <https://doi.org/10.1007/s41669-024-00490-x>.
+> National Institute for Health and Care Excellence (NICE). **Renal cell carcinoma Pathways Pilot [ID6186]**. In development [GID-TA11186]. <https://www.nice.org.uk/guidance/indevelopment/gid-ta11186>.
+>
+> National Institute for Health and Care Excellence (NICE). **Cabozantinib with nivolumab for untreated advanced renal cell carcinoma. Technology appraisal guidance [TA964]**. <https://www.nice.org.uk/guidance/ta964>
+
+The development of this model is described in the publication:
+
+> Lee, D., Burns, D. & Wilson, E. **NICE’s Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances**. PharmacoEconomics Open (2024). <https://doi.org/10.1007/s41669-024-00490-x>.
 
 No data is contained in the code. All input data is contained in the data folder, dummy data is provided where the data used in the appraisal was marked as confidential.
 
@@ -41,33 +62,78 @@ A user interface was originally planned be added to this model at a later stage 
 
 ## 💻 Using the model
 
-Full instructions on how to use the model can be found in the document: `ID6184 Using the R decision model (EAG instructions) noACIC.docx`.
+Full instructions on how to use the model can be found in the document: `ID6184 Using the R decision model (EAG instructions) noACIC.docx`. Key information is summarised below.
+
+### 🔨 Install the model
+
+To install and run this model, you will need to have the following on your machine:
+
+[![R](https://img.shields.io/badge/-r≥4.3-black?style=for-the-badge&logoColor=white&logo=r&color=276DC3)](https://www.r-project.org/)
+[![RStudio](https://img.shields.io/badge/-RStudio-black?style=for-the-badge&logoColor=white&logo=rstudioide&color=75AADB)](https://posit.co/download/rstudio-desktop/)
+[![Rtools](https://img.shields.io/badge/-Rtools-black?style=for-the-badge&color=04AA6D)](https://cran.r-project.org/bin/windows/Rtools/)
+[![Git](https://img.shields.io/badge/-Git-black?style=for-the-badge&logoColor=white&logo=git&color=F05032)](https://git-scm.com/)
+
+There are a few options for installing this model.
 
 <details markdown="1">
-<summary>View summary of key information</summary>
+<summary><b>Accessing the code via Git (version control)</b></summary>
 
-### Install the model
+To access the model using Git the easiest method is to create a new project in RStudio which links to the NICE github website. Simply click `New Project` in the right hand of your RStudio screen:
 
-Navigate to <https://github.com/nice-digital/NICE-model-repo>. Then either:
+![New project](img/rstudio_git_1.png)
 
-* Download ZIP
-* Access the code using Git
+Then select `Version Control`:
 
-### Run the model
+![Version control](img/rstudio_git_2.png)
+
+Then choose `Git`:
+
+![Git](img/rstudio_git_3.png)
+
+Paste in the URL of the NICE repository (<https://github.com/nice-digital/NICE-model-repo>) in the repository URL and decide where you want the project to be saved on your computer using the `Browse` functionality. All of your team can access the code then in the same way.
+
+If there is more than one branch of code available as the model is updated you can select what branch of the code to look at on the top right of your screen.
+
+![Switch branch](img/rstudio_git_4.png)
+
+</details>
+
+<details markdown="1">
+<summary><b>Accessing the code by downloading the model</b></summary>
+
+If you do not wish to access the model via Git you can instead download the code and run the model on your local machine either using RStudio or R.
+
+To do this click the `Code` button and then `Download ZIP`:
+
+![Download zip](img/zip_1.png)
+
+Extract the zip file to wherever on your machine you want to store the model. We would suggest saving it somewhere other than the `Downloads/` folder. Open RStudio and press `File` then `New Project`:
+
+![New project](img/zip_2.png)
+
+Click `Existing Directory`:
+
+![Existing directory](img/zip_3.png)
+
+Click on the folder where you have saved the model. Make sure you click fully through until you can see the sub folders. Then press `Open` and then `Create Project`.
+
+![Choose folder](img/zip_4.png)
+
+</details>
+
+### 🚀 Run the model
 
 1. Make sure you have installed R (version 4.3 or higher), RStudio, Rtools and Git.
 2. Install packages on lines 6 to 28 of `Model_Structure.R`, or use the provided renv (`renv::restore()`).
 3. Run `Model_Structure.R` using the "source" button.
 
-### Vary model parameters
+### 🔧 Vary model parameters
 
 If you would like to amend inputs you should do this in the Excel front end file. Use the cells and drop-down menus provided.
 
 The way the model works is that inputs / tables which are named with “R_” are extracted by the R code and used to populate the R model. We would recommend the user avoid adding columns or rows to the Excel file as this may change the format of the tables being pulled into R in ways that break the code. Instead, please use the input cells provided.
 
 By default, R will use inputs from `1_Data/ID6184_RCC_model inputs FAD version [ACIC redacted, cPAS redacted and CIC redacted].xlsm`. If this file does not exist, it will ask you to select the file to use for inputs.
-
-</details>
 
 ## ⏱️ Run time
 
