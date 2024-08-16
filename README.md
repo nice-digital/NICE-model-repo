@@ -1,24 +1,50 @@
-# Exeter Oncology Model: RCC edition produced as part of NICE's pathways pilot
+<h1 align="center">
+  <br>
+  <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://raw.githubusercontent.com/pythonhealthdatascience/stars-eom-rcc/main/img/exeter_pentag.png" alt="Markdownify"></a>
+  <br>
+  Exeter Oncology Model: Renal Cell Carcinoma edition produced as part of NICE's pathways pilot
+  <br>
+</h1>
 
+[![Language](https://img.shields.io/badge/language-R-239120)](https://www.r-project.org/)
+[![GitHub release](https://img.shields.io/github/v/release/pythonhealthdatascience/stars-eom-rcc)](#)
+[![GitHub release date](https://img.shields.io/github/release-date/pythonhealthdatascience/stars-eom-rcc)](#)
+[![GitHub last commit](https://img.shields.io/github/last-commit/pythonhealthdatascience/stars-eom-rcc)](#)
 [![Valid CITATION.cff](https://github.com/pythonhealthdatascience/stars-eom-rcc/actions/workflows/cff_validation.yaml/badge.svg)](https://github.com/pythonhealthdatascience/stars-eom-rcc/actions/workflows/cff_validation.yaml)
 
-## About the model
+<!--TODO: If use GitHub badges, update to your repository URL -->
 
-The Exeter Oncology Model: Renal Cell Carcinoma edition (EOM:RCC) is a platform cost-effectiveness model encompassing each decision node in the disease area for advanced renal cell carcinoma.
+## Table of contents
+
+* [About the model](#-about-the-model)
+* [Using the model](#-using-the-model)
+* [Run time](#-run-time)
+* [Repository overview](#-repository-overview)
+* [Citation](#-citation)
+* [Acknowledgements](#-acknowledgements)
+* [License](#-license)
+* [Funding](#-funding)
+
+## 📊 About the model
+
+The **Exeter Oncology Model: Renal Cell Carcinoma edition (EOM:RCC)** is a platform cost-effectiveness model encompassing each decision node in the disease area for advanced renal cell carcinoma.
 
 This model has been created as part of a National Institute for Health and Care Excellence (NICE) pilot aimed both at reducing the long-term resource requirements for appraisal within crowded treatment pathways and at assessing the feasibility of incorporating treatment sequences into decision making.
 
 The Exeter Oncology Model: RCC edition has been constructed as part of [pathways pilot appraisal ID6186](https://www.nice.org.uk/guidance/indevelopment/gid-ta11186) and the [appraisal of cabozantinib plus nivolumab ID6184](https://www.nice.org.uk/guidance/ta964). The development of this model is described in the publication:
 
-> Lee, D., Burns, D. & Wilson, E. **NICE’s Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances**. PharmacoEconomics Open (2024). <https://doi.org/10.1007/s41669-024-00490-x>.
+> Lee, D., Burns, D. & Wilson, E. NICE’s Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances. PharmacoEconomics Open (2024). <https://doi.org/10.1007/s41669-024-00490-x>.
 
 No data is contained in the code. All input data is contained in the data folder, dummy data is provided where the data used in the appraisal was marked as confidential.
 
 A user interface was originally planned be added to this model at a later stage in the project. A tests section had also been planned for a later phase of the project.
 
-## How to install and run the model and vary model parameters
+## 💻 Using the model
 
-Full instructions on how to use the model can be found in the document: `ID6184 Using the R decision model (EAG instructions) noACIC.docx`. Some of the key information is provided below.
+Full instructions on how to use the model can be found in the document: `ID6184 Using the R decision model (EAG instructions) noACIC.docx`.
+
+<details markdown="1">
+<summary>View summary of key information</summary>
 
 ### Install the model
 
@@ -41,11 +67,13 @@ The way the model works is that inputs / tables which are named with “R_” ar
 
 By default, R will use inputs from `1_Data/ID6184_RCC_model inputs FAD version [ACIC redacted, cPAS redacted and CIC redacted].xlsm`. If this file does not exist, it will ask you to select the file to use for inputs.
 
-## Run time
+</details>
+
+## ⏱️ Run time
 
 The runtime for the full state transition model is around 90 processor-minutes. This simulates hundreds of treatment pathways for tens of thousands of health states for thousands of time cycles for each pathway. By contrast, the PartSA version of the model takes less than 5 minutes, though without addressing any of the issues of that approach.
 
-## Repository overview
+## 📂 Repository overview
 
 <details markdown="1">
 <summary>View repository overview</summary>
@@ -102,7 +130,7 @@ The other files are folders are:
 
 </details>
 
-## Citation
+## 📝 Citation
 
 If you re-use this model please appropriately credit PenTAG for the work and refer to it as the Exeter Oncology Model: RCC edition:
 
@@ -121,18 +149,20 @@ The author ORCID IDs (where available) are:
 [![ORCID: Wilson](https://img.shields.io/badge/Edward_Wilson-0000--0002--8369--1577-brightgreen)](https://orcid.org/0000-0002-8369-1577)
 [![ORCID: Melendez-Torres](https://img.shields.io/badge/GJ_Melendez--Torres-0000--0002--9823--4790-brightgreen)](https://orcid.org/0000-0002-9823-4790)
 
-## Acknowledgements
+## 🧍 Acknowledgements
 
 This modified repository was developed by [**Amy Heather**](https://github.com/amyheather) as part of work package 3 on the project "STARS: Sharing Tools and Artefacts for Reproducible Simulations". Changes from the original repository are described in the `CHANGELOG.md`.
 
 [![ORCID: Heather](https://img.shields.io/badge/Amy_Heather-0000--0002--6596--3479-brightgreen)](https://orcid.org/0000-0002-6596-3479)
 
-## License
+## 📜 License
 
 This repository is licensed under an MIT license.
 
-## Funding
+## 💰 Funding
 
 The development of the EOM-RCC model for NICE, as part of the pathways pilot, was funded by the National Institute for Health and Care Research (NIHR) Evidence Synthesis Programme as project number [NIHR136008](https://www.dev.fundingawards.nihr.ac.uk/award/NIHR136008).
 
 STARS is supported by the Medical Research Council [grant number [MR/Z503915/1](https://gtr.ukri.org/projects?ref=MR%2FZ503915%2F1)].
+
+[Back to top](#top)
