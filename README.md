@@ -14,7 +14,32 @@ A user interface was originally planned be added to this model at a later stage 
 
 ## How to install and run the model and vary model parameters
 
-Instructions on how to use the model can be found in the document: `ID6184 Using the R decision model (EAG instructions) noACIC.docx`.
+Full instructions on how to use the model can be found in the document: `ID6184 Using the R decision model (EAG instructions) noACIC.docx`. Some of the key information is provided below.
+
+### Install the model
+
+Navigate to <https://github.com/nice-digital/NICE-model-repo>. Then either:
+
+* Download ZIP
+* Access the code using Git
+
+### Run the model
+
+1. Make sure you have installed R (version 4.3 or higher), RStudio, Rtools and Git.
+2. Install packages on lines 6 to 28 of `Model_Structure.R`, or use the provided renv (`renv::restore()`).
+3. Run `Model_Structure.R` using the "source" button.
+
+### Vary model parameters
+
+If you would like to amend inputs you should do this in the Excel front end file. Use the cells and drop-down menus provided.
+
+The way the model works is that inputs / tables which are named with “R_” are extracted by the R code and used to populate the R model. We would recommend the user avoid adding columns or rows to the Excel file as this may change the format of the tables being pulled into R in ways that break the code. Instead, please use the input cells provided.
+
+By default, R will use inputs from `1_Data/ID6184_RCC_model inputs FAD version [ACIC redacted, cPAS redacted and CIC redacted].xlsm`. If this file does not exist, it will ask you to select the file to use for inputs.
+
+## Run time
+
+The runtime for the full state transition model is around 90 processor-minutes. This simulates hundreds of treatment pathways for tens of thousands of health states for thousands of time cycles for each pathway. By contrast, the PartSA version of the model takes less than 5 minutes, though without addressing any of the issues of that approach.
 
 ## Repository overview
 
