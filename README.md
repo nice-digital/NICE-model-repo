@@ -33,31 +33,29 @@ If you re-use this model please appropriately credit PenTAG for the work and ref
 
 The author ORCID IDs (where available) are:
 
-| Author | ORCID |
-| - | - |
-| Dawn Lee | [![ORCID: Lee](https://img.shields.io/badge/ORCID-0000--0003--4027--8456-brightgreen)](https://orcid.org/0000-0003-4027-8456) |
-| Madhusubramanian Muthukumar | - |
-| Alan Lovell | - |
-| Caroline Farmer | - |
-| Darren Burns | [![ORCID: Burns](https://img.shields.io/badge/ORCID-0000--0002--5209--8041-brightgreen)](https://orcid.org/0000-0002-5209-8041) |
-| Justin Matthews | - |
-| Helen Coelho | [![ORCID: Coelho](https://img.shields.io/badge/ORCID-0000--0002--4799--4300-brightgreen)](https://orcid.org/0000-0002-4799-4300) |
-| Brian O’Toole | - |
-| Laura Trigg | [![ORCID: Trigg](https://img.shields.io/badge/ORCID-0000--0002--8447--2616-brightgreen)](https://orcid.org/0000-0002-8447-2616) |
-| Tristan Snowsill | [![ORCID: Snowsill](https://img.shields.io/badge/ORCID-0000--0001--7406--2819-brightgreen)](https://orcid.org/0000-0001-7406-2819) |
-| Maxwell Barnish | [![ORCID: Barnish](https://img.shields.io/badge/ORCID-0000--0003--0139--6548-brightgreen)](https://orcid.org/0000-0003-0139-6548) |
-| Thalia Nikoglou | - |
-| Amanda Brand | - |
-| Zain Ahmad | - |
-| Ahmed Abdelsabour |  [![ORCID: Abdelsabour](https://img.shields.io/badge/ORCID-0009--0007--2532--4676-brightgreen)](https://orcid.org/0009-0007-2532-4676) |
-| Sophie Robinson | [![ORCID: Robinson](https://img.shields.io/badge/ORCID-0000--0003--0463--875X-brightgreen)](https://orcid.org/0000-0003-0463-875X) |
-| Edward Wilson | [![ORCID: Wilson](https://img.shields.io/badge/ORCID-0000--0002--8369--1577-brightgreen)](https://orcid.org/0000-0002-8369-1577) |
-| G.J. Melendez-Torres | [![ORCID: Melendez-Torres](https://img.shields.io/badge/ORCID-0000--0002--9823--4790-brightgreen)](https://orcid.org/0000-0002-9823-4790) |
+[![ORCID: Lee](https://img.shields.io/badge/Dawn_Lee-0000--0003--4027--8456-brightgreen)](https://orcid.org/0000-0003-4027-8456)
+[![ORCID: Burns](https://img.shields.io/badge/Darren_Burns-0000--0002--5209--8041-brightgreen)](https://orcid.org/0000-0002-5209-8041)
+[![ORCID: Coelho](https://img.shields.io/badge/Helen_Coelho-0000--0002--4799--4300-brightgreen)](https://orcid.org/0000-0002-4799-4300)
+[![ORCID: Trigg](https://img.shields.io/badge/Laura_Trigg-0000--0002--8447--2616-brightgreen)](https://orcid.org/0000-0002-8447-2616)
+[![ORCID: Snowsill](https://img.shields.io/badge/Tristan_Snowsill-0000--0001--7406--2819-brightgreen)](https://orcid.org/0000-0001-7406-2819)
+[![ORCID: Barnish](https://img.shields.io/badge/Maxwell_Barnish-0000--0003--0139--6548-brightgreen)](https://orcid.org/0000-0003-0139-6548)
+[![ORCID: Abdelsabour](https://img.shields.io/badge/Ahmed_Abdelsabour-0009--0007--2532--4676-brightgreen)](https://orcid.org/0009-0007-2532-4676)
+[![ORCID: Robinson](https://img.shields.io/badge/Sophie_Robinson-0000--0003--0463--875X-brightgreen)](https://orcid.org/0000-0003-0463-875X)
+[![ORCID: Wilson](https://img.shields.io/badge/Edward_Wilson-0000--0002--8369--1577-brightgreen)](https://orcid.org/0000-0002-8369-1577)
+[![ORCID: Melendez-Torres](https://img.shields.io/badge/GJ_Melendez--Torres-0000--0002--9823--4790-brightgreen)](https://orcid.org/0000-0002-9823-4790)
 
 ## Acknowledgements
 
-This modified repository was developed by:
+This modified repository was developed by [**Amy Heather**](https://github.com/amyheather) as part of work package 3 on the project "STARS: Sharing Tools and Artefacts for Reproducible Simulations". Changes from the original repository are described in the `CHANGELOG.md`.
 
-| Author | ORCID | GitHub |
-| - | - | - |
-| Amy Heather | [![ORCID: Heather](https://img.shields.io/badge/ORCID-0000--0002--6596--3479-brightgreen)](https://orcid.org/0000-0002-6596-3479) | <https://github.com/amyheather>
+[![ORCID: Heather](https://img.shields.io/badge/Amy_Heather-0000--0002--6596--3479-brightgreen)](https://orcid.org/0000-0002-6596-3479)
+
+## License
+
+This repository is licensed under an MIT license.
+
+## Funding
+
+The development of the EOM-RCC model for NICE, as part of the pathways pilot, was funded by the National Institute for Health and Care Research (NIHR) Evidence Synthesis Programme as project number [NIHR136008](https://www.dev.fundingawards.nihr.ac.uk/award/NIHR136008).
+
+STARS is supported by the Medical Research Council [grant number [MR/Z503915/1](https://gtr.ukri.org/projects?ref=MR%2FZ503915%2F1)].
