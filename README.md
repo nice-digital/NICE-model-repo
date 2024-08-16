@@ -28,8 +28,8 @@ TODO: If you use the badges, update to your repository URL where relevant-->
 
 * [📊 About the model](#-about-the-model)
 * [🔨 Installation](#-installation)
-* [🚀 Run the model](#-run-the-model)
-* [🔧 Vary model parameters](#-vary-model-parameters)
+* [🚀 Running the model](#-running-the-model)
+* [🔧 Varying model parameters](#-varying-model-parameters)
 * [📂 Repository overview](#-repository-overview)
 * [🐙 GitHub actions](#-github-actions)
 * [📝 Citation](#-citation)
@@ -115,9 +115,7 @@ Click on the folder where you have saved the model. Make sure you click fully th
 
 </details>
 
-## 🚀 Running the model
-
-First, you'll need to install the model dependencies. Your options for this include:
+You'll also need to install the model dependencies. Your options for this include:
 
 <details markdown="1">
 <summary><b>Installing into current environment</b></summary>
@@ -150,7 +148,8 @@ renv::restore()
 ```
 
 </details>
-<br>
+
+## 🚀 Running the model
 
 The main model script is `Model_Structure.R`. You can run this by clicking the `source` button, pressing `ctrl+shift+S`, or running the following in your R console:
 
@@ -159,6 +158,8 @@ source("2_Scripts/Model_Structure.R", echo=TRUE)
 ```
 
 You can run parts of the model by highlighting sections of code and using `ctrl+enter`.
+
+Further information about the model:
 
 <details markdown="1">
 <summary><b>What happens when the model runs?</b></summary>
@@ -220,7 +221,7 @@ There are a number of files which contain raw or intermediate inputs, which are 
 ## 📂 Repository overview
 
 <details markdown="1">
-<summary>View repository overview</summary>
+<summary><b>View repository overview</b></summary>
 
 ```bash
 ├── 1_Data
@@ -274,7 +275,7 @@ The other files are folders are:
 
 </details>
 
-## 🐙 GitHub Actions
+## 🐙 GitHub actions
 
 This project uses GitHub actions to automate a few tasks. The workflows are described below and can be found in `.github.workflows/`.
 
