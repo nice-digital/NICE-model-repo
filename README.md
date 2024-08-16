@@ -4,11 +4,15 @@
 
 ## About the model
 
-The Exeter Oncology Model: RCC edition is a platform cost-effectiveness model encompassing each decision node in the disease area for advanced renal cell carcinoma.
+The Exeter Oncology Model: Renal Cell Carcinoma edition (EOM:RCC) is a platform cost-effectiveness model encompassing each decision node in the disease area for advanced renal cell carcinoma.
 
-This model has been created as part of a NICE pilot aimed both at reducing the long-term resource requirements for appraisal within crowded treatment pathways and at assessing the feasibility of incorporating treatment sequences into decision making.
+This model has been created as part of a National Institute for Health and Care Excellence (NICE) pilot aimed both at reducing the long-term resource requirements for appraisal within crowded treatment pathways and at assessing the feasibility of incorporating treatment sequences into decision making.
 
-The Exeter Oncology Model: RCC edition has been constructed as part of pathways pilot appraisal ID6186 and the appraisal of cabozantinib plus nivolumab ID6184. No data is contained in the code. All input data is contained in the data folder, dummy data is provided where the data used in the appraisal was marked as confidential.
+The Exeter Oncology Model: RCC edition has been constructed as part of [pathways pilot appraisal ID6186](https://www.nice.org.uk/guidance/indevelopment/gid-ta11186) and the [appraisal of cabozantinib plus nivolumab ID6184](https://www.nice.org.uk/guidance/ta964). The development of this model is described in the publication:
+
+> Lee, D., Burns, D. & Wilson, E. **NICE’s Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances**. PharmacoEconomics Open (2024). <https://doi.org/10.1007/s41669-024-00490-x>.
+
+No data is contained in the code. All input data is contained in the data folder, dummy data is provided where the data used in the appraisal was marked as confidential.
 
 A user interface was originally planned be added to this model at a later stage in the project. A tests section had also been planned for a later phase of the project.
 
@@ -42,6 +46,9 @@ By default, R will use inputs from `1_Data/ID6184_RCC_model inputs FAD version [
 The runtime for the full state transition model is around 90 processor-minutes. This simulates hundreds of treatment pathways for tens of thousands of health states for thousands of time cycles for each pathway. By contrast, the PartSA version of the model takes less than 5 minutes, though without addressing any of the issues of that approach.
 
 ## Repository overview
+
+<details markdown="1">
+<summary>View repository overview</summary>
 
 ```bash
 ├── 1_Data
@@ -92,6 +99,8 @@ The other files are folders are:
 * `LICENSE`: MIT license
 * `README.md`: This file!
 * `renv.lock`: Lists R version and all packages in the R environment
+
+</details>
 
 ## Citation
 
