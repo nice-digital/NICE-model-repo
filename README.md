@@ -17,13 +17,11 @@
 TODO: If you use the badges, update to your repository URL where relevant-->
 
 <p align="center">
-<center>
     <a target="_blank" href="https://www.r-project.org/"><img src="https://img.shields.io/badge/language-R-239120" alt="Language"/></a>
     <a href="#"><img src="https://img.shields.io/github/v/release/pythonhealthdatascience/stars-eom-rcc" alt="GitHub release" /></a>
     <a href="#"><img src="https://img.shields.io/github/release-date/pythonhealthdatascience/stars-eom-rcc" alt="GitHub release date" /></a>
     <a href="#"><img src="https://img.shields.io/github/last-commit/pythonhealthdatascience/stars-eom-rcc" alt="GitHub last commit" /></a>
     <a target="_blank" href="https://github.com/pythonhealthdatascience/stars-eom-rcc/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license"/></a>
-</center>
 </p>
 
 ## Table of contents
