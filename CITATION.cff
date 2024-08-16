@@ -1,0 +1,136 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: 'Exeter Oncology Model: RCC edition'
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Dawn
+    family-names: Lee
+    email: D.Lee7@exeter.ac.uk
+    affiliation: >-
+      Peninsula Technology Assessment Group (PenTAG),
+      University of Exeter Medical School
+    orcid: 'https://orcid.org/0000-0003-4027-8456'
+  - given-names: Madhusubramanian
+    family-names: Muthukumar
+    email: M.Muthukumar@exeter.ac.uk
+    affiliation: >-
+      Peninsula Technology Assessment Group (PenTAG),
+      University of Exeter Medical School
+  - given-names: Alan
+    family-names: Lovell
+    email: A.D.Lovell@exeter.ac.uk
+    affiliation: >-
+      Peninsula Technology Assessment Group (PenTAG),
+      University of Exeter Medical School
+  - given-names: Caroline
+    family-names: Farmer
+    email: C.Farmer@exeter.ac.uk
+    affiliation: >-
+      Peninsula Technology Assessment Group (PenTAG),
+      University of Exeter Medical School
+  - given-names: Darren
+    family-names: Burns
+    affiliation: >-
+      Peninsula Technology Assessment Group (PenTAG),
+      University of Exeter Medical School; Delta Hat
+    orcid: 'https://orcid.org/0000-0002-5209-8041'
+  - given-names: Justin
+    family-names: Matthews
+    email: jnm212@exeter.ac.uk
+    affiliation: >-
+      Peninsula Technology Assessment Group (PenTAG),
+      University of Exeter Medical School
+  - given-names: Helen
+    family-names: Coelho
+    email: Helen.Coelho@exeter.ac.uk
+    affiliation: >-
+      Peninsula Technology Assessment Group (PenTAG),
+      University of Exeter Medical School
+    orcid: 'https://orcid.org/0000-0002-4799-4300'
+  - given-names: Brian
+    family-names: O'Toole
+    email: B.OToole@exeter.ac.uk
+    affiliation: >-
+      Peninsula Technology Assessment Group (PenTAG),
+      University of Exeter Medical School
+  - given-names: Laura
+    family-names: Trigg
+    email: L.Trigg@exeter.ac.uk
+    orcid: 'https://orcid.org/0000-0002-8447-2616'
+    affiliation: >-
+      Peninsula Technology Assessment Group (PenTAG),
+      University of Exeter Medical School
+  - given-names: Tristan
+    family-names: Snowsill
+    email: T.M.Snowsill@exeter.ac.uk
+    orcid: 'https://orcid.org/0000-0001-7406-2819'
+    affiliation: >-
+      Health Economics Group, University of Exeter Medical
+      School
+  - given-names: Maxwell
+    family-names: Barnish
+    orcid: 'https://orcid.org/0000-0003-0139-6548'
+    email: M.S.Barnish@exeter.ac.uk
+    affiliation: >-
+      Peninsula Technology Assessment Group (PenTAG),
+      University of Exeter Medical School
+  - given-names: Thalia
+    family-names: Nikoglou
+    email: T.Nikoglou@exeter.ac.uk
+  - given-names: Amanda
+    family-names: Brand
+    email: A.Brand2@exeter.ac.uk
+    affiliation: >-
+      Peninsula Technology Assessment Group (PenTAG),
+      University of Exeter Medical School
+  - given-names: Zain
+    family-names: Ahmad
+  - given-names: Ahmed
+    family-names: Abdelsabour
+    orcid: 'https://orcid.org/0009-0007-2532-4676'
+    email: A.Abdelsabour@exeter.ac.uk
+    affiliation: >-
+      Peninsula Technology Assessment Group (PenTAG),
+      University of Exeter Medical School
+  - given-names: Sophie
+    family-names: Robinson
+    orcid: 'https://orcid.org/0000-0003-0463-875X'
+    email: S.R.Robinson@exeter.ac.uk
+    affiliation: >-
+      Peninsula Technology Assessment Group (PenTAG),
+      University of Exeter Medical School
+  - given-names: Edward
+    family-names: Wilson
+    orcid: 'https://orcid.org/0000-0002-8369-1577'
+    affiliation: >-
+      Peninsula Technology Assessment Group (PenTAG),
+      University of Exeter Medical School
+    email: E.C.F.Wilson@exeter.ac.uk
+  - given-names: G.J.
+    family-names: Melendez-Torres
+    orcid: 'https://orcid.org/0000-0002-9823-4790'
+    email: G.J.Melendez-Torres@exeter.ac.uk
+    affiliation: University of Exeter Medical School
+repository-code: 'https://github.com/nice-digital/NICE-model-repo'
+repository: 'https://github.com/pythonhealthdatascience/NICE-model-repo'
+abstract: >-
+  The Exeter Oncology Model: RCC edition is a platform
+  cost-effectiveness model encompassing each decision node
+  in the disease area for advanced renal cell carcinoma.
+  This model has been created as part of a NICE pilot aimed
+  both at reducing the long-term resource requirements for
+  appraisal within crowded treatment pathways and at
+  assessing the feasibility of incorporating treatment
+  sequences into decision making.
+keywords:
+  - oncology
+  - nice
+  - cost-effectiveness
+  - health-technology-assessment
+  - renal-cell-carcinoma
+license: MIT
