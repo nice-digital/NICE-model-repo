@@ -17,6 +17,10 @@ Implemented the essential components of the STARS framework (exc. open science a
 
 * Extended `README.md` to include some instructions for installing and running the model, more detailed repositoriy overview, citation information, ORCID IDs, acknowledgements, license and funding information
 
+### Fixed
+
+* Formatting of copyright statement in `LICENSE`
+
 ## v1.0.0 - 2024-08-16
 
 🌱 First release. EOM-RCC model as shared by the PenTAG team, with minor changes that enabled us to run the model.
