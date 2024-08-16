@@ -24,6 +24,7 @@ TODO: If you use the badges, update to your repository URL where relevant-->
     <a href="#"><img src="https://img.shields.io/github/last-commit/pythonhealthdatascience/stars-eom-rcc" alt="GitHub last commit" /></a>
     <a target="_blank" href="https://github.com/pythonhealthdatascience/stars-eom-rcc/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license"/></a>
 </center>
+</p>
 
 ## Table of contents
 
