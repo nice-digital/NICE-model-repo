@@ -22,49 +22,44 @@ TODO: If you use the badges, update to your repository URL where relevant-->
     <a href="#"><img src="https://img.shields.io/github/v/release/pythonhealthdatascience/stars-eom-rcc" alt="GitHub release" /></a>
     <a href="#"><img src="https://img.shields.io/github/release-date/pythonhealthdatascience/stars-eom-rcc" alt="GitHub release date" /></a>
     <a href="#"><img src="https://img.shields.io/github/last-commit/pythonhealthdatascience/stars-eom-rcc" alt="GitHub last commit" /></a>
-    <a target="_blank" href="https://github.com/pythonhealthdatascience/stars-eom-rcc/actions/workflows/cff_validation.yaml"><img src="https://github.com/pythonhealthdatascience/stars-eom-rcc/actions/workflows/cff_validation.yaml/badge.svg" alt="Valid CITATION.cff"/></a>
     <a target="_blank" href="https://github.com/pythonhealthdatascience/stars-eom-rcc/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license"/></a>
 </center>
 
 ## Table of contents
 
 * [📊 About the model](#-about-the-model)
-* [💻 Using the model](#-using-the-model)
-    * [🔨 Install the model](#-install-the-model)
-    * [🚀 Run the model](#-run-the-model)
-    * [🔧 Vary model parameters](#-vary-model-parameters)
-* [⏱️ Run time](#-run-time)
+* [🔨 Installation](#-installation)
+* [🚀 Run the model](#-run-the-model)
+* [🔧 Vary model parameters](#-vary-model-parameters)
 * [📂 Repository overview](#-repository-overview)
+* [🐙 GitHub actions](#-github-actions)
 * [📝 Citation](#-citation)
 * [🧍 Acknowledgements](#-acknowledgements)
 * [📜 License](#-license)
 * [💰 Funding](#-funding)
+* [🔜 Future versions](#-future-versions)
+
+**Note:** If you would prefer to read a word document for instructions on using the model, please refer to `ID6184 Using the R decision model (EAG instructions) noACIC 30.07.2024.docx`.
 
 ## 📊 About the model
 
-The **Exeter Oncology Model: Renal Cell Carcinoma edition (EOM:RCC)** is a platform cost-effectiveness model encompassing each decision node in the disease area for advanced renal cell carcinoma.
-
-This model has been created as part of a National Institute for Health and Care Excellence (NICE) pilot aimed both at reducing the long-term resource requirements for appraisal within crowded treatment pathways and at assessing the feasibility of incorporating treatment sequences into decision making.
-
-The Exeter Oncology Model: RCC edition has been constructed as part of:
+The **Exeter Oncology Model: Renal Cell Carcinoma edition (EOM:RCC)** is a platform cost-effectiveness model encompassing each decision node in the disease area for advanced renal cell carcinoma. It has been constructed as part of:
 
 > National Institute for Health and Care Excellence (NICE). **Renal cell carcinoma Pathways Pilot [ID6186]**. In development [GID-TA11186]. <https://www.nice.org.uk/guidance/indevelopment/gid-ta11186>.
 >
 > National Institute for Health and Care Excellence (NICE). **Cabozantinib with nivolumab for untreated advanced renal cell carcinoma. Technology appraisal guidance [TA964]**. <https://www.nice.org.uk/guidance/ta964>
 
-The development of this model is described in the publication:
+The Pathways Pilot aims both at reducing the long-term resource requirements for appraisal within crowded treatment pathways and at assessing the feasibility of incorporating treatment sequences into decision making. The development of this model is described in the publication:
 
 > Lee, D., Burns, D. & Wilson, E. **NICE’s Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances**. PharmacoEconomics Open (2024). <https://doi.org/10.1007/s41669-024-00490-x>.
 
-No data is contained in the code. All input data is contained in the data folder, dummy data is provided where the data used in the appraisal was marked as confidential.
+R was ideal for this model due to its ability to handle the extensive computations required. With 744 potential treatment sequences across various populations, the model efficiently executed block-diagonal sparse matrix multiplications for sequencing calculations. This would be infeasible to implement efficiently in Excel.
 
-A user interface was originally planned be added to this model at a later stage in the project. A tests section had also been planned for a later phase of the project.
+Unfortunately, we were not able to add a graphical user-interface in the timeframes available for the model build; instead, we built the front-end in Excel allowing the stakeholders a familiar and flexible means to interact with it. 
 
-## 💻 Using the model
+No data is contained in the code. All input data is contained in the data folder, dummy data is provided where the data used in the appraisal was marked as confidential. The model extracts all inputs directly from Excel, separating all sensitive data and inputs from the code. Consequently, no confidential information is contained in the code.
 
-Full instructions on how to use the model can be found in the document: `ID6184 Using the R decision model (EAG instructions) noACIC.docx`. Key information is summarised below.
-
-### 🔨 Install the model
+## 🔨 Installation
 
 To install and run this model, you will need to have the following on your machine:
 
@@ -121,13 +116,84 @@ Click on the folder where you have saved the model. Make sure you click fully th
 
 </details>
 
-### 🚀 Run the model
+## 🚀 Running the model
 
-1. Make sure you have installed R (version 4.3 or higher), RStudio, Rtools and Git.
-2. Install packages on lines 6 to 28 of `Model_Structure.R`, or use the provided renv (`renv::restore()`).
-3. Run `Model_Structure.R` using the "source" button.
+First, you'll need to install the model dependencies. Your options for this include:
 
-### 🔧 Vary model parameters
+<details markdown="1">
+<summary><b>Installing into current environment</b></summary>
+
+In `Model_Structure.R`, lines 6 to 28 contain instructions for installing the relevant packages. You can use `ctrl+shift+c` to uncomment these lines and `ctrl+enter` to run a line or a group of highlighted lines. You only need to do this once and then should recomment the lines using `ctrl+shift+c`.
+
+This will install the packages into your current environment. If you want to create an isolated environment to install these packages into, then you can set up an R environment with `renv` by running:
+
+```
+install.packages("renv")
+renv::init()
+```
+
+Install your packages as above, and then keep a record of what you installed by running:
+
+```
+renv::snapshot()
+```
+
+</details>
+
+<details markdown="1">
+<summary><b>Restoring provided `renv`</b></summary>
+
+We have created an R environment with all the required packages and the versions we used. You can see the version of R this was set up with in the `renv.lock` file. To install the dependencies by copying this environment, run the following commands in your R console:
+
+```
+install.packages("renv")
+renv::restore()
+```
+
+</details>
+<br>
+
+The main model script is `Model_Structure.R`. You can run this by clicking the `source` button, pressing `ctrl+shift+S`, or running the following in your R console:
+
+```
+source("2_Scripts/Model_Structure.R", echo=TRUE)
+```
+
+You can run parts of the model by highlighting sections of code and using `ctrl+enter`.
+
+<details markdown="1">
+<summary><b>What happens when the model runs?</b></summary>
+
+When run, the model will:
+
+* Extract cost, resource use, utility, relative effectiveness and treatment sequence settings inputs from Excel front-end
+* Compute possible treatment sequences for each population
+* Either load patient level data and conduct survival analyses or load the pre-run survival analysis
+* Load network meta-analyses
+* Populate and propagate relative efficacy network for all treatments at all lines
+* Compute patient flow for all possible sequences at all possible lines and apply cost and utility weights
+* If you have set the model up to look at the cabo+nivo decision problem: compute weighted average patient flow by first-line treatment and calculate the impact of patient access schemes (confidential discounts on the published list price) in increments of 1 from 1 to 100% for all treatments
+* Output results as files to store and as a fully automated Word document following formatting requirements for NICE
+
+</details>
+
+<details markdown="1">
+<summary><b>Model structure</b></summary>
+
+Previous appraisals in RCC highlighted issues with subsequent treatments in trials not being available in UK practice and difficulties in matching cost and effectiveness data when trying to compensate. Consequently, we built a state transition model with tunnel states to incorporate time-dependency at later lines. This approach simplified incorporation of the sequencing features which arose within the scope of the pilot. For prudence, we incorporated a partitioned-survival (PartSA) modelling approach in parallel. This allowed comparison with models following implementation precedent in advanced RCC evaluations.
+
+You can change which model structure is run using the drop down menu on the Controls sheet in the Excel front end.
+
+</details>
+
+<details markdown="1">
+<summary><b>Model run time</b></summary>
+
+The runtime for the full state transition model is around 90 processor-minutes. This simulates hundreds of treatment pathways for tens of thousands of health states for thousands of time cycles for each pathway. By contrast, the PartSA version of the model takes less than 5 minutes, though without addressing any of the issues of that approach.
+
+</details>
+
+## 🔧 Varying model parameters
 
 If you would like to amend inputs you should do this in the Excel front end file. Use the cells and drop-down menus provided.
 
@@ -135,9 +201,22 @@ The way the model works is that inputs / tables which are named with “R_” ar
 
 By default, R will use inputs from `1_Data/ID6184_RCC_model inputs FAD version [ACIC redacted, cPAS redacted and CIC redacted].xlsm`. If this file does not exist, it will ask you to select the file to use for inputs.
 
-## ⏱️ Run time
+<details markdown="1">
+<summary><b>Overview of input files</b></summary>
 
-The runtime for the full state transition model is around 90 processor-minutes. This simulates hundreds of treatment pathways for tens of thousands of health states for thousands of time cycles for each pathway. By contrast, the PartSA version of the model takes less than 5 minutes, though without addressing any of the issues of that approach.
+There are a number of files which contain raw or intermediate inputs, which are stored in `1_Data/`:
+
+1. **Excel user interface** (`ID6184_RCC_model inputs FAD version [ACIC redacted, cPAS redacted and CIC redacted].xlsm`): Contains user input sheets with different model inputs which feeds into R tables (named in excel as R_table…) and subsequently being read by the R program. The version available to the public does not contain confidential company data, confidential price discounts or company individual patient data and treatment sequence data. The model does now contain UK real-world evidence (RWE) data which was redacted at the time of the appraisal at the request of the UK real-world evidence (RWE) data holders.
+
+2. **Proportional hazards NMA CODA RDS file** (`PH_NMA_CODA.rds`): Note the version of this using time to next treatment as a surrogate for nivolumab plus ipilimumab is not available to the public as this data was marked as confidential by the data holders. 
+
+3. **Fractional polynomials NMA RDS file** (`FPNMA_means.rds`): Note the version of this using time to next treatment as a surrogate for nivolumab plus ipilimumab is not available to the public as this data was marked as confidential by the data holders. 
+
+4. **Raw data file containing the pseudo-IPD for all trials for survival analysis** (`IPD_R_input_noACIC.xlsx`): Note in the publicly available version data has been simulated to replaced data considered confidential by either the UK RWE dataholders or involved companies; or
+
+5. **RDS output from the survival analysis using company data** (`Survival_analysis_noTTDorTTPorPPS[NoACIC].rds`): Note in the publicly available version TTD and TTP are set equal to PFS in order to protect data considered confidential by the involved companies, and PPS is set equal to the UK RWE.
+
+</details>
 
 ## 📂 Repository overview
 
@@ -196,6 +275,16 @@ The other files are folders are:
 
 </details>
 
+## 🐙 GitHub Actions
+
+This project uses GitHub actions to automate a few tasks. The workflows are described below and can be found in `.github.workflows/`.
+
+<!--TODO: If you keep this table, update URL to your repository-->
+
+| Name | Description and status | Triggered by... |
+| - | - | - |
+| [Valid CITATION.cff](https://github.com/pythonhealthdatascience/stars-eom-rcc/blob/main/.github/workflows/cff_validation.yaml) | Checks if the CITATION.cff file is valid<br><a target="_blank" href="https://github.com/pythonhealthdatascience/stars-eom-rcc/actions/workflows/cff_validation.yaml"><img src="https://github.com/pythonhealthdatascience/stars-eom-rcc/actions/workflows/cff_validation.yaml/badge.svg" alt="Valid CITATION.cff"/></a> | `push` on `main` to `CITATION.cff` |
+
 ## 📝 Citation
 
 If you re-use this model please appropriately credit PenTAG for the work and refer to it as the Exeter Oncology Model: RCC edition:
@@ -223,12 +312,44 @@ This modified repository was developed by [**Amy Heather**](https://github.com/a
 
 ## 📜 License
 
-This repository is licensed under an MIT license.
+This repository is licensed under an MIT license as follows:
+
+>Copyright (c) 2024 University of Exeter, Exeter Oncology Model; RCC edition
+>
+>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this model and associated documentation files (the "RCC Model"), to deal
+in the RCC Model without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the RCC Model, and to permit persons to whom the RCC Model is
+furnished to do so, subject to the following conditions:
+>
+>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the RCC Model.
+>
+>THE RCC MODEL IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+RCC MODEL.
 
 ## 💰 Funding
 
 The development of the EOM-RCC model for NICE, as part of the pathways pilot, was funded by the National Institute for Health and Care Research (NIHR) Evidence Synthesis Programme as project number [NIHR136008](https://www.dev.fundingawards.nihr.ac.uk/award/NIHR136008).
 
 STARS is supported by the Medical Research Council [grant number [MR/Z503915/1](https://gtr.ukri.org/projects?ref=MR%2FZ503915%2F1)].
+
+## 🔜 Future versions
+
+The publicly accessible version of the model aligns with the final appraisal determination produced for NICE appraisal ID6184: Cabozantinib with nivolumab for untreated advanced renal cell carcinoma.
+
+Additional changes were originally planned following use for the initial decision problem including:
+
+* Addition of Shiny user interface
+* Genericisation of the code to allow wider use as the Exeter Oncology Model is not fundamentally specific to RCC and could be adapted to any oncology indication 
+* Programming and analysis of model outputs related specifically to sequencing, this may include value of information analyses
+
+Unfortunately funding for this has not been confirmed currently.  If you are interested in discussing further development, please contact the PenTAG team at pentag@exeter.ac.uk. 
 
 [Back to top](#top)
