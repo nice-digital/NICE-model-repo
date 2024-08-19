@@ -40,6 +40,8 @@ TODO: If you use the badges, update to your repository URL where relevant-->
 
 **Note:** If you would prefer to read a word document for instructions on using the model, please refer to `ID6184 Using the R decision model (EAG instructions) noACIC 30.07.2024.docx`.
 
+<br><br>
+
 ## 📊 About the model
 
 The **Exeter Oncology Model: Renal Cell Carcinoma edition (EOM:RCC)** is a platform cost-effectiveness model encompassing each decision node in the disease area for advanced renal cell carcinoma. It has been constructed as part of:
@@ -57,6 +59,8 @@ R was ideal for this model due to its ability to handle the extensive computatio
 Unfortunately, we were not able to add a graphical user-interface in the timeframes available for the model build; instead, we built the front-end in Excel allowing the stakeholders a familiar and flexible means to interact with it. 
 
 No data is contained in the code. All input data is contained in the data folder, dummy data is provided where the data used in the appraisal was marked as confidential. The model extracts all inputs directly from Excel, separating all sensitive data and inputs from the code. Consequently, no confidential information is contained in the code.
+
+<br><br>
 
 ## 🔨 Installation
 
@@ -149,6 +153,8 @@ renv::restore()
 
 </details>
 
+<br><br>
+
 ## 🚀 Running the model
 
 The main model script is `Model_Structure.R`. You can run this by clicking the `source` button, pressing `ctrl+shift+S`, or running the following in your R console:
@@ -193,6 +199,8 @@ The runtime for the full state transition model is around 90 processor-minutes. 
 
 </details>
 
+<br><br>
+
 ## 🔧 Varying model parameters
 
 If you would like to amend inputs you should do this in the Excel front end file. Use the cells and drop-down menus provided.
@@ -217,6 +225,8 @@ There are a number of files which contain raw or intermediate inputs, which are 
 5. **RDS output from the survival analysis using company data** (`Survival_analysis_noTTDorTTPorPPS[NoACIC].rds`): Note in the publicly available version TTD and TTP are set equal to PFS in order to protect data considered confidential by the involved companies, and PPS is set equal to the UK RWE.
 
 </details>
+
+<br><br>
 
 ## 📂 Repository overview
 
@@ -275,6 +285,8 @@ The other files are folders are:
 
 </details>
 
+<br><br>
+
 ## 🐙 GitHub actions
 
 This project uses GitHub actions to automate a few tasks. The workflows are described below and can be found in `.github.workflows/`.
@@ -284,6 +296,8 @@ This project uses GitHub actions to automate a few tasks. The workflows are desc
 | Name | Description and status | Triggered by... |
 | - | - | - |
 | [Valid CITATION.cff](https://github.com/pythonhealthdatascience/stars-eom-rcc/blob/main/.github/workflows/cff_validation.yaml) | Checks if the CITATION.cff file is valid<br><a target="_blank" href="https://github.com/pythonhealthdatascience/stars-eom-rcc/actions/workflows/cff_validation.yaml"><img src="https://github.com/pythonhealthdatascience/stars-eom-rcc/actions/workflows/cff_validation.yaml/badge.svg" alt="Valid CITATION.cff"/></a> | `push` on `main` to `CITATION.cff` |
+
+<br><br>
 
 ## 📝 Citation
 
@@ -304,11 +318,15 @@ The author ORCID IDs (where available) are:
 [![ORCID: Wilson](https://img.shields.io/badge/Edward_Wilson-0000--0002--8369--1577-brightgreen)](https://orcid.org/0000-0002-8369-1577)
 [![ORCID: Melendez-Torres](https://img.shields.io/badge/GJ_Melendez--Torres-0000--0002--9823--4790-brightgreen)](https://orcid.org/0000-0002-9823-4790)
 
+<br><br>
+
 ## 🧍 Acknowledgements
 
 This modified repository was developed by [**Amy Heather**](https://github.com/amyheather) as part of work package 3 on the project "STARS: Sharing Tools and Artefacts for Reproducible Simulations". Changes from the original repository are described in the `CHANGELOG.md`.
 
 [![ORCID: Heather](https://img.shields.io/badge/Amy_Heather-0000--0002--6596--3479-brightgreen)](https://orcid.org/0000-0002-6596-3479)
+
+<br><br>
 
 ## 📜 License
 
@@ -334,11 +352,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 RCC MODEL.
 
+<br><br>
+
 ## 💰 Funding
 
 The development of the EOM-RCC model for NICE, as part of the pathways pilot, was funded by the National Institute for Health and Care Research (NIHR) Evidence Synthesis Programme as project number [NIHR136008](https://www.dev.fundingawards.nihr.ac.uk/award/NIHR136008).
 
 STARS is supported by the Medical Research Council [grant number [MR/Z503915/1](https://gtr.ukri.org/projects?ref=MR%2FZ503915%2F1)].
+
+<br><br>
 
 ## 🔜 Future versions
 
