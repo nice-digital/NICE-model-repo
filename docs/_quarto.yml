@@ -18,8 +18,22 @@ website:
     contents:
       - text: "Home"
         href: index.qmd
-      - acronyms.qmd
-      - publication.qmd
+      - pages/acronyms.qmd
+      - section: "Context"
+        contents:
+          - pages/appraisals.qmd
+          - pages/publication.qmd
+          - text: "Model plain english summary"
+            href: pages/plain_english.qmd
+      - section: "Installation"
+      - section: "Model code walkthrough"
+      - section: "Annotated reporting guidelines"
+      - section: "Model validation"
+      - pages/license.qmd
+      - pages/citation.qmd
+      - section: "Contributing"
+      - text: "Changelog"
+        href: pages/changelog.qmd
 
 format:
   html:
