@@ -1,13 +1,13 @@
 ---
 title: "Publication"
-bibliography: references.bib
-csl: elsvan.csl
+bibliography: ../references.bib
+csl: ../elsvan.csl
 ---
 
 The development of this model was discussed in Lee et al. 2024. @lee_nices_2024 This article is licensed under a CC-BY-NC-4.0 license, which enables us to share it below:
 
-<iframe width="100%" height="800" src="lee_2024_nice_pathways_pilot.pdf"></iframe>
+<iframe width="100%" height="800" src="../pdf/lee_2024_nice_pathways_pilot.pdf"></iframe>
 
 A correction to the article was later published @lee_correction_2024 and likewise shared below:
 
-<iframe width="100%" height="800" src="lee_2024_correction.pdf"></iframe>
+<iframe width="100%" height="800" src="../pdf/lee_2024_correction.pdf"></iframe>

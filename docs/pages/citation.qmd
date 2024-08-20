@@ -1,0 +1,15 @@
+---
+title: "Citation"
+---
+
+## How to cite this model?
+
+If you re-use this model please appropriately credit PenTAG for the work and refer to it as the Exeter Oncology Model: RCC edition. You can use the following citation:
+
+> Lee D., Muthukumar M., Lovell A., Farmer C., Burns D., Matthews J., Coelho H., O'Toole B., Trigg L., Snowsill T., Barnish M., Nikoglou T., Brand A., Ahmad Z., Abdelsabour A., Robinson S., Wilson E., Melendez-Torres G. Exeter Oncology Model: RCC edition URL: https://github.com/nice-digital/NICE-model-repo
+
+## Acknowledgements
+
+<!-- ORCID icon CC 1.0 from https://figshare.com/articles/figure/ORCID_iD_icon_graphics/5008697/4 -->
+
+This modified repository was developed by [Amy Heather](https://github.com/amyheather) [![ORCID 0000-0002-6596-347](../images/ORCIDiD_icon16x16.png)](https://orcid.org/0000-0002-6596-3479).
