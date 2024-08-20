@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Dates formatted as YYYY-MM-DD as per [ISO standard](https://www.iso.org/iso-8601-date-and-time-format.html).
 
+## v1.1.1 - 2024-08-20
+
+Embellished READMAE
+
+### Changed
+
+* Extended `README.md` to include banner image with logos, extra badges, table of contents, all the information from `ID6184 Using the R decision model..` (e.g. installation guide with images, overview of input files, future versions)
+
 ## v1.1.0 - 2024-08-16
 
 Implemented the essential components of the STARS framework (exc. open science archive).
