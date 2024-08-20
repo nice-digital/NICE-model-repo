@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://pythonhealthdatascience.github.io/stars-eom-rcc/pages/appraisals.html</loc>
+    <lastmod>2024-08-20T15:37:08.139Z</lastmod>
+  </url>
+  <url>
+    <loc>https://pythonhealthdatascience.github.io/stars-eom-rcc/pages/publication.html</loc>
+    <lastmod>2024-08-20T15:37:08.139Z</lastmod>
+  </url>
+  <url>
+    <loc>https://pythonhealthdatascience.github.io/stars-eom-rcc/pages/citation.html</loc>
+    <lastmod>2024-08-20T15:37:08.139Z</lastmod>
+  </url>
+  <url>
+    <loc>https://pythonhealthdatascience.github.io/stars-eom-rcc/pages/acronyms.html</loc>
+    <lastmod>2024-08-20T15:37:08.139Z</lastmod>
+  </url>
+  <url>
     <loc>https://pythonhealthdatascience.github.io/stars-eom-rcc/index.html</loc>
-    <lastmod>2024-08-20T15:25:02.189Z</lastmod>
+    <lastmod>2024-08-20T15:37:08.139Z</lastmod>
   </url>
   <url>
-    <loc>https://pythonhealthdatascience.github.io/stars-eom-rcc/acronyms.html</loc>
-    <lastmod>2024-08-20T15:25:02.189Z</lastmod>
+    <loc>https://pythonhealthdatascience.github.io/stars-eom-rcc/pages/changelog.html</loc>
+    <lastmod>2024-08-20T15:37:08.139Z</lastmod>
   </url>
   <url>
-    <loc>https://pythonhealthdatascience.github.io/stars-eom-rcc/publication.html</loc>
-    <lastmod>2024-08-20T15:25:02.193Z</lastmod>
+    <loc>https://pythonhealthdatascience.github.io/stars-eom-rcc/pages/license.html</loc>
+    <lastmod>2024-08-20T15:37:08.139Z</lastmod>
+  </url>
+  <url>
+    <loc>https://pythonhealthdatascience.github.io/stars-eom-rcc/pages/plain_english.html</loc>
+    <lastmod>2024-08-20T15:37:08.139Z</lastmod>
   </url>
 </urlset>
