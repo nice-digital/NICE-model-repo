@@ -1,0 +1,32 @@
+[
+  {
+    "objectID": "publication.html",
+    "href": "publication.html",
+    "title": "Publication",
+    "section": "",
+    "text": "The development of this model was discussed in Lee et al. 2024. [1] This article is licensed under a CC-BY-NC-4.0 license, which enables us to share it below:\n\n\nA correction to the article was later published [2] and likewise shared below:\n\n\n\n\n\n\nReferences\n\n[1] Lee D, Burns D, Wilson E. NICE’s Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances. PharmacoEconomics - Open 2024. https://doi.org/10.1007/s41669-024-00490-x.\n\n\n[2] Lee D, Burns D, Wilson E. Correction: NICE’s Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances. PharmacoEconomics - Open 2024. https://doi.org/10.1007/s41669-024-00499-2.",
+    "crumbs": [
+      "Publication"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Exeter Oncology Model: Renal Cell Carcinoma edition",
+    "section": "",
+    "text": "The Exeter Oncology Model: Renal Cell Carcinoma edition (EOM:RCC) is a platform cost-effectiveness model encompassing each decision node in the disease area for advanced renal cell carcinoma.\nIt has been constructed as part of the National Institute for Health and Care Excellence (NICE) Pathways Pilot appraisal (ID6186, GID-TA11186) [1] and the appraisal of cabozantinib plus nivolumab (TA964) [2] (formerly ID6184, whilst in development).\nThe Pathways Pilot aims both at reducing the long-term resource requirements for appraisal within crowded treatment pathways and at assessing the feasibility of incorporating treatment sequences into decision making. The development of this model is described in Lee et al. 2024. [3]\nThis website provides …\n\n\n\n\nReferences\n\n[1] National Institute for Health and Care Excellence (NICE). Renal cell carcinoma Pathways Pilot [ID6186]. In development [GID-TA11186] n.d.\n\n\n[2] National Institute for Health and Care Excellence (NICE). Cabozantinib with nivolumab for untreated advanced renal cell carcinoma. Technology appraisal guidance [TA964] n.d.\n\n\n[3] Lee D, Burns D, Wilson E. NICE’s Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances. PharmacoEconomics - Open 2024. https://doi.org/10.1007/s41669-024-00490-x.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "acronyms.html",
+    "href": "acronyms.html",
+    "title": "Acryonyms",
+    "section": "",
+    "text": "Acronym\nMeaning\n\n\n\n\n1L\nFirst line\n\n\n2L\nSecond line\n\n\n3L\nThird line\n\n\n4L\nFourth line\n\n\nAbs\nAbsolute\n\n\nACIC\nAcademic and commercial in confidence\n\n\nAE\nAdverse event\n\n\nASCO\nAmerican Society Of Clinical Oncology\n\n\naRCC\nAdvanced renal cell carcinoma\n\n\nAUC\nArea under the curve\n\n\nBSC\nBest supportive care\n\n\ncabo\ncabozantinib\n\n\nCIC\nCommercial in confidence\n\n\nCDF\nCancer Drugs Fund\n\n\nCE\nCost effectiveness\n\n\nCODA\nConvergence diagnostic and output analysis\n\n\ncPAS\nConfident patient access scheme\n\n\nDSU\nDecision support unit\n\n\nEAG\nExternal assessment group\n\n\nEOL\nEnd of life\n\n\nevero\nEverolimus\n\n\nFAD\nFinal appraisal document\n\n\nfav\nFavourable\n\n\nFP\nFractional polynomial\n\n\nGen\ngeneral\n\n\nHFS\nHand-foot syndrome\n\n\nHR\nHazard ratio\n\n\nHRQL\nHealth-related quality of life\n\n\nICER\nIncremental Cost-Effectiveness Ratio\n\n\nint\nIntermediate\n\n\nIO\nImmune-oncology\n\n\nIPD\nIndividual patient data\n\n\nipi\nIpilimumab\n\n\nIV\nIntravenous\n\n\nKM\nKaplan-Meier\n\n\nlenv\nLenvatinib\n\n\nLY\nLife year(s)\n\n\nLYG\nLife year(s) gained\n\n\nMRU\nMedical Resource Use\n\n\nNHSE\nNHS England\n\n\nNICE\nNational Institute For Health And Care Excellence\n\n\nnivo\nNivolumab\n\n\nNMA\nNetwork meta-analysis\n\n\nOS\nOverall survival\n\n\nPartSA\nnot sure\n\n\nPAS\nPatient access scheme\n\n\nPATT\nProportionate approach to technology appraisals\n\n\npazo\npazopanib\n\n\nPD\nProgressed disease\n\n\npem\nPembrolizumab\n\n\nPFS\nProgression-free survival\n\n\nPH\nProportional hazards\n\n\npop\nPopulation\n\n\nPPS\nPost-progression survival\n\n\nprop\nProportional\n\n\nQALY\nQuality-adjusted life year(s)\n\n\nQC\nQuality check\n\n\nRCC\nRenal cell carcinoma\n\n\nRDI\nRelative dosing intensity\n\n\nRWE\nReal-world evidence\n\n\nSF\nShortfall\n\n\nSOC\nStandard of care\n\n\nsuni\nSunitinib\n\n\nTA\nTechnology appraisal\n\n\ntivo\nTivozanib\n\n\nTKI\nTyrosine Kinase Inhibitor\n\n\nTP matrices\nTreatment pathway matrices\n\n\nTTD\nTime to discontinuation\n\n\nTTNT\nTime to next treatment\n\n\nTTP\nTime to progression\n\n\nUK\nUnited Kingdom\n\n\nvs\nVersus\n\n\nWTP\nWillingness to pay",
+    "crumbs": [
+      "Acryonyms"
+    ]
+  }
+]
