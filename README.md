@@ -2,7 +2,7 @@
 
 <h1 align="center">
   <br>
-    <a href="https://medicine.exeter.ac.uk/phss/research/pentag/"><img src="https://raw.githubusercontent.com/pythonhealthdatascience/stars-eom-rcc/main/img/exeter_pentag.png" alt="University of Exeter Medical School. PenTAG."></a>
+    <a href="https://medicine.exeter.ac.uk/phss/research/pentag/"><img src="https://raw.githubusercontent.com/pythonhealthdatascience/stars-eom-rcc/main/docs/images/exeter_pentag.png" alt="University of Exeter Medical School. PenTAG."></a>
   <br>
   Exeter Oncology Model: Renal Cell Carcinoma edition
   <br>
@@ -78,21 +78,21 @@ There are a few options for installing this model.
 
 To access the model using Git the easiest method is to create a new project in RStudio which links to the NICE github website. Simply click `New Project` in the right hand of your RStudio screen:
 
-![New project](img/rstudio_git_1.png)
+![New project](docs/images/rstudio_git_1.png)
 
 Then select `Version Control`:
 
-![Version control](img/rstudio_git_2.png)
+![Version control](docs/images/rstudio_git_2.png)
 
 Then choose `Git`:
 
-![Git](img/rstudio_git_3.png)
+![Git](docs/images/rstudio_git_3.png)
 
 Paste in the URL of the NICE repository (<https://github.com/nice-digital/NICE-model-repo>) in the repository URL and decide where you want the project to be saved on your computer using the `Browse` functionality. All of your team can access the code then in the same way.
 
 If there is more than one branch of code available as the model is updated you can select what branch of the code to look at on the top right of your screen.
 
-![Switch branch](img/rstudio_git_4.png)
+![Switch branch](docs/images/rstudio_git_4.png)
 
 </details>
 
@@ -103,19 +103,19 @@ If you do not wish to access the model via Git you can instead download the code
 
 To do this click the `Code` button and then `Download ZIP`:
 
-![Download zip](img/zip_1.png)
+![Download zip](docs/images/zip_1.png)
 
 Extract the zip file to wherever on your machine you want to store the model. We would suggest saving it somewhere other than the `Downloads/` folder. Open RStudio and press `File` then `New Project`:
 
-![New project](img/zip_2.png)
+![New project](docs/images/zip_2.png)
 
 Click `Existing Directory`:
 
-![Existing directory](img/zip_3.png)
+![Existing directory](docs/images/zip_3.png)
 
 Click on the folder where you have saved the model. Make sure you click fully through until you can see the sub folders. Then press `Open` and then `Create Project`.
 
-![Choose folder](img/zip_4.png)
+![Choose folder](docs/images/zip_4.png)
 
 </details>
 
