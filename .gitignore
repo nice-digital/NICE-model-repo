@@ -11,3 +11,7 @@ ST_Scenario 0_PAS price*.rds
 
 # Temporary files
 .~lock*
+
+# Quarto files
+.quarto/
+_site/
