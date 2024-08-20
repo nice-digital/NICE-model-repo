@@ -1,0 +1,79 @@
+---
+title: "Acryonyms"
+---
+
+| Acronym | Meaning |
+| - | - |
+| 1L | First line |
+| 2L | Second line |
+| 3L | Third line |
+| 4L | Fourth line |
+| Abs | Absolute |
+| ACIC | Academic and commercial in confidence |
+| AE | Adverse event |
+| ASCO | American Society Of Clinical Oncology |
+| aRCC | Advanced renal cell carcinoma |
+| AUC | Area under the curve |
+| BSC | Best supportive care |
+| cabo | cabozantinib |
+| CIC | Commercial in confidence |
+| CDF | Cancer Drugs Fund |
+| CE | Cost effectiveness |
+| CODA | Convergence diagnostic and output analysis |
+| cPAS | Confident patient access scheme |
+| DSU | Decision support unit |
+| EAG | External assessment group |
+| EOL | End of life |
+| evero | Everolimus |
+| FAD | Final appraisal document |
+| fav | Favourable |
+| FP | Fractional polynomial |
+| Gen | general |
+| HFS | Hand-foot syndrome |
+| HR | Hazard ratio |
+| HRQL | Health-related quality of life |
+| ICER | Incremental Cost-Effectiveness Ratio |
+| int | Intermediate |
+| IO | Immune-oncology |
+| IPD | Individual patient data |
+| ipi | Ipilimumab |
+| IV | Intravenous |
+| KM | Kaplan-Meier |
+| lenv | Lenvatinib |
+| LY | Life year(s) |
+| LYG | Life year(s) gained |
+| MRU | Medical Resource Use |
+| NHSE | NHS England |
+| NICE | National Institute For Health And Care Excellence |
+| nivo | Nivolumab |
+| NMA | Network meta-analysis |
+| OS | Overall survival |
+| PartSA | <mark>not sure</mark> |
+| PAS | Patient access scheme |
+| PATT | Proportionate approach to technology appraisals |
+| pazo | pazopanib |
+| PD | Progressed disease |
+| pem | Pembrolizumab |
+| PFS | Progression-free survival |
+| PH | Proportional hazards |
+| pop | Population |
+| PPS | Post-progression survival |
+| prop | Proportional |
+| QALY | Quality-adjusted life year(s) |
+| QC | Quality check |
+| RCC | Renal cell carcinoma |
+| RDI | Relative dosing intensity |
+| RWE | Real-world evidence |
+| SF | Shortfall |
+| SOC | Standard of care |
+| suni | Sunitinib |
+| TA | Technology appraisal |
+| tivo | Tivozanib |
+| TKI | Tyrosine Kinase Inhibitor |
+| TP matrices | Treatment pathway matrices |
+| TTD | Time to discontinuation |
+| TTNT | Time to next treatment |
+| TTP | Time to progression |
+| UK | United Kingdom |
+| vs | Versus |
+| WTP | Willingness to pay |
