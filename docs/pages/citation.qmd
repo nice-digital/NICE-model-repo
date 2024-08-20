@@ -8,8 +8,14 @@ If you re-use this model please appropriately credit PenTAG for the work and ref
 
 > Lee D., Muthukumar M., Lovell A., Farmer C., Burns D., Matthews J., Coelho H., O'Toole B., Trigg L., Snowsill T., Barnish M., Nikoglou T., Brand A., Ahmad Z., Abdelsabour A., Robinson S., Wilson E., Melendez-Torres G. Exeter Oncology Model: RCC edition URL: https://github.com/nice-digital/NICE-model-repo
 
+[![](../images/exeter_pentag.png)](https://medicine.exeter.ac.uk/phss/research/pentag/)
+
 ## Acknowledgements
 
 <!-- ORCID icon CC 1.0 from https://figshare.com/articles/figure/ORCID_iD_icon_graphics/5008697/4 -->
 
-This modified repository was developed by [Amy Heather](https://github.com/amyheather) [![ORCID 0000-0002-6596-347](../images/ORCIDiD_icon16x16.png)](https://orcid.org/0000-0002-6596-3479).
+This modified repository was developed by [Amy Heather](https://github.com/amyheather) [![ORCID 0000-0002-6596-347](../images/ORCIDiD_icon16x16.png)](https://orcid.org/0000-0002-6596-3479). Changes from the original repository can be viewed in the [changelog](changelog.qmd).
+
+These modifications were made to improve the clarity and open science credentials of the EOM:RCC model, as part of the project [STARS](https://github.com/pythonhealthdatascience).
+
+[![](../images/stars_banner.png)](https://github.com/pythonhealthdatascience)
