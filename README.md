@@ -2,7 +2,7 @@
 
 <h1 align="center">
   <br>
-  <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://raw.githubusercontent.com/pythonhealthdatascience/stars-eom-rcc/main/img/exeter_pentag.png" alt="Markdownify"></a>
+    <a href="https://medicine.exeter.ac.uk/phss/research/pentag/"><img src="https://raw.githubusercontent.com/pythonhealthdatascience/stars-eom-rcc/main/img/exeter_pentag.png" alt="University of Exeter Medical School. PenTAG."></a>
   <br>
   Exeter Oncology Model: Renal Cell Carcinoma edition
   <br>
