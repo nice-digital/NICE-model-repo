@@ -15,3 +15,4 @@ ST_Scenario 0_PAS price*.rds
 # Quarto files
 .quarto/
 _site/
+_book/
