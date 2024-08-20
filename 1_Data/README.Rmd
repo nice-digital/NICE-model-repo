@@ -1,0 +1,35 @@
+---
+title: "Data folder"
+references: library.bib
+bibliography: library.bib
+output:
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  html_document:
+    df_print: paged
+    toc: yes
+    toc_depth: 3
+    number_sections: yes
+csl: elsvan.csl
+---
+
+# Description
+
+This is the readme for the data folder. Explanation and sources for all data used will be provided here. This is an example of how a README will be structured for the generic model in Phase II of this pilot.
+
+The file library.bib is a LaTex file containing the reference library. This can be updated directly from the reference manager Zotero (it can export .bib files). Use the visual editor in Rstudio (v1.2+) to easily add references using the drop down menu. There is an example in there, taken from Google scholar results (click ref and then bibtex).
+
+# Some example text
+
+The NICE DSU published a further technical support document, expanding the set of survival analysis approaches recommended by NICE [@tsd21].
+
+## gpop adjustment
+
+The population norms for HRQoL are adjusted for declination in the general population, using the 2011 article by Ara & Brazier [@ara2011using]. This publication does not report the variance-covariance matrix for the regression analysis, so it is impossible to vary these adjustments in the probabilistic setting as the correlation structure between parameters cannot be taken into account. Varying these separately could lead to spurious results or inference due to non-linear interactions between the parameters (some of which are transformed).
+
+### Something even more specific
+
+Something interesting [@brazier2011; @craig2012; @goryakin2015].
+
+# References
