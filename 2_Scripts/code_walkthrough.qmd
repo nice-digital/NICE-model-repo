@@ -8,6 +8,8 @@ authors:
 format:
   html:
     toc: true
+bibliography: ../docs/references.bib
+csl: ../docs/elsvan.csl
 ---
 
 ## Purpose of this notebook
@@ -174,7 +176,9 @@ Not sure of purpose as doesn't appear to be used anywhere - might be legacy code
 User_types <- c("Submitting company", "NICE", "EAG", "Committee", "NHSE", "Clinical expert", "Patient expert", "Non-intervention stakeholder", "Public")
 ```
 
-### Get inputs from excel workbook
+## Define model parameters
+
+### Get inputs from excel workbook and save as list `i`
 
 ::: {.callout-warning collapse="true"}
 
@@ -302,6 +306,394 @@ When it did this, it then concatenated that list with the list `i`, meaning that
 
 ```{r}
 i$cabo_nivo_include
+```
+
+:::
+
+### Add some extra inputs to the list `i`
+
+```{r}
+i$decision_problem <- "cabo+nivo"
+
+i$id     <- list(ipd = list())
+i$lookup <- list(ipd = list())
+
+i$distnames <- 
+  c(
+    gengamma      = "gengamma",
+    exp           = "exp",
+    weibull       = "weibull",
+    lnorm         = "lnorm",
+    gamma         = "gamma",
+    gompertz      = "gompertz",
+    llogis        = "llogis"
+  )
+```
+
+### Use `i` to make new list `p` (some elements same, some used in calculations to make new elements)
+
+```{r}
+p <- f_misc_param_generate_p(i)
+```
+
+::: {.callout-note collapse="true"}
+
+The function `structure::f_misc_param_generate_p()` simply takes some of the elements from `i` and creates a new list `p`.
+
+For example, these are both the same:
+
+```{r}
+p$basic$th_y
+i$ui_time_horizon
+```
+
+See the full outline of what elements it takes by looking at the function:
+
+```{r}
+#' Function which creates an empty version of the parameters list p and populates
+#' it using the inputs from i
+#' 
+#' @param i raw extracted inputs from Excel
+#' 
+f_misc_param_generate_p <- function(i) {
+  
+  p <- list(
+    basic = list(
+      th   = ceiling(i$ui_time_horizon * 365.25 / 7), 
+      th_y = i$ui_time_horizon, 
+      cl_d = i$i_cycle_length_weeks*7, 
+      cl_w = i$i_cycle_length_weeks, 
+      cl_y = i$i_cycle_length_weeks*7/365.25, 
+      discQ = i$ui_disc_qaly,
+      discC = i$ui_disc_cost,
+      structure = str_trim(i$dd_model_struct)
+    ),
+    demo = list(
+      table = data.table(i$R_table_ptchar)
+    ), # patient demographic data
+    seq   = list(), # treatment sequences. same for both model structures.
+    surv  = list(), # Survival extrapolations (if needed for iteration, i.e. in part surv model). same for both model structures
+    releff = list(), # Relative efficacy network, for use populating the disease model. same for both model structures
+    costs  = list(
+      mk = list(),
+      ps = list(),
+      settings = list(
+        subsTx = data.table(i$R_table_sub_txts_prop_n_costs)
+      )
+    ), # All drug inputs after they've been processed and tidied up
+    util  = list(
+      mk = list(),
+      ps = list()
+    ), # All inputs to apply to the disease model
+    ae    = list(
+      mk = list(),
+      ps = list()
+    ), # Inputs to generate AE matrices AC and AQ
+    misc  = list(
+      mk = list(),
+      ps = list(),
+      plot = list(
+        xlim_survplots_yr = 20
+      )
+    )
+  )
+  
+  p$basic$n_cyc <- ceiling(p$basic$th) # rounding up to a whole number
+  p$basic$t_cyc <- rep(0:p$basic$n_cyc)
+  p$basic$t_yr  <- p$basic$t_cyc*7/365.25
+  
+  # discount factors - base-case edition. These will get replaced for scenarios affecting
+  # discount rates or the time horizon
+  p$basic$discFacQ <- f_discFac(p$basic$discQ,p$basic$t_yr)
+  p$basic$discFacC <- f_discFac(p$basic$discC,p$basic$t_yr)
+  
+  return(p)
+  
+}
+```
+
+:::
+
+### Add some more inputs to `p`
+
+```{r}
+p$basic$R_maxlines <- 4
+
+p$basic$decision_problem <- i$decision_problem
+```
+
+::: {.callout-note collapse="true"}
+
+I'm pretty sure that max lines is referring to the maximum number of treatment lines. The most it can be is 4. But I don't know if perhaps you can change this to 2 to reduce the number in model? Or if this is a standard unchanging parameter as the model is only designed to go up to 4?
+
+:::
+
+### Find all the possible combinations and orders of treatment and add to `i`
+
+```{r}
+i$sequences <- f_generate_sequences(
+  comparators = i$List_comparators, 
+  maxlines    = p$basic$R_maxlines
+)
+```
+
+::: {.callout-note collapse="true"}
+
+This adds a new element to `i` called `sequences`.
+
+```{r}
+head(i$sequences)
+```
+
+It's created using `sequences::f_generate_sequences()`. The inputs to this were:
+
+```{r}
+i$List_comparators
+p$basic$R_maxlines
+```
+
+The output of the function is a table where each column is the line of therapy. The final column is always best supportive care (BSC). The first four columns reflect every possible order and combination of treatments (e.g. ABCD, ABCE, ABCF... and so on). The total possiblities are:
+
+```{r}
+dim(i$sequences)
+```
+
+:::
+
+<mark>its not outputting right when i run through it below, so trying it here before run full function. and it works here. although might break next part</mark>
+
+```{r}
+i$sequences <- as.data.frame(i$sequences)
+
+populations <- i$i_nr_populations
+
+seqs <- NULL
+
+for (population in 1:populations) {
+  sequences = i$sequences
+  allowed = f_get_allowed_lists(i, population)
+  print("Dropping drugs not allowed for this population.\n")
+  sequences
+  s <- f_path_allowed(sequences, allowed[[1]])
+  s
+}
+```
+
+```{r}
+i$sequences <- as.data.frame(i$sequences)
+
+populations <- i$i_nr_populations
+
+seqs <- NULL
+for (population in 1:populations) {
+  cat("Applying sequence restrictions to population", population,"\n")
+  
+  s <- f_path_tx_restrict(
+    sequences                = i$sequences,
+    allowed                  = f_get_allowed_lists(i, population), #overall list of allowed drugs in this popn
+    L1                       = f_get_L1_lists(i, population), # 1L drugs allowed in this popn
+    L2                       = f_get_L2_lists(i, population), # 2L drugs allowed in this popn
+    L3                       = f_get_L3_lists(i, population), # 3L drugs allowed in this popn
+    L4                       = f_get_L4_lists(i, population), # 4L drugs allowed in this popn
+    only_after               = f_get_only_after_lists(i, population), #list of restrictions where tx can be only after the listed txs
+    not_immediate_after      = f_get_not_immediate_after_lists(i, population), #list of restrictions where tx can be only immediately before the listed txs
+    one_in_list              = f_get_one_in_list_lists(i, population), #list of restrictions where only one of the tx in each list is allowed 
+    only_after_one           = f_get_only_after_one_lists(i, population), #list of restrictions where only one of the listed treatments is allowed prior to current therapy 
+    L2_only_after            = f_get_2L_only_after_lists(i, population), #list of 2L+ restrictions: if drug is used 2L, 3L or 4L, can only be after drug x
+    L2_only_immediate_after  = f_get_2L_only_immediate_after_lists(i, population), #list of 2L+ restrictions: if drug is used 2L, 3L or 4L, can only be immediately after drug x
+    L2_only_one              = f_get_2L_only_one_lists(i, population) #list of 2L+ drugs where only one of them allowed in a given sequence
+  )
+  s <- cbind(rep(paste0("pop", population),nrow(s)), s)
+  colnames(s) <- paste0('V', seq_len(ncol(s))) # rbind no longer likes un-named columns so added this
+  seqs <- rbind(seqs, s)
+}
+rownames(seqs) <- NULL
+
+i$sequences <- seqs
+```
+
+::: {.callout-note collapse="true"}
+
+## Introduction to `f_path_tx_restrict`
+
+`f_path_tx_restrict` is defined in two .R files: `rccFunctions.R` and `sequences.R`. In this script, we did not use `rccFunctions.R`, and just sourced `sequences.R`.
+
+This has substantially reduced the number of rows with possible sequence combinations in `i$sequences`:
+
+```{r}
+dim(i$sequences)
+```
+
+It utilises several other functions from `sequences.R`, each taking the input of `i` and `population`, where population is an element from:
+
+```{r}
+i$i_nr_populations
+```
+
+We can see from the excel spreadsheet that this is the value for total populations from `Lists`, and that above it it mentions the popoulations:
+
+* pop1	>12m since IO, favourable risk
+* pop2	>12m since IO, intermed/poor risk
+* pop3	<12m since IO, favourable risk
+* pop4	<12m since IO, intermed/poor risk
+
+IO refers to immuno-ocology. also known as immunotherapy.
+
+The risks are as defined in the International Metastatic Renal Cell Carcinoma Database Consortium (IMDC) criteria. RCC can be defined as either:
+
+* **Favourable-risk** disease/cancer/RCC
+* **Intermediate- and poor-risk** disease/cancer/RCC
+
+This then guides treatment decisions:
+
+* Treatments for all risk groups (i.e. favourable, intermediate or poor) include "sunitinib, pazopanib, tivozanib or avelumab plus axitinib"
+* Additional treatments for intermediate- or poor-risk cancer are "nivolumab plus ipilimumab, lenvatinib plus pembrolizumab, or cabozantinib" @national_institute_for_health_and_care_excellence_nice_cabozantinib_2024
+
+:::
+
+::: {.callout-note collapse="true"}
+
+## Explanation of `f_get_allowed_lists()`
+
+The first function used within `f_path_tx_restrict()` is `f_get_allowed_lists()` to get the value for `allowed`.
+
+```{r}
+f_get_allowed_lists <- function(i, population) {
+  output <- i[grep("allowed", names(i))]
+  output <- output[grep(paste0("pop", population), names(output))]
+  output <- output[!(grepl("only_one_allowed", names(output)))]
+  names(output) <- sub(paste0("List_","pop",population,"_"), "", names(output))
+  f_check_drugnames(i, output)
+  return(output)
+}
+```
+
+The first thing this function does is find all the "allowed" lists from `i`. As you can see, there are several lists defined for each population.
+
+```{r}
+output <- i[grep("allowed", names(i))]
+names(output)
+```
+
+It then filters to one of the populations (`pop1`, `pop2`, `pop3` or `pop4`). For example, for `pop1`...
+
+```{r}
+population <- 1
+
+output <- output[grep(paste0("pop", population), names(output))]
+output
+```
+It removes the lists that said `only_one_allowed`.
+
+```{r}
+output <- output[!(grepl("only_one_allowed", names(output)))]
+output
+```
+
+Finally, it renames the lists to remove the words `List` and `pop1`(2/3/4).
+
+```{r}
+names(output) <- sub(paste0("List_","pop",population,"_"), "", names(output))
+output
+```
+
+This checks that each of the names in the list match the names in `i$List_comparators`, and will stop the code and return an error message if any do not.
+
+```{r}
+i$List_comparators
+```
+
+```{r}
+f_check_drugnames(i, output)
+```
+
+:::
+
+::: {.callout-note collapse="true"}
+
+## Returning to `f_path_tx_restrict`
+
+The result from the function above is input into `f_path_tx_restrict` as `allowed`, and used in a single line, to remove drugs not allowed for that population:
+
+```
+s <- f_path_allowed(s, allowed[[1]])
+```
+
+As a reminder, `s` and `allowed[[1]]` are:
+
+```{r}
+# Input to f_path_tx_restrict(), as allowed = f_get_allowed_lists(i, population)
+allowed <- output
+allowed[[1]]
+```
+
+```{r}
+# Input to f_path_tx_restrict()
+sequences <- i$sequences
+s <- sequences
+head(s)
+```
+
+We apply the function `f_path_allowed()`...
+
+```{r}
+f_path_allowed <- function(perms, rule) {
+  #objective of function is to identify perms that violate rule and exclude
+  cat("applying rule:", rule, "are only allowed treatments.\n")
+  cat("Permutations before applying rule:", nrow(perms), "\n")
+  
+  rule <- c(rule, "BSC", "")
+  
+  for (n in 1:ncol(perms)) {
+    perms <- perms[perms[,n] %in% rule,]
+  }
+  
+  cat("Permutations after applying rule :", nrow(perms),"\n")
+  return(perms)
+  
+}
+```
+
+So in this case...
+
+```{r}
+perms <- s
+rule <- allowed[[1]]
+
+cat("applying rule:", rule, "are only allowed treatments.\n")
+cat("Permutations before applying rule:", nrow(perms), "\n")
+```
+
+It adds BSC (best supportive care) and an empty element to the list of allowed treatments
+
+```{r}
+rule <- c(rule, "BSC", "")
+```
+
+It then loops through each of the lines of treatment (columns of `perms` - V1, V2, V3, V4, V5, V6), and only keeps the rows if the treatment in that column in that row is in the list of allowed treatments.
+
+```{r}
+for (n in 1:ncol(perms)) {
+  perms <- perms[perms[,n] %in% rule,]
+}
+
+cat("Permutations after applying rule :", nrow(perms),"\n")
+```
+
+```{r}
+f_path_allowed(s, allowed[[1]])
+```
+
+<mark>something wrong? have i introduced an error somewhere? or is it because i've run this after already running the function above?</mark>
+
+```{r}
+f_path_allowed(sequences, f_get_allowed_lists(i, i$i_nr_populations[1]))
+
+f_path_allowed(sequences, f_get_allowed_lists(i, "pop2"))
+
+f_path_allowed(sequences, f_get_allowed_lists(i, "pop3"))
+
+f_path_allowed(sequences, f_get_allowed_lists(i, "pop4"))
 ```
 
 :::
