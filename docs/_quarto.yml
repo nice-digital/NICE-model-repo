@@ -23,9 +23,14 @@ website:
         contents:
           - pages/appraisals.qmd
           - pages/publication.qmd
-          - text: "Model plain english summary"
+      - section: "Model overview"
+        contents:
+          - text: "Detailed summary"
+            href: pages/model_overview.qmd
+          - text: "Plain english summary"
             href: pages/plain_english.qmd
       - section: "Installation"
+      - pages/input_data.qmd
       - section: "Model code walkthrough"
       - section: "Annotated reporting guidelines"
       - section: "Model validation"

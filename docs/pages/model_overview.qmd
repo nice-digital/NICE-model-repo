@@ -1,0 +1,13 @@
+---
+title: "Model overview"
+bibliography: ../references.bib
+csl: ../elsvan.csl
+---
+
+## Model diagram
+
+EOM:RCC is designed to model up to four lines of treatment before best supportive care. A diagram of the model is provided below. This is based on the diagrams in the excel input sheet, and in the renal cell carcinoma (RCC) pathway model report. @national_institute_for_health_and_care_excellence_nice_renal_2024
+
+Transition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT). We are assuming good correlation between PFS and TTNT baesd on clinical advice and a publication provided by Logex. <mark>For Logex's RWE, TTNT is the only option.</mark>
+
+![Structure of the model and transition between health states](../images/eomrcc_transitions.drawio.png)
