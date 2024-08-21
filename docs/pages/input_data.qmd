@@ -1,0 +1,67 @@
+---
+title: "Input data"
+---
+
+## Excel user interface
+
+The majority of inputs for the EOM:RCC are made using an excel spreadsheet.
+
+### Model settings
+
+<mark>describe</mark>
+
+### Patient characteristics
+
+<mark>describe</mark>
+
+### Resource use and costs
+
+<mark>describe</mark>
+
+### Effectiveness settings
+
+<mark>describe</mark>
+
+### Time on treatment
+
+<mark>describe</mark>
+
+### Mortality parameters
+
+<mark>describe</mark>
+
+### Safety parameters
+
+<mark>describe</mark>
+
+### Treatment sequence
+
+<mark>describe</mark>
+
+### Utilities
+
+<mark>describe</mark>
+
+### Scenario controls
+
+<mark>describe</mark>
+
+### wastage calcs
+
+<mark>describe</mark>
+
+### Age sex IPD_CIC
+
+<mark>describe</mark>
+
+### Lists
+
+<mark>describe</mark>
+
+### named ranges
+
+<mark>describe</mark>
+
+### All parameters
+
+<mark>describe</mark>
