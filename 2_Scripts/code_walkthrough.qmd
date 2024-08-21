@@ -1,0 +1,307 @@
+---
+title: "Model code walkthrough"
+authors:
+  - name: Amy Heather
+    url: https://github.com/amyheather
+    orcid: 0000-0002-6596-3479
+    affiliation: University of Exeter
+format:
+  html:
+    toc: true
+---
+
+## Purpose of this notebook
+
+This is a (potentially temporary) notebook that I am keeping as I work through the model (copied from `Model_Structure.R`), writing down notes to explain each part to myself, to ensure I understand it.
+
+To simplify this, I have removed the original comments, and so this just includes my comments that I needed to understand it. The benefit of this is that, once I have understood how it all works, I can use my comments below to inform any changes to the comments in `Model_Structure.R`, the function docstrings, or elsewhere. Once I have completed this notebook, I can also create the model overview pages.
+
+::: {.callout-warning}
+
+Whenever I have made changes to the code in `Model_Structure.R`, these are indicated with these boxes. This is excluding the removal of comments, which has been done throughout.
+
+:::
+
+::: {.callout-note collapse="false"}
+
+Whenever I have add code or detailed explanation, to help explain and demonstrate what the model is doing, these are contained within these boxes.
+
+:::
+
+## Set up
+
+### Import libraries
+
+```{r}
+#| output: false
+
+library(shiny, quiet = TRUE)   
+library(gtools, quiet = TRUE)
+library(openxlsx, quiet = TRUE)
+library(flexsurv, quiet = TRUE)
+library(tidyverse, quiet = TRUE)
+library(data.table, quiet = TRUE)
+library(heemod, quiet = TRUE)
+library(logOfGamma, quiet = TRUE)
+library(ggplot2, quiet = TRUE)
+library(survminer, quiet = TRUE)
+library(officer, quiet = TRUE)
+library(officedown, quiet = TRUE)
+library(magrittr, quiet = TRUE)
+library(Hmisc, quiet = TRUE)
+library(future.apply, quiet = TRUE)
+library(crosstable, quiet = TRUE)
+library(flextable, quiet = TRUE)
+library(stringr, quiet = TRUE)
+library(BCEA, quiet = TRUE)
+library(collapse, quiet = TRUE)
+library(scales, quiet = TRUE)
+library(Matrix, quiet = TRUE)
+library(dplyr, quiet = TRUE)
+library(progressr, quiet = TRUE)
+library(microbenchmark, quiet = TRUE)
+```
+
+### Define some project settings
+
+```{r}
+keep_free_cores <- NA
+if (any(is.na(keep_free_cores), keep_free_cores<0)) {
+  plan(sequential)
+} else {
+  plan(multisession(workers = max(availableCores()-keep_free_cores,1)))
+}
+```
+
+::: {.callout-note collapse="true"}
+
+Recorded time to get to **complete 3 active treatment lines for population 1**, then repeated with other cores, to understand what is faster / slower:
+
+* 28 cores: > 53m (still on 3)
+* 12 cores: 35m
+* 8 cores: < 19m
+* 4 cores: 7m
+* Sequential (i.e. `NA`): 3m
+
+To run full script **sequentially** on that **remote machine**, it took **19 minutes**.
+
+:::
+
+```{r}
+# Other generic settings for the progress bar and units for table widths
+handlers("progress")
+options(crosstable_units="cm")
+```
+
+::: {.callout-note collapse="true"}
+
+`handlers("progress")`: `progressr` function, settings for how progress is reported
+
+`options(crosstable_units="cm")`: `crosstable` package generates descriptive statistics with function `crosstable()`, and this is the settings for it (although can't spot us of `crosstable()` anywhere)
+
+:::
+
+```{r}
+qc_mode <- FALSE
+```
+
+::: {.callout-note collapse="true"}
+
+`qc_mode` is just used in `survival_functions.R` and by `f_NMA_AddAssumptionsToNetwork()` (and perhaps others if it calls them) and it is the input for `verbose` (i.e. if true, there will be extra outputs to console)
+
+:::
+
+### Get functions
+
+::: {.callout-warning collapse="true"}
+
+I've modified this to make path defined once, as needed to change it, and to define paths that occur later on in the script. Hence, you'll spot the changes later in the code also for `excel_path` and `empty_results_path`.
+
+:::
+
+```{r}
+# Set path to folders
+path_data = "../1_Data/"
+path_functions = "../3_Functions/"
+
+# Set paths to files loaded in this script
+excel_path <- file.path(path_data, "ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm")
+empty_results_path = file.path(path_functions, "reporting/empty results doc.docx")
+
+# Source functions
+source(file.path(path_functions, "excel/extract.R"))
+source(file.path(path_functions, "sequencing/sequences.R"))
+source(file.path(path_functions, "survival/Survival_functions.R"))
+source(file.path(path_functions, "survival/other_cause_mortality.R"))
+source(file.path(path_functions, "survival/treatment_effect_waning.R"))
+source(file.path(path_functions, "misc/other.R"))
+source(file.path(path_functions, "misc/shift_and_pad.R"))
+source(file.path(path_functions, "misc/cleaning.R"))
+source(file.path(path_functions, "misc/nesting.R"))
+source(file.path(path_functions, "misc/discounting.R"))
+source(file.path(path_functions, "misc/qdirichlet.R"))
+source(file.path(path_functions, "misc/plotting.R"))
+source(file.path(path_functions, "misc/structure.R"))
+source(file.path(path_functions, "misc/fpnma_fns.R"))
+source(file.path(path_functions, "utility/age_related.R"))
+source(file.path(path_functions, "costs_and_QALYs/utility_processing.R"))
+source(file.path(path_functions, "adverse_events/AE_steps.R"))
+source(file.path(path_functions, "costs_and_QALYs/cost_processing.R"))
+source(file.path(path_functions, "markov/markov.R"))
+source(file.path(path_functions, "patient_flow/overarching.R"))
+source(file.path(path_functions, "patient_flow/partitioned_survival.R"))
+source(file.path(path_functions, "patient_flow/markov.R"))
+source(file.path(path_functions, "patient_flow/drug_costs.R"))
+source(file.path(path_functions, "patient_flow/hcru_costs.R"))
+source(file.path(path_functions, "patient_flow/qalys.R"))
+source(file.path(path_functions, "patient_flow/ae.R"))
+source(file.path(path_functions, "results/incremental_analysis.R"))
+source(file.path(path_functions, "results/model_averaging.R"))
+source(file.path(path_functions, "results/partitioned_survival.R"))
+source(file.path(path_functions, "misc/severity_modifier.R"))
+source(file.path(path_functions, "results/results_tables.R"))
+source(file.path(path_functions, "psa/psa functions.R"))
+source(file.path(path_functions, "reporting/word_document_output.R"))
+```
+
+::: {.callout-note collapse="true"}
+
+Not sure of purpose as doesn't appear to be used anywhere - might be legacy code.
+
+:::
+
+```{r}
+User_types <- c("Submitting company", "NICE", "EAG", "Committee", "NHSE", "Clinical expert", "Patient expert", "Non-intervention stakeholder", "Public")
+```
+
+### Get inputs from excel workbook
+
+::: {.callout-warning collapse="true"}
+
+Hidden output as it is quite verbose.
+
+:::
+
+```{r}
+if (file.exists(excel_path)) {
+  i <- f_excel_extract(excel_path, verbose = FALSE)
+} else {
+  i <- f_excel_extract(rstudioapi::selectFile(
+    caption = "Select the Excel inputs file (ID6184_RCC_model inputs....xlsm)",
+    label = "ID6184_RCC_model inputs....xlsm",
+    path = "../1_Data/",
+    filter = "Excel Files (*.xlsm)",
+    existing = TRUE
+  ), verbose = FALSE)
+}
+```
+
+::: {.callout-note collapse="true"}
+
+Import the file at `excel_path` using `f_excel_extract()`. If the file doesn't exist, assuming the user is in RStudio, a dialog box will appear with the system files, and the user should then select a file from their directory. The dialog will open in `1_Data/`, show only `.xlsm` files, and the accept/ok button has the text `ID6184_RCC_model inputs....xlsm`.
+
+The function `f_excel_extract` is below (note: `sheets` not used).
+
+```{r}
+f_excel_extract <- function(path_to_excel_file, verbose = FALSE) {
+  
+  wb          <- loadWorkbook(path_to_excel_file)
+  sheets      <- wb$sheet_names
+  named       <- getNamedRegions(wb)
+  nams        <- unlist(as.list(named))
+  names(nams) <- nams
+  
+  # Cycle through all the named ranges, making a decision on cleaning as we go
+  output <- lapply(nams, function(named_range) {
+    
+    if (verbose) cat(paste0("Extracting named range ", named_range, " from ", path_to_excel_file, "\n"))
+    dat <- read.xlsx(wb,namedRegion = named_range, check.names = TRUE,colNames = TRUE)
+    
+    if (nrow(dat) == 0) {
+      # if it has 0 rows, then the input must be a 1 cell one, so we can safely assume
+      # no row names
+      dat <- read.xlsx(wb,namedRegion = named_range,colNames = FALSE,rowNames = FALSE)
+      
+      if (all(length(dat) == 1, names(dat)[1] == "X1")) {
+        dat <- unlist(dat, use.names = FALSE)
+      } else if(nrow(dat) == 1) {
+        dat <- unlist(read.xlsx(wb,namedRegion = named_range,colNames = FALSE,rowNames = FALSE), use.names = F)
+      } 
+      
+      return(dat)
+    } else if(ncol(dat) == 1) {
+      # if there's 1 column, then it's actually just a vector:
+      dat <- unlist(read.xlsx(wb,namedRegion = named_range,colNames = FALSE,rowNames = FALSE), use.names = F)
+    } else {
+      # logically we can't identify whether a table has appropriate names or not
+      # at this point. this will have to be left to the cleaning functions.
+      return(dat)
+    }
+  })
+  
+  # Drop the workbook at the end (I think in {} this would happen anyway, but want to ensure!)
+  rm(wb)
+  return(output)
+}
+```
+
+It loops through `named_range`, which is returned by `openxlsx::getNamedRegions()`. This is a function that finds all the named regions in an excel file.
+
+Named regions consist of:
+
+* A name for the region (e.g. `apply_waning_to`)
+* The region, which consists of the sheet, column/s and row/s (e.g. `=Lists!$Y$10:$Y$11`)
+
+In this workbook, the named regions are all stored in a sheet called `named ranges`.
+
+When this function runs, it creates a list called `i` and each element of that list reflects a row from the `named ranges sheet`, except the first element, which is each of the named ranges.
+
+Named ranges:
+
+```{r}
+head(i[[1]])
+head(i$`_xlnm._FilterDatabase`)
+```
+
+**Example** `apply_waning_to` was from `=Lists!$Y$10:$Y$11`. Looking in the `Lists` sheet, we can see that Y10 was `ref trt hazard` and Y11 was `ref trt abs surv`. This matches up with the returned object:
+
+```{r}
+i[[2]]
+i$apply_waning_to
+```
+
+**Example 2:** `dd_age_sex_source` is from `='Model settings'!$G$63`. Looking in the `Model settings` sheet, we can see that G63 is the answer to "Age/sex based on mean or PLD?", with base case/default being `PLD`. We can likewise see this from its value in the list:
+
+```{r}
+i[[11]]
+i$dd_age_sex_source
+```
+
+:::
+
+```{r}
+i <- c(i,f_excel_cleanParams(i$R_table_param))
+```
+
+::: {.callout-note collapse="true"}
+
+One of the items in the list `i` is `R_table_param`. The source of this in the excel workbook was `='All parameters'!$C$5:$Q$2912` - so basically, it's just taking the full table from the sheet `All parameters`.
+
+```{r}
+head(i$R_table_param)
+```
+
+The function `f_excel_cleanParams()` takes this table and turns each row into a list, which you can access using `Parameter.name`. It adds an extra element `Mean`, which is just the value from `Mean.current.value` converted to numeric.
+
+```{r}
+show_list <- f_excel_cleanParams(i$R_table_param)
+show_list$cabo_nivo_include
+```
+
+When it did this, it then concatenated that list with the list `i`, meaning that each of those elements can now be accessed in the same way from `i`.
+
+```{r}
+i$cabo_nivo_include
+```
+
+:::
