@@ -2,13 +2,15 @@ project:
   type: website
 
 website:
-  title: "Exeter Oncology Model: Renal Cell Carcinoma edition"
+  title: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exeter Oncology Model: Renal Cell Carcinoma edition"
   # Adds edit and issue buttons to footer
   repo-url: https://github.com/pythonhealthdatascience/stars-eom-rcc/
   repo-actions: [edit, issue]
   # Create navbar across top of page
   navbar:
     collapse: false
+    logo: "images/exeter_pentag_small.png"
+    logo-alt: "Exeter PenTAG"
     right:
       - icon: github
         href: https://github.com/pythonhealthdatascience/stars-eom-rcc/
@@ -44,3 +46,4 @@ format:
   html:
     theme: cosmo
     toc: true
+    css: styles.css
