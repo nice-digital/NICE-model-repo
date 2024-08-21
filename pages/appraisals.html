@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -194,8 +214,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#renal-cell-carcinoma-pathways-pilot-id6186-gid-ta11186" id="toc-renal-cell-carcinoma-pathways-pilot-id6186-gid-ta11186" class="nav-link active" data-scroll-target="#renal-cell-carcinoma-pathways-pilot-id6186-gid-ta11186">Renal cell carcinoma Pathways Pilot (ID6186, GID-TA11186)</a></li>
+  <li><a href="#cabozantinib-with-nivolumab-for-untreated-advanced-renal-cell-carcinoma-ta964-formerly-id6184" id="toc-cabozantinib-with-nivolumab-for-untreated-advanced-renal-cell-carcinoma-ta964-formerly-id6184" class="nav-link" data-scroll-target="#cabozantinib-with-nivolumab-for-untreated-advanced-renal-cell-carcinoma-ta964-formerly-id6184">Cabozantinib with nivolumab for untreated advanced renal cell carcinoma (TA964, formerly ID6184)</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/appraisals.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -219,11 +246,54 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Plain english summary of the two related NICE appraisals</p>
+<p>This model was developed by the <strong>Peninsula Technology Assessment Group (PenTAG)</strong> at the <strong>University of Exeter</strong>. This was in collaboration with the <strong>National Institute for Health and Care Excellence (NICE)</strong> as part of two appraisals, described below.</p>
+<section id="renal-cell-carcinoma-pathways-pilot-id6186-gid-ta11186" class="level2">
+<h2 class="anchored" data-anchor-id="renal-cell-carcinoma-pathways-pilot-id6186-gid-ta11186">Renal cell carcinoma Pathways Pilot (ID6186, GID-TA11186)</h2>
+<p>In 2022, NICE announced a programme aimed at taking a “proportionate approach to technology appraisals” (PATT). In the first phase of the programme, they “simplified, removed, or reconfigured parts of the appraisals process”. This was to enable the production of rapid guidance for simpler low-risk decisions by allowing “light-touch, faster evaluations” for those topics. In the second phase of the programme, they have been exploring several other ways of working, one of which being to take a “<strong>pathways approach</strong> to technology appraisals.” <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_taking_nodate">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_taking_nodate" role="doc-biblioref">1</a>]</span></p>
+<p>The pathways approach involves the production of a reusable <strong>platform/reference model</strong> for each disease area. The rationale for this that many NICE appraisals are in only a few disease areas, with almost half of health technology assessments within ten disease areas. Hence, developing a single reference model for each disease area should help “reduce repetition and improve consistency in decision making”. <span class="citation" data-cites="lee_nices_2024">[<a href="#ref-lee_nices_2024" role="doc-biblioref">2</a>]</span></p>
+<p>In their analysis plan, Lee et al.&nbsp;2023 <span class="citation" data-cites="lee_treatments_2023">[<a href="#ref-lee_treatments_2023" role="doc-biblioref">3</a>]</span> emphasise the importance of these models being <strong>open-source</strong> so they can be reused and maintained without restriction. They give the example of the <strong>Innovation and Value Initiative (IVI)</strong> Open-Source Value project which started in 2018 and has since produced three disease models which are freely shared on their GitHub. <span class="citation" data-cites="lee_treatments_2023">[<a href="#ref-lee_treatments_2023" role="doc-biblioref">3</a>]</span> Each of these models are developed in R, with the first two being <strong>R packages</strong> with <strong>hosted documentation</strong> and supporting <strong>web applications</strong> (created with a commercial organisation, <a href="https://clarityviz.com/" class="uri">https://clarityviz.com/</a>):</p>
+<ul>
+<li>Non-small cell lung cancer - <a href="https://github.com/InnovationValueInitiative/IVI-NSCLC">GitHub</a>, <a href="https://innovationvalueinitiative.github.io/IVI-NSCLC/">documentation</a>, <a href="https://vt-nsclc.clarityviz.com/">basic web app</a>, <a href="https://et-nsclc.clarityviz.com/">advanced web app</a> (note: these web apps are not working currently)</li>
+<li>Rheumatoid arthritis - <a href="https://github.com/InnovationValueInitiative/IVI-RA">GitHub</a>, <a href="https://innovationvalueinitiative.github.io/IVI-RA/">documentation</a>, <a href="https://ivi-ra-expert.clarityviz.com/">model interface (advanced app)</a>, <a href="https://ivi-ra.clarityviz.com/">value tool (basic app)</a></li>
+<li>Major depressive disorder - <a href="https://github.com/InnovationValueInitiative/IVI-MDD">GitHub</a></li>
+</ul>
+<p>The NICE pilot of the pathways approach was in <strong>renal cell carcinoma</strong> (ID6186, GID-TA11186). <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_nodate">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_nodate" role="doc-biblioref">4</a>]</span> This pilot was the <strong>Exeter Oncology Model: Renal Cell Carcinoma edition (EOM:RCC)</strong>, as described and presented in this repository. In 2024, Lee et al.&nbsp;published an article describing their experience of developing this model (see <a href="../pages/publication.html">publication</a> page). <span class="citation" data-cites="lee_nices_2024">[<a href="#ref-lee_nices_2024" role="doc-biblioref">2</a>]</span> A final report from NICE on the pilot will be released in 2024/25. <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_taking_nodate">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_taking_nodate" role="doc-biblioref">1</a>]</span></p>
+</section>
+<section id="cabozantinib-with-nivolumab-for-untreated-advanced-renal-cell-carcinoma-ta964-formerly-id6184" class="level2">
+<h2 class="anchored" data-anchor-id="cabozantinib-with-nivolumab-for-untreated-advanced-renal-cell-carcinoma-ta964-formerly-id6184">Cabozantinib with nivolumab for untreated advanced renal cell carcinoma (TA964, formerly ID6184)</h2>
+<p>The technology appraisal guidance for cabozantinib with nivolumab for untreated advanced renal cell carcinoma was published on 10 April 2024. When developing this guidance, the evaluation comittee considered:</p>
+<ul>
+<li>Evidence submitted by Ipsen</li>
+<li>A revise of Ipsen’s submission by the external assessment group (EAG)</li>
+<li>The EAG’s economic model (EOM:RCC)</li>
+<li>Responses from stakeholders</li>
+</ul>
+<p>The main source of evidence for clinical effectiveness was the results of “<strong>CheckMate 9ER</strong>, a single-blind randomised controlled trial comparing cabozantinib plus nivolumab with sunitinib”. The economic model was the <strong>EOM:RCC</strong>, and the preferred assumptions for this model from the committee and from the company are outlined in the appraisal guidance. <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_cabozantinib_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_cabozantinib_2024" role="doc-biblioref">5</a>]</span> The model itself is then further described in a pathway model report. <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span></p>
 
 
 
-</main> <!-- /main -->
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-national_institute_for_health_and_care_excellence_nice_taking_nodate" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">National Institute for Health and Care Excellence (NICE). <a href="https://www.nice.org.uk/about/what-we-do/proportionate-approach-to-technology-appraisals">Taking a proportionate approach to technology appraisals</a> n.d.</div>
+</div>
+<div id="ref-lee_nices_2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">Lee D, Burns D, Wilson E. <span>NICE</span>’s <span>Pathways</span> <span>Pilot</span>: <span>Pursuing</span> <span>Good</span> <span>Decision</span> <span>Making</span> in <span>Difficult</span> <span>Circumstances</span>. PharmacoEconomics - Open 2024. <a href="https://doi.org/10.1007/s41669-024-00490-x">https://doi.org/10.1007/s41669-024-00490-x</a>.</div>
+</div>
+<div id="ref-lee_treatments_2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">Lee D, Muthukumar M, Robinson S, Lovell A, Coelho H, Matthews J, et al. <a href="https://www.nice.org.uk/guidance/gid-ta11186/documents/assessment-report-3">Treatments for renal cell carcinoma [<span>ID6186</span>]. <span>Final</span> <span>Analysis</span> <span>Plan</span>.</a> 2023.</div>
+</div>
+<div id="ref-national_institute_for_health_and_care_excellence_nice_renal_nodate" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">National Institute for Health and Care Excellence (NICE). <a href="https://www.nice.org.uk/guidance/indevelopment/gid-ta11186">Renal cell carcinoma <span>Pathways</span> <span>Pilot</span> [<span>ID6186</span>]. <span>In</span> development [<span>GID</span>-<span>TA11186</span>]</a> n.d.</div>
+</div>
+<div id="ref-national_institute_for_health_and_care_excellence_nice_cabozantinib_2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">National Institute for Health and Care Excellence (NICE). <a href="https://www.nice.org.uk/guidance/ta964">Cabozantinib with nivolumab for untreated advanced renal cell carcinoma. <span>Technology</span> appraisal guidance [<span>TA964</span>]</a> 2024.</div>
+</div>
+<div id="ref-national_institute_for_health_and_care_excellence_nice_renal_2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">National Institute for Health and Care Excellence (NICE). <a href="https://www.nice.org.uk/guidance/ta964/resources/renal-cell-carcinoma-pathway-model-report-pdf-17325260829637">Renal cell carcinoma pathway model report. <span>Economic</span> analysis.</a> 2024.</div>
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -649,4 +719,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/appraisals.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/appraisals.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
