@@ -1,13 +1,31 @@
 ---
-title: "Publication"
+title: "List of articles and reports"
 bibliography: ../references.bib
 csl: ../elsvan.csl
 ---
 
-The development of this model was discussed in Lee et al. 2024. @lee_nices_2024 This article is licensed under a CC-BY-NC-4.0 license, which enables us to share it below:
+As referred to in the [description of the NICE appraisals](appraisals.qmd), there are several articles and reports that have been published in relation to this model. Several of these are listed below.
+
+## Web pages
+
+The pathways pilot is mentioned as part of [NICE's webpage](https://www.nice.org.uk/about/what-we-do/proportionate-approach-to-technology-appraisals) on **taking a proportion approach to technology appraisals**. @national_institute_for_health_and_care_excellence_nice_taking_nodate There are also then webpages available for each of the appraisals: the [pathways pilot](https://www.nice.org.uk/guidance/indevelopment/gid-ta11186) @national_institute_for_health_and_care_excellence_nice_renal_nodate and the [appraisal of cabozatinib with nivolumab](https://www.nice.org.uk/guidance/ta964) @national_institute_for_health_and_care_excellence_nice_cabozantinib_2024
+
+## Reports
+
+The above web pages link to relevant NICE reports, and these include:
+
+* **Final analysis plan** for the model available as a [PDF](https://www.nice.org.uk/guidance/gid-ta11186/documents/assessment-report-3) @lee_treatments_2023
+* **Renal cell carcinoma pathway model report**, which is "a summary of the external assessment group's model and assumptions on renal cell carcinoma, discussed by NICE's technology appraisal committee B". Available as a [PDF](https://www.nice.org.uk/guidance/ta964/resources/renal-cell-carcinoma-pathway-model-report-pdf-17325260829637) or [within their website](https://www.nice.org.uk/guidance/ta964/resources/renal-cell-carcinoma-pathway-model-report-13368256813/chapter/Purpose-of-this-document) @national_institute_for_health_and_care_excellence_nice_renal_2024
+* **NICE's technology appraisal guidance on cabozatinib with nivolumab for untreated advanced renal cell carcinoma**. Avaliable as a [PDF](https://www.nice.org.uk/guidance/ta964/resources/cabozantinib-with-nivolumab-for-untreated-advanced-renal-cell-carcinoma-pdf-82615789468357) or [within their website](https://www.nice.org.uk/guidance/ta964) @national_institute_for_health_and_care_excellence_nice_cabozantinib_2024
+
+## Publications
+
+There has been one related publication: the article **NICE's Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances** @lee_nices_2024, with a later correction published. @lee_correction_2024 These are licensed under a CC-BY-NC-4.0 license, which enables us to share them below.
+
+Article @lee_nices_2024:
 
 <iframe width="100%" height="800" src="../pdf/lee_2024_nice_pathways_pilot.pdf"></iframe>
 
-A correction to the article was later published @lee_correction_2024 and likewise shared below:
+Correction @lee_correction_2024:
 
 <iframe width="100%" height="800" src="../pdf/lee_2024_correction.pdf"></iframe>
