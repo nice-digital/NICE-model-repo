@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>License – Exeter Oncology Model: Renal Cell Carcinoma edition</title>
+<title>Input data – Exeter Oncology Model: Renal Cell Carcinoma edition</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -98,7 +98,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/license.html">License</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/input_data.html">Input data</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -174,7 +174,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/input_data.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/input_data.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Input data</span></a>
   </div>
 </li>
@@ -192,7 +192,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/license.html" class="sidebar-item-text sidebar-link active">
+  <a href="../pages/license.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">License</span></a>
   </div>
 </li>
@@ -217,15 +217,38 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#excel-user-interface" id="toc-excel-user-interface" class="nav-link active" data-scroll-target="#excel-user-interface">Excel user interface</a>
+  <ul class="collapse">
+  <li><a href="#model-settings" id="toc-model-settings" class="nav-link" data-scroll-target="#model-settings">Model settings</a></li>
+  <li><a href="#patient-characteristics" id="toc-patient-characteristics" class="nav-link" data-scroll-target="#patient-characteristics">Patient characteristics</a></li>
+  <li><a href="#resource-use-and-costs" id="toc-resource-use-and-costs" class="nav-link" data-scroll-target="#resource-use-and-costs">Resource use and costs</a></li>
+  <li><a href="#effectiveness-settings" id="toc-effectiveness-settings" class="nav-link" data-scroll-target="#effectiveness-settings">Effectiveness settings</a></li>
+  <li><a href="#time-on-treatment" id="toc-time-on-treatment" class="nav-link" data-scroll-target="#time-on-treatment">Time on treatment</a></li>
+  <li><a href="#mortality-parameters" id="toc-mortality-parameters" class="nav-link" data-scroll-target="#mortality-parameters">Mortality parameters</a></li>
+  <li><a href="#safety-parameters" id="toc-safety-parameters" class="nav-link" data-scroll-target="#safety-parameters">Safety parameters</a></li>
+  <li><a href="#treatment-sequence" id="toc-treatment-sequence" class="nav-link" data-scroll-target="#treatment-sequence">Treatment sequence</a></li>
+  <li><a href="#utilities" id="toc-utilities" class="nav-link" data-scroll-target="#utilities">Utilities</a></li>
+  <li><a href="#scenario-controls" id="toc-scenario-controls" class="nav-link" data-scroll-target="#scenario-controls">Scenario controls</a></li>
+  <li><a href="#wastage-calcs" id="toc-wastage-calcs" class="nav-link" data-scroll-target="#wastage-calcs">wastage calcs</a></li>
+  <li><a href="#age-sex-ipd_cic" id="toc-age-sex-ipd_cic" class="nav-link" data-scroll-target="#age-sex-ipd_cic">Age sex IPD_CIC</a></li>
+  <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists">Lists</a></li>
+  <li><a href="#named-ranges" id="toc-named-ranges" class="nav-link" data-scroll-target="#named-ranges">named ranges</a></li>
+  <li><a href="#all-parameters" id="toc-all-parameters" class="nav-link" data-scroll-target="#all-parameters">All parameters</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/input_data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">License</h1>
+<h1 class="title">Input data</h1>
 </div>
 
 
@@ -242,23 +265,72 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This repository is licensed under an MIT license:</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>MIT License</p>
-<p>Copyright (c) 2024 University of Exeter, Exeter Oncology Model; RCC edition</p>
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this model and associated documentation files (the “RCC Model”), to deal in the RCC Model without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the RCC Model, and to permit persons to whom the RCC Model is furnished to do so, subject to the following conditions:</p>
-<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the RCC Model.</p>
-<p>THE RCC MODEL IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE RCC MODEL.</p>
-</div>
-</div>
-</div>
+<section id="excel-user-interface" class="level2">
+<h2 class="anchored" data-anchor-id="excel-user-interface">Excel user interface</h2>
+<p>The majority of inputs for the EOM:RCC are made using an excel spreadsheet.</p>
+<section id="model-settings" class="level3">
+<h3 class="anchored" data-anchor-id="model-settings">Model settings</h3>
+<p><mark>describe</mark></p>
+</section>
+<section id="patient-characteristics" class="level3">
+<h3 class="anchored" data-anchor-id="patient-characteristics">Patient characteristics</h3>
+<p><mark>describe</mark></p>
+</section>
+<section id="resource-use-and-costs" class="level3">
+<h3 class="anchored" data-anchor-id="resource-use-and-costs">Resource use and costs</h3>
+<p><mark>describe</mark></p>
+</section>
+<section id="effectiveness-settings" class="level3">
+<h3 class="anchored" data-anchor-id="effectiveness-settings">Effectiveness settings</h3>
+<p><mark>describe</mark></p>
+</section>
+<section id="time-on-treatment" class="level3">
+<h3 class="anchored" data-anchor-id="time-on-treatment">Time on treatment</h3>
+<p><mark>describe</mark></p>
+</section>
+<section id="mortality-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="mortality-parameters">Mortality parameters</h3>
+<p><mark>describe</mark></p>
+</section>
+<section id="safety-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="safety-parameters">Safety parameters</h3>
+<p><mark>describe</mark></p>
+</section>
+<section id="treatment-sequence" class="level3">
+<h3 class="anchored" data-anchor-id="treatment-sequence">Treatment sequence</h3>
+<p><mark>describe</mark></p>
+</section>
+<section id="utilities" class="level3">
+<h3 class="anchored" data-anchor-id="utilities">Utilities</h3>
+<p><mark>describe</mark></p>
+</section>
+<section id="scenario-controls" class="level3">
+<h3 class="anchored" data-anchor-id="scenario-controls">Scenario controls</h3>
+<p><mark>describe</mark></p>
+</section>
+<section id="wastage-calcs" class="level3">
+<h3 class="anchored" data-anchor-id="wastage-calcs">wastage calcs</h3>
+<p><mark>describe</mark></p>
+</section>
+<section id="age-sex-ipd_cic" class="level3">
+<h3 class="anchored" data-anchor-id="age-sex-ipd_cic">Age sex IPD_CIC</h3>
+<p><mark>describe</mark></p>
+</section>
+<section id="lists" class="level3">
+<h3 class="anchored" data-anchor-id="lists">Lists</h3>
+<p><mark>describe</mark></p>
+</section>
+<section id="named-ranges" class="level3">
+<h3 class="anchored" data-anchor-id="named-ranges">named ranges</h3>
+<p><mark>describe</mark></p>
+</section>
+<section id="all-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="all-parameters">All parameters</h3>
+<p><mark>describe</mark></p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -686,4 +758,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/license.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/input_data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
