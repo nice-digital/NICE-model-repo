@@ -54,6 +54,7 @@ title: "Acryonyms"
 | pazo | pazopanib |
 | PD | Progressed disease |
 | pem | Pembrolizumab |
+| PenTAG | Peninsula Technology Assessment Group |
 | PFS | Progression-free survival |
 | PH | Proportional hazards |
 | pop | Population |
