@@ -123,11 +123,12 @@ I've modified this to make path defined once, as needed to change it, and to def
 
 ```{r}
 # Set path to folders
-path_data = "../1_Data/"
-path_functions = "../3_Functions/"
+path_data = "../1_Data"
+path_functions = "../3_Functions"
 
 # Set paths to files loaded in this script
 excel_path <- file.path(path_data, "ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm")
+excel_path2 <- file.path(path_data, "IPD_R_input_noACIC.xlsx")
 empty_results_path = file.path(path_functions, "reporting/empty results doc.docx")
 
 # Source functions
@@ -428,6 +429,8 @@ I'm pretty sure that max lines is referring to the maximum number of treatment l
 
 :::
 
+## Sequences
+
 ### Find all the possible combinations and orders of treatment and add to `i`
 
 ```{r}
@@ -681,6 +684,468 @@ for (population in 1:i$i_nr_populations) {
 
 :::
 
+::: {.callout-note collapse="true"}
+
+## Explaining the other functions in `f_path_tx_restrict()`
+
+As a reminder, these were:
+
+```
+s <- f_path_tx_restrict(
+  sequences                = i$sequences,
+  allowed                  = f_get_allowed_lists(i, population), #overall list of allowed drugs in this popn
+  L1                       = f_get_L1_lists(i, population), # 1L drugs allowed in this popn
+  L2                       = f_get_L2_lists(i, population), # 2L drugs allowed in this popn
+  L3                       = f_get_L3_lists(i, population), # 3L drugs allowed in this popn
+  L4                       = f_get_L4_lists(i, population), # 4L drugs allowed in this popn
+  only_after               = f_get_only_after_lists(i, population), #list of restrictions where tx can be only after the listed txs
+  not_immediate_after      = f_get_not_immediate_after_lists(i, population), #list of restrictions where tx can be only immediately before the listed txs
+  one_in_list              = f_get_one_in_list_lists(i, population), #list of restrictions where only one of the tx in each list is allowed 
+  only_after_one           = f_get_only_after_one_lists(i, population), #list of restrictions where only one of the listed treatments is allowed prior to current therapy 
+  L2_only_after            = f_get_2L_only_after_lists(i, population), #list of 2L+ restrictions: if drug is used 2L, 3L or 4L, can only be after drug x
+  L2_only_immediate_after  = f_get_2L_only_immediate_after_lists(i, population), #list of 2L+ restrictions: if drug is used 2L, 3L or 4L, can only be immediately after drug x
+  L2_only_one              = f_get_2L_only_one_lists(i, population) #list of 2L+ drugs where only one of them allowed in a given sequence
+)
+```
+
+We have functions that find the overall list of allowed drugs for the population, and then the drugs allowed for each line of treatment.
+
+```{r}
+print("Overall list of allowed drugs")
+f_get_allowed_lists(i, i$i_nr_populations[1])
+
+print("L1")
+f_get_L1_lists(i, i$i_nr_populations[1])
+print("L2")
+f_get_L2_lists(i, i$i_nr_populations[1])
+print("L3")
+f_get_L3_lists(i, i$i_nr_populations[1])
+print("L4")
+f_get_L4_lists(i, i$i_nr_populations[1])
+```
+
+We then have treatments that can only come after or before certain treatments. As illustrated in Figure 1 in the pathway model report, you can see examples like how:
+
+* Axitinib - can only administer after tyrosine kinase inhibitor (TKI) (e.g. sunitinib) or cytokine
+* Everolimus - can only administrater after vascular endothelial growth factor (VEGF)
+
+```{r}
+print("list of restrictions where tx can be only after the listed txs")
+f_get_only_after_lists(i, i$i_nr_populations[1])
+
+print("list of restrictions where tx can be only immediately before the listed txs")
+f_get_not_immediate_after_lists(i, i$i_nr_populations[1])
+
+print("list of restrictions where only one of the tx in each list is allowed ")
+f_get_one_in_list_lists(i, i$i_nr_populations[1])
+
+print("list of restrictions where only one of the listed treatments is allowed prior to current therapy ")
+f_get_only_after_one_lists(i, i$i_nr_populations[1])
+
+print("list of 2L+ restrictions: if drug is used 2L, 3L or 4L, can only be after drug x")
+f_get_2L_only_after_lists(i, i$i_nr_populations[1])
+
+print("list of 2L+ restrictions: if drug is used 2L, 3L or 4L, can only be immediately after drug x")
+f_get_2L_only_immediate_after_lists(i, i$i_nr_populations[1])
+
+print("list of 2L+ drugs where only one of them allowed in a given sequence")
+f_get_2L_only_one_lists(i, i$i_nr_populations[1])
+```
+
+Within `f_path_tx_restrict()`, various functions are then applied to implement the logic of these lists. For example:
+
+* `f_path_drug_lines()` is used to remove drugs from a line unless it is listed in `L1`, `L2`, `L3`, or `L4`.
+* For `only_after`, `f_path_notAllowedImmediateAfter()` is used to remove permutations that have treatment before drugs in rule
+
+And so on. Overall, we then get:
+
+```{r}
+population <- i$i_nr_populations[1]
+
+s <- f_path_tx_restrict(
+  sequences                = i$sequences,
+  allowed                  = f_get_allowed_lists(i, population), #overall list of allowed drugs in this popn
+  L1                       = f_get_L1_lists(i, population), # 1L drugs allowed in this popn
+  L2                       = f_get_L2_lists(i, population), # 2L drugs allowed in this popn
+  L3                       = f_get_L3_lists(i, population), # 3L drugs allowed in this popn
+  L4                       = f_get_L4_lists(i, population), # 4L drugs allowed in this popn
+  only_after               = f_get_only_after_lists(i, population), #list of restrictions where tx can be only after the listed txs
+  not_immediate_after      = f_get_not_immediate_after_lists(i, population), #list of restrictions where tx can be only immediately before the listed txs
+  one_in_list              = f_get_one_in_list_lists(i, population), #list of restrictions where only one of the tx in each list is allowed 
+  only_after_one           = f_get_only_after_one_lists(i, population), #list of restrictions where only one of the listed treatments is allowed prior to current therapy 
+  L2_only_after            = f_get_2L_only_after_lists(i, population), #list of 2L+ restrictions: if drug is used 2L, 3L or 4L, can only be after drug x
+  L2_only_immediate_after  = f_get_2L_only_immediate_after_lists(i, population), #list of 2L+ restrictions: if drug is used 2L, 3L or 4L, can only be immediately after drug x
+  L2_only_one              = f_get_2L_only_one_lists(i, population) #list of 2L+ drugs where only one of them allowed in a given sequence
+)
+```
+
+:::
+
 ```{r}
 i$sequences <- seqs
+rm(s, seqs, populations)
+```
+
+## Import IPD and look-ups
+
+### Import individual patient-level data (IPD) (pseudo/synthetic trial data)
+
+::: {.callout-warning collapse="true"}
+
+Set excel path at start of script instead of here
+
+:::
+
+```{r}
+i$surv <- list()
+
+if (file.exists(excel_path2)) {
+  wb <- f_excel_extract(excel_path2, verbose = TRUE)
+  i$surv$pld <- as.data.table(wb$`_xlnm._FilterDatabase`)
+  rm(wb)
+} else {
+  wb <- f_excel_extract(rstudioapi::selectFile(
+    caption = "Select the IPD file (IPD_R_input_noACIC.xlsx)",
+    label = "IPD_R_input_noACIC.xlsx",
+    path = "./1_Data/",
+    filter = "Excel Files (*.xlsx)",
+    existing = TRUE
+  ), verbose = TRUE)
+  i$surv$pld <- as.data.table(wb$`_xlnm._FilterDatabase`)
+  
+}
+
+i$surv$pld <- i$surv$pld[,list(population,line,molecule,trial,endpoint,timew,event_censor)]
+
+i$surv$pld[timew ==0,"timew"] <- 1/7
+```
+
+::: {.callout-note collapse="true"}
+
+The file we are importing contains pseudo-individual patient data (IPD) for all the clinical trials (i.e. simulated data to replace clinical trial data considered confidential).
+
+This uses `f_excel_extract()` like before, this time from `IPD_R_input_noACIC.xlsx`. It produces `wb` which is a list with one item: `wb$_xlnm._FilterDatabase`.
+
+```{r}
+wb <- f_excel_extract(excel_path2, verbose = TRUE)
+length(wb)
+```
+
+That is simply the table from the `IPD` sheet of that dataframe.
+
+```{r}
+df <- as.data.table(wb$`_xlnm._FilterDatabase`)
+dim(df)
+head(df)
+```
+
+The script then filter to only the columns: `list(population,line,molecule,trial,endpoint,timew,event_censor)`.
+
+Then it finds the rows where the column `timew`==0, and replaces their values with 1/7. In `Model_Structure.py`, they explain that this is because we don't allow zero survival times, so has to be at least 1 day (and since TuotA is in weeks, this is 1/7... not sure what TuotA is).
+
+Looking at what this dataframe contains...
+
+```{r}
+unique(df$population)
+
+unique(df$line)
+
+unique(df$molecule)
+
+unique(df$trial)
+
+unique(df$endpoint)
+
+describe(df$timew)
+
+unique(df$event_censor)
+```
+
+`molecule`: combination therapies are under same number
+
+`trial`: trial id *within* population line and molecule to set them apart (so often just 1)
+
+`event_censor`: event coded as 1, censor as 0
+
+Final result:
+
+```{r}
+head(i$surv$pld)
+```
+
+:::
+
+### Get look-ups for each column
+
+```{r}
+i$id$ipd <- list(
+  pop      = i$r_pld_lookup_pop$Number[!is.na(i$r_pld_lookup_pop$Number)],
+  line     = i$r_pld_lookup_line$Number[!is.na(i$r_pld_lookup_line$Number)],
+  mol      = i$r_pld_lookup_mol$Number[!is.na(i$r_pld_lookup_mol$Number)],
+  trial    = i$r_pld_lookup_trial$Number[!is.na(i$r_pld_lookup_trial$Number)],
+  endpoint = i$r_pld_lookup_endpoint$Number[!is.na(i$r_pld_lookup_endpoint$Number)]
+)
+```
+
+::: {.callout-note collapse="true"}
+
+Gets the unique values from each column (excluding NaN)
+
+```{r}
+i$id$ipd
+```
+
+:::
+
+```{r}
+names(i$id$ipd$pop)      <- paste0("pop_"     , i$id$ipd$pop)
+names(i$id$ipd$line)     <- paste0("line_"    , i$id$ipd$line)
+names(i$id$ipd$mol)      <- paste0("mol_"     , i$id$ipd$mol)
+names(i$id$ipd$trial)    <- paste0("trial_"   , i$id$ipd$trial)
+names(i$id$ipd$endpoint) <- paste0("endpoint_", i$id$ipd$endpoint)
+```
+
+::: {.callout-note collapse="true"}
+
+Adds names for each which combine the column name with the value
+
+```{r}
+i$id$ipd
+```
+
+:::
+
+```{r}
+i$lookup$ipd <- list(
+  pop      = data.table(i$r_pld_lookup_pop)[Description != 0],
+  line     = data.table(i$r_pld_lookup_line)[Description != 0],
+  mol      = data.table(i$r_pld_lookup_mol)[Description != 0],
+  trial    = data.table(i$r_pld_lookup_trial)[Description != 0],
+  endpoint = data.table(i$r_pld_lookup_endpoint)[Description != 0]
+)
+```
+
+::: {.callout-note collapse="true"}
+
+Makes a list containing dataframes with the look-ups for each of those columns (which were stored in `i`).
+
+```{r}
+i$lookup$ipd
+```
+
+:::
+
+```{r}
+i$lookup$ipd$line$seq_col <- paste0("V",2:(nrow(i$lookup$ipd$line)+1))
+i$lookup$ipd$line$R_id    <- paste0("line_",1:nrow(i$lookup$ipd$line))
+```
+
+::: {.callout-note collapse="true"}
+
+Create a list of V2, V3, V4...
+
+And line_1, line_2, line_3...
+
+For length of the `line` (i.e. 5 long: 1st, 2nd, 3rd or 4th line of treatment, or best supportive care (BSC)),
+
+```{r}
+i$lookup$ipd$line$seq_col
+i$lookup$ipd$line$R_id
+```
+
+:::
+
+```{r}
+i$lookup$dist <- i$r_pld_lookup_dist
+```
+
+::: {.callout-note collapse="true"}
+
+Save the look up for distributions under `i$lookup$dist` (just making another entry in `i` but under a different name)
+
+```{r}
+i$lookup$dist
+```
+
+:::
+
+```{r}
+i$lookup$trt <- i$lookup$ipd$mol$Number
+names(i$lookup$trt) <- i$lookup$ipd$mol$RCC_input_desc
+names(i$lookup$trt)[length(i$lookup$trt)] <- "BSC"
+```
+
+::: {.callout-note collapse="true"}
+
+Create a treatment lookup but getting the numbers for each molecule, and their equivalent name from `RCC_input_desc`
+
+```{r}
+i$lookup$trt
+```
+
+:::
+
+### Some other pre-processing
+
+```{r}
+p$basic$lookup <- i$lookup
+p$basic$id <- i$id
+
+i$seq_clean <- data.table(i$sequences)
+```
+
+::: {.callout-note collapse="true"}
+
+Add look-ups and ids from `i` to `p`
+
+```{r}
+p$basic$lookup
+p$basic$id
+```
+
+Convert sequences to a data table
+
+```{r}
+head(i$seq_clean)
+```
+
+:::
+
+```{r}
+i$seq_clean$V1 <- paste0("pop_",as.numeric(substr(i$seq_clean$V1,4,4)) - 1)
+i$seq_pops <- unique(i$seq_clean$V1)
+names(i$seq_pops) <- i$seq_pops
+```
+
+::: {.callout-note collapse="true"}
+
+Changes `i$seq_clean$V1` from having pop_1 to pop_4, to having pop_0 to pop_3.
+
+```{r}
+i$seq_pops
+```
+
+:::
+
+```{r}
+i$seq_clean <- lapply(i$seq_pops, function(popu) {
+  tmp <- i$seq_clean[V1 == popu,-1]
+  colnames(tmp) <- i$lookup$ipd$line$R_id[1:(p$basic$R_maxlines + 1)]
+  tmp
+})
+```
+
+::: {.callout-note collapse="true"}
+
+Loops through each of the populations, and then gets the treatment sequences for that population, and saves them under new column names (line_1 to line_5), using the lookup, and saving them as seperate dataframes for each population.
+
+```{r}
+i$lookup$ipd$line
+```
+
+```{r}
+head(i$seq_clean$pop_0)
+```
+
+:::
+
+```{r}
+i$seq_n <- lapply(i$seq_clean, function(popu) {
+  as.data.table(lapply(popu, function(co) i$lookup$trt[co]))
+})
+```
+
+::: {.callout-note collapse="true"}
+
+Create new item `i$seq_n`. It looks through the four sequence tables in `i$seq_clean`. It then loops through each column in each of those dataframes (i.e. line 1, line 2, line 3...) and uses `i$lookup$trt` to convert from the name of the treatment to the numeric identifier for that treatment.
+
+Look up table:
+
+```{r}
+i$lookup$trt
+```
+
+Output example:
+
+```{r}
+head(i$seq_n$pop_0)
+```
+
+:::
+
+```{r}
+i$seq_ref <- lapply(i$seq_clean, function(popu) {
+  tmp <- as.data.table(lapply(popu, function(co) {
+    vals <- paste0("mol_",i$lookup$trt[co])
+    ifelse(vals == "mol_NA",NA,vals)
+  }))
+})
+```
+
+::: {.callout-note collapse="true"}
+
+Creates `i$seq_ref`. This just takes the table with the drug in each line of treatment, but instead of just converting it to the number representing each treatment, it adds the mol_ suffix, e.g. mol_4, mol_5
+
+```{r}
+head(i$seq_ref$pop_0)
+```
+
+:::
+
+```{r}
+p$seq$n   <- i$seq_n
+p$seq$ref <- i$seq_ref
+p$seq$qc <- i$seq_clean
+```
+
+## Partitioned survival analysis (PartSA)
+
+```{r}
+i$surv$lab_pld <- list()
+
+i$surv$lab_pld$population <- i$lookup$ipd$pop$Number
+names(i$surv$lab_pld$population) <- i$lookup$ipd$pop$Description
+
+i$surv$lab_pld$line <- i$lookup$ipd$line$Number
+names(i$surv$lab_pld$line) <- i$lookup$ipd$line$Description
+
+i$surv$lab_pld$molecule <- i$lookup$ipd$mol$Number
+names(i$surv$lab_pld$molecule) <- i$lookup$ipd$mol$Description
+
+i$surv$lab_pld$trial <- i$lookup$ipd$trial$Number
+names(i$surv$lab_pld$trial) <- i$lookup$ipd$trial$Description
+
+i$surv$lab_pld$endpoint <- i$lookup$ipd$endpoint$Number
+names(i$surv$lab_pld$endpoint) <- i$lookup$ipd$endpoint$Description
+```
+
+::: {.callout-note collapse="true"}
+
+Makes a named list from each of the look ups.
+
+For example it uses these...
+
+```{r}
+i$lookup$ipd$pop$Number
+i$lookup$ipd$pop$Description
+```
+
+...to make this...
+
+```{r}
+i$surv$lab_pld$population
+```
+:::
+
+```{r}
+i$surv$lab_pld$dat <- i$surv$pld
+i$surv$lab_pld$dat$population <- names(i$surv$lab_pld$population)[match(i$surv$lab_pld$dat$population,i$surv$lab_pld$population)]
+i$surv$lab_pld$dat$line       <- names(i$surv$lab_pld$line)[match(i$surv$lab_pld$dat$line,i$surv$lab_pld$line)]
+i$surv$lab_pld$dat$molecule   <- names(i$surv$lab_pld$molecule)[match(i$surv$lab_pld$dat$molecule,i$surv$lab_pld$molecule)]
+i$surv$lab_pld$dat$trial      <- names(i$surv$lab_pld$trial)[match(i$surv$lab_pld$dat$trial,i$surv$lab_pld$trial)]
+i$surv$lab_pld$dat$endpoint   <- names(i$surv$lab_pld$endpoint)[match(i$surv$lab_pld$dat$endpoint,i$surv$lab_pld$endpoint)]
+```
+
+```{r}
+i$surv$lab_pld$dat
 ```
