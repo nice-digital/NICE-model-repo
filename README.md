@@ -44,7 +44,7 @@ TODO: If you use the badges, update to your repository URL where relevant-->
 
 ## 📊 About the model
 
-The **Exeter Oncology Model: Renal Cell Carcinoma edition (EOM:RCC)** is a platform cost-effectiveness model encompassing each decision node in the disease area for advanced renal cell carcinoma. It has been constructed as part of:
+The **Exeter Oncology Model: Renal Cell Carcinoma edition (EOM-RCC)** is a platform cost-effectiveness model encompassing each decision node in the disease area for advanced renal cell carcinoma. It has been constructed as part of:
 
 > National Institute for Health and Care Excellence (NICE). **Renal cell carcinoma Pathways Pilot [ID6186]**. In development [GID-TA11186]. <https://www.nice.org.uk/guidance/indevelopment/gid-ta11186>.
 >

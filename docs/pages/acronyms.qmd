@@ -10,6 +10,7 @@ title: "Acryonyms"
 | 4L | Fourth line |
 | Abs | Absolute |
 | ACIC | Academic and commercial in confidence |
+| ADaM | Analysis Data Model |
 | AE | Adverse event |
 | ASCO | American Society Of Clinical Oncology |
 | aRCC | Advanced renal cell carcinoma |
@@ -24,16 +25,21 @@ title: "Acryonyms"
 | DSU | Decision support unit |
 | EAG | External assessment group |
 | EOL | End of life |
+| EOM-RCC | Exeter Oncology Model: Renal Cell Carcinoma edition |
+| ERG | Evidence Review Group |
 | evero | Everolimus |
 | FAD | Final appraisal document |
 | fav | Favourable |
 | FP | Fractional polynomial |
 | Gen | general |
 | HFS | Hand-foot syndrome |
+| HPC | High-performance computing |
 | HR | Hazard ratio |
 | HRQL | Health-related quality of life |
+| HTA | Health technology assessment |
 | ICER | Incremental Cost-Effectiveness Ratio |
 | int | Intermediate |
+| IMDC | International Metastatic Renal Cell Carcinoma Database Consortium |
 | IO | Immune-oncology |
 | IPD | Individual patient data |
 | ipi | Ipilimumab |
@@ -42,13 +48,17 @@ title: "Acryonyms"
 | lenv | Lenvatinib |
 | LY | Life year(s) |
 | LYG | Life year(s) gained |
+| MRC | Medical Research Council |
 | MRU | Medical Resource Use |
-| NHSE | NHS England |
-| NICE | National Institute For Health And Care Excellence |
+| MTA | Multiple technology appraisal |
+| NHS | National Health Service |
+| NHSE | National Health ServiceEngland |
+| NICE | National Institute for Health and Care Excellence |
+| NIHR | National Institute for Health and Care Research |
 | nivo | Nivolumab |
 | NMA | Network meta-analysis |
 | OS | Overall survival |
-| PartSA | <mark>not sure</mark> |
+| PartSA | Partitioned-survival |
 | PAS | Patient access scheme |
 | PATT | Proportionate approach to technology appraisals |
 | pazo | pazopanib |
@@ -57,24 +67,33 @@ title: "Acryonyms"
 | PenTAG | Peninsula Technology Assessment Group |
 | PFS | Progression-free survival |
 | PH | Proportional hazards |
+| PLD | Patient-level data |
 | pop | Population |
 | PPS | Post-progression survival |
 | prop | Proportional |
+| PSA | Probablistic sensitivity analysis |
+| PSM | Progressed state membership |
 | QALY | Quality-adjusted life year(s) |
 | QC | Quality check |
 | RCC | Renal cell carcinoma |
 | RDI | Relative dosing intensity |
+| ROC | Renal Oncology Collaborative |
 | RWE | Real-world evidence |
 | SF | Shortfall |
 | SOC | Standard of care |
+| STA | Single technology appraisal |
 | suni | Sunitinib |
 | TA | Technology appraisal |
 | tivo | Tivozanib |
 | TKI | Tyrosine Kinase Inhibitor |
 | TP matrices | Treatment pathway matrices |
+| TSD | Technical Support Document |
 | TTD | Time to discontinuation |
+| TOT | Time on treatment |
 | TTNT | Time to next treatment |
 | TTP | Time to progression |
+| TuotA | Time unit of the analysis <mark>TODO: non-standard, check</mark> |
 | UK | United Kingdom |
+| VEGF | Vascular endothelial growth factor |
 | vs | Versus |
 | WTP | Willingness to pay |
