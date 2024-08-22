@@ -130,6 +130,7 @@ path_functions = "../3_Functions"
 excel_path <- file.path(path_data, "ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm")
 excel_path2 <- file.path(path_data, "IPD_R_input_noACIC.xlsx")
 empty_results_path = file.path(path_functions, "reporting/empty results doc.docx")
+RDS_path <- file.path(path_data, "survival_analysis_no_ipd_CompanyTTDTTPPPS_redacted.rds")
 
 # Source functions
 source(file.path(path_functions, "excel/extract.R"))
@@ -792,7 +793,7 @@ rm(s, seqs, populations)
 
 ::: {.callout-warning collapse="true"}
 
-Set excel path at start of script instead of here
+Set excel path at start of script instead of here and changed default path
 
 :::
 
@@ -807,7 +808,7 @@ if (file.exists(excel_path2)) {
   wb <- f_excel_extract(rstudioapi::selectFile(
     caption = "Select the IPD file (IPD_R_input_noACIC.xlsx)",
     label = "IPD_R_input_noACIC.xlsx",
-    path = "./1_Data/",
+    path = "../1_Data/",
     filter = "Excel Files (*.xlsx)",
     existing = TRUE
   ), verbose = TRUE)
@@ -985,7 +986,7 @@ i$lookup$trt
 
 :::
 
-### Some other pre-processing
+## Pre-processing for survival analysis
 
 ```{r}
 p$basic$lookup <- i$lookup
@@ -1098,8 +1099,6 @@ p$seq$ref <- i$seq_ref
 p$seq$qc <- i$seq_clean
 ```
 
-## Partitioned survival analysis (PartSA)
-
 ```{r}
 i$surv$lab_pld <- list()
 
@@ -1135,6 +1134,7 @@ i$lookup$ipd$pop$Description
 ```{r}
 i$surv$lab_pld$population
 ```
+
 :::
 
 ```{r}
@@ -1146,6 +1146,471 @@ i$surv$lab_pld$dat$trial      <- names(i$surv$lab_pld$trial)[match(i$surv$lab_pl
 i$surv$lab_pld$dat$endpoint   <- names(i$surv$lab_pld$endpoint)[match(i$surv$lab_pld$dat$endpoint,i$surv$lab_pld$endpoint)]
 ```
 
+::: {.callout-note collapse="true"}
+
+Converts from `i$surv$pld` (which is all numeric values)...
+
 ```{r}
-i$surv$lab_pld$dat
+head(i$surv$pld)
 ```
+
+...to a version with all the labels from the lookups...
+
+```{r}
+head(i$surv$lab_pld$dat)
+```
+
+::: 
+
+```{r}
+i$surv$n_by_plmte <- i$surv$pld[, .N, by = list(population, line,molecule,trial,endpoint)] %>%
+  arrange(population,line, molecule,trial,endpoint)
+
+i$surv$n_by_plmte$population <- i$lookup$ipd$pop[match(i$surv$n_by_plmte$population       ,i$lookup$ipd$pop$Number),Description]
+i$surv$n_by_plmte$line       <- i$lookup$ipd$line[match(i$surv$n_by_plmte$line       ,i$lookup$ipd$line$Number),Description]
+i$surv$n_by_plmte$molecule   <- i$lookup$ipd$mol[match(i$surv$n_by_plmte$molecule       ,i$lookup$ipd$mol$Number),Description]
+i$surv$n_by_plmte$molecule[which(is.na(i$surv$n_by_plmte$molecule))]   <- "Non-UK treatments (pooled)"
+i$surv$n_by_plmte$trial      <- i$lookup$ipd$trial[match(i$surv$n_by_plmte$trial       ,i$lookup$ipd$trial$Number),Description]
+i$surv$n_by_plmte$endpoint   <- i$lookup$ipd$endpoint[match(i$surv$n_by_plmte$endpoint       ,i$lookup$ipd$endpoint$Number),Description]
+```
+
+::: {.callout-note collapse="true"}
+
+Counts for each combination of pop + line + molecule + trial + endpoint (together, uses abbreviation plmte).
+
+```{r}
+head(i$surv$pld[, .N, by = list(population, line,molecule,trial,endpoint)] %>%
+  arrange(population,line, molecule,trial,endpoint))
+```
+
+Then replaces the numeric values with labels
+
+```{r}
+head(i$surv$n_by_plmte)
+```
+
+::: 
+
+## Partitioned survival analysis (PartSA)
+
+### Run analysis
+
+```{r}
+if (i$dd_run_surv_reg == "Yes") {
+  
+  i$surv$reg <- f_surv_runAllTSD14(
+    r_pld             = i$surv$pld,
+    id                = i$id$ipd,
+    lookups           = i$lookup$ipd,
+    draw_plots        = FALSE,
+    distnames         = i$distnames,
+    cl_y              = p$basic$cl_y,
+    t_cyc             = p$basic$t_cyc,
+    xlim_survplots_yr = p$misc$plot$xlim_survplots_yr,
+    t_yr              = p$basic$t_yr,
+    verbose           = qc_mode,
+    min_obs           = 28
+  )
+
+  i$surv$reg$pop_0$line_4$mol_999$trial_2$endpoint_4 <- lapply(1:1,function(x) {
+
+    ipd <- i$surv$pld[line==4 & endpoint==4,list(timew,event_censor)]
+    
+    names(ipd) <- c("t","e")
+    
+    cat(paste0(
+      "Survival analysis - population: ", i$lookup$ipd$pop[Number      == 0, Description],
+      "\t line: "                       , i$lookup$ipd$line[Number     == 4, Description],
+      "\t molecule: "                   , i$lookup$ipd$mol[Number     == 999, Description],
+      "\t trial: "                      , i$lookup$ipd$trial[Number     == 2, Description],
+      "\t endpoint: "                   , i$lookup$ipd$endpoint[Number == 4, Description], "\n"
+    ))
+    
+    fs_fits <- lapply(i$distnames, function(dist) {  # applying all parametric survival curves in the list of distNames
+      fs_fit <- flexsurvreg(
+        formula = Surv(t, e) ~ 1,
+        data = ipd,
+        dist = dist
+      )
+      return(list(
+        coefs = coefficients(fs_fit),                                         # coefficients for the fitted model
+        vcov  = vcov(fs_fit),                                                 # variance covariance matrix for the fitted model
+        fit   = c(AIC= AIC(fs_fit), BIC=BIC(fs_fit), logLik = logLik(fs_fit)) # goodness of fit statistics for the fitted model
+      ))
+    })
+    
+    gof <- do.call(rbind, lapply(i$distnames, function(dist) fs_fits[[dist]]$fit))
+    
+    st <- matrix(
+      unlist(lapply(i$distnames, function(dist) {
+        f_extrapolate(p$basic$t_cyc, fs_fits[[dist]]$coefs, dist)
+      })),
+      ncol = length(i$distnames),
+      dimnames = list(NULL, i$distnames),
+      byrow = FALSE
+    )
+
+    plot <- {
+      
+      sm_ipd <- f_ce_km_MakeDatSurvFriendly(
+        Data_required = ipd,
+        time_column   = "t",                 # note that this is taking IPD in weeks
+        event_column  = "e",
+        t_multiplier  = p$basic$cl_y             # data in weeks, cycle length in plot years
+      )
+      
+      form          <- Surv(t, ec) ~ 1
+      sm_surv_est   <- surv_fit(formula = form, data = sm_ipd)
+      
+      survival_plot <- suppressMessages(f_extrap_plot(
+        SurvEstimate   = sm_surv_est,
+        Data_required  = sm_ipd,
+        curvefits_data = st,
+        time_vector    = p$basic$t_yr,
+        xlim           = p$misc$plot$xlim_survplots_yr,   #### this will need replacing dependent on how many years we decide to show per time horizon
+        break_by       = round(20/8,0) #### this will need replacing dependent on how many years we decide to show per time horizon
+      ))
+      list(
+        ipd     = sm_ipd,
+        formula = form,
+        plot    = survival_plot
+      )
+    }
+
+    return(list(
+      pop      = i$lookup$ipd$pop[     Number == 0,Description],
+      line     = i$lookup$ipd$line[    Number == 4,Description],
+      mol      = i$lookup$ipd$mol[     Number == 999,Description],
+      tr       = i$lookup$ipd$trial[     Number == 2,Description],
+      endpoint = i$lookup$ipd$endpoint[Number == 4,Description],
+      ipd      = ipd,
+      fs_fits  = fs_fits,
+      gof      = gof,
+      st       = st,
+      plot     = plot
+    ))
+  })[[1]]
+  
+  saveRDS(i$surv$reg, file = "./1_Data/Survival_analysis.rds")
+  
+}
+```
+
+::: {.callout-note collapse="true"}
+
+This was not run as is set to "No" in the excel spreadsheet
+
+```{r}
+i$dd_run_surv_reg
+```
+
+However, if run, this function would:
+
+**1. Run survival analysis**. Using `f_surv_runAllTSD14()` from `survival/` (see dropdown below). "TSD14" refers to technical support document 14 which is a methods guide from NICE for performing survival analysis, [available here](https://www.sheffield.ac.uk/nice-dsu/tsds/survival-analysis). The function;
+
+* Runs through all possible populations, lines, molecules, trials and endpoints in `id` (`i$id$ipd`, the lookup of unique values for each of those items)
+* If there is data available in `r_pld` (`i$surv$pld`, the patient level data), then it performs survival analysis using the function `flexsurv::flexsurvreg()`. This data will need to meet the threshold you set for the number of observations (default `28`).
+* It repeats this for each with each of the distributions in `distnames`
+* It saves the coefficients, variance covariance matrix, and goodness of fit statistics, and saves these as `fs_fits` (and also `gof`)
+* The survival curves are then extrapolated using the fitted models over the specified time cycle (`t_cyc` (`p$basic$t_cyc`)) using the function `f_extrapolate()`. These are saved in the matrix `st`.
+* If creating plots, this is done using the function `f_extrap_plot()`
+* Finally, the function returns the results for each combination
+
+**2. Seperately, manually run survival analysis for best supportive care (BSC)**. This is done seperately as there is very little information available on BSC overall survival (OS). Hence, the best source of data is to use the pooled post-progression survival (PPS) data from 4L (fourth line) patients (since they are unlikely to receive something after that treatment). It has similar steps to `f_surv_runAllTSD14()`.
+
+::: 
+
+::: {.callout-note collapse="true"}
+
+## `f_surv_runAllTSD14()`
+
+```{r}
+f_surv_runAllTSD14 <-
+  function(r_pld,
+           id,
+           lookups,
+           distnames,
+           t_cyc,
+           cl_y              = NULL,
+           xlim_survplots_yr = NULL,
+           t_yr              = NULL,
+           draw_plots        = FALSE,
+           verbose           = FALSE,
+           min_obs           = 30) {
+    
+    if (draw_plots) {
+      if(is.null(cl_y)) stop("If draw_plots is TRUE, then cl_y (cycle length in years) must be provided")
+      if(is.null(xlim_survplots_yr)) stop("If draw_plots is TRUE, then xlim_survplots_yr (x axis limit for plot in years) must be provided")
+      if(is.null(t_yr)) stop("If draw_plots is TRUE, then t_yr (vector of time in years to TH) must be provided")
+    }
+    
+    
+  lapply(id$pop, function(trial_population) {
+    lapply(id$line, function(l) {
+      lapply(id$mol, function(m) {
+        lapply(id$trial, function(tr) {
+          lapply(id$endpoint, function(en) {
+            
+            
+            # Filter down to the parameters avove associated with this combination:
+            ipd <- r_pld[population == trial_population & line==l & molecule==m & trial==tr & endpoint==en,list(timew,event_censor)]
+            
+            names(ipd) <- c("t","e")
+            
+            if(all(verbose, nrow(ipd) > 0)) {
+              cat(paste0(
+                "Survival analysis - population: ", lookups$pop[Number      == trial_population, Description],
+                "\t line: "                       , lookups$line[Number     == l               , Description],
+                "\t molecule: "                   , lookups$mol[Number      == m               , Description],
+                "\t trial: "                      , tr,
+                "\t endpoint: "                   , lookups$endpoint[Number == en              , Description], "\n"
+              ))
+            }
+            
+            
+            # If that dataset is empty (i.e., has no rows), then there's no data for it. return
+            # nothing
+            if (nrow(ipd) == 0) {
+              return(list(
+                pop      = lookups$pop[     Number == trial_population,Description],
+                line     = lookups$line[    Number == l,Description],
+                mol      = lookups$mol[     Number == m,Description],
+                tr       = lookups$trial[     Number == tr,Description],
+                endpoint = lookups$endpoint[Number == en,Description],
+                ipd      = NULL,
+                fs_fits  = NULL,
+                gof      = NULL,
+                st       = NULL,
+                plot     = NULL
+              ))
+            } else if (nrow(ipd) < min_obs) {
+              
+              warning(paste0(
+                lookups$pop[Number      == trial_population, Description],
+                " population "     , lookups$line[Number     == l               , Description],
+                " " , lookups$mol[Number      == m               , Description],
+                " " , lookups$endpoint[Number == en              , Description],
+                " from "    , lookups$trial[Number == tr              , Description],
+                " has ",nrow(ipd), "(<", min_obs, ") observations (i.e. < the minimum set by you!). Skipping this PLMTE."
+              ),immediate. = TRUE)
+              
+              return(list(
+                pop      = lookups$pop[     Number == trial_population,Description],
+                line     = lookups$line[    Number == l,Description],
+                mol      = lookups$mol[     Number == m,Description],
+                tr       = lookups$trial[     Number == tr,Description],
+                endpoint = lookups$endpoint[Number == en,Description],
+                ipd      = NULL,
+                fs_fits  = NULL,
+                gof      = NULL,
+                st       = NULL,
+                plot     = NULL
+              ))
+              
+              
+            } else {
+              
+              # If there IS data, continue on to use that data to produce full survival analysis results.
+              # 
+              # Remember that the IPD is sensitive so should not ever be saved to disk. Being stored in i
+              # and never saved is the way to do this.
+              
+              # Even within the multiple nesting by population, line, molecule, trial and endpoint,
+              # we need ANOTHER (6th) layer - the parametric model:
+              
+              
+              
+              
+              
+              
+              fs_fits <- lapply(distnames, function(dist) {  # applying all parametric survival curves in the list of distNames
+                fs_fit <- flexsurvreg(
+                  formula = Surv(t, e) ~ 1,
+                  data = ipd,
+                  dist = dist
+                )
+                return(list(
+                  coefs = coefficients(fs_fit),                                         # coefficients for the fitted model
+                  vcov  = vcov(fs_fit),                                                 # variance covariance matrix for the fitted model
+                  fit   = c(AIC= AIC(fs_fit), BIC=BIC(fs_fit), logLik = logLik(fs_fit)) # goodness of fit statistics for the fitted model
+                ))
+              })
+              
+              gof <- do.call(rbind, lapply(distnames, function(dist) fs_fits[[dist]]$fit))
+              
+             
+              st <- matrix(
+                unlist(lapply(distnames, function(dist) {
+                  f_extrapolate(t_cyc, fs_fits[[dist]]$coefs, dist)
+                })),
+                ncol = length(distnames),
+                dimnames = list(NULL, distnames),
+                byrow = FALSE
+              )
+              
+              if (draw_plots) {
+                
+                plot <- {
+                  # First the IPD is produced in a format that survminer will accept. Data must all be 
+                  # the same format with the same column names. 
+                  # this assumes no covariate adjustment.
+                  
+                  sm_ipd <- f_ce_km_MakeDatSurvFriendly(
+                    Data_required = ipd,
+                    time_column   = "t",                 # note that this is taking IPD in weeks 
+                    event_column  = "e",
+                    t_multiplier  = cl_y             # data in weeks, cycle length in plot years
+                  )
+                  
+                  # get the survival analysis in the form we need for survminer
+                  # and make the extrapolations we need for survminer
+                  
+                  form          <- Surv(t, ec) ~ 1
+                  sm_surv_est   <- surv_fit(formula = form, data = sm_ipd)
+                  
+                  # make the plot with the input data:
+                  survival_plot <- suppressMessages(f_extrap_plot(
+                    SurvEstimate   = sm_surv_est,
+                    Data_required  = sm_ipd,
+                    curvefits_data = st,
+                    time_vector    = t_yr,
+                    xlim           = xlim_survplots_yr,   
+                    break_by       = round(xlim_survplots_yr/8,0) 
+                  ))
+                  list(
+                    ipd     = sm_ipd,
+                    formula = form,
+                    plot    = survival_plot
+                  )
+                }
+              } else {
+                plot <- NULL
+              }
+              
+              # Now that we've done everything for this dataset, return a list of the stuff
+              # we need for it:
+              return(list(
+                pop      = lookups$pop[     Number == trial_population,Description],
+                line     = lookups$line[    Number == l,Description],
+                mol      = lookups$mol[     Number == m,Description],
+                tr       = lookups$trial[     Number == tr,Description],
+                endpoint = lookups$endpoint[Number == en,Description],
+                ipd      = ipd,
+                fs_fits  = fs_fits,
+                gof      = gof,
+                st       = st,
+                plot     = plot
+              ))
+            }
+          })
+        })
+      })
+    })
+  })
+}
+```
+
+:::
+
+### Load pre-run survival analysis
+
+::: {.callout-warning collapse="true"}
+
+Set file path at start and changed default path here
+
+::: 
+
+```{r}
+if (file.exists(RDS_path)) {
+  i$surv$reg <- readRDS(RDS_path)
+} else {
+  i$surv$reg <- readRDS(rstudioapi::selectFile(
+    caption = "Please select 'Survival_analysis_noTTDorTTPorPPS[NoACIC].rds'",
+    label = "Survival_analysis_noTTDorTTPorPPS[NoACIC].rds",
+    path = "../1_Data/",
+    filter = "R Files (*.rds)",
+    existing = TRUE
+  ))
+}
+```
+
+::: {.callout-note collapse="true"}
+
+Looking at some examples...
+
+```{r}
+i$surv$reg$pop_0$line_1$mol_0$trial_0$endpoint_0
+```
+
+```{r}
+i$surv$reg$pop_2$line_1$mol_4$trial_2$endpoint_1$pop
+i$surv$reg$pop_2$line_1$mol_4$trial_2$endpoint_1$line
+i$surv$reg$pop_2$line_1$mol_4$trial_2$endpoint_1$mol
+i$surv$reg$pop_2$line_1$mol_4$trial_2$endpoint_1$tr
+i$surv$reg$pop_2$line_1$mol_4$trial_2$endpoint_1$endpoint
+i$surv$reg$pop_2$line_1$mol_4$trial_2$endpoint_1$fs_fits
+i$surv$reg$pop_2$line_1$mol_4$trial_2$endpoint_1$gof
+head(i$surv$reg$pop_2$line_1$mol_4$trial_2$endpoint_1$st)
+i$surv$reg$pop_2$line_1$mol_4$trial_2$endpoint_1$plot
+```
+
+::: 
+
+```{r}
+TH <- p$basic$th + 1
+
+i$surv$reg <-lapply(i$surv$reg, function(popu) {
+  lapply(popu, function(li) {
+    lapply(li, function(mol) {
+      lapply(mol, function(tr) {
+        lapply(tr, function(endp) {
+          if (is.null(endp$st)) {
+            return(endp)
+          } else {
+            endp$st <- endp$st[1:TH,]
+            return(endp)
+          }
+        })
+      })
+    })
+  })
+})
+```
+
+::: {.callout-note collapse="true"}
+
+Limits the matrix with the extrapolated survival curves to the time horizon of the study
+
+```{r}
+TH
+```
+
+:::
+
+### Make survival analysis report
+
+::: {.callout-warning collapse="true"}
+
+I've changed path to doc below.
+
+:::
+
+```{r}
+if (i$dd_report_req_surv_reg=="Yes") {
+  
+  doc_surv <- f_surv_makeTSD14Report(
+    fs_res = i$surv$reg,
+    id     = i$id$ipd,
+    lookup = i$lookup$ipd
+  )
+  print(doc_surv, target = "../4_Output/Survival_Analysis.docx")
+  
+  rm(doc_surv)
+}
+```
+
+::: {.callout-note collapse="true"}
+
+This only works if you have produced the plots. As our pre-run `.rds` results do not include these, we cannot make the plot.
+
+:::
