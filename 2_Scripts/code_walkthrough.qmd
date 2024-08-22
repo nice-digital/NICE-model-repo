@@ -460,24 +460,7 @@ dim(i$sequences)
 
 :::
 
-<mark>its not outputting right when i run through it below, so trying it here before run full function. and it works here. although might break next part</mark>
-
-```{r}
-i$sequences <- as.data.frame(i$sequences)
-
-populations <- i$i_nr_populations
-
-seqs <- NULL
-
-for (population in 1:populations) {
-  sequences = i$sequences
-  allowed = f_get_allowed_lists(i, population)
-  print("Dropping drugs not allowed for this population.\n")
-  sequences
-  s <- f_path_allowed(sequences, allowed[[1]])
-  s
-}
-```
+### Filter to valid combinations/sequences
 
 ```{r}
 i$sequences <- as.data.frame(i$sequences)
@@ -508,8 +491,6 @@ for (population in 1:populations) {
   seqs <- rbind(seqs, s)
 }
 rownames(seqs) <- NULL
-
-i$sequences <- seqs
 ```
 
 ::: {.callout-note collapse="true"}
@@ -583,6 +564,7 @@ population <- 1
 output <- output[grep(paste0("pop", population), names(output))]
 output
 ```
+
 It removes the lists that said `only_one_allowed`.
 
 ```{r}
@@ -684,16 +666,21 @@ cat("Permutations after applying rule :", nrow(perms),"\n")
 f_path_allowed(s, allowed[[1]])
 ```
 
-<mark>something wrong? have i introduced an error somewhere? or is it because i've run this after already running the function above?</mark>
+So, as a whole:
 
 ```{r}
-f_path_allowed(sequences, f_get_allowed_lists(i, i$i_nr_populations[1]))
-
-f_path_allowed(sequences, f_get_allowed_lists(i, "pop2"))
-
-f_path_allowed(sequences, f_get_allowed_lists(i, "pop3"))
-
-f_path_allowed(sequences, f_get_allowed_lists(i, "pop4"))
+for (population in 1:i$i_nr_populations) {
+  sequences <- as.data.frame(i$sequences)
+  allowed <- f_get_allowed_lists(i, population)
+  print(paste0("Dropping drugs not allowed for pop", population))
+  sequences
+  s <- f_path_allowed(sequences, allowed[[1]])
+  s
+}
 ```
 
 :::
+
+```{r}
+i$sequences <- seqs
+```
