@@ -131,6 +131,8 @@ excel_path <- file.path(path_data, "ID6184_RCC_model inputs FAD version [UK RWE 
 excel_path2 <- file.path(path_data, "IPD_R_input_noACIC.xlsx")
 empty_results_path = file.path(path_functions, "reporting/empty results doc.docx")
 RDS_path <- file.path(path_data, "survival_analysis_no_ipd_CompanyTTDTTPPPS_redacted.rds")
+RDS_path2 <- file.path(path_data, "PH_NMA_CODA.rds")
+RDS_path3 <- file.path(path_data, "FPNMA_means.rds")
 
 # Source functions
 source(file.path(path_functions, "excel/extract.R"))
@@ -842,7 +844,7 @@ head(df)
 
 The script then filter to only the columns: `list(population,line,molecule,trial,endpoint,timew,event_censor)`.
 
-Then it finds the rows where the column `timew`==0, and replaces their values with 1/7. In `Model_Structure.py`, they explain that this is because we don't allow zero survival times, so has to be at least 1 day (and since TuotA is in weeks, this is 1/7... not sure what TuotA is).
+Then it finds the rows where the column `timew`==0, and replaces their values with 1/7. In `Model_Structure.R`, they explain that this is because we don't allow zero survival times, so has to be at least 1 day (and since TuotA is in weeks, this is 1/7... not sure what TuotA is).
 
 Looking at what this dataframe contains...
 
@@ -1312,7 +1314,7 @@ However, if run, this function would:
 * If there is data available in `r_pld` (`i$surv$pld`, the patient level data), then it performs survival analysis using the function `flexsurv::flexsurvreg()`. This data will need to meet the threshold you set for the number of observations (default `28`).
 * It repeats this for each with each of the distributions in `distnames`
 * It saves the coefficients, variance covariance matrix, and goodness of fit statistics, and saves these as `fs_fits` (and also `gof`)
-* The survival curves are then extrapolated using the fitted models over the specified time cycle (`t_cyc` (`p$basic$t_cyc`)) using the function `f_extrapolate()`. These are saved in the matrix `st`.
+* The survival curves are then extrapolated using the fitted models over the specified time cycle (`t_cyc` (`p$basic$t_cyc`)) using the function `f_extrapolate()`. These are saved in the matrix `st` (survival at time t, or st for short)
 * If creating plots, this is done using the function `f_extrap_plot()`
 * Finally, the function returns the results for each combination
 
@@ -1611,6 +1613,883 @@ if (i$dd_report_req_surv_reg=="Yes") {
 
 ::: {.callout-note collapse="true"}
 
-This only works if you have produced the plots. As our pre-run `.rds` results do not include these, we cannot make the plot.
+This only works if you have produced the plots. As our pre-run `.rds` results do not include these, we cannot make the plot. I've tried to run the survival analysis function, but couldn't as hit an error:
+
+```
+Error in optim(method = "BFGS", par = c(mu = 5.82584217367559, sigma = -0.208272130470619,  : 
+  non-finite finite-difference value [1]
+```
 
 :::
+
+## Comparative efficacy propagation - or, proportional hazards network meta analysis (PHNMA)
+
+::: {.callout-warning collapse="true"}
+
+File path above now, and path option below is changed.
+
+:::
+
+```{r}
+if (file.exists(RDS_path2)) {
+  i$PHNMA <- readRDS(RDS_path2)
+} else {
+  i$PHNMA <- readRDS(rstudioapi::selectFile(
+    caption = "Please select 'PH_NMA_CODA.rds'",
+    label = "PH_NMA_CODA.rds",
+    path = "../1_Data/",
+    filter = "R Files (*.rds)",
+    existing = TRUE
+  ))
+}
+
+colnames(i$PHNMA$data) <- c("Run", "Population", "Line", "Molecule", "Endpoint", "Reference.treatment", "Reference.trial", "HR")
+i$PHNMA$data$Reference.endpoint <- i$PHNMA$data$Endpoint
+```
+
+::: {.callout-note collapse="true"}
+
+PH NMA CODA samples. <mark>TODO: understand what "CODA samples" are</mark>
+
+Imports dataframe, sets colnames, and makes duplicate of `Endpoint` called `Reference.endpoint`.
+
+```{r}
+head(i$PHNMA$data)
+dim(i$PHNMA$data)
+```
+
+:::
+
+```{r}
+i$PHNMA$assume3L      <- i$PHNMA$data[Line==2,]
+i$PHNMA$assume3L$Line <- 3
+i$PHNMA$data         <- rbind(i$PHNMA$data,i$PHNMA$assume3L)
+
+i$PHNMA$assumeTTD <- i$PHNMA$data[Endpoint==1,]
+i$PHNMA$assumeTTD$Endpoint <- 2
+i$PHNMA$data <- rbind(i$PHNMA$data,i$PHNMA$assumeTTD)
+
+i$PHNMA$assumeTTP <- i$PHNMA$data[Endpoint==1,]
+i$PHNMA$assumeTTP$Endpoint <- 3
+i$PHNMA$data <- rbind(i$PHNMA$data,i$PHNMA$assumeTTP)
+```
+
+::: {.callout-note collapse="true"}
+
+`Model_Structure.R` highlights 3L relative effectiveness is assumed to be the same as 2L.
+
+In the code, we can see that it:
+
+* Sets data for 3L (`assume3L`) to `i$PHNMA$data[Line==2,]`
+* Sets time to discontinuation (TTD) for 2L to `i$PHNMA$data[Endpoint==1,]`
+* Sets time to progression (TTP) for 3L to ` i$PHNMA$data[Endpoint==1,]`
+
+e.g.
+
+```{r}
+head(i$PHNMA$assume3L)
+head(i$PHNMA$data[Line==2,])
+```
+
+:::
+
+```{r}
+i$PHNMA$means <- i$PHNMA$data[,.(HR = mean(HR)),by=list(Population,Line,Molecule,Endpoint,Reference.treatment,Reference.trial)]
+
+p$releff$CODA$PH <- i$PHNMA$means
+```
+
+::: {.callout-note collapse="true"}
+
+Mean hazard ratio by each combination of population, line, molecule, endpoint, reference treatment and reference trial. `Model_Structure.R` says this is for the deterministic analysis.
+
+```{r}
+head(i$PHNMA$means)
+```
+
+:::
+
+::: {.callout-warning collapse="true"}
+
+File path above now, and path option below is changed.
+
+:::
+
+```{r}
+i$FPNMA <- list()
+
+if (file.exists(RDS_path3)) {
+  i$FPNMA$means  <- readRDS(RDS_path3)
+} else {
+  i$FPNMA$means <- readRDS(rstudioapi::selectFile(
+    caption = "Load in FP NMA CODA (FPNMA_means.rds)",
+    label = "FPNMA_means.rds",
+    path = "../1_Data/",
+    filter = "R Files (*.rds)",
+    existing = TRUE
+  ))
+}
+
+colnames(i$FPNMA$means)[colnames(i$FPNMA$means) == "intervention_code"] <- "Molecule"
+colnames(i$FPNMA$means)[colnames(i$FPNMA$means) == "reference_treatment_code"] <- "Reference.treatment"
+colnames(i$FPNMA$means)[colnames(i$FPNMA$means) == "ref_trial_code"] <- "Reference.trial"
+colnames(i$FPNMA$means)[colnames(i$FPNMA$means) == "population"] <- "Population"
+colnames(i$FPNMA$means)[colnames(i$FPNMA$means) == "line"] <- "Line"
+colnames(i$FPNMA$means)[colnames(i$FPNMA$means) == "endpoint"] <- "Endpoint"
+colnames(i$FPNMA$means)[colnames(i$FPNMA$means) == "V1"] <- "HR"
+
+i$FPNMA$means$time <- round(i$FPNMA$means$time * 52 / 12)
+```
+
+::: {.callout-note collapse="true"}
+
+Import fractional polynomial (FP) NMA data.
+
+Rename columns and convert time to months (as multiplied by 52, which is the number of weeks in a year, and then divides by 12, which is the number of months). Hence, it seems the original unit was something per week.
+
+```{r}
+dim(i$FPNMA$means)
+head(i$FPNMA$means)
+```
+
+::: 
+
+```{r}
+i$FPNMA$means <- f_rebase_for_cabo_as_ref_in_2L(FPNMAdata = i$FPNMA$means)
+i$FPNMA$means <- f_3L_rel_effect_same_as_2L(FPNMAdata = i$FPNMA$means) 
+i$FPNMA$destinations <- f_gen_destinations(fp_data = i$FPNMA$means)
+i$FPNMA$means <- f_add_reference_trial_2(fp_data = i$FPNMA$means)
+```
+
+::: {.callout-note collapse="true"}
+
+`misc`: `f_rebase_for_cabo_as_ref_in_2L`: Here, rebasing refers to changing the reference point - in this case, it changes the hazard ratios from molecule 10 in second line to molecule 8 (cabo), to allow the use of cabo as a reference treatment in second line. Joins to end of dataframe.
+
+`misc`: `f_3L_rel_effect_same_as_2L`: Assume that hazard ratios for 3L are same as 2L (like above). Joins to end of dataframe.
+
+`misc`: `f_gen_destinations`: Gets unique combinations of population + line + molecule + endpoint + reference treatment + reference trial. It then duplicates the dataframe and joins the two, except changing that second one so that reference.trial is set for 2 (real-world evidence) on all rows. The function docstrings explains that "this is an assumption of the specific adaptation for the RCC PATT model, which may not hold in other circumstances. Consequently, this function is specific to the RCC model and not the generic pathway"
+
+```{r}
+dim(i$FPNMA$destinations)
+head(i$FPNMA$destinations)
+```
+
+`misc`: `f_add_reference_trial_2`: Makes a copy of `i$FPNMA$means` where reference trial is set to 2. Joins to end of dataframe.
+
+:::
+
+```{r}
+p$releff$CODA$FP <- i$FPNMA$means
+p$releff$fp_dest <- i$FPNMA$destinations[!is.na(Molecule), ]
+p$releff$CODA$FP <- p$releff$CODA$FP[time <= p$basic$th, ]
+p$releff$fp_dest <- i$FPNMA$destinations[!is.na(Molecule), ]
+```
+
+::: {.callout-note collapse="true"}
+
+Add parameters to `p`, remove molecules with NA, and limit time horizon to `p$basic$th`
+
+```{r}
+p$basic$th
+```
+
+:::
+
+```{r}
+p$releff$network <- f_NMA_generateNetwork(i$id$ipd,i$lookup$ipd)
+```
+
+::: {.callout-note collapse="true"}
+
+Uses `survival` function `f_NMA_generateNetwork()` which uses the unique values for population line molecule trial endpoint (accepts labels as input too but these aren't used by the function).
+
+Creates a nested list where can then breakdown by population > line > molecule > trial > endpoint (PLMTE). There is then:
+
+* `$dest` - which holds the numbers for the PLMTE
+* `$orig` - empty list of PLMTE plus dist and source
+* `$hr` - set to 1
+* `$fp` - empty list
+
+```{r}
+p$releff$network$pop_0$line_1$mol_0$trial_0$endpoint_0
+```
+
+:::
+
+```{r}
+if(!"Trial" %in% colnames(i$R_table_eff_data_settings)) {
+  i$R_table_eff_data_settings$Trial <- i$lookup$ipd$trial$Number[match(i$R_table_eff_data_settings$Trial.name.if.effectiveness.source.is.trial,i$lookup$ipd$trial$Description)]
+}
+```
+
+::: {.callout-note collapse="true"}
+
+If `Trial` is not in `i$R_table_eff_data_settings` (which it wasn't in the default settings) then it gets trial names (`i$R_table_eff_data_settings$Trial.name.if.effectiveness.source.is.trial`)...
+
+```{r}
+head(i$R_table_eff_data_settings$Trial.name.if.effectiveness.source.is.trial, 50)
+```
+
+...checks if they are in the lookup (`i$lookup$ipd$trial$Description`)...
+
+```{r}
+i$lookup$ipd$trial$Description
+```
+
+... and converts them to trial numbers using another lookup `i$lookup$ipd$trial$Number`
+
+```{r}
+i$lookup$ipd$trial$Number
+head(i$R_table_eff_data_settings$Trial, 50)
+```
+
+:::
+
+```{r}
+p$releff$network <- f_NMA_linkPHNMA(
+  network       = p$releff$network,
+  hr_table      = p$releff$CODA$PH
+)
+```
+
+::: {.callout-note collapse="true"}
+
+Takes the hazard ratios from `p$releff$CODA$PH` and inputs them into `p$releff$network`
+
+```{r}
+head(p$releff$CODA$PH)
+```
+
+Looking at example from first row of table, you can see it has populated `hr` and `orig` using `p$releff$CODA$PH`.
+
+```{r}
+p$releff$network$pop_0$line_1$mol_4$trial_0$endpoint_0
+```
+
+Then `Model_Structure.R` has this commented line of code to view all treatments in the network:
+
+```{r}
+unique(c(unique(p$releff$means$Molecule),unique(p$releff$means$Reference.treatment),unique(i$R_table_eff_data_settings$Origin.treatment),unique(i$R_table_eff_data_settings$Treatment)))
+```
+
+:::
+
+```{r}
+p$releff$network <- f_NMA_linkFPNMA(
+  network       = p$releff$network,
+  destinations  = p$releff$fp_dest,
+  hr_table      = p$releff$CODA$FP,
+  time_horizon  = p$basic$th
+)
+```
+
+::: {.callout-note collapse="true"}
+
+This adds the results from `p$releff$CODA$FP` to `$fp$HR` in the network.
+
+These results it enters are, as explained in `Model_Structure.R`, the "fractional polynomial point estimate time-varying hazard ratios". It also notes that "we only need to apply this one to the stuff that is NOT direct survival analysis applied to the data. HOWEVER, we need those rows in the table # as well as we need the 'origin' distributional selections to fill in our output!"
+
+```{r}
+head(p$releff$network$pop_0$line_1$mol_4$trial_0$endpoint_0$fp$HR, 50)
+```
+
+:::
+
+```{r}
+if (i$dd_use_PHnma_for_FPnma == "Yes") {
+  i$which_fpnma <- which(i$R_table_eff_data_settings$Effectiveness.data.source == "FP_NMA")
+  i$R_table_eff_data_settings$Effectiveness.data.source[i$which_fpnma] <- "PH_NMA"
+}
+```
+
+::: {.callout-note collapse="true"}
+
+If the setting `dd_use_PHnma_for_FPnma` was set to "Yes" in the excel spreadsheet, then it will identify cases where `i$R_table_eff_data_settings$Effectiveness.data.source == "FP_NMA"` and replace it with `PH_NMA`. In `Model_Strcuture.py`, it explains that this will force the model to use the PH NMA CODA sample instead of FP NMA. By default though, this is currently set to "No".
+
+```{r}
+table(i$R_table_eff_data_settings$Effectiveness.data.source)
+```
+
+:::
+
+```{r}
+p$releff$network <- f_NMA_AddAssumptionsToNetwork(
+  network            = p$releff$network,
+  phnma_table        = p$releff$CODA$PH,
+  fpnma_table        = p$releff$CODA$FP,
+  fpnma_destinations = p$releff$fp_dest,
+  excel_table        = data.table(i$R_table_eff_data_settings),
+  trial_flag         = i$List_eff_datasources[1],
+  fpnma_flag         = i$List_eff_datasources[3],
+  phnma_flag         = i$List_eff_datasources[2],
+  et_flag            = i$List_eff_datasources[4],
+  ahr_flag           = i$List_eff_datasources[5],
+  verbose            = qc_mode
+)
+```
+
+::: {.callout-note collapse="true"}
+
+This function adds "assumption-based" hazard ratios (HRs). It looks at `$Effectiveness.data.source`...
+
+```{r}
+table(i$R_table_eff_data_settings$Effectiveness.data.source)
+```
+
+And checks if it matches one of the "flags" in `i$List_eff_datasources`. These are refered to as the:
+
+* **Trial flag** - `Trial survival analysis` - uses HR from patient-level data (PLD) extrapolation. In the function, it notes that "the user in excel has indicated that this is one of the reference curves, overriding everything else. # Origin should be the same as destination"
+* **FPNMA flag** - `FP_NMA` - "HRs are linked corresponding to the CODA sample, but overrides are to be enacted. CODA sampling is done externally"
+* **PHNMA flag** - `PH_NMA` - "time-varying HRs are linked corresponding to the input data, but overrides are to be enacted. sampling done within."
+* **ET flag** - `Assume equal to` - set HR to 1
+* **AHR flag** - `Apply HR to` - "put in origin and set HR to the "HR to apply" column in the table. also simple. for PSA use bounds externally, replacing the values in the table"
+
+<mark>TODO: don't understand this all yet</mark>
+
+```{r}
+i$List_eff_datasources
+```
+
+We can view the hazard ratios using `f_releff_extract_all_HRs()`:
+
+```{r}
+f_releff_extract_all_HRs(p$releff$network)$pop_0$line_1
+```
+
+:::
+
+```{r}
+i$surv$extraps <- f_surv_getExtrapolations(regs = i$surv$reg)
+```
+
+::: {.callout-note collapse="true"}
+
+Creates `i$surv$extraps`, which is a copy of `st` (survival at time t, or st for short) from each PLMTE in `i$surv$reg`.
+
+Two examples below...
+
+```{r}
+head(i$surv$reg$pop_0$line_1$mol_1$trial_0$endpoint_3$st)
+head(i$surv$extraps$pop_0$line_1$mol_1$trial_0$endpoint_3)
+```
+
+```{r}
+i$surv$reg$pop_0$line_1$mol_0$trial_0$endpoint_0$st
+i$surv$extraps$pop_0$line_1$mol_0$trial_0$endpoint_0
+```
+
+:::
+
+```{r}
+p$surv$st <- f_releff_PropNetwork(
+  network = p$releff$network,
+  extraps = i$surv$extraps,
+  dos     = 10,
+  verbose = qc_mode,
+  dist_lookups = p$basic$lookup$dist,
+  excel_table = data.table(i$R_table_eff_data_settings)
+)
+```
+
+::: {.callout-note collapse="true"}
+
+Creates `p$surv$st`. <mark>TODO:don't understand function yet, very complicated</mark>
+
+From `Model_Structure.R`...
+
+```{r}
+f_qc_surv_gethead(p$surv$st,p = 0,l = 1,m = 1,t = 2,len = 3)
+f_qc_surv_gethead(p$surv$st,p = 0,l = 2,m = 0,t = 2,len = 3)
+```
+
+```{r}
+f_qc_surv_gethead(p$surv$st,p = 0,l = 1,m = 5,t = 0,len = 3)
+f_qc_surv_gethead(p$surv$st,p = 0,l = 2,m = 5,t = 1,len = 3)
+f_qc_surv_gethead(p$surv$st,p = 0,l = 3,m = 5,t = 1,len = 3)
+f_qc_surv_gethead(p$surv$st,p = 0,l = 4,m = 5,t = 1,len = 3)
+```
+
+```{r}
+f_qc_surv_gethead(p$surv$st,1,1,1,2)
+```
+
+:::
+
+```{r}
+if(i$dd_adjforprioradjuvant == "Yes") {
+  p$surv$st <- f_surv_adjuvant_HR(
+    st              = p$surv$st,
+    adjuvant_impact = i$R_table_prior_IO_impact_eff,
+    demo_table      = p$demo$table,
+    lookup          = p$basic$lookup,
+    verbose         = TRUE)
+}
+```
+
+::: {.callout-note collapse="true"}
+
+Not run in default case... <mark>TODO: understand</mark>
+
+```{r}
+i$dd_adjforprioradjuvant
+```
+
+```{r}
+i$R_table_prior_IO_impact_eff
+```
+
+:::
+
+```{r}
+i$R_table_ptchar <- data.table(i$R_table_ptchar)
+
+if (sum(i$R_table_TE_waning_settings$apply.waning == "Yes") > 0) {
+  p$surv$st <- f_surv_twaning_apply(
+    st_list     = p$surv$st,
+    tab_waning  = data.table(i$R_table_TE_waning_settings),
+    tab_eff_set = data.table(i$R_table_eff_data_settings),
+    verbose     = qc_mode
+  )
+}
+```
+
+```{r}
+p$surv$gpop <- if (i$dd_age_sex_source == "Mean") f_surv_GenOSLines_det(
+  R_table_ptchar         = i$R_table_ptchar,
+  R_table_mort_lifeTable = i$R_table_mort_lifeTable,
+  t_yr                   = p$basic$t_yr,
+  lookups                = i$lookup
+) else f_surv_GenOSLines_ipd(
+  R_table_patientagesex  = i$R_table_patientagesex,
+  R_table_mort_lifeTable = i$R_table_mort_lifeTable,
+  t_yr                   = p$basic$t_yr,
+  lookups                = i$lookup
+)
+```
+
+```{r}
+if (qc_mode) {
+  i$gpop <- list(
+    means = f_surv_GenOSLines_det(
+      R_table_ptchar         = i$R_table_ptchar,
+      R_table_mort_lifeTable = i$R_table_mort_lifeTable,
+      t_yr                   = p$basic$t_yr,
+      lookups                = i$lookup
+    ),
+    ipd = f_surv_GenOSLines_ipd(
+      R_table_patientagesex  = i$R_table_patientagesex,
+      R_table_mort_lifeTable = i$R_table_mort_lifeTable,
+      t_yr                   = p$basic$t_yr,
+      lookups                = i$lookup
+    )
+  )
+  
+  i$gpop$plotdat <- data.table(
+    t = rep(p$basic$t_yr,2),
+    os = c(i$gpop$means$pop_0$line_1$os,i$gpop$ipd$pop_0$line_1$os),
+    method = c(rep("Means",p$basic$th+1),rep("Patient data",p$basic$th+1))
+  )
+  
+  i$gpop$comp_plot <- ggplot(i$gpop$plotdat, aes(x = t, y = os, colour = method)) + 
+    geom_line() + 
+    theme_classic() +
+    theme(legend.position = "bottom", legend.title=element_blank()) + 
+    labs(title = NULL, x = "Time (years)", y = "% Survival") + 
+    scale_x_continuous(expand = expansion(mult = c(0,0.05))) + 
+    scale_y_continuous(labels = scales::percent)
+  
+  if(qc_mode) {
+    ggsave(
+      filename = file.path("./4_Output/","gpop_1L_method_comparison.png"),
+      plot = i$gpop$comp_plot,
+      device = "png",
+      units = "cm",
+      width = 15
+    )
+  }
+}
+```
+
+```{r}
+p$surv$st <- f_surv_gpopadjust(st      = p$surv$st,
+                               gpop    = p$surv$gpop,
+                               method  = "hazardmax",
+                               verbose = qc_mode)
+
+p$surv$st <- f_surv_PFSxOS(p$surv$st, if(i$dd_adj_cross_curves == "Use hazards"){"hazardmax"} else{"abs"})
+
+p$surv$st <- f_surv_TTDxOS(p$surv$st, if(i$dd_adj_cross_curves == "Use hazards"){"hazardmax"} else{"abs"})
+
+p$surv$st <- f_surv_PFSxTTP(st = p$surv$st,method =  "abs")
+
+p$surv$st <- lapply(p$surv$st, function(popu) {
+  popu$line_5 <- popu$line_4
+  return(popu)
+})
+```
+
+```{r}
+f_qc_surv_ExtrapPlot(
+  st   = p$surv$st,
+  popu = "pop_0",
+  li   = "line_1",
+  mo   = "mol_1",
+  tr   = "trial_2",
+  t_yr = p$basic$t_yr,
+  th = p$basic$th
+)
+
+f_qc_surv_EstHazPlot(
+  st   = p$surv$st,
+  gpop = p$surv$gpop,
+  popu = "pop_0",
+  li   = "line_1",
+  mo   = "mol_1",
+  tr   = "trial_2",
+  t_yr = p$basic$t_yr,
+  th   = p$basic$th
+)
+```
+
+```{r}
+if (qc_mode) {
+  i$excel_destinations <- data.table(i$R_table_eff_data_settings)[Include.in.this.analysis.=="Yes",list(Population,Treatment.line,Molecule,Origin.trial,End.point)]
+  i$surv$ExtrapSenseCheck <- Reduce(
+    x = 1:nrow(i$excel_destinations),
+    init = f_NMA_generateNetwork(i$id$ipd,i$lookup$ipd),
+    accumulate = FALSE,
+    f = function(prev, dest_row) {
+      dat <- as.list(i$excel_destinations[dest_row,])
+      
+      d <- list(
+        pop = paste0("pop_",dat$Population),
+        line = paste0("line_",dat$Treatment.line),
+        mol = paste0("mol_",dat$Molecule),
+        trial = paste0("trial_",dat$Origin.trial),
+        endpoint = paste0("endpoint_",dat$End.point)
+      )
+      
+      cat(paste0(
+        "Drawing plots: ",
+        " row ", dest_row, " i$surv$ExtrapSenseCheck$",
+        d$pop, "$",
+        d$line, "$",
+        d$mol, "$",
+        d$trial, "$plots",
+        "\n"
+      ))
+      
+      p_extrap <- f_qc_surv_ExtrapPlot(
+        st   = p$surv$st,
+        popu = d$pop,
+        li   = d$line,
+        mo   = d$mol,
+        tr   = d$trial,
+        t_yr = p$basic$t_yr,
+        th = p$basic$th
+      )
+      
+      p_haz <- f_qc_surv_EstHazPlot(
+        st   = p$surv$st,
+        gpop = p$surv$gpop,
+        popu = d$pop,
+        li   = d$line,
+        mo   = d$mol,
+        tr   = d$trial,
+        t_yr = p$basic$t_yr,
+        th   = p$basic$th
+      )
+      
+      plmt <- prev[[d$pop]][[d$line]][[d$mol]][[d$trial]]
+      plmt$plots <- list(
+        p_extrap = p_extrap,
+        p_haz = p_haz
+      )
+      
+      # Save 2 plots for each PLM available. Takes a while to run.
+      if (qc_mode) {
+        ggsave(
+          filename = file.path("./4_Output",paste0("p_extrap_",paste(d[1:4],collapse="_"),".png")),
+          plot     = plmt$plots$p_extrap,
+          device = "png",
+          units = "cm",
+          width = 15
+        )
+        ggsave(
+          filename = file.path("./4_Output",paste0("p_tp_",paste(d[1:4],collapse="_"),".png")),
+          plot     = plmt$plots$p_haz,
+          device = "png",
+          units = "cm",
+          width = 15
+        )
+      }
+      
+      prev[[d$pop]][[d$line]][[d$mol]][[d$trial]] <- plmt
+      
+      return(prev)
+      
+    }
+  )
+}
+```
+
+```{r}
+p$surv$prop_deathinPFS <- i$dd_prop_deathinPFS
+
+p$demo$agg <- f_cleaning_ptchar(i$R_table_ptchar, i$lookup)
+
+p$demo$live <- p$demo$agg
+
+p <- add_population_utility_params(p, psa = FALSE, .i = i)
+
+base_utility <- data.frame(cycle = 0:p$basic$th, utility = 1)
+if (i$dd_ageadjuutilities == "Yes") {
+  if (i$dd_age_sex_source == "Mean") {
+    ptc_L1 <- i$R_table_ptchar[Treatment.line == 1, c(1, 3, 4)]
+    colnames(ptc_L1) <- c("Population", "age", "sex")
+    ptc_L1$sex <- 1 - ptc_L1$sex
+    ptc_L1 <- merge(ptc_L1, i$lookup$ipd$pop, by.x = "Population", by.y = "Description")
+    ptc_L1 <- ptc_L1[order(ptc_L1$Number), c("age", "sex", "Number")]
+    ptc_L1 <- split(ptc_L1[, c("age", "sex")], paste0("pop_", ptc_L1$Number))
+    
+    p$util$gpop <- lapply(ptc_L1, function(pop) adjust_utility(
+      age            = pop$age,
+      sex            = pop$sex,
+      utilities      = base_utility,
+      .patient_level = FALSE,
+      .p             = p
+    ))
+    
+  } else {
+    ipd_L1 <- i$R_table_patientagesex$Line == 1
+    p$util$gpop <- list()
+    p$util$gpop$pop_0 <- adjust_utility(
+      age            = i$R_table_patientagesex$Age[ipd_L1],
+      sex            = if_else(i$R_table_patientagesex$Gender[ipd_L1] == "M", "male", "female"),
+      utilities      = base_utility,
+      .patient_level = TRUE,
+      .p             = p
+    )
+    p$util$gpop$pop_1 <- p$util$gpop$pop_0
+    p$util$gpop$pop_2 <- p$util$gpop$pop_0
+  }
+} else {
+  p$util$gpop <- list(pop_0 = 1, pop_1 = 1, pop_2 = 1)
+}                 
+
+rm(base_utility)
+
+i$QALYs <- list()
+
+i$QALYs$utilities$means <- f_process_utilities(raw_utilities = i$R_table_util,
+                                               PSA = FALSE,
+                                               samples = FALSE)
+
+p$util$mk <- data.table(i$QALYs$utilities$means)
+
+p$ae$aetype <- i$dd_apply_AE_options
+
+p$ae$duration <- data.table(i$R_table_AE_rates)
+
+p$ae$mk$per_cycle <- data.table(f_process_adverse_events(
+  AE_costs = i$R_table_AE_costs,
+  AE_disutil = i$R_table_AE_util,
+  AE_duration = i$R_table_duration,
+  AE_rate = i$R_table_AE_rates,
+  comparators = i$lookup$trt,
+  weeks_per_year = p$basic$cl_w / p$basic$cl_y,
+  PSA = FALSE
+))
+
+p$ae$mk$per_cycle[trt == "BSC",]$trt <- i$lookup$ipd$mol[match(999,Number),]$RCC_input_desc
+
+p$ae$mk$per_cycle$molecule <- i$lookup$ipd$mol[match(p$ae$mk$per_cycle$trt,RCC_input_desc),]$Number
+
+p$ae$approach <- i$dd_apply_AE_options
+
+i$cost <- list()
+
+p$costs$mk <- f_process_cost_data(
+  drug_and_admin  = i$R_table_drug_admin_costs,
+  per_cycle_costs = i$R_table_MRU,
+  time_horizon    = p$basic$th,
+  max_trt_lines   = p$basic$R_maxlines,
+  RDI_source      = i$dd_sc_RDI,
+  verbose         = FALSE,
+  PSA             = FALSE, 
+  samples         = 1)
+
+p$costs$oneoff <-  f_process_other_cost_data(
+  one_off_costs = i$R_table_MRU_oneoff,
+  PSA = FALSE
+)
+
+p$costs$oneoff_mk <- p$costs$oneoff[,.(cost = sum(cost)),by=list(Apply.to)]
+p$costs$oneoff_mk <- lapply(structure(
+  p$costs$oneoff_mk$Apply.to,
+  .Names = p$costs$oneoff_mk$Apply.to
+), function(x) {
+  p$costs$oneoff_mk[Apply.to == x, ]$cost
+})
+
+if (FALSE) {
+  i$cost$drug_and_admin_cost_by_tunnel_state$PSA <- f_process_drug_and_admin_cost_data(
+    raw_table = i$R_table_drug_admin_costs,
+    PSA_samples = TRUE)
+}  
+
+p$substrt$partsa  <- as.data.table(f_process_subs_txt_data(
+  subs_txt = i$R_table_sub_txt_cum_costs,
+  PSA             = FALSE
+))
+
+p$basic$lookup$pop_map <- data.table(i$r_overall_lookup_pop)
+
+i$R_table_eff_data_settings <- data.table(i$R_table_eff_data_settings)
+p$releff$excel_table <- i$R_table_eff_data_settings
+
+if(!str_trim(i$dd_model_struct) %in% c("State transition", "Partitioned survival")) stop(
+  "The model structure is not one of the available options. These are 'State transition' and 'Partitioned survival'. Either code or the excel file are out of date or wrongly set up"
+)
+
+pf <- list()
+res <- list()
+```
+
+::: {.callout-warning collapse="true"}
+
+Changed paths
+
+:::
+
+```{r}
+stopifnot(p$basic$structure %in% c("State transition","Partitioned survival"))
+
+if(p$basic$decision_problem == "cabo+nivo") {
+  p$basic$pops_to_run <- 1:3
+} else {
+  p$basic$pops_to_run <- NULL
+}
+
+saveRDS(p,"../2_Scripts/standalone scripts/QC/p.rds")
+saveRDS(i,"../2_Scripts/standalone scripts/QC/i.rds")
+```
+
+### Run the model
+
+```{r}
+tick <- Sys.time()
+pf <- f_pf_computePF(
+  p           = p,
+  struct      = p$basic$structure,
+  verbose     = FALSE,
+  plots       = FALSE,
+  just_pop    = p$basic$pops_to_run,
+  just_nlines = NULL,
+  just_seq    = NULL
+)
+print(Sys.time() - tick)
+```
+
+### Compile model results
+
+```{r}
+Scenario_number <- i$R_Scenario_num
+
+if(Scenario_number == 0) {detail_level <- 5} else {detail_level <- 4}
+
+res <- f_res_compute_results(
+  pf              = pf,
+  structure       = p$basic$structure,
+  p               = p,
+  detail_level    = detail_level,
+  vs_mol          = 1,
+  no_active_lines = i$R_max_trt_lines
+)
+
+if (p$basic$structure == "State transition") {
+  population_numbers <- if(sum(p$basic$pops_to_run == 1:3)>0){1:3} else{1:6}
+  res$mk$qaly_shortfall_1_to_3 <- lapply(population_numbers, function(npa_pop) {
+  
+  lu_pop <- p$basic$lookup$pop_map
+  lu_rpop <- p$basic$lookup$ipd$pop
+  
+  # npa_pop is overall population, we need to look up risk population from it:
+  
+  risk_pop_n <- lu_pop[match(npa_pop,lu_pop$Overall.population.number),]$Risk.population.number
+  risk_pop <- lu_rpop[match(risk_pop_n,lu_rpop$Number),]$Description  
+  
+  i$R_table_ptchar <- as.data.table(i$R_table_ptchar)
+  
+  if (i$dd_age_sex_source == "Mean") {
+    
+    # So for this risk population, we need the baseline characteristics:
+    bl_chars <- i$R_table_ptchar[Population == risk_pop & Treatment.line == 1,]
+    bl_age  <- bl_chars$Starting.age..years..Mean
+    bl_male <- 1-bl_chars$Starting...female.Mean
+    
+  } else {
+    
+    patient_sex_age_IPD <- as.data.table(i$R_table_patientagesex)
+    patient_sex_age_IPD$Gender <- replace(patient_sex_age_IPD$Gender, patient_sex_age_IPD$Gender=="M","male")
+    patient_sex_age_IPD$Gender <- replace(patient_sex_age_IPD$Gender, patient_sex_age_IPD$Gender=="F","female")
+    
+    bl_age <- patient_sex_age_IPD[Line ==1]$Age 
+    bl_male <- patient_sex_age_IPD[Line ==1]$Gender
+    
+  }
+  
+  pna_txt <- names(res$wa_summarised)[npa_pop]
+  
+  tab <- res$wa_summarised[[pna_txt]][L1 != 1,]
+  
+  met <- tab[which.max(qalys),]
+  
+  q_met <- met$qalys
+  comp_no_met <- met$L1
+  
+  out <-    calc_severity_modifier(
+    age = bl_age,
+    sex = bl_male,
+    .patient_level = if(i$dd_age_sex_source == "Mean") {FALSE} else {TRUE},  
+    qalys = q_met,
+    .i = i,
+    .p = p
+  )
+  
+  out <- cbind(out, SOC = comp_no_met)
+  
+  return(out)
+  
+})
+}
+
+Scenario_name <- i$R_Scenario_name    # Use ST for state transition, PS for Partitioned survival, LP for list price, cPAS for cPAS
+Scenario_number <- i$R_Scenario_num
+Run_date <- date()
+```
+
+```{r}
+if (p$basic$structure == "State transition") {
+  saveRDS(res, paste0("../4_Output/ST_Scenario ",Scenario_number,"_",i$dd_drug_price_options,gsub(":","_",Run_date),".rds"))
+} else {
+  saveRDS(res, paste0("../4_Output/PartSA_Scenario ",Scenario_number,"_",i$dd_drug_price_options,gsub(":","_",Run_date),".rds"))
+}
+```
+
+```{r}
+Word_width_inches      <-  29.7*0.3937
+
+f_res_ProduceWordDoc(
+  p                      = p,
+  res                    = res,
+  Scenario_name          = i$R_Scenario_name,
+  Scenario_number        = i$R_Scenario_num,
+  price_options          = i$dd_drug_price_options,
+  Run_date               = Run_date,
+  word_template_location = "../3_Functions/reporting/empty results doc.docx",
+  Word_width_inches      = 29.7*0.3937,
+  auto_save              = TRUE,
+  verbose = TRUE
+)
+```
