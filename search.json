@@ -15,7 +15,7 @@
     "href": "pages/report.html#view-full-report",
     "title": "Report",
     "section": "View full report",
-    "text": "View full report",
+    "text": "View full report\nThe model produces a .docx report, which has been converted to a PDF and displayed below.",
     "crumbs": [
       "Model walkthrough",
       "Report"
@@ -26,7 +26,7 @@
     "href": "pages/report.html#walkthrough-of-report-sections",
     "title": "Report",
     "section": "Walkthrough of report sections",
-    "text": "Walkthrough of report sections\nTODO: Walk through and explain each section\n\nTable 1\n\n\n\nTable 1\n\n\n\n\nTable 2\n\n\nTable 3 to 5\n\n\nTables 6 to 8\n\n\nTable 9\n\n\nTables 10 to 12\n\n\nFigures 1 to 15\n\n\nFigures 16 to 18\n\n\nTables 13 to 15\n\n\nTable 16",
+    "text": "Walkthrough of report sections\nTODO: Walk through and explain each section\n\nTable 1\n\n\n\nTable 1: Base-case results (ordered in increasing costs)\n\n\n\n\nTable 2\n\n\n\nTable 2: Application of the severity modifier to the base case\n\n\n\n\nTable 3 to 5\nThese tables present the life years (LY) gained by health state. They compare two treatment strategies marked X and Y.\nTable 3 compares Cabozantinib plus nivolumab against Pazopanib for the all risk group.\nTable 4 is for the favourable risk group and also compares against Pazopanib, whilst Table 5 is for the intermediate/poor risk group and the comparator is Lenvatinib plus pembrolizumab.\n\n\n\nTable 3: Summary of LY gain by health state (all risk, cabo+nivo vs next best non- dominated comparator: Pazopanib)\n\n\n\n\nTables 6 to 8\n\n\n\nTable 6: Summary of QALY gain by health state (all risk, cabo+nivo vs next best non-dominated comparator: Pazopanib)\n\n\n\n\nTable 9\n\n\n\nTable 9: Summary of costs by health state\n\n\n\n\nTables 10 to 12\n\n\n\nTable 10 : Summary of predicted resource use by category of cost (all risk, cabo+nivo vs next best non-dominated comparator: Pazopanib)\n\n\n\n\nFigures 1 to 15\n\n\n\nFigure 1: Markov trace: All risk, Cabozantinib plus nivolumab. Abbreviations: L1, 1st line; L2, 2nd line; L3, 3rd line; L4, 4th line; L5, 5th line.\n\n\n\n\nFigures 16 to 18\n\n\n\nFigure 16: Cost-effectiveness acceptability frontier – all risk\n\n\n\n\nTables 13 to 15\n\n\n\nTable 13: Scenario analysis - all risk\n\n\n\n\nTable 16\n\n\n\nTable 16: Scenario analysis pairwise comparison table",
     "crumbs": [
       "Model walkthrough",
       "Report"
