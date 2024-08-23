@@ -20,7 +20,8 @@ title: "Acryonyms"
 | CIC | Commercial in confidence |
 | CDF | Cancer Drugs Fund |
 | CE | Cost effectiveness |
-| CODA | Convergence diagnostic and output analysis |
+| CEA | Cost effectiveness analysis |
+| CODA | Convergence diagnosis and output analysis  |
 | cPAS | Confident patient access scheme |
 | DSU | Decision support unit |
 | EAG | External assessment group |
@@ -31,6 +32,7 @@ title: "Acryonyms"
 | FAD | Final appraisal document |
 | fav | Favourable |
 | FP | Fractional polynomial |
+| FP | Fractional polynomial network meta-analysis |
 | Gen | general |
 | HFS | Hand-foot syndrome |
 | HPC | High-performance computing |
@@ -58,7 +60,7 @@ title: "Acryonyms"
 | nivo | Nivolumab |
 | NMA | Network meta-analysis |
 | OS | Overall survival |
-| PartSA | Partitioned-survival |
+| PartSA | Partitioned-survival analysis |
 | PAS | Patient access scheme |
 | PATT | Proportionate approach to technology appraisals |
 | pazo | pazopanib |
@@ -67,7 +69,10 @@ title: "Acryonyms"
 | PenTAG | Peninsula Technology Assessment Group |
 | PFS | Progression-free survival |
 | PH | Proportional hazards |
+| PHNMA | Proportional hazards network meta-analysis |
 | PLD | Patient-level data |
+| PLMT | Population + Line + Molecule + Trial |
+| PLMTE | Population + Line + Molecule + Trial + Endpoint |
 | pop | Population |
 | PPS | Post-progression survival |
 | prop | Proportional |
@@ -81,6 +86,7 @@ title: "Acryonyms"
 | RWE | Real-world evidence |
 | SF | Shortfall |
 | SOC | Standard of care |
+| st | Survival at time t |
 | STA | Single technology appraisal |
 | suni | Sunitinib |
 | TA | Technology appraisal |
