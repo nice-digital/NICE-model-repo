@@ -1,0 +1,41 @@
+---
+title: "Report"
+bibliography: ../references.bib
+csl: ../elsvan.csl
+---
+
+This page shares an example of the output report produced by this model and walks through each section.
+
+## View full report
+
+<iframe width="100%" height="800" src="../pdf/example_report.pdf"></iframe>
+
+## Walkthrough of report sections
+
+<mark>TODO: Walk through and explain each section</mark>
+
+### Table 1
+
+![Table 1](../images/example_tab1.png)
+
+### Table 2
+
+### Table 3 to 5
+
+### Tables 6 to 8
+
+### Table 9
+
+### Tables 10 to 12
+
+### Figures 1 to 15
+
+### Figures 16 to 18
+
+### Tables 13 to 15
+
+### Table 16
+
+## Viewing the report
+
+The output report will be in `.docx` format, so this is best viewed within Microsoft Word. If viewed in LibreOffice, you may find the tables are misformatted (going outside the page margins so not visible). If viewed in Google Docs, you may find the figures are not visible/fail to correctly load.
