@@ -195,7 +195,30 @@ You can change which model structure is run using the drop down menu on the Cont
 <details markdown="1">
 <summary><b>Model run time</b></summary>
 
-The runtime for the full state transition model is around 90 processor-minutes. This simulates hundreds of treatment pathways for tens of thousands of health states for thousands of time cycles for each pathway. By contrast, the PartSA version of the model takes less than 5 minutes, though without addressing any of the issues of that approach.
+Most of the model run time is on the function `f_pf_computePF`. It will print to the console as it runs, and once complete, will have output:
+
+```
+ST model. Population 1	| Sequences: 'All risk and favourable risk no prior adjuvant'	 | 1L Risk: 'All risk', further lines assumed all population
+M: pathways with 1 active treatment lines 
+M: pathways with 2 active treatment lines                                                                    
+M: pathways with 3 active treatment lines                                                                    
+M: pathways with 4 active treatment lines                                                                    
+ST model. Population 2	| Sequences: 'All risk and favourable risk no prior adjuvant'	 | 1L Risk: 'Favourable risk', further lines assumed all population
+M: pathways with 1 active treatment lines 
+M: pathways with 2 active treatment lines                                                                    
+M: pathways with 3 active treatment lines                                                                    
+M: pathways with 4 active treatment lines                                                                    
+ST model. Population 3	| Sequences: 'Int / poor risk no prior adjuvant'	 | 1L Risk: 'Int/poor', further lines assumed all population
+M: pathways with 1 active treatment lines 
+M: pathways with 2 active treatment lines                                                                    
+M: pathways with 3 active treatment lines                                                                    
+M: pathways with 4 active treatment lines
+Time difference of X mins
+```
+
+The run time for this was 40 minutes on an Intel Core i7-12700H with 32GB RAM running Ubuntu 22.04.4 Linux.
+
+From NICE-model-repo (not sure of specs), the "runtime for the full state transition model is around 90 processor-minutes. This simulates hundreds of treatment pathways for tens of thousands of health states for thousands of time cycles for each pathway. By contrast, the PartSA version of the model takes less than 5 minutes, though without addressing any of the issues of that approach".
 
 </details>
 
