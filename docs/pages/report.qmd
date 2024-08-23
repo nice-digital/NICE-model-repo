@@ -8,6 +8,8 @@ This page shares an example of the output report produced by this model and walk
 
 ## View full report
 
+The model produces a `.docx` report, which has been converted to a PDF and displayed below.
+
 <iframe width="100%" height="800" src="../pdf/example_report.pdf"></iframe>
 
 ## Walkthrough of report sections
@@ -16,25 +18,49 @@ This page shares an example of the output report produced by this model and walk
 
 ### Table 1
 
-![Table 1](../images/example_tab1.png)
+![Table 1: Base-case results (ordered in increasing costs)](../images/example_tab1.png){.lightbox}
 
 ### Table 2
 
+![Table 2: Application of the severity modifier to the base case](../images/example_tab2.png){.lightbox}
+
 ### Table 3 to 5
+
+These tables present the life years (LY) gained by health state. They compare two treatment strategies marked X and Y.
+
+Table 3 compares Cabozantinib plus nivolumab against Pazopanib for the all risk group.
+
+Table 4 is for the favourable risk group and also compares against Pazopanib, whilst Table 5 is for the intermediate/poor risk group and the comparator is Lenvatinib plus pembrolizumab.
+
+![Table 3: Summary of LY gain by health state (all risk, cabo+nivo vs next best non- dominated comparator: Pazopanib)](../images/example_tab3.png){.lightbox}
 
 ### Tables 6 to 8
 
+![Table 6: Summary of QALY gain by health state (all risk, cabo+nivo vs next best non-dominated comparator: Pazopanib)](../images/example_tab6.png){.lightbox}
+
 ### Table 9
+
+![Table 9: Summary of costs by health state](../images/example_tab9.png){.lightbox}
 
 ### Tables 10 to 12
 
+![Table 10 : Summary of predicted resource use by category of cost (all risk, cabo+nivo vs next best non-dominated comparator: Pazopanib)](../images/example_tab10.png){.lightbox}
+
 ### Figures 1 to 15
+
+![Figure 1: Markov trace: All risk, Cabozantinib plus nivolumab. Abbreviations: L1, 1st line; L2, 2nd line; L3, 3rd line; L4, 4th line; L5, 5th line.](../images/example_fig1.png){.lightbox}
 
 ### Figures 16 to 18
 
+![Figure 16: Cost-effectiveness acceptability frontier – all risk](../images/example_fig16.png){.lightbox}
+
 ### Tables 13 to 15
 
+![Table 13: Scenario analysis - all risk](../images/example_tab13.png){.lightbox}
+
 ### Table 16
+
+![Table 16: Scenario analysis pairwise comparison table](../images/example_tab16.png){.lightbox}
 
 ## Viewing the report
 
