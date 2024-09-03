@@ -48,29 +48,7 @@
     "href": "pages/plain_english.html",
     "title": "Plain english model overview",
     "section": "",
-    "text": "Renal cell carcinoma (RCC) is a type of kidney cancer. It is the most common type, accounting for over 80% of cases. The treatment strategy depends on RCC’s location and stage. The stages of RCC can be defined as:\n\nStage 1 and 2 (cancer is only in the kidney)\nStage 3 (cancer may have spread to nearby lymph nodes)\nStage 4 (cancer has metastasised, meaning it has spread to other areas of the body)\n\nStage 4 RCC is also known as advanced RCC (aRCC).",
-    "crumbs": [
-      "Model overview",
-      "Plain english summary"
-    ]
-  },
-  {
-    "objectID": "pages/plain_english.html#advanced-renal-cell-carcinoma",
-    "href": "pages/plain_english.html#advanced-renal-cell-carcinoma",
-    "title": "Plain english model overview",
-    "section": "",
-    "text": "Renal cell carcinoma (RCC) is a type of kidney cancer. It is the most common type, accounting for over 80% of cases. The treatment strategy depends on RCC’s location and stage. The stages of RCC can be defined as:\n\nStage 1 and 2 (cancer is only in the kidney)\nStage 3 (cancer may have spread to nearby lymph nodes)\nStage 4 (cancer has metastasised, meaning it has spread to other areas of the body)\n\nStage 4 RCC is also known as advanced RCC (aRCC).",
-    "crumbs": [
-      "Model overview",
-      "Plain english summary"
-    ]
-  },
-  {
-    "objectID": "pages/plain_english.html#simulation-models",
-    "href": "pages/plain_english.html#simulation-models",
-    "title": "Plain english model overview",
-    "section": "Simulation models",
-    "text": "Simulation models\nexplain that this is an economic model, why we have developed an economic model, what we use it for",
+    "text": "TBC\n brief introduction to condition - i.e. most severe type of kidney cancer \nexplain that this is an economic model, why we have developed an economic model, what we use it for",
     "crumbs": [
       "Model overview",
       "Plain english summary"
@@ -245,7 +223,18 @@
     "href": "pages/model_overview.html",
     "title": "Model overview",
     "section": "",
-    "text": "EOM:RCC is designed to model up to four lines of treatment before best supportive care. A diagram of the model is provided below. This is based on the diagrams in the excel input sheet, and in the renal cell carcinoma (RCC) pathway model report. [1]\nTransition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT). We are assuming good correlation between PFS and TTNT baesd on clinical advice and a publication provided by Logex. For Logex’s RWE, TTNT is the only option.\n\n\n\nStructure of the model and transition between health states",
+    "text": "In progress\nterms to use: “comparative efficacy propagation”, “proportional hazards network meta analysis”, “fractional polynomial network meta analysis”",
+    "crumbs": [
+      "Model overview",
+      "Detailed summary"
+    ]
+  },
+  {
+    "objectID": "pages/model_overview.html#advanced-renal-cell-carcinoma-arcc",
+    "href": "pages/model_overview.html#advanced-renal-cell-carcinoma-arcc",
+    "title": "Model overview",
+    "section": "Advanced renal cell carcinoma (aRCC)",
+    "text": "Advanced renal cell carcinoma (aRCC)\n\nStage\nRenal cell carcinoma (RCC) is a type of kidney cancer. It is the most common type, accounting for over 80% of cases. The treatment strategy depends on RCC’s location and stage. The stages of RCC can be defined as:\n\nStage 1 and 2 (cancer is only in the kidney)\nStage 3 (cancer may have spread to nearby lymph nodes)\nStage 4 (cancer has metastasised, meaning it has spread to other areas of the body)\n\nStage 4 RCC is also known as advanced RCC (aRCC).\n\n\nRisk\nThe risks are as defined in the International Metastatic Renal Cell Carcinoma Database Consortium (IMDC) criteria. RCC can be defined as either:\n\nFavourable-risk disease/cancer/RCC\nIntermediate- and poor-risk disease/cancer/RCC\n\nThis then guides treatment decisions:\n\nTreatments for all risk groups (i.e. favourable, intermediate or poor) include “sunitinib, pazopanib, tivozanib or avelumab plus axitinib”\nAdditional treatments for intermediate- or poor-risk cancer are “nivolumab plus ipilimumab, lenvatinib plus pembrolizumab, or cabozantinib” [1]",
     "crumbs": [
       "Model overview",
       "Detailed summary"
@@ -255,8 +244,8 @@
     "objectID": "pages/model_overview.html#model-diagram",
     "href": "pages/model_overview.html#model-diagram",
     "title": "Model overview",
-    "section": "",
-    "text": "EOM:RCC is designed to model up to four lines of treatment before best supportive care. A diagram of the model is provided below. This is based on the diagrams in the excel input sheet, and in the renal cell carcinoma (RCC) pathway model report. [1]\nTransition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT). We are assuming good correlation between PFS and TTNT baesd on clinical advice and a publication provided by Logex. For Logex’s RWE, TTNT is the only option.\n\n\n\nStructure of the model and transition between health states",
+    "section": "Model diagram",
+    "text": "Model diagram\nEOM:RCC is designed to model up to four lines of treatment before best supportive care. A diagram of the model is provided below. There are ten possible health states:\n\nFirst line (1L) off or on treatment\nSecond line (2L) off or on treatment\nThird line (3L) off or on treatment\nFourth line (4L) off or on treatment\nBest supportive case (BSC)\nDeath\n\n\n\n\n\nStructure of the model and transition between health states\n\n\nTransition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT). We are assuming good correlation between PFS and TTNT baesd on clinical advice and a publication provided by Logex. For Logex’s RWE, TTNT is the only option.",
     "crumbs": [
       "Model overview",
       "Detailed summary"

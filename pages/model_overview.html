@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.56">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -259,7 +259,12 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#model-diagram" id="toc-model-diagram" class="nav-link active" data-scroll-target="#model-diagram">Model diagram</a></li>
+  <li><a href="#advanced-renal-cell-carcinoma-arcc" id="toc-advanced-renal-cell-carcinoma-arcc" class="nav-link active" data-scroll-target="#advanced-renal-cell-carcinoma-arcc">Advanced renal cell carcinoma (aRCC)</a>
+  <ul class="collapse">
+  <li><a href="#stage" id="toc-stage" class="nav-link" data-scroll-target="#stage">Stage</a></li>
+  <li><a href="#risk" id="toc-risk" class="nav-link" data-scroll-target="#risk">Risk</a></li>
+  </ul></li>
+  <li><a href="#model-diagram" id="toc-model-diagram" class="nav-link" data-scroll-target="#model-diagram">Model diagram</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/model_overview.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -285,24 +290,61 @@ div.csl-indent {
 </header>
 
 
+<p><strong>In progress</strong></p>
+<p>terms to use: “comparative efficacy propagation”, “proportional hazards network meta analysis”, “fractional polynomial network meta analysis”</p>
+<section id="advanced-renal-cell-carcinoma-arcc" class="level2">
+<h2 class="anchored" data-anchor-id="advanced-renal-cell-carcinoma-arcc">Advanced renal cell carcinoma (aRCC)</h2>
+<section id="stage" class="level3">
+<h3 class="anchored" data-anchor-id="stage">Stage</h3>
+<p><strong>Renal cell carcinoma (RCC)</strong> is a type of <strong>kidney cancer</strong>. It is the most common type, accounting for over 80% of cases. The treatment strategy depends on RCC’s location and stage. The stages of RCC can be defined as:</p>
+<ul>
+<li>Stage 1 and 2 (cancer is only in the kidney)</li>
+<li>Stage 3 (cancer may have spread to nearby lymph nodes)</li>
+<li>Stage 4 (cancer has metastasised, meaning it has spread to other areas of the body)</li>
+</ul>
+<p>Stage 4 RCC is also known as <strong>advanced RCC (aRCC)</strong>.</p>
+</section>
+<section id="risk" class="level3">
+<h3 class="anchored" data-anchor-id="risk">Risk</h3>
+<p>The risks are as defined in the International Metastatic Renal Cell Carcinoma Database Consortium (IMDC) criteria. RCC can be defined as either:</p>
+<ul>
+<li><strong>Favourable-risk</strong> disease/cancer/RCC</li>
+<li><strong>Intermediate- and poor-risk</strong> disease/cancer/RCC</li>
+</ul>
+<p>This then guides treatment decisions:</p>
+<ul>
+<li>Treatments for all risk groups (i.e.&nbsp;favourable, intermediate or poor) include “sunitinib, pazopanib, tivozanib or avelumab plus axitinib”</li>
+<li>Additional treatments for intermediate- or poor-risk cancer are “nivolumab plus ipilimumab, lenvatinib plus pembrolizumab, or cabozantinib” <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_cabozantinib_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_cabozantinib_2024" role="doc-biblioref">1</a>]</span></li>
+</ul>
+</section>
+</section>
 <section id="model-diagram" class="level2">
 <h2 class="anchored" data-anchor-id="model-diagram">Model diagram</h2>
-<p>EOM:RCC is designed to model up to four lines of treatment before best supportive care. A diagram of the model is provided below. This is based on the diagrams in the excel input sheet, and in the renal cell carcinoma (RCC) pathway model report. <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">1</a>]</span></p>
-<p>Transition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT). We are assuming good correlation between PFS and TTNT baesd on clinical advice and a publication provided by Logex. <mark>For Logex’s RWE, TTNT is the only option.</mark></p>
+<p>EOM:RCC is designed to model up to four lines of treatment before best supportive care. A diagram of the model is provided below. There are ten possible health states:</p>
+<ul>
+<li>First line (1L) off or on treatment</li>
+<li>Second line (2L) off or on treatment</li>
+<li>Third line (3L) off or on treatment</li>
+<li>Fourth line (4L) off or on treatment</li>
+<li>Best supportive case (BSC)</li>
+<li>Death</li>
+</ul>
+<!-- This is based on the diagrams in the excel input sheet, and in the renal cell carcinoma (RCC) pathway model report, but created in draw.io -->
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../images/eomrcc_transitions.drawio.png" class="img-fluid figure-img"></p>
 <figcaption>Structure of the model and transition between health states</figcaption>
 </figure>
 </div>
+<p>Transition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT). We are assuming good correlation between PFS and TTNT baesd on clinical advice and a publication provided by Logex. <mark>For Logex’s RWE, TTNT is the only option.</mark></p>
 
 
 
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
-<div id="ref-national_institute_for_health_and_care_excellence_nice_renal_2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">National Institute for Health and Care Excellence (NICE). <a href="https://www.nice.org.uk/guidance/ta964/resources/renal-cell-carcinoma-pathway-model-report-pdf-17325260829637">Renal cell carcinoma pathway model report. <span>Economic</span> analysis.</a> 2024.</div>
+<div id="ref-national_institute_for_health_and_care_excellence_nice_cabozantinib_2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">National Institute for Health and Care Excellence (NICE). <a href="https://www.nice.org.uk/guidance/ta964">Cabozantinib with nivolumab for untreated advanced renal cell carcinoma. <span>Technology</span> appraisal guidance [<span>TA964</span>]</a> 2024.</div>
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
