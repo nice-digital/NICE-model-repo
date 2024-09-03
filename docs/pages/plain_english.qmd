@@ -2,16 +2,8 @@
 title: "Plain english model overview"
 ---
 
-## Advanced renal cell carcinoma
+**TBC**
 
-**Renal cell carcinoma (RCC)** is a type of **kidney cancer**. It is the most common type, accounting for over 80% of cases. The treatment strategy depends on RCC's location and stage. The stages of RCC can be defined as:
-
-* Stage 1 and 2 (cancer is only in the kidney)
-* Stage 3 (cancer may have spread to nearby lymph nodes)
-* Stage 4 (cancer has metastasised, meaning it has spread to other areas of the body)
-
-Stage 4 RCC is also known as **advanced RCC (aRCC)**.
-
-## Simulation models
+<mark> brief introduction to condition - i.e. most severe type of kidney cancer </mark>
 
 <mark>explain that this is an economic model, why we have developed an economic model, what we use it for</mark>
