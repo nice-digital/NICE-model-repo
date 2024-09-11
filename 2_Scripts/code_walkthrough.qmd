@@ -125,6 +125,7 @@ I've modified this to make path defined once, as needed to change it, and to def
 # Set path to folders
 path_data = "../1_Data"
 path_functions = "../3_Functions"
+path_output = "../4_Output"
 
 # Set paths to files loaded in this script
 excel_path <- file.path(path_data, "ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm")
@@ -1654,8 +1655,9 @@ PH NMA CODA samples. <mark>TODO: understand what "CODA samples" are</mark>
 Imports dataframe, sets colnames, and makes duplicate of `Endpoint` called `Reference.endpoint`.
 
 ```{r}
-head(i$PHNMA$data)
-dim(i$PHNMA$data)
+print(head(i$PHNMA$data))
+print(dim(i$PHNMA$data))
+print(unique(i$PHNMA$data$Endpoint))
 ```
 
 :::
@@ -1705,6 +1707,15 @@ Mean hazard ratio by each combination of population, line, molecule, endpoint, r
 
 ```{r}
 head(i$PHNMA$means)
+```
+
+```{r}
+dim(i$PHNMA$data)
+
+# Find the number of hazard ratios per group, used when finding means
+# and we see that, for each one, it is 10000
+phnma_group_n <- i$PHNMA$data[, .(Number_of_Rows = .N), by = list(Population, Line, Molecule, Endpoint, Reference.treatment, Reference.trial)]
+unique(phnma_group_n$Number_of_Rows)
 ```
 
 :::
@@ -1775,6 +1786,11 @@ head(i$FPNMA$destinations)
 ```
 
 `misc`: `f_add_reference_trial_2`: Makes a copy of `i$FPNMA$means` where reference trial is set to 2. Joins to end of dataframe.
+
+```{r}
+unique(i$FPNMA$means$Reference.trial)
+i$lookup$ipd$trial
+```
 
 :::
 
@@ -1860,7 +1876,10 @@ Takes the hazard ratios from `p$releff$CODA$PH` and inputs them into `p$releff$n
 head(p$releff$CODA$PH)
 ```
 
-Looking at example from first row of table, you can see it has populated `hr` and `orig` using `p$releff$CODA$PH`.
+Looking at example from first row of table, you can see it has populated `hr` and `orig` using `p$releff$CODA$PH`. For example:
+
+* `Molecule` in PHNMA data becomes `dest$mol` in network (as in NMA, destination is treatment being evaluated against reference treatment)
+* `Reference.treatment` in PHNMA data becomes `orig$mol` in network (as in NMA, origin is reference treatment)
 
 ```{r}
 p$releff$network$pop_0$line_1$mol_4$trial_0$endpoint_0
@@ -1887,11 +1906,20 @@ p$releff$network <- f_NMA_linkFPNMA(
 
 This adds the results from `p$releff$CODA$FP` to `$fp$HR` in the network.
 
-These results it enters are, as explained in `Model_Structure.R`, the "fractional polynomial point estimate time-varying hazard ratios". It also notes that "we only need to apply this one to the stuff that is NOT direct survival analysis applied to the data. HOWEVER, we need those rows in the table # as well as we need the 'origin' distributional selections to fill in our output!"
+This matches up to those from before, this time just adding `$fp$HR` from the FPNMA data.
+
+The example from below is shown, filtering just to `$fp$HR`. You can see this is long, containing 2089 HR.
 
 ```{r}
-head(p$releff$network$pop_0$line_1$mol_4$trial_0$endpoint_0$fp$HR, 50)
+fp_example <- p$releff$network$pop_0$line_1$mol_4$trial_0$endpoint_0$fp$HR
+length(fp_example)
+head(fp_example, 50)
 ```
+
+**Why does PHNMA have one HR and FPNMA have loads?**
+
+* PH: Cox proportional hazards model has the "proportional hazards" assumption, which is that we assume the hazard ratio to be constant over time, and so we get a single hazard ratio when comparing two treatments
+* FP: Fractional polynomial models have mode flexibility and allow the hazard ratio to vary over time, reflecting how the relative risk between treatments might vary throughout the study period
 
 :::
 
@@ -1904,10 +1932,27 @@ if (i$dd_use_PHnma_for_FPnma == "Yes") {
 
 ::: {.callout-note collapse="true"}
 
-If the setting `dd_use_PHnma_for_FPnma` was set to "Yes" in the excel spreadsheet, then it will identify cases where `i$R_table_eff_data_settings$Effectiveness.data.source == "FP_NMA"` and replace it with `PH_NMA`. In `Model_Strcuture.py`, it explains that this will force the model to use the PH NMA CODA sample instead of FP NMA. By default though, this is currently set to "No".
+If the setting `dd_use_PHnma_for_FPnma` was set to "Yes" in the excel spreadsheet, then it will identify cases where `i$R_table_eff_data_settings$Effectiveness.data.source == "FP_NMA"` and replace it with `PH_NMA`. In `Model_Strcuture.py`, it explains that this will **force the model to use the PH NMA CODA sample** instead of FP NMA. By default though, this is currently set to "No".
 
 ```{r}
+i$dd_use_PHnma_for_FPnma
 table(i$R_table_eff_data_settings$Effectiveness.data.source)
+```
+
+:::
+
+::: {.callout-note collapse="true"}
+
+Saving some examples to use below, so you can see what changes before and after running `f_NMA_AddAssumptionsToNetwork()`...
+
+```{r}
+example_trial <- p$releff$network$pop_1$line_1$mol_7$trial_2$endpoint_0
+example_fp1 <- head(p$releff$network$pop_1$line_1$mol_1$trial_0$endpoint_0$fp$HR, 10)
+example_fp2 <- head(p$releff$network$pop_1$line_1$mol_1$trial_2$endpoint_0$fp$HR, 10)
+example_ph1 <- p$releff$network$pop_2$line_1$mol_1$trial_0$endpoint_0$hr
+example_ph2 <- p$releff$network$pop_2$line_1$mol_1$trial_2$endpoint_0$hr
+example_et <- p$releff$network$pop_1$line_1$mol_5$trial_1$endpoint_0$hr
+example_ahr <- p$releff$network$pop_0$line_3$mol_0$trial_2$endpoint_2$hr
 ```
 
 :::
@@ -1936,24 +1981,62 @@ This function adds "assumption-based" hazard ratios (HRs). It looks at `$Effecti
 table(i$R_table_eff_data_settings$Effectiveness.data.source)
 ```
 
-And checks if it matches one of the "flags" in `i$List_eff_datasources`. These are refered to as the:
+And checks if it matches one of the "flags" in `i$List_eff_datasources`. Each of the five flags are explained below...
 
-* **Trial flag** - `Trial survival analysis` - uses HR from patient-level data (PLD) extrapolation. In the function, it notes that "the user in excel has indicated that this is one of the reference curves, overriding everything else. # Origin should be the same as destination"
-* **FPNMA flag** - `FP_NMA` - "HRs are linked corresponding to the CODA sample, but overrides are to be enacted. CODA sampling is done externally"
-* **PHNMA flag** - `PH_NMA` - "time-varying HRs are linked corresponding to the input data, but overrides are to be enacted. sampling done within."
-* **ET flag** - `Assume equal to` - set HR to 1
-* **AHR flag** - `Apply HR to` - "put in origin and set HR to the "HR to apply" column in the table. also simple. for PSA use bounds externally, replacing the values in the table"
+**Trial flag** - `Trial survival analysis`
 
-<mark>TODO: don't understand this all yet</mark>
+This is a reference curve. It is based directly on patient-level data. The origin is the same as the destination. Just seems to ensure origin and destination match, and populate with some info from excel (e.g. dist, source, setting fp to empty list). The `fp` list is empty as it is based on trial data with a fixed curve fit, and there's no need for the fractional polynomial element.
 
 ```{r}
-i$List_eff_datasources
+# Before f_NMA_AddAssumptionsToNetwork()
+example_trial
+
+# After f_NMA_AddAssumptionsToNetwork()
+p$releff$network$pop_1$line_1$mol_7$trial_2$endpoint_0
 ```
 
-We can view the hazard ratios using `f_releff_extract_all_HRs()`:
+**FPNMA flag** - `FP_NMA`
+
+As I've understood it, this populates the hazard ratio for a given comparison using the FP HR from the same comparison in a different trial - so, even though the HR data has come from a different context (different trial), we are saying it is still applicable to this treatment comparison.
+
+**PHNMA flag** - `PH_NMA`
+
+Same as FPNMA, but using the PH HR.
 
 ```{r}
-f_releff_extract_all_HRs(p$releff$network)$pop_0$line_1
+# Before f_NMA_AddAssumptionsToNetwork()
+example_ph1
+example_ph2
+
+# After f_NMA_AddAssumptionsToNetwork()
+p$releff$network$pop_2$line_1$mol_1$trial_0$endpoint_0$hr
+p$releff$network$pop_2$line_1$mol_1$trial_2$endpoint_0$hr
+```
+
+**ET flag** - `Assume equal to`
+
+This assumes the treatments are equal, so sets the HR to 1.
+
+**AHR flag** - `Apply HR to`
+
+Puts in the HR from the Excel sheet column `HR.to.apply`.
+
+I'm not certain if these are definitely the two matching parts (as quite a few get set to 1.19), but as an example...
+
+```{r}
+as.list(data.table(i$R_table_eff_data_settings)[309,])
+```
+
+```{r}
+# Before f_NMA_AddAssumptionsToNetwork()
+example_ahr
+
+# After f_NMA_AddAssumptionsToNetwork()
+p$releff$network$pop_0$line_3$mol_0$trial_2$endpoint_2$hr
+```
+
+```{r}
+p$releff$network$pop_0$line_3$mol_0$trial_2$endpoint_2$hr
 ```
 
 :::
@@ -1993,25 +2076,7 @@ p$surv$st <- f_releff_PropNetwork(
 
 ::: {.callout-note collapse="true"}
 
-Creates `p$surv$st`. <mark>TODO:don't understand function yet, very complicated</mark>
-
-From `Model_Structure.R`...
-
-```{r}
-f_qc_surv_gethead(p$surv$st,p = 0,l = 1,m = 1,t = 2,len = 3)
-f_qc_surv_gethead(p$surv$st,p = 0,l = 2,m = 0,t = 2,len = 3)
-```
-
-```{r}
-f_qc_surv_gethead(p$surv$st,p = 0,l = 1,m = 5,t = 0,len = 3)
-f_qc_surv_gethead(p$surv$st,p = 0,l = 2,m = 5,t = 1,len = 3)
-f_qc_surv_gethead(p$surv$st,p = 0,l = 3,m = 5,t = 1,len = 3)
-f_qc_surv_gethead(p$surv$st,p = 0,l = 4,m = 5,t = 1,len = 3)
-```
-
-```{r}
-f_qc_surv_gethead(p$surv$st,1,1,1,2)
-```
+For extrapolations not informed by NMA or assumptions, this function applies the chosen HR to the survival data, in order to extend the survival data (i.e. extrapolate it).
 
 :::
 
@@ -2028,11 +2093,13 @@ if(i$dd_adjforprioradjuvant == "Yes") {
 
 ::: {.callout-note collapse="true"}
 
-Not run in default case... <mark>TODO: understand</mark>
+Not run in default case...
 
 ```{r}
 i$dd_adjforprioradjuvant
 ```
+
+But it applies hazard ratios to the survival data to account for the impact of prior adjuvant treatments. An adjuvant treatment is an additional treatment given alongside the primary treatment.
 
 ```{r}
 i$R_table_prior_IO_impact_eff
@@ -2053,6 +2120,18 @@ if (sum(i$R_table_TE_waning_settings$apply.waning == "Yes") > 0) {
 }
 ```
 
+::: {.callout-note collapse="true"}
+
+The function applies treatment effect waning to all PLMTes according to the table provided in the excel inputs...
+
+```{r}
+i$R_table_TE_waning_settings[i$R_table_TE_waning_settings$apply.waning == "Yes",]
+```
+
+It uses the function `treatment_effect_waning_with_absolute()` to apply treatment effect waning, which refers to the loss of a treatment's benefits over time. It is provided with the cycle in which the treatment effect begins and finishes to wane.
+
+:::
+
 ```{r}
 p$surv$gpop <- if (i$dd_age_sex_source == "Mean") f_surv_GenOSLines_det(
   R_table_ptchar         = i$R_table_ptchar,
@@ -2066,6 +2145,38 @@ p$surv$gpop <- if (i$dd_age_sex_source == "Mean") f_surv_GenOSLines_det(
   lookups                = i$lookup
 )
 ```
+
+::: {.callout-note collapse="true"}
+
+This section calculate the survival curves for the general population, for the overall survival endpoint, for each population and line. It uses two functions:
+
+* `f_surv_GenOSLines_det()` - calculates curves based on characteristics provided in a table
+* `f_surv_GenOSLines_ipd()` - calculates curves based on individual patient data
+
+```{r}
+p$surv$gpop$pop_0$line_1$d
+head(p$surv$gpop$pop_0$line_1$os, 10)
+```
+
+In this case:
+
+```{r}
+i$dd_age_sex_source 
+```
+
+Hence using:
+
+```{r}
+head(i$R_table_patientagesex, 10)
+```
+
+However, if it were to use means, it would use data from:
+
+```{r}
+i$R_table_ptchar
+```
+
+:::
 
 ```{r}
 if (qc_mode) {
@@ -2110,23 +2221,77 @@ if (qc_mode) {
 }
 ```
 
+::: {.callout-note collapse="true"}
+
+This is not currently run...
+
+```{r}
+qc_mode
+```
+
+But if it were, it would compare the general population curves calculation from provided parameters (means) versus from individual patient data.
+
+:::
+
 ```{r}
 p$surv$st <- f_surv_gpopadjust(st      = p$surv$st,
                                gpop    = p$surv$gpop,
                                method  = "hazardmax",
                                verbose = qc_mode)
+```
 
+::: {.callout-note collapse="true"}
+
+This function adjusts the survival curves based on the general population survival curves. This is necessary as we are comparing outcomes from more than two comparison groups, and so we want to control for any imbalance in confounders between the different groups.
+
+:::
+
+```{r}
 p$surv$st <- f_surv_PFSxOS(p$surv$st, if(i$dd_adj_cross_curves == "Use hazards"){"hazardmax"} else{"abs"})
 
 p$surv$st <- f_surv_TTDxOS(p$surv$st, if(i$dd_adj_cross_curves == "Use hazards"){"hazardmax"} else{"abs"})
 
 p$surv$st <- f_surv_PFSxTTP(st = p$surv$st,method =  "abs")
+```
 
+::: {.callout-note collapse="true"}
+
+These functions check that the following curves don't cross:
+
+* Progression-free survival (PFS) and overall survival (OS) (`f_surv_PFSxOS`)
+* Time to discontinuation (TTD) and overall survival (OS) (`f_surv_TTDxOS`)
+* Progression-free survival (PFS) and time to progression (TTP) (`f_surv_PFSxTTP`)
+
+To prevent overlap, the first two use `f_surv_hazardmax()`, which ensures the hazard rate is at least as high as the corresponding hazard in the reference curve. This ensures that:
+
+* PFS < OS
+* TTD < OS
+
+The final one uses `f_surv_hazardmin()` which ensure that the hazard rate is no greater than the corresponding hazard in the reference curve, to ensure a minimum level of survival probability compared to the reference curve. THis ensures that:
+
+* PFS < TTP
+
+:::
+
+```{r}
 p$surv$st <- lapply(p$surv$st, function(popu) {
   popu$line_5 <- popu$line_4
   return(popu)
 })
 ```
+
+
+::: {.callout-note collapse="true"}
+
+Sets survival times for 5L (best supportive care) to 4L, when its come after four active treatments
+
+:::
+
+::: {.callout-warning collapse="true"}
+
+Uncommented these. It allows us to look at an example - here, population 0 line 1 molecule 1 trial 2. It shows us the extrapolated survival curves and transition probabilities.
+
+:::
 
 ```{r}
 f_qc_surv_ExtrapPlot(
@@ -2233,6 +2398,12 @@ if (qc_mode) {
 }
 ```
 
+::: {.callout-note collapse="true"}
+
+This takes a while to run, but is not currently as qc_mode is FALSE. If we were to run it, it would plot survival extrapolations and hazard curves for each PLMTE (like done for the example above).
+
+:::
+
 ```{r}
 p$surv$prop_deathinPFS <- i$dd_prop_deathinPFS
 
@@ -2241,7 +2412,15 @@ p$demo$agg <- f_cleaning_ptchar(i$R_table_ptchar, i$lookup)
 p$demo$live <- p$demo$agg
 
 p <- add_population_utility_params(p, psa = FALSE, .i = i)
+```
 
+::: {.callout-note collapse="true"}
+
+Adds a few different parameters to p.
+
+:::
+
+```{r}
 base_utility <- data.frame(cycle = 0:p$basic$th, utility = 1)
 if (i$dd_ageadjuutilities == "Yes") {
   if (i$dd_age_sex_source == "Mean") {
@@ -2276,7 +2455,35 @@ if (i$dd_ageadjuutilities == "Yes") {
 } else {
   p$util$gpop <- list(pop_0 = 1, pop_1 = 1, pop_2 = 1)
 }                 
+```
 
+::: {.callout-note collapse="true"}
+
+We start with `base_utility`, which is a table with 2089 rows (which is the time horizon `TH`), where each row is a cycle. For each, the utility is set to 1. This basically means that every individual in the population starts with a full quality of life (utility value of 1).
+
+```{r}
+unique(base_utility$utility)
+```
+
+However, if `i$dd_ageadjuutilities=="Yes"`, then it is adjusted based on the age and sex of either:
+
+* The population (if based on means) (`i$dd_age_sex_source == "Mean"`)
+* The individual patients (if based on individual patients)
+
+```{r}
+i$dd_ageadjuutilities
+i$dd_age_sex_source
+```
+
+The result is utilities for each population (pop_0, pop_1, pop_2) for each cycle - for example:
+
+```{r}
+head(p$util$gpop$pop_0, 5)
+```
+
+:::
+
+```{r}
 rm(base_utility)
 
 i$QALYs <- list()
@@ -2284,7 +2491,9 @@ i$QALYs <- list()
 i$QALYs$utilities$means <- f_process_utilities(raw_utilities = i$R_table_util,
                                                PSA = FALSE,
                                                samples = FALSE)
+```
 
+```{r}
 p$util$mk <- data.table(i$QALYs$utilities$means)
 
 p$ae$aetype <- i$dd_apply_AE_options
@@ -2377,18 +2586,45 @@ saveRDS(i,"../2_Scripts/standalone scripts/QC/i.rds")
 
 ### Run the model
 
+::: {.callout-warning collapse="true"}
+
+Add option to not run this section.
+
+:::
+
 ```{r}
-tick <- Sys.time()
-pf <- f_pf_computePF(
-  p           = p,
-  struct      = p$basic$structure,
-  verbose     = FALSE,
-  plots       = FALSE,
-  just_pop    = p$basic$pops_to_run,
-  just_nlines = NULL,
-  just_seq    = NULL
-)
-print(Sys.time() - tick)
+run_computepf = FALSE
+
+if(run_computepf) {
+  tick <- Sys.time()
+  pf <- f_pf_computePF(
+    p           = p,
+    struct      = p$basic$structure,
+    verbose     = FALSE,
+    plots       = FALSE,
+    just_pop    = p$basic$pops_to_run,
+    just_nlines = NULL,
+    just_seq    = NULL
+  )
+  print(Sys.time() - tick)
+}
+```
+
+```{r}
+save_computepf = FALSE
+computepf_file = file.path(path_data, "computepf_example.rds")
+
+if(save_computepf) {
+  saveRDS(pf, file=computepf_file)
+}
+```
+
+```{r}
+load_computepf = TRUE
+
+if(load_computepf) {
+  pf <- readRDS(computepf_file)
+}
 ```
 
 ### Compile model results
@@ -2469,6 +2705,12 @@ Scenario_number <- i$R_Scenario_num
 Run_date <- date()
 ```
 
+::: {.callout-warning collapse="true"}
+
+Changed paths
+
+:::
+
 ```{r}
 if (p$basic$structure == "State transition") {
   saveRDS(res, paste0("../4_Output/ST_Scenario ",Scenario_number,"_",i$dd_drug_price_options,gsub(":","_",Run_date),".rds"))
@@ -2476,6 +2718,12 @@ if (p$basic$structure == "State transition") {
   saveRDS(res, paste0("../4_Output/PartSA_Scenario ",Scenario_number,"_",i$dd_drug_price_options,gsub(":","_",Run_date),".rds"))
 }
 ```
+
+::: {.callout-warning collapse="true"}
+
+Changed function to have `folder` input so it allows me to alter the output path
+
+:::
 
 ```{r}
 Word_width_inches      <-  29.7*0.3937
@@ -2490,6 +2738,19 @@ f_res_ProduceWordDoc(
   word_template_location = "../3_Functions/reporting/empty results doc.docx",
   Word_width_inches      = 29.7*0.3937,
   auto_save              = TRUE,
-  verbose = TRUE
+  verbose = TRUE,
+  folder = path_output
 )
 ```
+
+::: {.callout-warning collapse="true"}
+
+Depending on `p$basic$structure`, will either use `f_res_ProduceWordDoc_ST` (st - state transition) or `f_res_ProduceWordDoc_PS` (ps - partitioned survival) to produce the report content.
+
+In the default case, this is state transition.
+
+```{r}
+p$basic$structure
+```
+
+:::
