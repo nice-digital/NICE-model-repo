@@ -1,5 +1,7 @@
 project:
   type: website
+  render:
+    - "!*.Rmd"
 
 website:
   title: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exeter Oncology Model: Renal Cell Carcinoma edition"
@@ -33,7 +35,7 @@ website:
             href: pages/plain_english.qmd
       - section: "Installation"
       - pages/input_data.qmd
-      - section: "Model walkthrough"
+      - section: "Code walkthrough"
         contents:
           - pages/report.qmd
       - section: "Annotated reporting guidelines"
