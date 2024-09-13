@@ -12,11 +12,17 @@ The pathways pilot is mentioned as part of [NICE's webpage](https://www.nice.org
 
 ## Reports
 
-The above web pages link to relevant NICE reports, and these include:
+The above web pages link to relevant NICE reports, and these include....
 
 * **Final analysis plan** for the model available as a [PDF](https://www.nice.org.uk/guidance/gid-ta11186/documents/assessment-report-3) @lee_treatments_2023
 * **Renal cell carcinoma pathway model report**, which is "a summary of the external assessment group's model and assumptions on renal cell carcinoma, discussed by NICE's technology appraisal committee B". Available as a [PDF](https://www.nice.org.uk/guidance/ta964/resources/renal-cell-carcinoma-pathway-model-report-pdf-17325260829637) or [within their website](https://www.nice.org.uk/guidance/ta964/resources/renal-cell-carcinoma-pathway-model-report-13368256813/chapter/Purpose-of-this-document) @national_institute_for_health_and_care_excellence_nice_renal_2024
 * **NICE's technology appraisal guidance on cabozatinib with nivolumab for untreated advanced renal cell carcinoma**. Avaliable as a [PDF](https://www.nice.org.uk/guidance/ta964/resources/cabozantinib-with-nivolumab-for-untreated-advanced-renal-cell-carcinoma-pdf-82615789468357) or [within their website](https://www.nice.org.uk/guidance/ta964) @national_institute_for_health_and_care_excellence_nice_cabozantinib_2024
+
+And others from the appraisal history like:
+
+* Assessment report plain english summary - [PDF](https://www.nice.org.uk/guidance/ta964/documents/assessment-report-3)
+* Assessment report final analysis plan - this appears the same as that from the alternative link above - [PDF](https://www.nice.org.uk/guidance/ta964/documents/assessment-report-2)
+* Assessment report - [PDF](https://www.nice.org.uk/guidance/ta964/documents/assessment-report)
 
 ## Publications
 
