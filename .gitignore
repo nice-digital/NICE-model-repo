@@ -8,6 +8,8 @@ i.rds
 p.rds
 Scenario_0_PAS_price*.docx
 ST_Scenario 0_PAS price*.rds
+Survival_Analysis.docx
+computepf_example.rds
 
 # Temporary files
 .~lock*
