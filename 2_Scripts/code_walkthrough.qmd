@@ -1623,7 +1623,7 @@ Error in optim(method = "BFGS", par = c(mu = 5.82584217367559, sigma = -0.208272
 
 :::
 
-## Comparative efficacy propagation - or, proportional hazards network meta analysis (PHNMA)
+## Load results from network meta analysis
 
 ::: {.callout-warning collapse="true"}
 
@@ -1650,7 +1650,7 @@ i$PHNMA$data$Reference.endpoint <- i$PHNMA$data$Endpoint
 
 ::: {.callout-note collapse="true"}
 
-PH NMA CODA samples. <mark>TODO: understand what "CODA samples" are</mark>
+PH NMA CODA samples. My understanding is that these are "CODA" samples as they are from a Bayesian network meta analysis. "CODA" refers to "Convergence Diagnosis and Output Analysis". When you run a Bayesian analysis, CODA samples are samples from the posterior distribution of your model parameters, as these samples are used to estimate the parameter distributions, check convergence and perform diagnostics.
 
 Imports dataframe, sets colnames, and makes duplicate of `Endpoint` called `Reference.endpoint`.
 
@@ -1810,6 +1810,10 @@ p$basic$th
 ```
 
 :::
+
+## Relative efficacy network
+
+A relative efficacy network is required to compute the survival times for all the different PLMTEs we need to power the model with.
 
 ```{r}
 p$releff$network <- f_NMA_generateNetwork(i$id$ipd,i$lookup$ipd)
@@ -2040,6 +2044,8 @@ p$releff$network$pop_0$line_3$mol_0$trial_2$endpoint_2$hr
 ```
 
 :::
+
+## Survival times
 
 ```{r}
 i$surv$extraps <- f_surv_getExtrapolations(regs = i$surv$reg)
@@ -2404,6 +2410,10 @@ This takes a while to run, but is not currently as qc_mode is FALSE. If we were 
 
 :::
 
+## Processing data
+
+This section processes data on demographics, QALYs, costs, AEs, costs, subsequent treatments, and population mappings.
+
 ```{r}
 p$surv$prop_deathinPFS <- i$dd_prop_deathinPFS
 
@@ -2493,6 +2503,24 @@ i$QALYs$utilities$means <- f_process_utilities(raw_utilities = i$R_table_util,
                                                samples = FALSE)
 ```
 
+::: {.callout-note collapse="true"}
+
+The raw table of utilities is as follows:
+
+```{r}
+head(i$R_table_util, 2)
+```
+
+The function `f_process_utilities()` extracts and renames some of these columns.
+
+```{r}
+head(i$QALYs$utilities$means, 2)
+```
+
+However, if `PSA = TRUE`, it would generate multiple samples of utility values for use in probabilistic sensitivity analysis.
+
+:::
+
 ```{r}
 p$util$mk <- data.table(i$QALYs$utilities$means)
 
@@ -2515,7 +2543,15 @@ p$ae$mk$per_cycle[trt == "BSC",]$trt <- i$lookup$ipd$mol[match(999,Number),]$RCC
 p$ae$mk$per_cycle$molecule <- i$lookup$ipd$mol[match(p$ae$mk$per_cycle$trt,RCC_input_desc),]$Number
 
 p$ae$approach <- i$dd_apply_AE_options
+```
 
+::: {.callout-note collapse="true"}
+
+Some processing and adding of parameters to `p`.
+
+:::
+
+```{r}
 i$cost <- list()
 
 p$costs$mk <- f_process_cost_data(
@@ -2527,7 +2563,28 @@ p$costs$mk <- f_process_cost_data(
   verbose         = FALSE,
   PSA             = FALSE, 
   samples         = 1)
+```
 
+::: {.callout-note collapse="true"}
+
+This function makes a nested list with:
+
+* Drug costs (`drug`)
+* Costs of drug administration (`admin`)
+* Medical resource use (MRU) costs (`mru_on` and `mru_off`)
+
+These costs are per cycle for each molecule and line.
+
+```{r}
+length(p$costs$mk$drug$line_1$mol_4)
+
+# Example
+head(p$costs$mk$drug$line_1$mol_4, 8)
+```
+
+:::
+
+```{r}
 p$costs$oneoff <-  f_process_other_cost_data(
   one_off_costs = i$R_table_MRU_oneoff,
   PSA = FALSE
@@ -2540,20 +2597,80 @@ p$costs$oneoff_mk <- lapply(structure(
 ), function(x) {
   p$costs$oneoff_mk[Apply.to == x, ]$cost
 })
+```
 
+::: {.callout-note collapse="true"}
+
+Produces table with some one-off costs - end of life/terminal care, subsequent radiotherapy, and subsequent surgery.
+
+```{r}
+p$costs$oneoff
+```
+
+:::
+
+```{r}
 if (FALSE) {
   i$cost$drug_and_admin_cost_by_tunnel_state$PSA <- f_process_drug_and_admin_cost_data(
     raw_table = i$R_table_drug_admin_costs,
     PSA_samples = TRUE)
 }  
+```
 
+::: {.callout-note collapse="true"}
+
+This code is never run in this file, but is for the probabilistic sensitivity analysis.
+
+:::
+
+```{r}
 p$substrt$partsa  <- as.data.table(f_process_subs_txt_data(
   subs_txt = i$R_table_sub_txt_cum_costs,
   PSA             = FALSE
 ))
+```
 
+::: {.callout-note collapse="true"}
+
+For each treatment and population, table has drug cost, admin cost, and the cost and QALY impact of adverse events.
+
+```{r}
+head(p$substrt$partsa, 5)
+```
+
+:::
+
+```{r}
 p$basic$lookup$pop_map <- data.table(i$r_overall_lookup_pop)
+```
 
+::: {.callout-note collapse="true"}
+
+As in the `Model_Structure.py` comments, there are:
+
+* Three risk populations (all risk, favourable risk, int/poor risk)
+* Two IO populations - whether or not patients had prior adjuvant therapy with immune-oncology treatment
+
+These leads to six possible combinations overall. We can use this table to map from those six, to those used in the analysis:
+
+* Treatment sequences are sorted into 4 populations (`Sequencing.population.number`)
+* Survival extrapolations, costs, QALYs and AEs are sorted into 3 populations (`Risk.population.number`)
+
+```{r}
+p$basic$lookup$pop_map
+```
+
+:::
+
+## Economic modelling
+
+::: {.callout-warning collapse="true"}
+
+Changed paths
+
+:::
+
+```{r}
 i$R_table_eff_data_settings <- data.table(i$R_table_eff_data_settings)
 p$releff$excel_table <- i$R_table_eff_data_settings
 
@@ -2563,15 +2680,7 @@ if(!str_trim(i$dd_model_struct) %in% c("State transition", "Partitioned survival
 
 pf <- list()
 res <- list()
-```
 
-::: {.callout-warning collapse="true"}
-
-Changed paths
-
-:::
-
-```{r}
 stopifnot(p$basic$structure %in% c("State transition","Partitioned survival"))
 
 if(p$basic$decision_problem == "cabo+nivo") {
@@ -2584,6 +2693,31 @@ saveRDS(p,"../2_Scripts/standalone scripts/QC/p.rds")
 saveRDS(i,"../2_Scripts/standalone scripts/QC/i.rds")
 ```
 
+::: {.callout-note collapse="true"}
+
+Adds the settings from excel to `p`.
+
+```{r}
+head(p$releff$excel_table, 5)
+```
+
+And checks model structure is correct.
+
+```{r}
+i$dd_model_struct
+```
+
+Then some settings specifically if decision problem is cabo+nivo only
+
+```{r}
+p$basic$decision_problem
+p$basic$pops_to_run
+```
+
+Then it saves `p` and `i` to R data files, for quality control purposes, so you can easily reload those and repeat results.
+
+:::
+
 ### Run the model
 
 ::: {.callout-warning collapse="true"}
@@ -2592,7 +2726,7 @@ Add option to not run this section.
 
 :::
 
-```{r}
+```{r, computepf}
 run_computepf = FALSE
 
 if(run_computepf) {
@@ -2608,24 +2742,43 @@ if(run_computepf) {
   )
   print(Sys.time() - tick)
 }
-```
 
-```{r}
 save_computepf = FALSE
 computepf_file = file.path(path_data, "computepf_example.rds")
 
 if(save_computepf) {
   saveRDS(pf, file=computepf_file)
 }
-```
 
-```{r}
 load_computepf = TRUE
 
 if(load_computepf) {
   pf <- readRDS(computepf_file)
 }
 ```
+
+::: {.callout-note collapse="true"}
+
+We find the patient flow using `f_pf_compute_PF()`. This function will use either:
+
+* `f_pf_computePF_mk()` (if state transition model, i.e. Markov model)
+* `f_pf_computePF_ps()` (if partitioned survival model)
+
+The purpose of this is to model how patients move through different health states/treatments, from which we can find outputs like costs and utilities.
+
+**State transition model**. Steps include:
+
+* Getting relevant population data and creating `sequence_list` with the allowed treatment sequences for a given population
+* Creating `util_gpop_mat` - a matrix of health state utility values that account for ageing
+* Transition probabilities (`TPs`) are calculated for each sequence, then used to construct Markov traces (`TRACE`) (ie. matrix of state vectors across all model cycles)
+* These are used to calculate costs through the treatment sequence (`pf_costs`) (e.g. cost per cycle `cpc`, costs on initiation `coi`, and costs on death `cod`), QALYs `pf_qalys`) and adverse events (`pf_ae`)
+
+**Partitioned survival model**. Steps include:
+
+* Getting relevant population data and creating the utility matrix `util_gpop_mat`
+* Using `f_pf_partSA_state_res()`, simulates patient states (e.g. PFS) across time horizon for each treatment sequence, returns the costs (`costs`) and qalys (`qalys`)
+
+:::
 
 ### Compile model results
 
@@ -2642,7 +2795,47 @@ res <- f_res_compute_results(
   vs_mol          = 1,
   no_active_lines = i$R_max_trt_lines
 )
+```
 
+::: {.callout-note collapse="true"}
+
+`f_res_compute_results()` processes the results using:
+
+* `f_res_compute_results_mk()` for the state transition model
+* `f_res_compute_results_ps()` for the partitioned survival model
+
+These each in turn utilities various other functions to summarise the model results. There are various functions, depending on the level of detail desired in the plots. This is set to either 4 or 5, depending on whether it is scenario 0.
+
+The summary functions include:
+
+* `f_pf_mk_summary()` to get `undisc` and `disc` results (undiscounted and discounted)
+* `f_res_mk_incremental()` to get `incremental`
+* `f_res_wa_model()` to get `weighted_model` discounted or undiscounted, summarised using `f_res_sum_weighted_model()`
+* `f_pf_wa_sr_plots()` to get `weighted_trace_plots`
+
+And more! As summarised in `Model_Structure.py`, the outcomes of this from each detail level are:
+
+1. Top line results by sequence and weighted average results (costs, QALYs, LYs)
+2. Include incremental analysis (from `f_res_mk_incremental()`)
+3. Include weighted average pairwise comparisons
+4. Include incremental analysis by sequence
+5. Include trace plots
+
+Except for the partitioned survival, 4 is breakdown tables and 4 is state residency plots.
+
+Some examples...
+
+```{r}
+head(res$undisc$pop_1$ly$breakdown, 3)
+head(res$incremental$pop_1$expanded_results, 3)
+res$weighted_trace_plots$pop_1$plots$L1_1
+res$wa_summarised$pop_1$costs
+res$pairwise_vs_mol$pop_1$qalys
+```
+
+:::
+
+```{r}
 if (p$basic$structure == "State transition") {
   population_numbers <- if(sum(p$basic$pops_to_run == 1:3)>0){1:3} else{1:6}
   res$mk$qaly_shortfall_1_to_3 <- lapply(population_numbers, function(npa_pop) {
@@ -2705,6 +2898,18 @@ Scenario_number <- i$R_Scenario_num
 Run_date <- date()
 ```
 
+::: {.callout-note collapse="true"}
+
+Applies a severity modifier for the weighted average 1L treatment comparison. This calculation is only provided for the state transition model. There is processing for this, then the modifier is calculated using `calc_severity_modifier()`, which in turn uses `get_severity_modifier()` to find the appropriate severity modifier according to the discounted QALYs for those with the condition and those without.
+
+```{r}
+population_numbers
+
+res$mk$qaly_shortfall_1_to_3
+```
+
+:::
+
 ::: {.callout-warning collapse="true"}
 
 Changed paths
@@ -2752,5 +2957,7 @@ In the default case, this is state transition.
 ```{r}
 p$basic$structure
 ```
+
+This applies results tables specific to the cabo+nivo population to the word document, in the format required by NICE.
 
 :::
