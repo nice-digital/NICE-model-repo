@@ -1,7 +1,7 @@
 project:
   type: website
   render:
-    - "!*.Rmd"
+    - "*.qmd"
 
 website:
   title: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exeter Oncology Model: Renal Cell Carcinoma edition"
