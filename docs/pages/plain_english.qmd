@@ -2,8 +2,52 @@
 title: "Plain english model overview"
 ---
 
-**TBC**
+The analysis in this repository forms part of a technology appraisal by the National Institute for Health and Care Excellence. The purpose of an appraisal is to help inform whether the NHS should fund a new treatment. This is based on the cost-effectiveness of a treatment, as determined by comparing the health outcomes and costs resulting from this treatment, compared with another treatment.
 
-<mark> brief introduction to condition - i.e. most severe type of kidney cancer </mark>
+This appraisal evaluates a combination of two treatments: **cabozantinib with nivolumab**. It assesses whether these are cost-effective as a first-line treatment (i.e. the first treatment given for a disease, in otherwise untreated patients).
 
-<mark>explain that this is an economic model, why we have developed an economic model, what we use it for</mark>
+It is being evaluated in patients with **renal cell carcinoma (RCC)** which is a type of kidney cancer. Specifically, it focuses on patients with advanced RCC, which means the cancer has spread from their kidney to other areas of their body.
+
+## What does the analysis do?
+
+This diagram provides a broad summary of the steps required to perform this cost-effectiveness analysis. These are described in further detail below.
+
+![Basic overview of the analysis](../images/basic_overview.drawio.png){.lightbox}
+
+## Part 1. Relative efficacy of each treatment
+
+relative efficacy
+
+one versus other
+
+focus on x y z outcomes
+
+based on clinical trial data
+
+which trials
+
+compare things that haven't otherwise been compared
+
+## Part 2. Get patient outcomes over time for reference treatment
+
+real world evidence
+
+extrapolation
+
+## Part 3. Estimate outcomes over time for each treatment
+
+apply relative efficacy to those curves
+
+## Part 4. Get data on the cost and health utility of patients
+
+why, where from
+
+## Part 5. Construct an economic model
+
+proportion of people
+
+data from above
+
+simulate people receiving each treatment, their outcomes, their costs
+
+can then compare treatments
