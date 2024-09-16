@@ -1,0 +1,31 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" version="24.7.13">
+  <diagram name="Page-1" id="BF-N7P3xVQ1ct8htm8zQ">
+    <mxGraphModel dx="2074" dy="1180" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tepPoc68Ynostsxfefrb-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="tepPoc68Ynostsxfefrb-36" target="tepPoc68Ynostsxfefrb-39" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-36" value="Reference curves:&lt;div&gt;1L sunitinib&lt;/div&gt;&lt;div&gt;2L+ cabozantinib&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="40" y="107.5" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="tepPoc68Ynostsxfefrb-38" target="tepPoc68Ynostsxfefrb-39" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-38" value="Treatment effectiveness HR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="50" y="50" width="110" height="37.5" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="tepPoc68Ynostsxfefrb-39" target="tepPoc68Ynostsxfefrb-40" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-39" value="Apply HR to reference curves" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="210" y="80" width="80" height="47.5" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-40" value="Apply modifications (effect waning, general population mortality, curve overlap)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="310" y="62.5" width="110" height="82.5" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,194 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" version="24.7.14">
+  <diagram name="Page-1" id="BF-N7P3xVQ1ct8htm8zQ">
+    <mxGraphModel dx="1728" dy="983" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-6" target="tepPoc68Ynostsxfefrb-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-6" value="Search for aRCC RCTs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="210" y="30" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-7" target="tepPoc68Ynostsxfefrb-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-7" target="tepPoc68Ynostsxfefrb-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-7" value="Grouped survival data" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="205" y="95" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-9" target="tepPoc68Ynostsxfefrb-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-9" value="Proportional hazards NMA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="177" y="170" width="70" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-10" target="tepPoc68Ynostsxfefrb-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-10" value="Fractional polynomial NMA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="253" y="170" width="70" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-11" target="tepPoc68Ynostsxfefrb-46">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-11" target="tepPoc68Ynostsxfefrb-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-11" value="HR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="230" y="260" width="40" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-13" target="tepPoc68Ynostsxfefrb-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-13" value="Search for RWE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="375" y="30" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-14" target="tepPoc68Ynostsxfefrb-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-14" value="Patient-level survival data" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="372.5" y="95" width="85" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-15" target="tepPoc68Ynostsxfefrb-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-15" value="Partitioned survival model" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="365" y="180" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-16" target="tepPoc68Ynostsxfefrb-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-16" value="Extrapolated survival curves" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="365" y="252.5" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-36" target="tepPoc68Ynostsxfefrb-39">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-36" value="Reference curves:&lt;div&gt;1L sunitinib&lt;/div&gt;&lt;div&gt;2L+ cabozantinib&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="350" y="335" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-38" target="tepPoc68Ynostsxfefrb-39">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-38" value="Treatment effectiveness HR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="243.75" y="335" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-39" target="tepPoc68Ynostsxfefrb-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-39" value="Apply HR to reference curves" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="272.5" y="418.75" width="181" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-40">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="363.20000000000005" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-40" value="Apply modifications (effect waning, general population mortality, curve overlap)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="228" y="480" width="270" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-46" target="tepPoc68Ynostsxfefrb-48">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-46" value="Adverse event HR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="130" y="335" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-48">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="550" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="120" y="550" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-48" value="Apply HR to reference curves" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="30" y="418.75" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-50">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-50" value="Resource use and costs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="564" y="95" width="85" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-52" target="tepPoc68Ynostsxfefrb-54">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-52" target="tepPoc68Ynostsxfefrb-50">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-52" value="Search for economic evaluations" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="513.75" y="10" width="86.25" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-54">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-54" value="Utilities" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="490" y="105" width="49" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-56" target="tepPoc68Ynostsxfefrb-71">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-56" value="State transition (Markov) model" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="177" y="585" width="182.5" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-57" target="tepPoc68Ynostsxfefrb-58">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-57" value="Partitioned survival model" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="371.5" y="585" width="162" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-58" value="Costs, QALYs and ICERs for each treatment" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="247.5" y="705" width="240" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-69" target="tepPoc68Ynostsxfefrb-48">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-69" value="Reference curves from trial data:&lt;div&gt;1L sunitinib&lt;/div&gt;&lt;div&gt;2L+ everolimus&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="10" y="306.25" width="110" height="58.75" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="tepPoc68Ynostsxfefrb-71" target="tepPoc68Ynostsxfefrb-58">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tepPoc68Ynostsxfefrb-71" value="Severity modifier" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="213.25" y="635" width="110" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-29" value="" style="endArrow=none;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;endFill=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="560" y="190" as="sourcePoint" />
+            <mxPoint x="370" y="550" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="560" y="550" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-30" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" target="tepPoc68Ynostsxfefrb-56">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="360" y="550" as="sourcePoint" />
+            <mxPoint x="600" y="370" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="360" y="570" />
+              <mxPoint x="268" y="570" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GD9V4fitGBC-ALgtH1Ub-31" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" target="tepPoc68Ynostsxfefrb-57">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="360" y="550" as="sourcePoint" />
+            <mxPoint x="580" y="520" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="360" y="570" />
+              <mxPoint x="453" y="570" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
