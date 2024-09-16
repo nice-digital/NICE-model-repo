@@ -58,7 +58,7 @@
     "href": "pages/plain_english.html",
     "title": "Plain english model overview",
     "section": "",
-    "text": "The analysis in this repository forms part of a technology appraisal by the National Institute for Health and Care Excellence. The purpose of an appraisal is to help inform whether the NHS should fund a new treatment. This is based on the cost-effectiveness of a treatment, as determined by comparing the health outcomes and costs resulting from this treatment, compared with another treatment.\nThis appraisal evaluates a combination of two treatments: cabozantinib with nivolumab. It assesses whether these are cost-effective as a first-line treatment (i.e. the first treatment given for a disease, in otherwise untreated patients).\nIt is being evaluated in patients with renal cell carcinoma (RCC) which is a type of kidney cancer. Specifically, it focuses on patients with advanced RCC, which means the cancer has spread from their kidney to other areas of their body.",
+    "text": "The analysis in this repository forms part of a technology appraisal by the National Institute for Health and Care Excellence. The purpose of an appraisal is to help inform whether the NHS should fund a new treatment. This is based on the cost-effectiveness of a treatment, as determined by comparing the health outcomes and costs resulting from this treatment, compared with other available treatments.\nThis appraisal evaluates a combination of two treatments: cabozantinib with nivolumab. It assesses whether these are cost-effective as a first-line treatment (i.e. the first treatment given for a disease, in otherwise untreated patients).\nIt is being evaluated in patients with renal cell carcinoma (RCC) which is a type of kidney cancer. Specifically, it focuses on patients with advanced RCC, which means the cancer has spread from their kidney to other areas of their body.",
     "crumbs": [
       "Model overview",
       "Plain english summary"
@@ -76,55 +76,66 @@
     ]
   },
   {
-    "objectID": "pages/plain_english.html#part-1.-relative-efficacy-of-each-treatment",
-    "href": "pages/plain_english.html#part-1.-relative-efficacy-of-each-treatment",
+    "objectID": "pages/plain_english.html#compare-effectiveness-of-different-treatments",
+    "href": "pages/plain_english.html#compare-effectiveness-of-different-treatments",
     "title": "Plain english model overview",
-    "section": "Part 1. Relative efficacy of each treatment",
-    "text": "Part 1. Relative efficacy of each treatment\nrelative efficacy\none versus other\nfocus on x y z outcomes\nbased on clinical trial data\nwhich trials\ncompare things that haven’t otherwise been compared",
+    "section": "(1) Compare effectiveness of different treatments",
+    "text": "(1) Compare effectiveness of different treatments\nClinical studies that compared different treatments for advanced RCC were identified. These studies measured outcomes like how long people survived, whether their cancer progressed, and how well their cancer responded to the treatments. The studies also looked at side effects and how the treatments impacted patients’ quality of life.\nSome treatments were not directly compared in head-to-head trials. For example, cabozantinib and pazopanib were both compared to another drug, sunitinib, in separate studies, but not directly against each other (A).\nIn these cases, a method called “network meta-analysis” can be used to estimate how two treatments might have compared to one another, if they had been included head-to-head in a trial in real life. For example, estimating the effectiveness of cabozantinib versus pazopanib, based on what is known from their seperate comparisons with sunitinib (B).\n\n\n\nNetwork meta-analysis example",
     "crumbs": [
       "Model overview",
       "Plain english summary"
     ]
   },
   {
-    "objectID": "pages/plain_english.html#part-2.-get-patient-outcomes-over-time-for-reference-treatment",
-    "href": "pages/plain_english.html#part-2.-get-patient-outcomes-over-time-for-reference-treatment",
+    "objectID": "pages/plain_english.html#get-patient-outcomes-over-time-for-reference-treatment",
+    "href": "pages/plain_english.html#get-patient-outcomes-over-time-for-reference-treatment",
     "title": "Plain english model overview",
-    "section": "Part 2. Get patient outcomes over time for reference treatment",
-    "text": "Part 2. Get patient outcomes over time for reference treatment\nreal world evidence\nextrapolation",
+    "section": "(2) Get patient outcomes over time for reference treatment",
+    "text": "(2) Get patient outcomes over time for reference treatment\nStudies were found that looked at how advanced kidney cancer patients responded to treatments in the real world, outside of clinical trials. These studies provided data on how long patients survived and whether their cancer got worse.\nFor each stage of treatment (first-line, second-line, etc.), a “reference treatment” was chosen. This was the treatment most commonly used in practice.\nThe outcomes for patients receiving these reference treatments were taken from real-world data. However, because the analysis needed to predict outcomes over a long period (40 years), and the real-world data didn’t cover that entire time, a technique called “survival analysis” was used. This method estimates long-term outcomes based on the patterns observed over the shorter period covered by the data.\n\n\n\n\n\n\n\nIllustrative figure showing the proportion of patients who survived over time",
     "crumbs": [
       "Model overview",
       "Plain english summary"
     ]
   },
   {
-    "objectID": "pages/plain_english.html#part-3.-estimate-outcomes-over-time-for-each-treatment",
-    "href": "pages/plain_english.html#part-3.-estimate-outcomes-over-time-for-each-treatment",
+    "objectID": "pages/plain_english.html#estimate-outcomes-over-time-for-each-treatment",
+    "href": "pages/plain_english.html#estimate-outcomes-over-time-for-each-treatment",
     "title": "Plain english model overview",
-    "section": "Part 3. Estimate outcomes over time for each treatment",
-    "text": "Part 3. Estimate outcomes over time for each treatment\napply relative efficacy to those curves",
+    "section": "(3) Estimate outcomes over time for each treatment",
+    "text": "(3) Estimate outcomes over time for each treatment\nUsing the results from step (1), the real-world data can be adjusted to estimate how people might do on other treatments. This means we have predicted outcomes over time for each treatment, based on the comparison of effectiveness against the reference treatment.",
     "crumbs": [
       "Model overview",
       "Plain english summary"
     ]
   },
   {
-    "objectID": "pages/plain_english.html#part-4.-get-data-on-the-cost-and-health-utility-of-patients",
-    "href": "pages/plain_english.html#part-4.-get-data-on-the-cost-and-health-utility-of-patients",
+    "objectID": "pages/plain_english.html#find-how-many-people-receive-each-treatment",
+    "href": "pages/plain_english.html#find-how-many-people-receive-each-treatment",
     "title": "Plain english model overview",
-    "section": "Part 4. Get data on the cost and health utility of patients",
-    "text": "Part 4. Get data on the cost and health utility of patients\nwhy, where from",
+    "section": "(4) Find how many people receive each treatment",
+    "text": "(4) Find how many people receive each treatment\nFrom the real-world data identified in step (2), we can find the proportion of people that we expect to receive each treatment in practice.",
     "crumbs": [
       "Model overview",
       "Plain english summary"
     ]
   },
   {
-    "objectID": "pages/plain_english.html#part-5.-construct-an-economic-model",
-    "href": "pages/plain_english.html#part-5.-construct-an-economic-model",
+    "objectID": "pages/plain_english.html#get-data-on-the-cost-and-health-utility-of-patients",
+    "href": "pages/plain_english.html#get-data-on-the-cost-and-health-utility-of-patients",
     "title": "Plain english model overview",
-    "section": "Part 5. Construct an economic model",
-    "text": "Part 5. Construct an economic model\nproportion of people\ndata from above\nsimulate people receiving each treatment, their outcomes, their costs\ncan then compare treatments",
+    "section": "(5) Get data on the cost and health utility of patients",
+    "text": "(5) Get data on the cost and health utility of patients\nFor each treatment against advanced RCC, studies were identified which reported either:\n\nThe costs of each treatment for the healthcare system (e.g. costs of drugs, appointments, care)\nThe quality of life for patients on or off each treatment at each line of therapy (first-line through to fourth-line). This is described using a measure called a “health utility value”.",
+    "crumbs": [
+      "Model overview",
+      "Plain english summary"
+    ]
+  },
+  {
+    "objectID": "pages/plain_english.html#construct-an-economic-model",
+    "href": "pages/plain_english.html#construct-an-economic-model",
+    "title": "Plain english model overview",
+    "section": "(6) Construct an economic model",
+    "text": "(6) Construct an economic model\nTODO: finish\nproportion of people\ndata from above\nsimulate people receiving each treatment, their outcomes, their costs\ncan then compare treatments",
     "crumbs": [
       "Model overview",
       "Plain english summary"

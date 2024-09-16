@@ -243,11 +243,12 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#what-does-the-analysis-do" id="toc-what-does-the-analysis-do" class="nav-link active" data-scroll-target="#what-does-the-analysis-do">What does the analysis do?</a></li>
-  <li><a href="#part-1.-relative-efficacy-of-each-treatment" id="toc-part-1.-relative-efficacy-of-each-treatment" class="nav-link" data-scroll-target="#part-1.-relative-efficacy-of-each-treatment">Part 1. Relative efficacy of each treatment</a></li>
-  <li><a href="#part-2.-get-patient-outcomes-over-time-for-reference-treatment" id="toc-part-2.-get-patient-outcomes-over-time-for-reference-treatment" class="nav-link" data-scroll-target="#part-2.-get-patient-outcomes-over-time-for-reference-treatment">Part 2. Get patient outcomes over time for reference treatment</a></li>
-  <li><a href="#part-3.-estimate-outcomes-over-time-for-each-treatment" id="toc-part-3.-estimate-outcomes-over-time-for-each-treatment" class="nav-link" data-scroll-target="#part-3.-estimate-outcomes-over-time-for-each-treatment">Part 3. Estimate outcomes over time for each treatment</a></li>
-  <li><a href="#part-4.-get-data-on-the-cost-and-health-utility-of-patients" id="toc-part-4.-get-data-on-the-cost-and-health-utility-of-patients" class="nav-link" data-scroll-target="#part-4.-get-data-on-the-cost-and-health-utility-of-patients">Part 4. Get data on the cost and health utility of patients</a></li>
-  <li><a href="#part-5.-construct-an-economic-model" id="toc-part-5.-construct-an-economic-model" class="nav-link" data-scroll-target="#part-5.-construct-an-economic-model">Part 5. Construct an economic model</a></li>
+  <li><a href="#compare-effectiveness-of-different-treatments" id="toc-compare-effectiveness-of-different-treatments" class="nav-link" data-scroll-target="#compare-effectiveness-of-different-treatments">(1) Compare effectiveness of different treatments</a></li>
+  <li><a href="#get-patient-outcomes-over-time-for-reference-treatment" id="toc-get-patient-outcomes-over-time-for-reference-treatment" class="nav-link" data-scroll-target="#get-patient-outcomes-over-time-for-reference-treatment">(2) Get patient outcomes over time for reference treatment</a></li>
+  <li><a href="#estimate-outcomes-over-time-for-each-treatment" id="toc-estimate-outcomes-over-time-for-each-treatment" class="nav-link" data-scroll-target="#estimate-outcomes-over-time-for-each-treatment">(3) Estimate outcomes over time for each treatment</a></li>
+  <li><a href="#find-how-many-people-receive-each-treatment" id="toc-find-how-many-people-receive-each-treatment" class="nav-link" data-scroll-target="#find-how-many-people-receive-each-treatment">(4) Find how many people receive each treatment</a></li>
+  <li><a href="#get-data-on-the-cost-and-health-utility-of-patients" id="toc-get-data-on-the-cost-and-health-utility-of-patients" class="nav-link" data-scroll-target="#get-data-on-the-cost-and-health-utility-of-patients">(5) Get data on the cost and health utility of patients</a></li>
+  <li><a href="#construct-an-economic-model" id="toc-construct-an-economic-model" class="nav-link" data-scroll-target="#construct-an-economic-model">(6) Construct an economic model</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/plain_english.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -273,7 +274,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>The analysis in this repository forms part of a technology appraisal by the National Institute for Health and Care Excellence. The purpose of an appraisal is to help inform whether the NHS should fund a new treatment. This is based on the cost-effectiveness of a treatment, as determined by comparing the health outcomes and costs resulting from this treatment, compared with another treatment.</p>
+<p>The analysis in this repository forms part of a technology appraisal by the National Institute for Health and Care Excellence. The purpose of an appraisal is to help inform whether the NHS should fund a new treatment. This is based on the cost-effectiveness of a treatment, as determined by comparing the health outcomes and costs resulting from this treatment, compared with other available treatments.</p>
 <p>This appraisal evaluates a combination of two treatments: <strong>cabozantinib with nivolumab</strong>. It assesses whether these are cost-effective as a first-line treatment (i.e.&nbsp;the first treatment given for a disease, in otherwise untreated patients).</p>
 <p>It is being evaluated in patients with <strong>renal cell carcinoma (RCC)</strong> which is a type of kidney cancer. Specifically, it focuses on patients with advanced RCC, which means the cancer has spread from their kidney to other areas of their body.</p>
 <section id="what-does-the-analysis-do" class="level2">
@@ -286,30 +287,54 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </section>
-<section id="part-1.-relative-efficacy-of-each-treatment" class="level2">
-<h2 class="anchored" data-anchor-id="part-1.-relative-efficacy-of-each-treatment">Part 1. Relative efficacy of each treatment</h2>
-<p>relative efficacy</p>
-<p>one versus other</p>
-<p>focus on x y z outcomes</p>
-<p>based on clinical trial data</p>
-<p>which trials</p>
-<p>compare things that haven’t otherwise been compared</p>
+<section id="compare-effectiveness-of-different-treatments" class="level2">
+<h2 class="anchored" data-anchor-id="compare-effectiveness-of-different-treatments">(1) Compare effectiveness of different treatments</h2>
+<p>Clinical studies that compared different treatments for advanced RCC were identified. These studies measured outcomes like how long people survived, whether their cancer progressed, and how well their cancer responded to the treatments. The studies also looked at side effects and how the treatments impacted patients’ quality of life.</p>
+<p>Some treatments were not directly compared in head-to-head trials. For example, cabozantinib and pazopanib were both compared to another drug, sunitinib, in separate studies, but not directly against each other (A).</p>
+<p>In these cases, a method called “network meta-analysis” can be used to estimate how two treatments might have compared to one another, if they had been included head-to-head in a trial in real life. For example, estimating the effectiveness of cabozantinib versus pazopanib, based on what is known from their seperate comparisons with sunitinib (B).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../images/basic_nma.drawio.png" class="img-fluid figure-img"></p>
+<figcaption>Network meta-analysis example</figcaption>
+</figure>
+</div>
 </section>
-<section id="part-2.-get-patient-outcomes-over-time-for-reference-treatment" class="level2">
-<h2 class="anchored" data-anchor-id="part-2.-get-patient-outcomes-over-time-for-reference-treatment">Part 2. Get patient outcomes over time for reference treatment</h2>
-<p>real world evidence</p>
-<p>extrapolation</p>
+<section id="get-patient-outcomes-over-time-for-reference-treatment" class="level2">
+<h2 class="anchored" data-anchor-id="get-patient-outcomes-over-time-for-reference-treatment">(2) Get patient outcomes over time for reference treatment</h2>
+<p>Studies were found that looked at how advanced kidney cancer patients responded to treatments in the real world, outside of clinical trials. These studies provided data on how long patients survived and whether their cancer got worse.</p>
+<p>For each stage of treatment (first-line, second-line, etc.), a “reference treatment” was chosen. This was the treatment most commonly used in practice.</p>
+<p>The outcomes for patients receiving these reference treatments were taken from real-world data. However, because the analysis needed to predict outcomes over a long period (40 years), and the real-world data didn’t cover that entire time, a technique called “survival analysis” was used. This method estimates long-term outcomes based on the patterns observed over the shorter period covered by the data.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../images/simple_survival_blue.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Illustrative figure showing the proportion of patients who survived over time"><img src="../images/simple_survival_blue.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:33.0%" alt="Illustrative figure showing the proportion of patients who survived over time"></a></p>
+</figure>
+</div>
+<figcaption>Illustrative figure showing the proportion of patients who survived over time</figcaption>
+</figure>
+</div>
 </section>
-<section id="part-3.-estimate-outcomes-over-time-for-each-treatment" class="level2">
-<h2 class="anchored" data-anchor-id="part-3.-estimate-outcomes-over-time-for-each-treatment">Part 3. Estimate outcomes over time for each treatment</h2>
-<p>apply relative efficacy to those curves</p>
+<section id="estimate-outcomes-over-time-for-each-treatment" class="level2">
+<h2 class="anchored" data-anchor-id="estimate-outcomes-over-time-for-each-treatment">(3) Estimate outcomes over time for each treatment</h2>
+<p>Using the results from step (1), the real-world data can be adjusted to estimate how people might do on other treatments. This means we have predicted outcomes over time for each treatment, based on the comparison of effectiveness against the reference treatment.</p>
+<p><a href="../images/simple_survival_orange.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Illustrative figure showing the proportion of patients who survived over time"><img src="../images/simple_survival_orange.png" class="img-fluid" style="width:33.0%" alt="Illustrative figure showing the proportion of patients who survived over time"></a> <a href="../images/simple_survival_red.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Illustrative figure showing the proportion of patients who survived over time"><img src="../images/simple_survival_red.png" class="img-fluid" style="width:33.0%" alt="Illustrative figure showing the proportion of patients who survived over time"></a> <a href="../images/simple_survival_green.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Illustrative figure showing the proportion of patients who survived over time"><img src="../images/simple_survival_green.png" class="img-fluid" style="width:33.0%" alt="Illustrative figure showing the proportion of patients who survived over time"></a></p>
 </section>
-<section id="part-4.-get-data-on-the-cost-and-health-utility-of-patients" class="level2">
-<h2 class="anchored" data-anchor-id="part-4.-get-data-on-the-cost-and-health-utility-of-patients">Part 4. Get data on the cost and health utility of patients</h2>
-<p>why, where from</p>
+<section id="find-how-many-people-receive-each-treatment" class="level2">
+<h2 class="anchored" data-anchor-id="find-how-many-people-receive-each-treatment">(4) Find how many people receive each treatment</h2>
+<p>From the real-world data identified in step (2), we can find the proportion of people that we expect to receive each treatment in practice.</p>
 </section>
-<section id="part-5.-construct-an-economic-model" class="level2">
-<h2 class="anchored" data-anchor-id="part-5.-construct-an-economic-model">Part 5. Construct an economic model</h2>
+<section id="get-data-on-the-cost-and-health-utility-of-patients" class="level2">
+<h2 class="anchored" data-anchor-id="get-data-on-the-cost-and-health-utility-of-patients">(5) Get data on the cost and health utility of patients</h2>
+<p>For each treatment against advanced RCC, studies were identified which reported either:</p>
+<ul>
+<li>The costs of each treatment for the healthcare system (e.g.&nbsp;costs of drugs, appointments, care)</li>
+<li>The quality of life for patients on or off each treatment at each line of therapy (first-line through to fourth-line). This is described using a measure called a “health utility value”.</li>
+</ul>
+</section>
+<section id="construct-an-economic-model" class="level2">
+<h2 class="anchored" data-anchor-id="construct-an-economic-model">(6) Construct an economic model</h2>
+<p><mark>TODO: finish</mark></p>
 <p>proportion of people</p>
 <p>data from above</p>
 <p>simulate people receiving each treatment, their outcomes, their costs</p>
@@ -740,7 +765,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/plain_english.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":false,"closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/plain_english.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"descPosition":"bottom","openEffect":"zoom","selector":".lightbox","loop":false,"closeEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
