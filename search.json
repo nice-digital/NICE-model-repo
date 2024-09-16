@@ -238,7 +238,7 @@
     "href": "pages/model_overview.html",
     "title": "Detailed summary",
     "section": "",
-    "text": "TBC. This page is a work in progress\nThis repository contains code to support appraisal of the cost-effectiveness of treatments in advanced renal cell carcinoma. It is currently applied to an appraisal of cabozantinib and nivolumab. This application and an overview of the analysis and modelling steps performed are described below.",
+    "text": "This repository contains code to support appraisal of the cost-effectiveness of treatments in advanced renal cell carcinoma. It is currently applied to an appraisal of cabozantinib and nivolumab. This application and an overview of the analysis and modelling steps performed are described below.",
     "crumbs": [
       "Model overview",
       "Detailed summary"
@@ -304,7 +304,7 @@
     "href": "pages/model_overview.html#stage-4.-modifications-to-the-extrapolations",
     "title": "Detailed summary",
     "section": "Stage 4. Modifications to the extrapolations",
-    "text": "Stage 4. Modifications to the extrapolations\n\nTreatment effect waning\nTreatment effect waning is when the hazard/survival for a treatment converges to the hazard/survival of the comparator. This was implemented at 5 years for 1L combination therapies that included an immuno-oncology (IO) treatment and tyrosine kinase inhibitor (TKI) (for example, axitinib and avelumab). It was set at 5 years as that is when people stop having that therapy in clinical practice.\nFor more information, see section 1.22 “Treatment effect waning” in the Pathway Model Report [6] and 4.3.5.3 “Treatment effectiveness waning” in the Assessment Report. [1]\n\n\nGeneral population mortality\nIf aRCC patients were projected to live longer than the general population, this was corrected (hence, ensuring the aRCC OS never exceeds the general population). General population mortality was based on an age and sex matched-profile (against the 1L all risk population) using data from the Office for National Statistics (ONS).\nFor more information, see section 4.3.5.4 “Accounting for general population mortality” in the Assessment Report. [1]\n\n\nOverlapping lines\n\n\n\nPrior adjuvant treatment",
+    "text": "Stage 4. Modifications to the extrapolations\n\nTreatment effect waning\nTreatment effect waning is when the hazard/survival for a treatment converges to the hazard/survival of the comparator. This was implemented at 5 years for 1L combination therapies that included an immuno-oncology (IO) treatment and tyrosine kinase inhibitor (TKI) (for example, axitinib and avelumab). It was set at 5 years as that is when people stop having that therapy in clinical practice.\nFor more information, see section 1.22 “Treatment effect waning” in the Pathway Model Report [6] and 4.3.5.3 “Treatment effectiveness waning” in the Assessment Report. [1]\n\n\nGeneral population mortality\nIf aRCC patients were projected to live longer than the general population, this was corrected (hence, ensuring the aRCC OS never exceeds the general population). General population mortality was based on an age and sex matched-profile (against the 1L all risk population) using data from the Office for National Statistics (ONS).\nFor more information, see section 4.3.5.4 “Accounting for general population mortality” in the Assessment Report. [1]\n\n\nOverlapping curves\nA known limitation of partitioned survival analysis (which was used to extrapolate the RWE) is that it can produce curves where PFS lies above OS (which is impossible in real-life). Hence, in cases where this occurs, it was adjusted so that PFS &lt;= OS (and also, PFS &lt;= TTP).\nFor more information, see section 4.3.5.5 “Adjustment for curves crossing” in the Assessment Report. [1]",
     "crumbs": [
       "Model overview",
       "Detailed summary"
@@ -315,7 +315,7 @@
     "href": "pages/model_overview.html#stage-5.-preparation-of-other-data-for-the-economic-models",
     "title": "Detailed summary",
     "section": "Stage 5. Preparation of other data for the economic models",
-    "text": "Stage 5. Preparation of other data for the economic models",
+    "text": "Stage 5. Preparation of other data for the economic models\n\nAdverse events\nAs for the effectiveness outcomes from the NMA, the adverse events hazard ratios from the adverse event NMA were applied to reference curves. These reference curves (i.e. the baseline adverse event risk in the model) were:\n\n1L - sunitib from Checkmate 9ER RCT\n2L and 3L - everolimus from CheckMate 025 RCT\n\nAs mentioned, adverse event rates were estimated by applying NMA HR to these curves, with the exception of cabozantinib plus nivolumab, whose rates were based directly on Checkmate 9ER RCT data.\nFor more information, see section 1.24 “Adverse events” in the Pathway Model Report [6] and 4.3.6 “Adverse events” in the Assessment Report. [1]\n\n\nUtility values\nFor each line of treatment, there was a:\n\nUtility value for patients who were progression free\nUtility value for patients with progressed disease\nUtility value for BSC\n\nThe values were sourced from prior NICE technology appraisals - TA645 for 1L and then adjustment to that based on TA498 for 2L to 4L. These were identified through a systematic search for published cost-effectiveness studies.\nFor more information, see sections 1.25 “Health-related quality of life” and 1.26 “Source of utility values” in the Pathway Model Report [6] and sections 4.1 “Published cost-effectiveness studies” and 4.3.7 “Utility values” in the Assessment Report. [1]\n\n\nResource use and costs\nSimilar to the utility values, resource use was based on prior NICE technology appraisals, whilst costs were based on NHS reference costs and costs from the Personal Social Services Research Unit. These include estimates of resource use and costs for:\n\nDisease management/health state (i.e. consultant and specialist nurse visits, CT scans, blood tests, pain medication)\nEnd of life (i.e. GP appointments, district nursing care, social care, hospital care)\nDrug and administration (i.e. costs of each drug)\nAdverse events (e.g. Grade 1/2 events like diarrehoea or fatigue, and Grade 3+ events like anaemia, hypertension and nausea)\nSubsequent treatment (i.e. radiotherapy, surgery)\n\nFor more information, see section 4.3.8 “Resource use and costs” in the Assessment Report [1] and sections 1.27 “Resource use” and 1.28 “Relative dose intensity” in the Pathway Model Report. [6]",
     "crumbs": [
       "Model overview",
       "Detailed summary"
@@ -326,18 +326,7 @@
     "href": "pages/model_overview.html#stage-6.-economic-models",
     "title": "Detailed summary",
     "section": "Stage 6. Economic models",
-    "text": "Stage 6. Economic models",
-    "crumbs": [
-      "Model overview",
-      "Detailed summary"
-    ]
-  },
-  {
-    "objectID": "pages/model_overview.html#model-diagram",
-    "href": "pages/model_overview.html#model-diagram",
-    "title": "Detailed summary",
-    "section": "Model diagram",
-    "text": "Model diagram\nEOM:RCC is designed to model up to four lines of treatment before best supportive care. A diagram of the model is provided below. There are ten possible health states:\n\nFirst line (1L) off or on treatment\nSecond line (2L) off or on treatment\nThird line (3L) off or on treatment\nFourth line (4L) off or on treatment\nBest supportive case (BSC)\nDeath\n\n\n\n\n\nStructure of the model and transition between health states\n\n\nTransition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT). We are assuming good correlation between PFS and TTNT baesd on clinical advice and a publication provided by Logex. For Logex’s RWE, TTNT is the only option.",
+    "text": "Stage 6. Economic models\n\nModel diagram\nThe economic model is designed to model up to four lines of treatment before best supportive care. A diagram of the model is provided below. There are ten possible health states:\n\nFirst line (1L) off or on treatment\nSecond line (2L) off or on treatment\nThird line (3L) off or on treatment\nFourth line (4L) off or on treatment\nBest supportive case (BSC)\nDeath\n\n\n\n\n\nStructure of the model and transition between health states\n\n\nTransition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT).\n\n\nMethodology",
     "crumbs": [
       "Model overview",
       "Detailed summary"

@@ -287,12 +287,19 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#treatment-effect-waning" id="toc-treatment-effect-waning" class="nav-link" data-scroll-target="#treatment-effect-waning">Treatment effect waning</a></li>
   <li><a href="#general-population-mortality" id="toc-general-population-mortality" class="nav-link" data-scroll-target="#general-population-mortality">General population mortality</a></li>
-  <li><a href="#overlapping-lines" id="toc-overlapping-lines" class="nav-link" data-scroll-target="#overlapping-lines">Overlapping lines</a></li>
-  <li><a href="#prior-adjuvant-treatment" id="toc-prior-adjuvant-treatment" class="nav-link" data-scroll-target="#prior-adjuvant-treatment">Prior adjuvant treatment</a></li>
+  <li><a href="#overlapping-curves" id="toc-overlapping-curves" class="nav-link" data-scroll-target="#overlapping-curves">Overlapping curves</a></li>
   </ul></li>
-  <li><a href="#stage-5.-preparation-of-other-data-for-the-economic-models" id="toc-stage-5.-preparation-of-other-data-for-the-economic-models" class="nav-link" data-scroll-target="#stage-5.-preparation-of-other-data-for-the-economic-models">Stage 5. Preparation of other data for the economic models</a></li>
-  <li><a href="#stage-6.-economic-models" id="toc-stage-6.-economic-models" class="nav-link" data-scroll-target="#stage-6.-economic-models">Stage 6. Economic models</a></li>
+  <li><a href="#stage-5.-preparation-of-other-data-for-the-economic-models" id="toc-stage-5.-preparation-of-other-data-for-the-economic-models" class="nav-link" data-scroll-target="#stage-5.-preparation-of-other-data-for-the-economic-models">Stage 5. Preparation of other data for the economic models</a>
+  <ul class="collapse">
+  <li><a href="#adverse-events" id="toc-adverse-events" class="nav-link" data-scroll-target="#adverse-events">Adverse events</a></li>
+  <li><a href="#utility-values" id="toc-utility-values" class="nav-link" data-scroll-target="#utility-values">Utility values</a></li>
+  <li><a href="#resource-use-and-costs" id="toc-resource-use-and-costs" class="nav-link" data-scroll-target="#resource-use-and-costs">Resource use and costs</a></li>
+  </ul></li>
+  <li><a href="#stage-6.-economic-models" id="toc-stage-6.-economic-models" class="nav-link" data-scroll-target="#stage-6.-economic-models">Stage 6. Economic models</a>
+  <ul class="collapse">
   <li><a href="#model-diagram" id="toc-model-diagram" class="nav-link" data-scroll-target="#model-diagram">Model diagram</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a></li>
+  </ul></li>
   <li><a href="#stage-7.-processing-model-results" id="toc-stage-7.-processing-model-results" class="nav-link" data-scroll-target="#stage-7.-processing-model-results">Stage 7. Processing model results</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/model_overview.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -319,7 +326,6 @@ div.csl-indent {
 </header>
 
 
-<p><strong>TBC. This page is a work in progress</strong></p>
 <p>This repository contains code to support appraisal of the cost-effectiveness of treatments in advanced renal cell carcinoma. It is currently applied to an appraisal of cabozantinib and nivolumab. This application and an overview of the analysis and modelling steps performed are described below.</p>
 <section id="background" class="level2">
 <h2 class="anchored" data-anchor-id="background">Background</h2>
@@ -368,7 +374,7 @@ div.csl-indent {
 <p><strong>Rough diagram</strong></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../images/overview1.drawio.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Overview of analysis performed for this appraisal."><img src="../images/overview1.drawio.png" class="img-fluid figure-img" alt="Overview of analysis performed for this appraisal."></a></p>
+<p><a href="../images/rough_overview.drawio.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Overview of analysis performed for this appraisal."><img src="../images/rough_overview.drawio.png" class="img-fluid figure-img" alt="Overview of analysis performed for this appraisal."></a></p>
 <figcaption>Overview of analysis performed for this appraisal.</figcaption>
 </figure>
 </div>
@@ -487,26 +493,53 @@ div.csl-indent {
 <p>If aRCC patients were projected to live longer than the general population, this was corrected (hence, ensuring the aRCC OS never exceeds the general population). General population mortality was based on an age and sex matched-profile (against the 1L all risk population) using data from the Office for National Statistics (ONS).</p>
 <p>For more information, see section 4.3.5.4 “Accounting for general population mortality” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
-<section id="overlapping-lines" class="level3">
-<h3 class="anchored" data-anchor-id="overlapping-lines">Overlapping lines</h3>
-<!--TODO-->
-</section>
-<section id="prior-adjuvant-treatment" class="level3">
-<h3 class="anchored" data-anchor-id="prior-adjuvant-treatment">Prior adjuvant treatment</h3>
-<!--TODO-->
+<section id="overlapping-curves" class="level3">
+<h3 class="anchored" data-anchor-id="overlapping-curves">Overlapping curves</h3>
+<p>A known limitation of partitioned survival analysis (which was used to extrapolate the RWE) is that it can produce curves where PFS lies above OS (which is impossible in real-life). Hence, in cases where this occurs, it was adjusted so that PFS &lt;= OS (and also, PFS &lt;= TTP).</p>
+<p>For more information, see section 4.3.5.5 “Adjustment for curves crossing” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
 </section>
 <section id="stage-5.-preparation-of-other-data-for-the-economic-models" class="level2">
 <h2 class="anchored" data-anchor-id="stage-5.-preparation-of-other-data-for-the-economic-models">Stage 5. Preparation of other data for the economic models</h2>
-<!--TODO-->
+<section id="adverse-events" class="level3">
+<h3 class="anchored" data-anchor-id="adverse-events">Adverse events</h3>
+<p>As for the effectiveness outcomes from the NMA, the adverse events hazard ratios from the adverse event NMA were applied to reference curves. These reference curves (i.e.&nbsp;the baseline adverse event risk in the model) were:</p>
+<ul>
+<li>1L - sunitib from Checkmate 9ER RCT</li>
+<li>2L and 3L - everolimus from CheckMate 025 RCT</li>
+</ul>
+<p>As mentioned, adverse event rates were estimated by applying NMA HR to these curves, with the exception of cabozantinib plus nivolumab, whose rates were based directly on Checkmate 9ER RCT data.</p>
+<p>For more information, see section 1.24 “Adverse events” in the Pathway Model Report <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span> and 4.3.6 “Adverse events” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
+</section>
+<section id="utility-values" class="level3">
+<h3 class="anchored" data-anchor-id="utility-values">Utility values</h3>
+<p>For <strong>each line of treatment</strong>, there was a:</p>
+<ul>
+<li>Utility value for patients who were <strong>progression free</strong></li>
+<li>Utility value for patients with <strong>progressed disease</strong></li>
+<li>Utility value for <strong>BSC</strong></li>
+</ul>
+<p>The values were sourced from prior NICE technology appraisals - TA645 for 1L and then adjustment to that based on TA498 for 2L to 4L. These were identified through a systematic search for published cost-effectiveness studies.</p>
+<p>For more information, see sections 1.25 “Health-related quality of life” and 1.26 “Source of utility values” in the Pathway Model Report <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span> and sections 4.1 “Published cost-effectiveness studies” and 4.3.7 “Utility values” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
+</section>
+<section id="resource-use-and-costs" class="level3">
+<h3 class="anchored" data-anchor-id="resource-use-and-costs">Resource use and costs</h3>
+<p>Similar to the utility values, resource use was based on prior NICE technology appraisals, whilst costs were based on NHS reference costs and costs from the Personal Social Services Research Unit. These include estimates of resource use and costs for:</p>
+<ul>
+<li><strong>Disease management/health state</strong> (i.e.&nbsp;consultant and specialist nurse visits, CT scans, blood tests, pain medication)</li>
+<li><strong>End of life</strong> (i.e.&nbsp;GP appointments, district nursing care, social care, hospital care)</li>
+<li><strong>Drug and administration</strong> (i.e.&nbsp;costs of each drug)</li>
+<li><strong>Adverse events</strong> (e.g.&nbsp;Grade 1/2 events like diarrehoea or fatigue, and Grade 3+ events like anaemia, hypertension and nausea)</li>
+<li><strong>Subsequent treatment</strong> (i.e.&nbsp;radiotherapy, surgery)</li>
+</ul>
+<p>For more information, see section 4.3.8 “Resource use and costs” in the Assessment Report <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span> and sections 1.27 “Resource use” and 1.28 “Relative dose intensity” in the Pathway Model Report. <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span></p>
+</section>
 </section>
 <section id="stage-6.-economic-models" class="level2">
 <h2 class="anchored" data-anchor-id="stage-6.-economic-models">Stage 6. Economic models</h2>
-<!--TODO-->
-</section>
-<section id="model-diagram" class="level2">
-<h2 class="anchored" data-anchor-id="model-diagram">Model diagram</h2>
-<p>EOM:RCC is designed to model up to four lines of treatment before best supportive care. A diagram of the model is provided below. There are ten possible health states:</p>
+<section id="model-diagram" class="level3">
+<h3 class="anchored" data-anchor-id="model-diagram">Model diagram</h3>
+<p>The economic model is designed to model up to four lines of treatment before best supportive care. A diagram of the model is provided below. There are ten possible health states:</p>
 <ul>
 <li>First line (1L) off or on treatment</li>
 <li>Second line (2L) off or on treatment</li>
@@ -522,8 +555,12 @@ div.csl-indent {
 <figcaption>Structure of the model and transition between health states</figcaption>
 </figure>
 </div>
-<p>Transition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT). We are assuming good correlation between PFS and TTNT baesd on clinical advice and a publication provided by Logex. <mark>For Logex’s RWE, TTNT is the only option.</mark></p>
+<p>Transition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT).</p>
+</section>
+<section id="methodology" class="level3">
+<h3 class="anchored" data-anchor-id="methodology">Methodology</h3>
 <!--TODO-->
+</section>
 </section>
 <section id="stage-7.-processing-model-results" class="level2">
 
@@ -977,7 +1014,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/model_overview.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","loop":false,"openEffect":"zoom","closeEffect":"zoom"});
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/model_overview.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","loop":false,"closeEffect":"zoom","descPosition":"bottom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
