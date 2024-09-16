@@ -20,7 +20,7 @@ This repository contains code to support appraisal of the cost-effectiveness of 
 
 People with aRCC who have not yet received systemic treatments (therapies that target cancer cells throughout the body) are classified as either being **favourable-risk** RCC or **intermediate- and poor-risk** RCC. These categories are defined in the International Metastatic Renal Cell Carcinoma Database Consortium (IMDC) criteria. They are established based on time from diagnosis, the patient's ability to perform daily tasks, and some laboratory measurements. In the UK, most RCC patients are classified as intermediate or poor risk. Risk status is associated with clinical outcomes (for example, mortality rates). It is used to help guide decisions on which treatments to use.
 
-For more information, see [section 2.2 Epidemiology and 2.3.1 Risk Status](https://www.nice.org.uk/guidance/ta964/documents/assessment-report) in the Assessment Report.
+For more information, see section 2.2 Epidemiology and 2.3.1 Risk Status in the Assessment Report. @lee_treatments_2023-1
 
 ### Focus of the appraisal
 
@@ -35,7 +35,7 @@ It is a first-line (1L) systemic therapy, meaning it is for previously untreated
 
 The appraisal compares this treatment **against other 1L treatments**. When modelling this, it includes a simulation of the subsequent treatments that people might receive after each.
 
-For more information, see [section 3.2 Interventions and 3.3 The RCC treatment pathway](https://www.nice.org.uk/guidance/ta964/documents/assessment-report) in the Assessment Report.
+For more information, see section 3.2 Interventions and 3.3 The RCC treatment pathway in the Assessment Report. @lee_treatments_2023-1
 
 ## Summary diagram
 
@@ -53,36 +53,102 @@ A systematic review was conducted to identified **randomised controlled trials (
 
 The studies had to report at least one of the outcomes of interest:
 
-* **Overall survival (OS)** -
-* **Progression-free survival (PFS)** -
-* **Time to next treatment (TTNT)** -
-* **Time on treatment** -
-* **Response rates** -
-* **Duration of response** -
-* **Adverse events (AEs) of treatment** -
-* **Health-related quality of life (HRQoL)** -
+* **Overall survival (OS)** - "time from randomisation to death" @delgado_clinical_2021
+* **Progression-free survival (PFS)** - "time from randomisation until first evidence of disease progression or death" @delgado_clinical_2021
+* **Time to next treatment (TTNT)** - "time from initiating treatment to initiating the next line of therapy" @delgado_clinical_2021
+* **Time on treatment** - similar to TTNT, but excluding time off treatment between lines of therapy
+* **Response rates** (also known as objective response rate) - the proportion of people with partial response (decrease in tumour size) or complete response (disappearance of all signs of cancer) @nih_national_cancer_institute_nci_nci_nodate
+* **Duration of response** - "time from randomisation to disease progression or death in patients who achieve complete or partial response" @delgado_clinical_2021
+* **Adverse events (AEs) of treatment** - "undesired effect" of treatment @nih_national_cancer_institute_nci_nci_nodate
+* **Health-related quality of life (HRQoL)** - "the impact a medical condition and/or treatment has on a patient’s functioning and well-being" @york_health_economics_consortium_quality_2016
 
-For more information, see [section 3.1.1 Identification of systematic literature reviews and randomised controlled trials](https://www.nice.org.uk/guidance/ta964/documents/assessment-report) in the Assessment Report.
+The review identified 24 RCTs to include (plus an additional 6, but these were ongoing). All 24 studies recorded OS, PFS, response rate and adverse events, whilst other outcomes were more sparsely recorded.
+
+For more information, see section "3.1.1 Identification of systematic literature reviews and randomised controlled trials" and "Table 11 Outcomes reported by RCTs included in the review" in the Assessment Report. @lee_treatments_2023-1
 
 ### Network meta-analysis
 
-To illustrate this, below are 1L network diagrams for PFS and OS, as based on Figures 16 and 17 in the Assessment Report.<mark>TODO:ref</mark> These show which treatments were directly compared head-to-head in a clinical trial.
+The identified trials do not all include the same treatments, with each comparing different therapies head-to-head. To illustrate this, below are 1L network diagrams for PFS and OS, as based on Figures 16 and 17 in the Assessment Report. @lee_treatments_2023-1 These show which treatments were directly compared head-to-head: each circle represents a treatment, and each line represents a clinical trial.
 
-![1L network diagrams for PFS and OS, as adapted from the Assessment Report](../images/network_diagram.drawio.png)
+![1L network diagrams for PFS and OS, as adapted from the Assessment Report. Abbreviations:  ave, avelumab; axi, axitinib; cabo, cabozantinib; ipi, ipilimumab; lenv, lenvatinib; nivo, nivolumab; pazo, pazopanib; pem, pembrolizumab; sora, sorafenib; suni, sunitinib; tivo, tivozanib.](../images/network_diagram.drawio.png)
 
-## OLD
+For our economic model, we need to understand the clinical effectiveness of each treatment for each outcome, relative to the other treatments. This is measured using **hazard ratios (HR)**, which are "a measure of how often a particular event happens in one group compared to how often it happens in another group, over time". @nih_national_cancer_institute_nci_nci_nodate
 
-**In progress**
+In order to estimate the comparative effectiveness of interventions that may not have been compared head-to-head in a randomised trial, **network meta-analyses (NMA)** were performed. Two types of NMA were used:
 
-terms to use: "comparative efficacy propagation", "proportional hazards network meta analysis", "fractional polynomial network meta analysis"
+* **Proportional hazards NMA (PHNMA)** which returns a single hazard ratio for each comparison, as it "assumes the relative effects of each treatment... remain constant over time"
+* **Fractional polynomial NMA (FPNMA)** which returns a list of time-varying hazard ratios for each comparison, as it "allows the relative effects to change over time" @national_institute_for_health_and_care_excellence_nice_renal_2024
 
-Population: Untreated advanced or metastatic RCC
+NMA were performed for:
 
-Intervention: Cabo + Nivo
+* **OS and PFS** in the all-risk group, favourable-risk and intermediate- and poor-risk subgroups
+* **Safety** for the all-risk group
 
-Comparators: Pazo, Tivo, Suni. Int/Poor: Cabo, Nivo+Ipi, Pem+Lenv
+These were used as follows:
 
-Outcomes: Overall survival, PFS, repsonse rates, duration
+* **FPNMA** was used for 1L efficacy
+* **PHNMA** was used for 2L and 3L efficacy
+* 4L efficacy was "derived from pooled third and fourth-line outcomes" @national_institute_for_health_and_care_excellence_nice_renal_2024
+
+The evaluation committee preferred the FPNMA approach as the "flexible time-varying hazard ratios... provided a better, more plausible fit to observed short-term data". Also, the assumption of proportional hazards was violated for some 1L treatments. However, they used PHNMA for later lines due to limitations in the data available for those lines.
+
+For more information, see section 1.16 "Relative effectiveness" in the Pathway Model Report. @national_institute_for_health_and_care_excellence_nice_renal_2024
+
+## Stage 2. Extrapolating survival data from real-world evidence
+
+This stage aims to **extrapolate survival data from real-world evidence (RWE)**.
+
+### Identification of RWE
+
+A targeted search was conducted to identify RWE (i.e. observational studies describing outcomes in practice, outside of a trial setting). The search was for studies that included patients with aRCC and described at least one of:
+
+* Treatment pathways
+* Natural history of disease
+* Patient characteristics
+
+Of the 12 real-world datasets identified, only one was considered to be robust and relevant to the UK. This was Challapalli et al. 2022. @challapalli_1463p_2022 The owners of this dataset provided access to patient-level data.
+
+For more information, see section 1.12 "Real-world evidence" in the Pathway Model Report @national_institute_for_health_and_care_excellence_nice_renal_2024 and 3.1.2 "Identification of real-world evidence" in the Assessment Report. @lee_treatments_2023-1
+
+### Extrapolation of RWE
+
+<!--TODO-->
+
+## Stage 3. Applying NMA hazard ratios to RWE reference curves
+
+### Reference curves
+
+<!--TODO-->
+
+### Applying the hazard ratios
+
+<!--TODO-->
+
+## Stage 4. Modifications to the extrapolations
+
+### Treatment effect waning
+
+<!--TODO-->
+
+### General population mortality
+
+<!--TODO-->
+
+### Overlapping lines
+
+<!--TODO-->
+
+### Prior adjuvant treatment
+
+<!--TODO-->
+
+## Stage 5. Preparation of other data for the economic models
+
+<!--TODO-->
+
+## Stage 6. Economic models
+
+<!--TODO-->
 
 ## Model diagram
 
@@ -100,3 +166,9 @@ EOM:RCC is designed to model up to four lines of treatment before best supportiv
 ![Structure of the model and transition between health states](../images/eomrcc_transitions.drawio.png)
 
 Transition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT). We are assuming good correlation between PFS and TTNT baesd on clinical advice and a publication provided by Logex. <mark>For Logex's RWE, TTNT is the only option.</mark>
+
+<!--TODO-->
+
+## Stage 7. Processing model results
+
+<!--TODO-->
