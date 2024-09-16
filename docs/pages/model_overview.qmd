@@ -4,8 +4,6 @@ bibliography: ../references.bib
 csl: ../elsvan.csl
 ---
 
-**TBC. This page is a work in progress**
-
 This repository contains code to support appraisal of the cost-effectiveness of treatments in advanced renal cell carcinoma. It is currently applied to an appraisal of cabozantinib and nivolumab. This application and an overview of the analysis and modelling steps performed are described below.
 
 ## Background
@@ -41,7 +39,7 @@ For more information, see section 3.2 Interventions and 3.3 The RCC treatment pa
 
 **Rough diagram**
 
-![Overview of analysis performed for this appraisal.](../images/overview1.drawio.png){.lightbox}
+![Overview of analysis performed for this appraisal.](../images/rough_overview.drawio.png){.lightbox}
 
 ## Stage 1. Estimating the relative efficacy of each treatment
 
@@ -162,25 +160,54 @@ If aRCC patients were projected to live longer than the general population, this
 
 For more information, see section 4.3.5.4 "Accounting for general population mortality" in the Assessment Report. @lee_treatments_2023-1
 
-### Overlapping lines
+### Overlapping curves
 
-<!--TODO-->
+A known limitation of partitioned survival analysis (which was used to extrapolate the RWE) is that it can produce curves where PFS lies above OS (which is impossible in real-life). Hence, in cases where this occurs, it was adjusted so that PFS <= OS (and also, PFS <= TTP).
 
-### Prior adjuvant treatment
-
-<!--TODO-->
+For more information, see section 4.3.5.5 "Adjustment for curves crossing" in the Assessment Report. @lee_treatments_2023-1
 
 ## Stage 5. Preparation of other data for the economic models
 
-<!--TODO-->
+### Adverse events
+
+As for the effectiveness outcomes from the NMA, the adverse events hazard ratios from the adverse event NMA were applied to reference curves. These reference curves (i.e. the baseline adverse event risk in the model) were:
+
+* 1L - sunitib from Checkmate 9ER RCT
+* 2L and 3L - everolimus from CheckMate 025 RCT
+
+As mentioned, adverse event rates were estimated by applying NMA HR to these curves, with the exception of cabozantinib plus nivolumab, whose rates were based directly on Checkmate 9ER RCT data.
+
+For more information, see section 1.24 "Adverse events" in the Pathway Model Report @national_institute_for_health_and_care_excellence_nice_renal_2024 and 4.3.6 "Adverse events" in the Assessment Report. @lee_treatments_2023-1
+
+### Utility values
+
+For **each line of treatment**, there was a:
+
+* Utility value for patients who were **progression free**
+* Utility value for patients with **progressed disease**
+* Utility value for **BSC**
+
+The values were sourced from prior NICE technology appraisals - TA645 for 1L and then adjustment to that based on TA498 for 2L to 4L. These were identified through a systematic search for published cost-effectiveness studies.
+
+For more information, see sections 1.25 "Health-related quality of life" and 1.26 "Source of utility values" in the Pathway Model Report @national_institute_for_health_and_care_excellence_nice_renal_2024 and sections 4.1 "Published cost-effectiveness studies" and 4.3.7 "Utility values" in the Assessment Report. @lee_treatments_2023-1
+
+### Resource use and costs
+
+Similar to the utility values, resource use was based on prior NICE technology appraisals, whilst costs were based on NHS reference costs and costs from the Personal Social Services Research Unit. These include estimates of resource use and costs for:
+
+* **Disease management/health state** (i.e. consultant and specialist nurse visits, CT scans, blood tests, pain medication)
+* **End of life** (i.e. GP appointments, district nursing care, social care, hospital care)
+* **Drug and administration** (i.e. costs of each drug)
+* **Adverse events** (e.g. Grade 1/2 events like diarrehoea or fatigue, and Grade 3+ events like anaemia, hypertension and nausea)
+* **Subsequent treatment** (i.e. radiotherapy, surgery)
+
+For more information, see section 4.3.8 "Resource use and costs" in the Assessment Report @lee_treatments_2023-1 and sections 1.27 "Resource use" and 1.28 "Relative dose intensity" in the Pathway Model Report. @national_institute_for_health_and_care_excellence_nice_renal_2024
 
 ## Stage 6. Economic models
 
-<!--TODO-->
+### Model diagram
 
-## Model diagram
-
-EOM:RCC is designed to model up to four lines of treatment before best supportive care. A diagram of the model is provided below. There are ten possible health states:
+The economic model is designed to model up to four lines of treatment before best supportive care. A diagram of the model is provided below. There are ten possible health states:
 
 * First line (1L) off or on treatment
 * Second line (2L) off or on treatment
@@ -193,7 +220,9 @@ EOM:RCC is designed to model up to four lines of treatment before best supportiv
 
 ![Structure of the model and transition between health states](../images/eomrcc_transitions.drawio.png){.lightbox}
 
-Transition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT). We are assuming good correlation between PFS and TTNT baesd on clinical advice and a publication provided by Logex. <mark>For Logex's RWE, TTNT is the only option.</mark>
+Transition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT).
+
+### Methodology
 
 <!--TODO-->
 
