@@ -273,7 +273,7 @@ div.csl-indent {
   <li><a href="#identification-of-randomised-controlled-trials" id="toc-identification-of-randomised-controlled-trials" class="nav-link" data-scroll-target="#identification-of-randomised-controlled-trials">Identification of randomised controlled trials</a></li>
   <li><a href="#network-meta-analysis" id="toc-network-meta-analysis" class="nav-link" data-scroll-target="#network-meta-analysis">Network meta-analysis</a></li>
   </ul></li>
-  <li><a href="#stage-2.-extrapolating-survival-data-from-real-world-evidence" id="toc-stage-2.-extrapolating-survival-data-from-real-world-evidence" class="nav-link" data-scroll-target="#stage-2.-extrapolating-survival-data-from-real-world-evidence">Stage 2. Extrapolating survival data from real-world evidence</a>
+  <li><a href="#stage-2.-extrapolating-survival-curves-from-real-world-evidence" id="toc-stage-2.-extrapolating-survival-curves-from-real-world-evidence" class="nav-link" data-scroll-target="#stage-2.-extrapolating-survival-curves-from-real-world-evidence">Stage 2. Extrapolating survival curves from real-world evidence</a>
   <ul class="collapse">
   <li><a href="#identification-of-rwe" id="toc-identification-of-rwe" class="nav-link" data-scroll-target="#identification-of-rwe">Identification of RWE</a></li>
   <li><a href="#extrapolation-of-rwe" id="toc-extrapolation-of-rwe" class="nav-link" data-scroll-target="#extrapolation-of-rwe">Extrapolation of RWE</a></li>
@@ -281,7 +281,7 @@ div.csl-indent {
   <li><a href="#stage-3.-applying-nma-hazard-ratios-to-rwe-reference-curves" id="toc-stage-3.-applying-nma-hazard-ratios-to-rwe-reference-curves" class="nav-link" data-scroll-target="#stage-3.-applying-nma-hazard-ratios-to-rwe-reference-curves">Stage 3. Applying NMA hazard ratios to RWE reference curves</a>
   <ul class="collapse">
   <li><a href="#reference-curves" id="toc-reference-curves" class="nav-link" data-scroll-target="#reference-curves">Reference curves</a></li>
-  <li><a href="#applying-the-hazard-ratios" id="toc-applying-the-hazard-ratios" class="nav-link" data-scroll-target="#applying-the-hazard-ratios">Applying the hazard ratios</a></li>
+  <li><a href="#applying-the-hazard-ratios-to-the-reference-curves" id="toc-applying-the-hazard-ratios-to-the-reference-curves" class="nav-link" data-scroll-target="#applying-the-hazard-ratios-to-the-reference-curves">Applying the hazard ratios to the reference curves</a></li>
   </ul></li>
   <li><a href="#stage-4.-modifications-to-the-extrapolations" id="toc-stage-4.-modifications-to-the-extrapolations" class="nav-link" data-scroll-target="#stage-4.-modifications-to-the-extrapolations">Stage 4. Modifications to the extrapolations</a>
   <ul class="collapse">
@@ -375,7 +375,6 @@ div.csl-indent {
 </section>
 <section id="stage-1.-estimating-the-relative-efficacy-of-each-treatment" class="level2">
 <h2 class="anchored" data-anchor-id="stage-1.-estimating-the-relative-efficacy-of-each-treatment">Stage 1. Estimating the relative efficacy of each treatment</h2>
-<p>This stage aims to get data on the <strong>relative efficacy</strong> of each available treatment for aRCC at 1L to 4L, which is based on evidence from clinical trials.</p>
 <section id="identification-of-randomised-controlled-trials" class="level3">
 <h3 class="anchored" data-anchor-id="identification-of-randomised-controlled-trials">Identification of randomised controlled trials</h3>
 <p>A systematic review was conducted to identified <strong>randomised controlled trials (RCTs)</strong> of patients with aRCC who received any of the treatments under comparison - namely: cabozantinib plus nivolumab; pazopanib; tivozanib; sunitinib; cabozantinib; nivolumab plus ipilimumab; pembrolizumab and lenvatinib; axitinib; lenvatinib plus everolimus; everolimus; nivolumab; avelumab plus axitinib</p>
@@ -398,7 +397,7 @@ div.csl-indent {
 <p>The identified trials do not all include the same treatments, with each comparing different therapies head-to-head. To illustrate this, below are 1L network diagrams for PFS and OS, as based on Figures 16 and 17 in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span> These show which treatments were directly compared head-to-head: each circle represents a treatment, and each line represents a clinical trial.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../images/network_diagram.drawio.png" class="img-fluid figure-img"></p>
+<p><a href="../images/network_diagram.drawio.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="1L network diagrams for PFS and OS, as adapted from the Assessment Report. Abbreviations: ave, avelumab; axi, axitinib; cabo, cabozantinib; ipi, ipilimumab; lenv, lenvatinib; nivo, nivolumab; pazo, pazopanib; pem, pembrolizumab; sora, sorafenib; suni, sunitinib; tivo, tivozanib."><img src="../images/network_diagram.drawio.png" class="img-fluid figure-img" alt="1L network diagrams for PFS and OS, as adapted from the Assessment Report. Abbreviations: ave, avelumab; axi, axitinib; cabo, cabozantinib; ipi, ipilimumab; lenv, lenvatinib; nivo, nivolumab; pazo, pazopanib; pem, pembrolizumab; sora, sorafenib; suni, sunitinib; tivo, tivozanib."></a></p>
 <figcaption>1L network diagrams for PFS and OS, as adapted from the Assessment Report. Abbreviations: ave, avelumab; axi, axitinib; cabo, cabozantinib; ipi, ipilimumab; lenv, lenvatinib; nivo, nivolumab; pazo, pazopanib; pem, pembrolizumab; sora, sorafenib; suni, sunitinib; tivo, tivozanib.</figcaption>
 </figure>
 </div>
@@ -408,24 +407,23 @@ div.csl-indent {
 <li><strong>Proportional hazards NMA (PHNMA)</strong> which returns a single hazard ratio for each comparison, as it “assumes the relative effects of each treatment… remain constant over time”</li>
 <li><strong>Fractional polynomial NMA (FPNMA)</strong> which returns a list of time-varying hazard ratios for each comparison, as it “allows the relative effects to change over time” <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span></li>
 </ul>
+<p>For each RCT, requests were made to the company that owned each trial’s data, asking for grouped survival data (in time intervals of 1 or 4 weeks), for used in the NMAs. If this was not received, then the published curves were digitised to estimate the grouped survival data.</p>
 <p>NMA were performed for:</p>
 <ul>
 <li><strong>OS and PFS</strong> in the all-risk group, favourable-risk and intermediate- and poor-risk subgroups</li>
 <li><strong>Safety</strong> for the all-risk group</li>
 </ul>
-<p>These were used as follows:</p>
+<p>PHNMA and FPNMA were both conducted, but the chosen models used were:</p>
 <ul>
-<li><strong>FPNMA</strong> was used for 1L efficacy</li>
-<li><strong>PHNMA</strong> was used for 2L and 3L efficacy</li>
-<li>4L efficacy was “derived from pooled third and fourth-line outcomes” <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span></li>
+<li><strong>FPNMA</strong> for 1L efficacy - as the “flexible time-varying hazard ratios… provided a better, more plausible fit to observed short-term data” <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span> and as the proportional hazards was violated for some 1L treatments. However, PHNMA was used for pembrolizumab plus lenvatinib, as FPNMA produced implausible results.</li>
+<li><strong>PHNMA</strong> was used for 2L and 3L efficacy due to the “sparsity of the available network and extreme results within the fitted models” <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></li>
+<li>4L efficacy was based on 3L outcomes, applying the hazard ratio for the difference between pooled 3L and 4L outcomes</li>
 </ul>
-<p>The evaluation committee preferred the FPNMA approach as the “flexible time-varying hazard ratios… provided a better, more plausible fit to observed short-term data”. Also, the assumption of proportional hazards was violated for some 1L treatments. However, they used PHNMA for later lines due to limitations in the data available for those lines.</p>
-<p>For more information, see section 1.16 “Relative effectiveness” in the Pathway Model Report. <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span></p>
+<p>For more information, see section 1.16 “Relative effectiveness” in the Pathway Model Report <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span> and 4.3.5.2 “Calculation of relative treatment effectiveness” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
 </section>
-<section id="stage-2.-extrapolating-survival-data-from-real-world-evidence" class="level2">
-<h2 class="anchored" data-anchor-id="stage-2.-extrapolating-survival-data-from-real-world-evidence">Stage 2. Extrapolating survival data from real-world evidence</h2>
-<p>This stage aims to <strong>extrapolate survival data from real-world evidence (RWE)</strong>.</p>
+<section id="stage-2.-extrapolating-survival-curves-from-real-world-evidence" class="level2">
+<h2 class="anchored" data-anchor-id="stage-2.-extrapolating-survival-curves-from-real-world-evidence">Stage 2. Extrapolating survival curves from real-world evidence</h2>
 <section id="identification-of-rwe" class="level3">
 <h3 class="anchored" data-anchor-id="identification-of-rwe">Identification of RWE</h3>
 <p>A targeted search was conducted to identify RWE (i.e.&nbsp;observational studies describing outcomes in practice, outside of a trial setting). The search was for studies that included patients with aRCC and described at least one of:</p>
@@ -439,29 +437,55 @@ div.csl-indent {
 </section>
 <section id="extrapolation-of-rwe" class="level3">
 <h3 class="anchored" data-anchor-id="extrapolation-of-rwe">Extrapolation of RWE</h3>
-<!--TODO-->
+<p>The OS, PFS, time to discontinuation (TTD), time to progression (TTP) and post-progression survival (PPS) survival curves from Challapalli et al.&nbsp;2022 <span class="citation" data-cites="challapalli_1463p_2022">[<a href="#ref-challapalli_1463p_2022" role="doc-biblioref">7</a>]</span> were extrapolated so that they covered the <strong>time horizon</strong> of the economic model, which was <strong>40 years</strong>. Extrapolation was conducted using <strong>survival analysis</strong> (with a <strong>partitioned survival model</strong>).</p>
+<p>For more information, see section 4.3.5.1 “Extrapolation of survival curves” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
 </section>
 <section id="stage-3.-applying-nma-hazard-ratios-to-rwe-reference-curves" class="level2">
 <h2 class="anchored" data-anchor-id="stage-3.-applying-nma-hazard-ratios-to-rwe-reference-curves">Stage 3. Applying NMA hazard ratios to RWE reference curves</h2>
 <section id="reference-curves" class="level3">
 <h3 class="anchored" data-anchor-id="reference-curves">Reference curves</h3>
-<!--TODO-->
+<p>For 1L, the reference treatment used was <strong>sunitinib</strong> as it:</p>
+<ul>
+<li>It is used in UK practice for all risk groups</li>
+<li>It was the most common 1L treatment in the RWE</li>
+<li>Was the comparator for the most of the RCTs (see the network diagram above)</li>
+</ul>
+<p>For 2L and 3L, the reference treatment used was <strong>cabozantinib</strong> as:</p>
+<ul>
+<li>It was the most common 2L and 3L treatment in the RWE</li>
+<li>“Data were mature compared to other treatments” <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></li>
+</ul>
+<p>The reference treatment was based on RWE as per recommendations from the NICE manual and other recent appraisals.</p>
+<p>For more information, see section 4.3.5 “Treatment effectiveness and extrapolation” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
-<section id="applying-the-hazard-ratios" class="level3">
-<h3 class="anchored" data-anchor-id="applying-the-hazard-ratios">Applying the hazard ratios</h3>
-<!--TODO-->
+<section id="applying-the-hazard-ratios-to-the-reference-curves" class="level3">
+<h3 class="anchored" data-anchor-id="applying-the-hazard-ratios-to-the-reference-curves">Applying the hazard ratios to the reference curves</h3>
+<p>The effectiveness of 1L sunitinib and 2L cabozantinib is provided by the RWE reference curves. For all other treatments, the effectiveness is calculated by applying the NMA HRs to the reference curves.</p>
+<p>The source of the HRs for each treatment, line and outcome were as follows:</p>
+<ul>
+<li><strong>PFS and OS from the NMA</strong> - FPNMA for 1L (with exception of pembrolizumab plus lenvatinib) and PHNMA for 2L and 3L</li>
+<li>Assume <strong>1L pazopanib and tivozanib</strong> effectiveness are the same as sunitinib (as not available in NMA)</li>
+<li>Assume <strong>2L/3L sunitinib and pazopanib</strong> effectiveness are the same as tizovanib (as not available in NMA)</li>
+<li>Assume <strong>1L TTD and TTP</strong> are the same as PFS</li>
+<li>Assume <strong>2L/3L TTP</strong> is the same as PFS, but for <strong>TTD</strong> apply a hazard ratio to the PFS, as calculated from the 1L treatments</li>
+<li>Calculate <strong>4L outcomes</strong> by applying hazard ratio on 3L outcomes</li>
+</ul>
+<p>In the code, the nested list containing the HRs and survival times for each treatment is referred to as a <strong>relative efficacy network</strong>, and when the hazard ratios are applied to the reference curve, this was described as <strong>propagating</strong> the network.</p>
+<p>For more information, see section 4.3.5.2 “Calculation of relative treatment effectiveness” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
 </section>
 <section id="stage-4.-modifications-to-the-extrapolations" class="level2">
 <h2 class="anchored" data-anchor-id="stage-4.-modifications-to-the-extrapolations">Stage 4. Modifications to the extrapolations</h2>
 <section id="treatment-effect-waning" class="level3">
 <h3 class="anchored" data-anchor-id="treatment-effect-waning">Treatment effect waning</h3>
-<!--TODO-->
+<p>Treatment effect waning is when the hazard/survival for a treatment converges to the hazard/survival of the comparator. This was implemented at 5 years for 1L combination therapies that included an immuno-oncology (IO) treatment and tyrosine kinase inhibitor (TKI) (for example, axitinib and avelumab). It was set at 5 years as that is when people stop having that therapy in clinical practice.</p>
+<p>For more information, see section 1.22 “Treatment effect waning” in the Pathway Model Report <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span> and 4.3.5.3 “Treatment effectiveness waning” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
 <section id="general-population-mortality" class="level3">
 <h3 class="anchored" data-anchor-id="general-population-mortality">General population mortality</h3>
-<!--TODO-->
+<p>If aRCC patients were projected to live longer than the general population, this was corrected (hence, ensuring the aRCC OS never exceeds the general population). General population mortality was based on an age and sex matched-profile (against the 1L all risk population) using data from the Office for National Statistics (ONS).</p>
+<p>For more information, see section 4.3.5.4 “Accounting for general population mortality” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
 <section id="overlapping-lines" class="level3">
 <h3 class="anchored" data-anchor-id="overlapping-lines">Overlapping lines</h3>
@@ -494,7 +518,7 @@ div.csl-indent {
 <!-- This is based on the diagrams in the excel input sheet, and in the renal cell carcinoma (RCC) pathway model report, but created in draw.io -->
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../images/eomrcc_transitions.drawio.png" class="img-fluid figure-img"></p>
+<p><a href="../images/eomrcc_transitions.drawio.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Structure of the model and transition between health states"><img src="../images/eomrcc_transitions.drawio.png" class="img-fluid figure-img" alt="Structure of the model and transition between health states"></a></p>
 <figcaption>Structure of the model and transition between health states</figcaption>
 </figure>
 </div>
@@ -953,7 +977,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/model_overview.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"loop":false,"descPosition":"bottom","selector":".lightbox","openEffect":"zoom","closeEffect":"zoom"});
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/model_overview.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","loop":false,"openEffect":"zoom","closeEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
