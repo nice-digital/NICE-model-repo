@@ -18,7 +18,7 @@ This repository contains code to support appraisal of the cost-effectiveness of 
 
 People with aRCC who have not yet received systemic treatments (therapies that target cancer cells throughout the body) are classified as either being **favourable-risk** RCC or **intermediate- and poor-risk** RCC. These categories are defined in the International Metastatic Renal Cell Carcinoma Database Consortium (IMDC) criteria. They are established based on time from diagnosis, the patient's ability to perform daily tasks, and some laboratory measurements. In the UK, most RCC patients are classified as intermediate or poor risk. Risk status is associated with clinical outcomes (for example, mortality rates). It is used to help guide decisions on which treatments to use.
 
-For more information, see section 2.2 Epidemiology and 2.3.1 Risk Status in the Assessment Report. @lee_treatments_2023-1
+For more information, see section 2.2 "Epidemiology" and 2.3.1 "Risk Status" in the Assessment Report. @lee_treatments_2023-1
 
 ### Focus of the appraisal
 
@@ -33,15 +33,15 @@ It is a first-line (1L) systemic therapy, meaning it is for previously untreated
 
 The appraisal compares this treatment **against other 1L treatments**. When modelling this, it includes a simulation of the subsequent treatments that people might receive after each.
 
-For more information, see section 3.2 Interventions and 3.3 The RCC treatment pathway in the Assessment Report. @lee_treatments_2023-1
+For more information, see section 3.2 "Interventions" and 3.3 "The RCC treatment pathway" in the Assessment Report. @lee_treatments_2023-1
 
 ## Summary diagram
 
-**Rough diagram**
-
-![Overview of analysis performed for this appraisal.](../images/rough_overview.drawio.png){.lightbox}
+![Overview of analysis performed for this appraisal.](../images/detailed_overview_vertical.drawio.png){.lightbox}
 
 ## Stage 1. Estimating the relative efficacy of each treatment
+
+![Excerpt from overview diagram for Stage 1](../images/detailed_stage1.drawio.png){.lightbox}
 
 ### Identification of randomised controlled trials
 
@@ -72,8 +72,8 @@ For our economic model, we need to understand the clinical effectiveness of each
 
 In order to estimate the comparative effectiveness of interventions that may not have been compared head-to-head in a randomised trial, **network meta-analyses (NMA)** were performed. Two types of NMA were used:
 
-* **Proportional hazards NMA (PHNMA)** which returns a single hazard ratio for each comparison, as it "assumes the relative effects of each treatment... remain constant over time"
-* **Fractional polynomial NMA (FPNMA)** which returns a list of time-varying hazard ratios for each comparison, as it "allows the relative effects to change over time" @national_institute_for_health_and_care_excellence_nice_renal_2024
+* **Proportional hazards NMA (PH NMA)** which returns a single hazard ratio for each comparison, as it "assumes the relative effects of each treatment... remain constant over time"
+* **Fractional polynomial NMA (FP NMA)** which returns a list of time-varying hazard ratios for each comparison, as it "allows the relative effects to change over time" @national_institute_for_health_and_care_excellence_nice_renal_2024
 
 For each RCT, requests were made to the company that owned each trial's data, asking for grouped survival data (in time intervals of 1 or 4 weeks), for used in the NMAs. If this was not received, then the published curves were digitised to estimate the grouped survival data.
 
@@ -82,15 +82,17 @@ NMA were performed for:
 * **OS and PFS** in the all-risk group, favourable-risk and intermediate- and poor-risk subgroups
 * **Safety** for the all-risk group
 
-PHNMA and FPNMA were both conducted, but the chosen models used were:
+PH NMA and FP NMA were both conducted, but the chosen models used were:
 
-* **FPNMA** for 1L efficacy - as the "flexible time-varying hazard ratios... provided a better, more plausible fit to observed short-term data" @national_institute_for_health_and_care_excellence_nice_renal_2024 and as the proportional hazards was violated for some 1L treatments. However, PHNMA was used for pembrolizumab plus lenvatinib, as FPNMA produced implausible results.
-* **PHNMA** was used for 2L and 3L efficacy due to the "sparsity of the available network and extreme results within the fitted models" @lee_treatments_2023-1
+* **FP NMA** for 1L efficacy - as the "flexible time-varying hazard ratios... provided a better, more plausible fit to observed short-term data" @national_institute_for_health_and_care_excellence_nice_renal_2024 and as the proportional hazards was violated for some 1L treatments. However, PH NMA was used for pembrolizumab plus lenvatinib, as FP NMA produced implausible results.
+* **PH NMA** was used for 2L and 3L efficacy due to the "sparsity of the available network and extreme results within the fitted models" @lee_treatments_2023-1
 * 4L efficacy was based on 3L outcomes, applying the hazard ratio for the difference between pooled 3L and 4L outcomes
 
 For more information, see section 1.16 "Relative effectiveness" in the Pathway Model Report @national_institute_for_health_and_care_excellence_nice_renal_2024 and 4.3.5.2 "Calculation of relative treatment effectiveness" in the Assessment Report. @lee_treatments_2023-1
 
 ## Stage 2. Extrapolating survival curves from real-world evidence
+
+![Excerpt from overview diagram for Stage 2](../images/detailed_stage2.drawio.png){.lightbox}
 
 ### Identification of RWE
 
@@ -111,6 +113,8 @@ The OS, PFS, time to discontinuation (TTD), time to progression (TTP) and post-p
 For more information, see section 4.3.5.1 "Extrapolation of survival curves" in the Assessment Report. @lee_treatments_2023-1
 
 ## Stage 3. Applying NMA hazard ratios to RWE reference curves
+
+![Excerpt from overview diagram for Stage 3 and 4](../images/detailed_stage34.drawio.png){.lightbox}
 
 ### Reference curves
 
@@ -135,7 +139,7 @@ The effectiveness of 1L sunitinib and 2L cabozantinib is provided by the RWE ref
 
 The source of the HRs for each treatment, line and outcome were as follows:
 
-* **PFS and OS from the NMA** - FPNMA for 1L (with exception of pembrolizumab plus lenvatinib) and PHNMA for 2L and 3L
+* **PFS and OS from the NMA** - FP NMA for 1L (with exception of pembrolizumab plus lenvatinib) and PH NMA for 2L and 3L
 * Assume **1L pazopanib and tivozanib** effectiveness are the same as sunitinib (as not available in NMA)
 * Assume **2L/3L sunitinib and pazopanib** effectiveness are the same as tizovanib (as not available in NMA)
 * Assume **1L TTD and TTP** are the same as PFS
@@ -168,14 +172,16 @@ For more information, see section 4.3.5.5 "Adjustment for curves crossing" in th
 
 ## Stage 5. Preparation of other data for the economic models
 
+![Excerpt from overview diagram for Stage 5, 6 and 7](../images/detailed_stage567.drawio.png){.lightbox}
+
 ### Adverse events
 
-As for the effectiveness outcomes from the NMA, the adverse events hazard ratios from the adverse event NMA were applied to reference curves. These reference curves (i.e. the baseline adverse event risk in the model) were:
+As for the effectiveness outcomes from the NMA, the hazard ratios for grade 3+ adverse events calculated in the NMA were applied to reference curves. For all grade adverse events, hazard ratios from an NMA in a cochrane review were used. The reference curves (i.e. the baseline adverse event risk in the model) were:
 
 * 1L - sunitib from Checkmate 9ER RCT
 * 2L and 3L - everolimus from CheckMate 025 RCT
 
-As mentioned, adverse event rates were estimated by applying NMA HR to these curves, with the exception of cabozantinib plus nivolumab, whose rates were based directly on Checkmate 9ER RCT data.
+This is with the exception of cabozantinib plus nivolumab, whose rates were based directly on Checkmate 9ER RCT data.
 
 For more information, see section 1.24 "Adverse events" in the Pathway Model Report @national_institute_for_health_and_care_excellence_nice_renal_2024 and 4.3.6 "Adverse events" in the Assessment Report. @lee_treatments_2023-1
 
@@ -203,6 +209,14 @@ Similar to the utility values, resource use was based on prior NICE technology a
 
 For more information, see section 4.3.8 "Resource use and costs" in the Assessment Report @lee_treatments_2023-1 and sections 1.27 "Resource use" and 1.28 "Relative dose intensity" in the Pathway Model Report. @national_institute_for_health_and_care_excellence_nice_renal_2024
 
+### Treatment sequences
+
+A list of possible treatment sequences was defined based on rules which were established based on clinical advice and routine commissioning rules. These rules are listed in section 4.3.5.6 "Calculation of final outcomes by first line treatment" in the Assessment Report. @lee_treatments_2023-1 Some examples include:
+
+* Nivolumab plus ipilimumab 1L is only available to intermediate/poor risk patients
+* Some therapies can't be used if an immuno-oncology treatment was used in the past year
+* Lenvatinib plus everolimus can only be used after a prior anti-vascular endothelial growth factor (anti-VEGF) treatment
+
 ## Stage 6. Economic models
 
 ### Model diagram
@@ -216,16 +230,36 @@ The economic model is designed to model up to four lines of treatment before bes
 * Best supportive case (BSC)
 * Death
 
+Transition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT).
+
 <!-- This is based on the diagrams in the excel input sheet, and in the renal cell carcinoma (RCC) pathway model report, but created in draw.io -->
 
 ![Structure of the model and transition between health states](../images/eomrcc_transitions.drawio.png){.lightbox}
 
-Transition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT).
-
 ### Methodology
 
-<!--TODO-->
+Two modelling approaches were explored, with the creation of:
+
+* A **state transition model** (i.e. a **Markov model**)
+* A **partitioned survival model** (i.e. partitioned surival analysis)
+
+The models aimed to estimate the costs and benefits of cabolizumab plus nivolumab, compared against other 1L treatments, whilst also incorporating information on the subsequent treatment pathways. People in the models started on 1L treatment. The models ran with weekly cycles over a 40 year time horizon. Costs and outcomes were **discounted** at a rate of 3.5% per year.
+
+The committee preferred the state transition model as it allowed multiple treatment lines to be modelled in as much detail as possible (with a state transition model being more flexible and able to explore more uncertainties and alternative assumptions).
+
+For more information, see section 1.6 "Economic model structure" in the Pathway Model Report @national_institute_for_health_and_care_excellence_nice_renal_2024 and 4.3 "EAG economic analysis" in the Assessment Report. @lee_treatments_2023-1
 
 ## Stage 7. Processing model results
 
-<!--TODO-->
+The models simulate how a cohort of patients would transition between health states over the time horizon, depending on which treatments they received. It returns the proportion of patients over time in each health state. We then apply:
+
+* **Costs**
+* **Utilities**, with **quality-adjusted life years (QALYs)** calculated from multiplying the years in a health state by the utility score
+
+An **incremental cost-effectiveness ratio (ICER)** can be calculated from the difference in costs divided by the difference in QALYs, and these can be compared between treatments.
+
+### Severity modifier
+
+A greater weight can be given to QALYs if the treatment is for a condition with a high degree of severity, and this is referred to as a severity modifier. It was implemented for the state transition model, meaning that the results included absolute and proportional shortfall estimates of QALYs. Three methods were explored for calculating the severity modifier.
+
+For more information, see section 1.29 "Severity" in the Pathway Model Report @national_institute_for_health_and_care_excellence_nice_renal_2024 and 4.3.9 "Severity" in the Assessment Report. @lee_treatments_2023-1
