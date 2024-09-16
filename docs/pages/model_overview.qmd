@@ -45,8 +45,6 @@ For more information, see section 3.2 Interventions and 3.3 The RCC treatment pa
 
 ## Stage 1. Estimating the relative efficacy of each treatment
 
-This stage aims to get data on the **relative efficacy** of each available treatment for aRCC at 1L to 4L, which is based on evidence from clinical trials.
-
 ### Identification of randomised controlled trials
 
 A systematic review was conducted to identified **randomised controlled trials (RCTs)** of patients with aRCC who received any of the treatments under comparison - namely: cabozantinib plus nivolumab; pazopanib; tivozanib; sunitinib; cabozantinib; nivolumab plus ipilimumab; pembrolizumab and lenvatinib; axitinib; lenvatinib plus everolimus; everolimus; nivolumab; avelumab plus axitinib
@@ -70,7 +68,7 @@ For more information, see section "3.1.1 Identification of systematic literature
 
 The identified trials do not all include the same treatments, with each comparing different therapies head-to-head. To illustrate this, below are 1L network diagrams for PFS and OS, as based on Figures 16 and 17 in the Assessment Report. @lee_treatments_2023-1 These show which treatments were directly compared head-to-head: each circle represents a treatment, and each line represents a clinical trial.
 
-![1L network diagrams for PFS and OS, as adapted from the Assessment Report. Abbreviations:  ave, avelumab; axi, axitinib; cabo, cabozantinib; ipi, ipilimumab; lenv, lenvatinib; nivo, nivolumab; pazo, pazopanib; pem, pembrolizumab; sora, sorafenib; suni, sunitinib; tivo, tivozanib.](../images/network_diagram.drawio.png)
+![1L network diagrams for PFS and OS, as adapted from the Assessment Report. Abbreviations:  ave, avelumab; axi, axitinib; cabo, cabozantinib; ipi, ipilimumab; lenv, lenvatinib; nivo, nivolumab; pazo, pazopanib; pem, pembrolizumab; sora, sorafenib; suni, sunitinib; tivo, tivozanib.](../images/network_diagram.drawio.png){.lightbox}
 
 For our economic model, we need to understand the clinical effectiveness of each treatment for each outcome, relative to the other treatments. This is measured using **hazard ratios (HR)**, which are "a measure of how often a particular event happens in one group compared to how often it happens in another group, over time". @nih_national_cancer_institute_nci_nci_nodate
 
@@ -79,24 +77,22 @@ In order to estimate the comparative effectiveness of interventions that may not
 * **Proportional hazards NMA (PHNMA)** which returns a single hazard ratio for each comparison, as it "assumes the relative effects of each treatment... remain constant over time"
 * **Fractional polynomial NMA (FPNMA)** which returns a list of time-varying hazard ratios for each comparison, as it "allows the relative effects to change over time" @national_institute_for_health_and_care_excellence_nice_renal_2024
 
+For each RCT, requests were made to the company that owned each trial's data, asking for grouped survival data (in time intervals of 1 or 4 weeks), for used in the NMAs. If this was not received, then the published curves were digitised to estimate the grouped survival data.
+
 NMA were performed for:
 
 * **OS and PFS** in the all-risk group, favourable-risk and intermediate- and poor-risk subgroups
 * **Safety** for the all-risk group
 
-These were used as follows:
+PHNMA and FPNMA were both conducted, but the chosen models used were:
 
-* **FPNMA** was used for 1L efficacy
-* **PHNMA** was used for 2L and 3L efficacy
-* 4L efficacy was "derived from pooled third and fourth-line outcomes" @national_institute_for_health_and_care_excellence_nice_renal_2024
+* **FPNMA** for 1L efficacy - as the "flexible time-varying hazard ratios... provided a better, more plausible fit to observed short-term data" @national_institute_for_health_and_care_excellence_nice_renal_2024 and as the proportional hazards was violated for some 1L treatments. However, PHNMA was used for pembrolizumab plus lenvatinib, as FPNMA produced implausible results.
+* **PHNMA** was used for 2L and 3L efficacy due to the "sparsity of the available network and extreme results within the fitted models" @lee_treatments_2023-1
+* 4L efficacy was based on 3L outcomes, applying the hazard ratio for the difference between pooled 3L and 4L outcomes
 
-The evaluation committee preferred the FPNMA approach as the "flexible time-varying hazard ratios... provided a better, more plausible fit to observed short-term data". Also, the assumption of proportional hazards was violated for some 1L treatments. However, they used PHNMA for later lines due to limitations in the data available for those lines.
+For more information, see section 1.16 "Relative effectiveness" in the Pathway Model Report @national_institute_for_health_and_care_excellence_nice_renal_2024 and 4.3.5.2 "Calculation of relative treatment effectiveness" in the Assessment Report. @lee_treatments_2023-1
 
-For more information, see section 1.16 "Relative effectiveness" in the Pathway Model Report. @national_institute_for_health_and_care_excellence_nice_renal_2024
-
-## Stage 2. Extrapolating survival data from real-world evidence
-
-This stage aims to **extrapolate survival data from real-world evidence (RWE)**.
+## Stage 2. Extrapolating survival curves from real-world evidence
 
 ### Identification of RWE
 
@@ -111,28 +107,60 @@ Of the 12 real-world datasets identified, only one was considered to be robust a
 For more information, see section 1.12 "Real-world evidence" in the Pathway Model Report @national_institute_for_health_and_care_excellence_nice_renal_2024 and 3.1.2 "Identification of real-world evidence" in the Assessment Report. @lee_treatments_2023-1
 
 ### Extrapolation of RWE
+ 
+The OS, PFS, time to discontinuation (TTD), time to progression (TTP) and post-progression survival (PPS) survival curves from Challapalli et al. 2022 @challapalli_1463p_2022 were extrapolated so that they covered the **time horizon** of the economic model, which was **40 years**. Extrapolation was conducted using **survival analysis** (with a **partitioned survival model**).
 
-<!--TODO-->
+For more information, see section 4.3.5.1 "Extrapolation of survival curves" in the Assessment Report. @lee_treatments_2023-1
 
 ## Stage 3. Applying NMA hazard ratios to RWE reference curves
 
 ### Reference curves
 
-<!--TODO-->
+For 1L, the reference treatment used was **sunitinib** as it:
 
-### Applying the hazard ratios
+* It is used in UK practice for all risk groups
+* It was the most common 1L treatment in the RWE
+* Was the comparator for the most of the RCTs (see the network diagram above)
 
-<!--TODO-->
+For 2L and 3L, the reference treatment used was **cabozantinib** as:
+
+* It was the most common 2L and 3L treatment in the RWE
+* "Data were mature compared to other treatments" @lee_treatments_2023-1
+
+The reference treatment was based on RWE as per recommendations from the NICE manual and other recent appraisals.
+
+For more information, see section 4.3.5 "Treatment effectiveness and extrapolation" in the Assessment Report. @lee_treatments_2023-1
+
+### Applying the hazard ratios to the reference curves
+
+The effectiveness of 1L sunitinib and 2L cabozantinib is provided by the RWE reference curves. For all other treatments, the effectiveness is calculated by applying the NMA HRs to the reference curves.
+
+The source of the HRs for each treatment, line and outcome were as follows:
+
+* **PFS and OS from the NMA** - FPNMA for 1L (with exception of pembrolizumab plus lenvatinib) and PHNMA for 2L and 3L
+* Assume **1L pazopanib and tivozanib** effectiveness are the same as sunitinib (as not available in NMA)
+* Assume **2L/3L sunitinib and pazopanib** effectiveness are the same as tizovanib (as not available in NMA)
+* Assume **1L TTD and TTP** are the same as PFS
+* Assume **2L/3L TTP** is the same as PFS, but for **TTD** apply a hazard ratio to the PFS, as calculated from the 1L treatments
+* Calculate **4L outcomes** by applying hazard ratio on 3L outcomes
+
+In the code, the nested list containing the HRs and survival times for each treatment is referred to as a **relative efficacy network**, and when the hazard ratios are applied to the reference curve, this was described as **propagating** the network.
+
+For more information, see section 4.3.5.2 "Calculation of relative treatment effectiveness" in the Assessment Report. @lee_treatments_2023-1
 
 ## Stage 4. Modifications to the extrapolations
 
 ### Treatment effect waning
 
-<!--TODO-->
+Treatment effect waning is when the hazard/survival for a treatment converges to the hazard/survival of the comparator. This was implemented at 5 years for 1L combination therapies that included an immuno-oncology (IO) treatment and tyrosine kinase inhibitor (TKI) (for example, axitinib and avelumab). It was set at 5 years as that is when people stop having that therapy in clinical practice.
+
+For more information, see section 1.22 "Treatment effect waning" in the Pathway Model Report @national_institute_for_health_and_care_excellence_nice_renal_2024 and 4.3.5.3 "Treatment effectiveness waning" in the Assessment Report. @lee_treatments_2023-1
 
 ### General population mortality
 
-<!--TODO-->
+If aRCC patients were projected to live longer than the general population, this was corrected (hence, ensuring the aRCC OS never exceeds the general population). General population mortality was based on an age and sex matched-profile (against the 1L all risk population) using data from the Office for National Statistics (ONS).
+
+For more information, see section 4.3.5.4 "Accounting for general population mortality" in the Assessment Report. @lee_treatments_2023-1
 
 ### Overlapping lines
 
@@ -163,7 +191,7 @@ EOM:RCC is designed to model up to four lines of treatment before best supportiv
 
 <!-- This is based on the diagrams in the excel input sheet, and in the renal cell carcinoma (RCC) pathway model report, but created in draw.io -->
 
-![Structure of the model and transition between health states](../images/eomrcc_transitions.drawio.png)
+![Structure of the model and transition between health states](../images/eomrcc_transitions.drawio.png){.lightbox}
 
 Transition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT). We are assuming good correlation between PFS and TTNT baesd on clinical advice and a publication provided by Logex. <mark>For Logex's RWE, TTNT is the only option.</mark>
 
