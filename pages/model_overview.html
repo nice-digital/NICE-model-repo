@@ -273,8 +273,27 @@ div.csl-indent {
   <li><a href="#identification-of-randomised-controlled-trials" id="toc-identification-of-randomised-controlled-trials" class="nav-link" data-scroll-target="#identification-of-randomised-controlled-trials">Identification of randomised controlled trials</a></li>
   <li><a href="#network-meta-analysis" id="toc-network-meta-analysis" class="nav-link" data-scroll-target="#network-meta-analysis">Network meta-analysis</a></li>
   </ul></li>
-  <li><a href="#old" id="toc-old" class="nav-link" data-scroll-target="#old">OLD</a></li>
+  <li><a href="#stage-2.-extrapolating-survival-data-from-real-world-evidence" id="toc-stage-2.-extrapolating-survival-data-from-real-world-evidence" class="nav-link" data-scroll-target="#stage-2.-extrapolating-survival-data-from-real-world-evidence">Stage 2. Extrapolating survival data from real-world evidence</a>
+  <ul class="collapse">
+  <li><a href="#identification-of-rwe" id="toc-identification-of-rwe" class="nav-link" data-scroll-target="#identification-of-rwe">Identification of RWE</a></li>
+  <li><a href="#extrapolation-of-rwe" id="toc-extrapolation-of-rwe" class="nav-link" data-scroll-target="#extrapolation-of-rwe">Extrapolation of RWE</a></li>
+  </ul></li>
+  <li><a href="#stage-3.-applying-nma-hazard-ratios-to-rwe-reference-curves" id="toc-stage-3.-applying-nma-hazard-ratios-to-rwe-reference-curves" class="nav-link" data-scroll-target="#stage-3.-applying-nma-hazard-ratios-to-rwe-reference-curves">Stage 3. Applying NMA hazard ratios to RWE reference curves</a>
+  <ul class="collapse">
+  <li><a href="#reference-curves" id="toc-reference-curves" class="nav-link" data-scroll-target="#reference-curves">Reference curves</a></li>
+  <li><a href="#applying-the-hazard-ratios" id="toc-applying-the-hazard-ratios" class="nav-link" data-scroll-target="#applying-the-hazard-ratios">Applying the hazard ratios</a></li>
+  </ul></li>
+  <li><a href="#stage-4.-modifications-to-the-extrapolations" id="toc-stage-4.-modifications-to-the-extrapolations" class="nav-link" data-scroll-target="#stage-4.-modifications-to-the-extrapolations">Stage 4. Modifications to the extrapolations</a>
+  <ul class="collapse">
+  <li><a href="#treatment-effect-waning" id="toc-treatment-effect-waning" class="nav-link" data-scroll-target="#treatment-effect-waning">Treatment effect waning</a></li>
+  <li><a href="#general-population-mortality" id="toc-general-population-mortality" class="nav-link" data-scroll-target="#general-population-mortality">General population mortality</a></li>
+  <li><a href="#overlapping-lines" id="toc-overlapping-lines" class="nav-link" data-scroll-target="#overlapping-lines">Overlapping lines</a></li>
+  <li><a href="#prior-adjuvant-treatment" id="toc-prior-adjuvant-treatment" class="nav-link" data-scroll-target="#prior-adjuvant-treatment">Prior adjuvant treatment</a></li>
+  </ul></li>
+  <li><a href="#stage-5.-preparation-of-other-data-for-the-economic-models" id="toc-stage-5.-preparation-of-other-data-for-the-economic-models" class="nav-link" data-scroll-target="#stage-5.-preparation-of-other-data-for-the-economic-models">Stage 5. Preparation of other data for the economic models</a></li>
+  <li><a href="#stage-6.-economic-models" id="toc-stage-6.-economic-models" class="nav-link" data-scroll-target="#stage-6.-economic-models">Stage 6. Economic models</a></li>
   <li><a href="#model-diagram" id="toc-model-diagram" class="nav-link" data-scroll-target="#model-diagram">Model diagram</a></li>
+  <li><a href="#stage-7.-processing-model-results" id="toc-stage-7.-processing-model-results" class="nav-link" data-scroll-target="#stage-7.-processing-model-results">Stage 7. Processing model results</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/model_overview.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -329,11 +348,11 @@ div.csl-indent {
 </tbody>
 </table>
 <p>People with aRCC who have not yet received systemic treatments (therapies that target cancer cells throughout the body) are classified as either being <strong>favourable-risk</strong> RCC or <strong>intermediate- and poor-risk</strong> RCC. These categories are defined in the International Metastatic Renal Cell Carcinoma Database Consortium (IMDC) criteria. They are established based on time from diagnosis, the patient’s ability to perform daily tasks, and some laboratory measurements. In the UK, most RCC patients are classified as intermediate or poor risk. Risk status is associated with clinical outcomes (for example, mortality rates). It is used to help guide decisions on which treatments to use.</p>
-<p>For more information, see <a href="https://www.nice.org.uk/guidance/ta964/documents/assessment-report">section 2.2 Epidemiology and 2.3.1 Risk Status</a> in the Assessment Report.</p>
+<p>For more information, see section 2.2 Epidemiology and 2.3.1 Risk Status in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
 <section id="focus-of-the-appraisal" class="level3">
 <h3 class="anchored" data-anchor-id="focus-of-the-appraisal">Focus of the appraisal</h3>
-<p>The analysis in this repository is related to the NICE appraisal TA964 <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_cabozantinib_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_cabozantinib_2024" role="doc-biblioref">1</a>]</span> which assesses the clinical- and cost-effectiveness of <strong>cabozantinib with nivolumab</strong> as a <strong>first-line therapy</strong> for patients with <strong>aRCC</strong>.</p>
+<p>The analysis in this repository is related to the NICE appraisal TA964 <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_cabozantinib_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_cabozantinib_2024" role="doc-biblioref">2</a>]</span> which assesses the clinical- and cost-effectiveness of <strong>cabozantinib with nivolumab</strong> as a <strong>first-line therapy</strong> for patients with <strong>aRCC</strong>.</p>
 <p>This treatment is a combination of:</p>
 <ul>
 <li>Cabozantinib - oral, 40mg daily</li>
@@ -341,7 +360,7 @@ div.csl-indent {
 </ul>
 <p>It is a first-line (1L) systemic therapy, meaning it is for previously untreated patients. They may then have up to 3 more treatments (referred to as second-line (2L), third-line (3L) and fourth-line (4L) therapies), or at any point, may instead transition to receiving best-supportive care (BSC).</p>
 <p>The appraisal compares this treatment <strong>against other 1L treatments</strong>. When modelling this, it includes a simulation of the subsequent treatments that people might receive after each.</p>
-<p>For more information, see <a href="https://www.nice.org.uk/guidance/ta964/documents/assessment-report">section 3.2 Interventions and 3.3 The RCC treatment pathway</a> in the Assessment Report.</p>
+<p>For more information, see section 3.2 Interventions and 3.3 The RCC treatment pathway in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
 </section>
 <section id="summary-diagram" class="level2">
@@ -362,36 +381,104 @@ div.csl-indent {
 <p>A systematic review was conducted to identified <strong>randomised controlled trials (RCTs)</strong> of patients with aRCC who received any of the treatments under comparison - namely: cabozantinib plus nivolumab; pazopanib; tivozanib; sunitinib; cabozantinib; nivolumab plus ipilimumab; pembrolizumab and lenvatinib; axitinib; lenvatinib plus everolimus; everolimus; nivolumab; avelumab plus axitinib</p>
 <p>The studies had to report at least one of the outcomes of interest:</p>
 <ul>
-<li><strong>Overall survival (OS)</strong> -</li>
-<li><strong>Progression-free survival (PFS)</strong> -</li>
-<li><strong>Time to next treatment (TTNT)</strong> -</li>
-<li><strong>Time on treatment</strong> -</li>
-<li><strong>Response rates</strong> -</li>
-<li><strong>Duration of response</strong> -</li>
-<li><strong>Adverse events (AEs) of treatment</strong> -</li>
-<li><strong>Health-related quality of life (HRQoL)</strong> -</li>
+<li><strong>Overall survival (OS)</strong> - “time from randomisation to death” <span class="citation" data-cites="delgado_clinical_2021">[<a href="#ref-delgado_clinical_2021" role="doc-biblioref">3</a>]</span></li>
+<li><strong>Progression-free survival (PFS)</strong> - “time from randomisation until first evidence of disease progression or death” <span class="citation" data-cites="delgado_clinical_2021">[<a href="#ref-delgado_clinical_2021" role="doc-biblioref">3</a>]</span></li>
+<li><strong>Time to next treatment (TTNT)</strong> - “time from initiating treatment to initiating the next line of therapy” <span class="citation" data-cites="delgado_clinical_2021">[<a href="#ref-delgado_clinical_2021" role="doc-biblioref">3</a>]</span></li>
+<li><strong>Time on treatment</strong> - similar to TTNT, but excluding time off treatment between lines of therapy</li>
+<li><strong>Response rates</strong> (also known as objective response rate) - the proportion of people with partial response (decrease in tumour size) or complete response (disappearance of all signs of cancer) <span class="citation" data-cites="nih_national_cancer_institute_nci_nci_nodate">[<a href="#ref-nih_national_cancer_institute_nci_nci_nodate" role="doc-biblioref">4</a>]</span></li>
+<li><strong>Duration of response</strong> - “time from randomisation to disease progression or death in patients who achieve complete or partial response” <span class="citation" data-cites="delgado_clinical_2021">[<a href="#ref-delgado_clinical_2021" role="doc-biblioref">3</a>]</span></li>
+<li><strong>Adverse events (AEs) of treatment</strong> - “undesired effect” of treatment <span class="citation" data-cites="nih_national_cancer_institute_nci_nci_nodate">[<a href="#ref-nih_national_cancer_institute_nci_nci_nodate" role="doc-biblioref">4</a>]</span></li>
+<li><strong>Health-related quality of life (HRQoL)</strong> - “the impact a medical condition and/or treatment has on a patient’s functioning and well-being” <span class="citation" data-cites="york_health_economics_consortium_quality_2016">[<a href="#ref-york_health_economics_consortium_quality_2016" role="doc-biblioref">5</a>]</span></li>
 </ul>
-<p>For more information, see <a href="https://www.nice.org.uk/guidance/ta964/documents/assessment-report">section 3.1.1 Identification of systematic literature reviews and randomised controlled trials</a> in the Assessment Report.</p>
+<p>The review identified 24 RCTs to include (plus an additional 6, but these were ongoing). All 24 studies recorded OS, PFS, response rate and adverse events, whilst other outcomes were more sparsely recorded.</p>
+<p>For more information, see section “3.1.1 Identification of systematic literature reviews and randomised controlled trials” and “Table 11 Outcomes reported by RCTs included in the review” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
 <section id="network-meta-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="network-meta-analysis">Network meta-analysis</h3>
-<p>To illustrate this, below are 1L network diagrams for PFS and OS, as based on Figures 16 and 17 in the Assessment Report.<mark>TODO:ref</mark> These show which treatments were directly compared head-to-head in a clinical trial.</p>
+<p>The identified trials do not all include the same treatments, with each comparing different therapies head-to-head. To illustrate this, below are 1L network diagrams for PFS and OS, as based on Figures 16 and 17 in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span> These show which treatments were directly compared head-to-head: each circle represents a treatment, and each line represents a clinical trial.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../images/network_diagram.drawio.png" class="img-fluid figure-img"></p>
-<figcaption>1L network diagrams for PFS and OS, as adapted from the Assessment Report</figcaption>
+<figcaption>1L network diagrams for PFS and OS, as adapted from the Assessment Report. Abbreviations: ave, avelumab; axi, axitinib; cabo, cabozantinib; ipi, ipilimumab; lenv, lenvatinib; nivo, nivolumab; pazo, pazopanib; pem, pembrolizumab; sora, sorafenib; suni, sunitinib; tivo, tivozanib.</figcaption>
 </figure>
 </div>
+<p>For our economic model, we need to understand the clinical effectiveness of each treatment for each outcome, relative to the other treatments. This is measured using <strong>hazard ratios (HR)</strong>, which are “a measure of how often a particular event happens in one group compared to how often it happens in another group, over time”. <span class="citation" data-cites="nih_national_cancer_institute_nci_nci_nodate">[<a href="#ref-nih_national_cancer_institute_nci_nci_nodate" role="doc-biblioref">4</a>]</span></p>
+<p>In order to estimate the comparative effectiveness of interventions that may not have been compared head-to-head in a randomised trial, <strong>network meta-analyses (NMA)</strong> were performed. Two types of NMA were used:</p>
+<ul>
+<li><strong>Proportional hazards NMA (PHNMA)</strong> which returns a single hazard ratio for each comparison, as it “assumes the relative effects of each treatment… remain constant over time”</li>
+<li><strong>Fractional polynomial NMA (FPNMA)</strong> which returns a list of time-varying hazard ratios for each comparison, as it “allows the relative effects to change over time” <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span></li>
+</ul>
+<p>NMA were performed for:</p>
+<ul>
+<li><strong>OS and PFS</strong> in the all-risk group, favourable-risk and intermediate- and poor-risk subgroups</li>
+<li><strong>Safety</strong> for the all-risk group</li>
+</ul>
+<p>These were used as follows:</p>
+<ul>
+<li><strong>FPNMA</strong> was used for 1L efficacy</li>
+<li><strong>PHNMA</strong> was used for 2L and 3L efficacy</li>
+<li>4L efficacy was “derived from pooled third and fourth-line outcomes” <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span></li>
+</ul>
+<p>The evaluation committee preferred the FPNMA approach as the “flexible time-varying hazard ratios… provided a better, more plausible fit to observed short-term data”. Also, the assumption of proportional hazards was violated for some 1L treatments. However, they used PHNMA for later lines due to limitations in the data available for those lines.</p>
+<p>For more information, see section 1.16 “Relative effectiveness” in the Pathway Model Report. <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span></p>
 </section>
 </section>
-<section id="old" class="level2">
-<h2 class="anchored" data-anchor-id="old">OLD</h2>
-<p><strong>In progress</strong></p>
-<p>terms to use: “comparative efficacy propagation”, “proportional hazards network meta analysis”, “fractional polynomial network meta analysis”</p>
-<p>Population: Untreated advanced or metastatic RCC</p>
-<p>Intervention: Cabo + Nivo</p>
-<p>Comparators: Pazo, Tivo, Suni. Int/Poor: Cabo, Nivo+Ipi, Pem+Lenv</p>
-<p>Outcomes: Overall survival, PFS, repsonse rates, duration</p>
+<section id="stage-2.-extrapolating-survival-data-from-real-world-evidence" class="level2">
+<h2 class="anchored" data-anchor-id="stage-2.-extrapolating-survival-data-from-real-world-evidence">Stage 2. Extrapolating survival data from real-world evidence</h2>
+<p>This stage aims to <strong>extrapolate survival data from real-world evidence (RWE)</strong>.</p>
+<section id="identification-of-rwe" class="level3">
+<h3 class="anchored" data-anchor-id="identification-of-rwe">Identification of RWE</h3>
+<p>A targeted search was conducted to identify RWE (i.e.&nbsp;observational studies describing outcomes in practice, outside of a trial setting). The search was for studies that included patients with aRCC and described at least one of:</p>
+<ul>
+<li>Treatment pathways</li>
+<li>Natural history of disease</li>
+<li>Patient characteristics</li>
+</ul>
+<p>Of the 12 real-world datasets identified, only one was considered to be robust and relevant to the UK. This was Challapalli et al.&nbsp;2022. <span class="citation" data-cites="challapalli_1463p_2022">[<a href="#ref-challapalli_1463p_2022" role="doc-biblioref">7</a>]</span> The owners of this dataset provided access to patient-level data.</p>
+<p>For more information, see section 1.12 “Real-world evidence” in the Pathway Model Report <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span> and 3.1.2 “Identification of real-world evidence” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
+</section>
+<section id="extrapolation-of-rwe" class="level3">
+<h3 class="anchored" data-anchor-id="extrapolation-of-rwe">Extrapolation of RWE</h3>
+<!--TODO-->
+</section>
+</section>
+<section id="stage-3.-applying-nma-hazard-ratios-to-rwe-reference-curves" class="level2">
+<h2 class="anchored" data-anchor-id="stage-3.-applying-nma-hazard-ratios-to-rwe-reference-curves">Stage 3. Applying NMA hazard ratios to RWE reference curves</h2>
+<section id="reference-curves" class="level3">
+<h3 class="anchored" data-anchor-id="reference-curves">Reference curves</h3>
+<!--TODO-->
+</section>
+<section id="applying-the-hazard-ratios" class="level3">
+<h3 class="anchored" data-anchor-id="applying-the-hazard-ratios">Applying the hazard ratios</h3>
+<!--TODO-->
+</section>
+</section>
+<section id="stage-4.-modifications-to-the-extrapolations" class="level2">
+<h2 class="anchored" data-anchor-id="stage-4.-modifications-to-the-extrapolations">Stage 4. Modifications to the extrapolations</h2>
+<section id="treatment-effect-waning" class="level3">
+<h3 class="anchored" data-anchor-id="treatment-effect-waning">Treatment effect waning</h3>
+<!--TODO-->
+</section>
+<section id="general-population-mortality" class="level3">
+<h3 class="anchored" data-anchor-id="general-population-mortality">General population mortality</h3>
+<!--TODO-->
+</section>
+<section id="overlapping-lines" class="level3">
+<h3 class="anchored" data-anchor-id="overlapping-lines">Overlapping lines</h3>
+<!--TODO-->
+</section>
+<section id="prior-adjuvant-treatment" class="level3">
+<h3 class="anchored" data-anchor-id="prior-adjuvant-treatment">Prior adjuvant treatment</h3>
+<!--TODO-->
+</section>
+</section>
+<section id="stage-5.-preparation-of-other-data-for-the-economic-models" class="level2">
+<h2 class="anchored" data-anchor-id="stage-5.-preparation-of-other-data-for-the-economic-models">Stage 5. Preparation of other data for the economic models</h2>
+<!--TODO-->
+</section>
+<section id="stage-6.-economic-models" class="level2">
+<h2 class="anchored" data-anchor-id="stage-6.-economic-models">Stage 6. Economic models</h2>
+<!--TODO-->
 </section>
 <section id="model-diagram" class="level2">
 <h2 class="anchored" data-anchor-id="model-diagram">Model diagram</h2>
@@ -412,14 +499,37 @@ div.csl-indent {
 </figure>
 </div>
 <p>Transition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT). We are assuming good correlation between PFS and TTNT baesd on clinical advice and a publication provided by Logex. <mark>For Logex’s RWE, TTNT is the only option.</mark></p>
+<!--TODO-->
+</section>
+<section id="stage-7.-processing-model-results" class="level2">
+
+<!--TODO-->
 
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Stage 7. Processing model results</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-lee_treatments_2023-1" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Lee D, Muthukumar M, Lovell A, Farmer C, Burns D, Matthews J, et al. <a href="https://www.nice.org.uk/guidance/ta964/documents/assessment-report">Treatments for renal cell carcinoma [<span>ID6186</span>]: <span>A</span> <span>Pathways</span> <span>Pilot</span> <span>Appraisal</span> <span>Assessment</span> <span>Report</span></a>. Peninsula Technology Assessment Group (PenTAG) 2023.</div>
+</div>
 <div id="ref-national_institute_for_health_and_care_excellence_nice_cabozantinib_2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">National Institute for Health and Care Excellence (NICE). <a href="https://www.nice.org.uk/guidance/ta964">Cabozantinib with nivolumab for untreated advanced renal cell carcinoma. <span>Technology</span> appraisal guidance [<span>TA964</span>]</a> 2024.</div>
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">National Institute for Health and Care Excellence (NICE). <a href="https://www.nice.org.uk/guidance/ta964">Cabozantinib with nivolumab for untreated advanced renal cell carcinoma. <span>Technology</span> appraisal guidance [<span>TA964</span>]</a> 2024.</div>
+</div>
+<div id="ref-delgado_clinical_2021" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">Delgado A, Guddati AK. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8085844">Clinical endpoints in oncology - a primer</a>. American Journal of Cancer Research 2021;11:1121–31.</div>
+</div>
+<div id="ref-nih_national_cancer_institute_nci_nci_nodate" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">NIH National Cancer Institute (NCI). <a href="https://www.cancer.gov/publications/dictionaries/cancer-terms"><span>NCI</span> <span>Dictionary</span> of <span>Cancer</span> <span>Terms</span></a> n.d.</div>
+</div>
+<div id="ref-york_health_economics_consortium_quality_2016" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">York Health Economics Consortium. <a href="https://yhec.co.uk/glossary/quality-of-life/">Quality of <span>Life</span></a>. YHEC 2016.</div>
+</div>
+<div id="ref-national_institute_for_health_and_care_excellence_nice_renal_2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">National Institute for Health and Care Excellence (NICE). <a href="https://www.nice.org.uk/guidance/ta964/resources/renal-cell-carcinoma-pathway-model-report-pdf-17325260829637">Renal cell carcinoma pathway model report. <span>Economic</span> analysis.</a> 2024.</div>
+</div>
+<div id="ref-challapalli_1463p_2022" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">Challapalli A, Ratnayake G, McGrane J, Frazer R, Gupta S, Parslow DS, et al. <span>1463P</span> <span>Patterns</span> of care and outcomes of metastatic renal cell carcinoma (<span class="nocase">mRCC</span>) patients (pts) with bone metastases (<span>BM</span>): <span>A</span> <span>UK</span> multicenter review. Annals of Oncology 2022;33:S1215. <a href="https://doi.org/10.1016/j.annonc.2022.07.1566">https://doi.org/10.1016/j.annonc.2022.07.1566</a>.</div>
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -843,7 +953,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/model_overview.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","openEffect":"zoom","loop":false,"descPosition":"bottom"});
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/model_overview.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"loop":false,"descPosition":"bottom","selector":".lightbox","openEffect":"zoom","closeEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

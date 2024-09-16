@@ -249,7 +249,7 @@
     "href": "pages/model_overview.html#background",
     "title": "Detailed summary",
     "section": "Background",
-    "text": "Background\n\nRenal cell carnioma stages and risk groups\nRenal cell carcinoma (RCC) is a type of kidney cancer. It is the most common type, accounting for over 80% of cases. The treatment strategy depends on RCC’s location and stage. The stages of RCC can be defined as:\n\n\n\n\n\n\n\n\nStage 1 and 2\nStage 3\nStage 4\n\n\n\n\nCancer is only in the kidney\nCancer may have spread to nearby lymph nodes\nCancer has metastasised, meaning it has spread to other areas of the body; Also known as advanced RCC (aRCC)\n\n\n\nPeople with aRCC who have not yet received systemic treatments (therapies that target cancer cells throughout the body) are classified as either being favourable-risk RCC or intermediate- and poor-risk RCC. These categories are defined in the International Metastatic Renal Cell Carcinoma Database Consortium (IMDC) criteria. They are established based on time from diagnosis, the patient’s ability to perform daily tasks, and some laboratory measurements. In the UK, most RCC patients are classified as intermediate or poor risk. Risk status is associated with clinical outcomes (for example, mortality rates). It is used to help guide decisions on which treatments to use.\nFor more information, see section 2.2 Epidemiology and 2.3.1 Risk Status in the Assessment Report.\n\n\nFocus of the appraisal\nThe analysis in this repository is related to the NICE appraisal TA964 [1] which assesses the clinical- and cost-effectiveness of cabozantinib with nivolumab as a first-line therapy for patients with aRCC.\nThis treatment is a combination of:\n\nCabozantinib - oral, 40mg daily\nNivolumab - intravenous, 240mg every 2 weeks or 480mg every 4 weeks\n\nIt is a first-line (1L) systemic therapy, meaning it is for previously untreated patients. They may then have up to 3 more treatments (referred to as second-line (2L), third-line (3L) and fourth-line (4L) therapies), or at any point, may instead transition to receiving best-supportive care (BSC).\nThe appraisal compares this treatment against other 1L treatments. When modelling this, it includes a simulation of the subsequent treatments that people might receive after each.\nFor more information, see section 3.2 Interventions and 3.3 The RCC treatment pathway in the Assessment Report.",
+    "text": "Background\n\nRenal cell carnioma stages and risk groups\nRenal cell carcinoma (RCC) is a type of kidney cancer. It is the most common type, accounting for over 80% of cases. The treatment strategy depends on RCC’s location and stage. The stages of RCC can be defined as:\n\n\n\n\n\n\n\n\nStage 1 and 2\nStage 3\nStage 4\n\n\n\n\nCancer is only in the kidney\nCancer may have spread to nearby lymph nodes\nCancer has metastasised, meaning it has spread to other areas of the body; Also known as advanced RCC (aRCC)\n\n\n\nPeople with aRCC who have not yet received systemic treatments (therapies that target cancer cells throughout the body) are classified as either being favourable-risk RCC or intermediate- and poor-risk RCC. These categories are defined in the International Metastatic Renal Cell Carcinoma Database Consortium (IMDC) criteria. They are established based on time from diagnosis, the patient’s ability to perform daily tasks, and some laboratory measurements. In the UK, most RCC patients are classified as intermediate or poor risk. Risk status is associated with clinical outcomes (for example, mortality rates). It is used to help guide decisions on which treatments to use.\nFor more information, see section 2.2 Epidemiology and 2.3.1 Risk Status in the Assessment Report. [1]\n\n\nFocus of the appraisal\nThe analysis in this repository is related to the NICE appraisal TA964 [2] which assesses the clinical- and cost-effectiveness of cabozantinib with nivolumab as a first-line therapy for patients with aRCC.\nThis treatment is a combination of:\n\nCabozantinib - oral, 40mg daily\nNivolumab - intravenous, 240mg every 2 weeks or 480mg every 4 weeks\n\nIt is a first-line (1L) systemic therapy, meaning it is for previously untreated patients. They may then have up to 3 more treatments (referred to as second-line (2L), third-line (3L) and fourth-line (4L) therapies), or at any point, may instead transition to receiving best-supportive care (BSC).\nThe appraisal compares this treatment against other 1L treatments. When modelling this, it includes a simulation of the subsequent treatments that people might receive after each.\nFor more information, see section 3.2 Interventions and 3.3 The RCC treatment pathway in the Assessment Report. [1]",
     "crumbs": [
       "Model overview",
       "Detailed summary"
@@ -271,18 +271,62 @@
     "href": "pages/model_overview.html#stage-1.-estimating-the-relative-efficacy-of-each-treatment",
     "title": "Detailed summary",
     "section": "Stage 1. Estimating the relative efficacy of each treatment",
-    "text": "Stage 1. Estimating the relative efficacy of each treatment\nThis stage aims to get data on the relative efficacy of each available treatment for aRCC at 1L to 4L, which is based on evidence from clinical trials.\n\nIdentification of randomised controlled trials\nA systematic review was conducted to identified randomised controlled trials (RCTs) of patients with aRCC who received any of the treatments under comparison - namely: cabozantinib plus nivolumab; pazopanib; tivozanib; sunitinib; cabozantinib; nivolumab plus ipilimumab; pembrolizumab and lenvatinib; axitinib; lenvatinib plus everolimus; everolimus; nivolumab; avelumab plus axitinib\nThe studies had to report at least one of the outcomes of interest:\n\nOverall survival (OS) -\nProgression-free survival (PFS) -\nTime to next treatment (TTNT) -\nTime on treatment -\nResponse rates -\nDuration of response -\nAdverse events (AEs) of treatment -\nHealth-related quality of life (HRQoL) -\n\nFor more information, see section 3.1.1 Identification of systematic literature reviews and randomised controlled trials in the Assessment Report.\n\n\nNetwork meta-analysis\nTo illustrate this, below are 1L network diagrams for PFS and OS, as based on Figures 16 and 17 in the Assessment Report.TODO:ref These show which treatments were directly compared head-to-head in a clinical trial.\n\n\n\n1L network diagrams for PFS and OS, as adapted from the Assessment Report",
+    "text": "Stage 1. Estimating the relative efficacy of each treatment\nThis stage aims to get data on the relative efficacy of each available treatment for aRCC at 1L to 4L, which is based on evidence from clinical trials.\n\nIdentification of randomised controlled trials\nA systematic review was conducted to identified randomised controlled trials (RCTs) of patients with aRCC who received any of the treatments under comparison - namely: cabozantinib plus nivolumab; pazopanib; tivozanib; sunitinib; cabozantinib; nivolumab plus ipilimumab; pembrolizumab and lenvatinib; axitinib; lenvatinib plus everolimus; everolimus; nivolumab; avelumab plus axitinib\nThe studies had to report at least one of the outcomes of interest:\n\nOverall survival (OS) - “time from randomisation to death” [3]\nProgression-free survival (PFS) - “time from randomisation until first evidence of disease progression or death” [3]\nTime to next treatment (TTNT) - “time from initiating treatment to initiating the next line of therapy” [3]\nTime on treatment - similar to TTNT, but excluding time off treatment between lines of therapy\nResponse rates (also known as objective response rate) - the proportion of people with partial response (decrease in tumour size) or complete response (disappearance of all signs of cancer) [4]\nDuration of response - “time from randomisation to disease progression or death in patients who achieve complete or partial response” [3]\nAdverse events (AEs) of treatment - “undesired effect” of treatment [4]\nHealth-related quality of life (HRQoL) - “the impact a medical condition and/or treatment has on a patient’s functioning and well-being” [5]\n\nThe review identified 24 RCTs to include (plus an additional 6, but these were ongoing). All 24 studies recorded OS, PFS, response rate and adverse events, whilst other outcomes were more sparsely recorded.\nFor more information, see section “3.1.1 Identification of systematic literature reviews and randomised controlled trials” and “Table 11 Outcomes reported by RCTs included in the review” in the Assessment Report. [1]\n\n\nNetwork meta-analysis\nThe identified trials do not all include the same treatments, with each comparing different therapies head-to-head. To illustrate this, below are 1L network diagrams for PFS and OS, as based on Figures 16 and 17 in the Assessment Report. [1] These show which treatments were directly compared head-to-head: each circle represents a treatment, and each line represents a clinical trial.\n\n\n\n1L network diagrams for PFS and OS, as adapted from the Assessment Report. Abbreviations: ave, avelumab; axi, axitinib; cabo, cabozantinib; ipi, ipilimumab; lenv, lenvatinib; nivo, nivolumab; pazo, pazopanib; pem, pembrolizumab; sora, sorafenib; suni, sunitinib; tivo, tivozanib.\n\n\nFor our economic model, we need to understand the clinical effectiveness of each treatment for each outcome, relative to the other treatments. This is measured using hazard ratios (HR), which are “a measure of how often a particular event happens in one group compared to how often it happens in another group, over time”. [4]\nIn order to estimate the comparative effectiveness of interventions that may not have been compared head-to-head in a randomised trial, network meta-analyses (NMA) were performed. Two types of NMA were used:\n\nProportional hazards NMA (PHNMA) which returns a single hazard ratio for each comparison, as it “assumes the relative effects of each treatment… remain constant over time”\nFractional polynomial NMA (FPNMA) which returns a list of time-varying hazard ratios for each comparison, as it “allows the relative effects to change over time” [6]\n\nNMA were performed for:\n\nOS and PFS in the all-risk group, favourable-risk and intermediate- and poor-risk subgroups\nSafety for the all-risk group\n\nThese were used as follows:\n\nFPNMA was used for 1L efficacy\nPHNMA was used for 2L and 3L efficacy\n4L efficacy was “derived from pooled third and fourth-line outcomes” [6]\n\nThe evaluation committee preferred the FPNMA approach as the “flexible time-varying hazard ratios… provided a better, more plausible fit to observed short-term data”. Also, the assumption of proportional hazards was violated for some 1L treatments. However, they used PHNMA for later lines due to limitations in the data available for those lines.\nFor more information, see section 1.16 “Relative effectiveness” in the Pathway Model Report. [6]",
     "crumbs": [
       "Model overview",
       "Detailed summary"
     ]
   },
   {
-    "objectID": "pages/model_overview.html#old",
-    "href": "pages/model_overview.html#old",
+    "objectID": "pages/model_overview.html#stage-2.-extrapolating-survival-data-from-real-world-evidence",
+    "href": "pages/model_overview.html#stage-2.-extrapolating-survival-data-from-real-world-evidence",
     "title": "Detailed summary",
-    "section": "OLD",
-    "text": "OLD\nIn progress\nterms to use: “comparative efficacy propagation”, “proportional hazards network meta analysis”, “fractional polynomial network meta analysis”\nPopulation: Untreated advanced or metastatic RCC\nIntervention: Cabo + Nivo\nComparators: Pazo, Tivo, Suni. Int/Poor: Cabo, Nivo+Ipi, Pem+Lenv\nOutcomes: Overall survival, PFS, repsonse rates, duration",
+    "section": "Stage 2. Extrapolating survival data from real-world evidence",
+    "text": "Stage 2. Extrapolating survival data from real-world evidence\nThis stage aims to extrapolate survival data from real-world evidence (RWE).\n\nIdentification of RWE\nA targeted search was conducted to identify RWE (i.e. observational studies describing outcomes in practice, outside of a trial setting). The search was for studies that included patients with aRCC and described at least one of:\n\nTreatment pathways\nNatural history of disease\nPatient characteristics\n\nOf the 12 real-world datasets identified, only one was considered to be robust and relevant to the UK. This was Challapalli et al. 2022. [7] The owners of this dataset provided access to patient-level data.\nFor more information, see section 1.12 “Real-world evidence” in the Pathway Model Report [6] and 3.1.2 “Identification of real-world evidence” in the Assessment Report. [1]\n\n\nExtrapolation of RWE",
+    "crumbs": [
+      "Model overview",
+      "Detailed summary"
+    ]
+  },
+  {
+    "objectID": "pages/model_overview.html#stage-3.-applying-nma-hazard-ratios-to-rwe-reference-curves",
+    "href": "pages/model_overview.html#stage-3.-applying-nma-hazard-ratios-to-rwe-reference-curves",
+    "title": "Detailed summary",
+    "section": "Stage 3. Applying NMA hazard ratios to RWE reference curves",
+    "text": "Stage 3. Applying NMA hazard ratios to RWE reference curves\n\nReference curves\n\n\n\nApplying the hazard ratios",
+    "crumbs": [
+      "Model overview",
+      "Detailed summary"
+    ]
+  },
+  {
+    "objectID": "pages/model_overview.html#stage-4.-modifications-to-the-extrapolations",
+    "href": "pages/model_overview.html#stage-4.-modifications-to-the-extrapolations",
+    "title": "Detailed summary",
+    "section": "Stage 4. Modifications to the extrapolations",
+    "text": "Stage 4. Modifications to the extrapolations\n\nTreatment effect waning\n\n\n\nGeneral population mortality\n\n\n\nOverlapping lines\n\n\n\nPrior adjuvant treatment",
+    "crumbs": [
+      "Model overview",
+      "Detailed summary"
+    ]
+  },
+  {
+    "objectID": "pages/model_overview.html#stage-5.-preparation-of-other-data-for-the-economic-models",
+    "href": "pages/model_overview.html#stage-5.-preparation-of-other-data-for-the-economic-models",
+    "title": "Detailed summary",
+    "section": "Stage 5. Preparation of other data for the economic models",
+    "text": "Stage 5. Preparation of other data for the economic models",
+    "crumbs": [
+      "Model overview",
+      "Detailed summary"
+    ]
+  },
+  {
+    "objectID": "pages/model_overview.html#stage-6.-economic-models",
+    "href": "pages/model_overview.html#stage-6.-economic-models",
+    "title": "Detailed summary",
+    "section": "Stage 6. Economic models",
+    "text": "Stage 6. Economic models",
     "crumbs": [
       "Model overview",
       "Detailed summary"
