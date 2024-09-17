@@ -1,5 +1,5 @@
 ---
-title: "Plain english model overview"
+title: "Plain english summary"
 ---
 
 The analysis in this repository forms part of a technology appraisal by the National Institute for Health and Care Excellence. The purpose of an appraisal is to help inform whether the NHS should fund a new treatment. This is based on the cost-effectiveness of a treatment, as determined by comparing the health outcomes and costs resulting from this treatment, compared with other available treatments.
