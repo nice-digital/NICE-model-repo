@@ -301,9 +301,9 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="get-patient-outcomes-over-time-for-reference-treatment" class="level2">
 <h2 class="anchored" data-anchor-id="get-patient-outcomes-over-time-for-reference-treatment">(2) Get patient outcomes over time for reference treatment</h2>
-<p>Studies were found that looked at how advanced kidney cancer patients responded to treatments in the real world, outside of clinical trials. These studies provided data on how long patients survived and whether their cancer got worse.</p>
-<p>For each stage of treatment (first-line, second-line, etc.), a “reference treatment” was chosen. This was the treatment most commonly used in practice.</p>
-<p>The outcomes for patients receiving these reference treatments were taken from real-world data. However, because the analysis needed to predict outcomes over a long period (40 years), and the real-world data didn’t cover that entire time, a technique called “survival analysis” was used. This method estimates long-term outcomes based on the patterns observed over the shorter period covered by the data.</p>
+<p>Studies were also found that looked at how advanced kidney cancer patients responded to treatments in the real world, outside of clinical trials. These studies provided data on things like how long patients survived and whether their cancer got worse.</p>
+<p>For each stage of treatment (first-line, second-line, etc.), a “reference treatment” was chosen. This was the treatment most commonly used in practice. The outcomes for patients receiving those reference treatments were then taken from real-world data.</p>
+<p>However, because the analysis needed to predict outcomes over a long period (40 years), and the real-world data didn’t cover that entire time, a technique called “survival analysis” was used. This method estimates long-term outcomes based on the patterns observed over the shorter period covered by the data.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <div class="quarto-figure quarto-figure-center">
@@ -322,11 +322,11 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="find-how-many-people-receive-each-treatment" class="level2">
 <h2 class="anchored" data-anchor-id="find-how-many-people-receive-each-treatment">(4) Find how many people receive each treatment</h2>
-<p>From the real-world data identified in step (2), we can find the proportion of people that we expect to receive each treatment in practice.</p>
+<p>From the real-world data identified in step (2), we can also find the proportion of people that we expect to receive each treatment in practice.</p>
 </section>
 <section id="get-data-on-the-cost-and-health-utility-of-patients" class="level2">
 <h2 class="anchored" data-anchor-id="get-data-on-the-cost-and-health-utility-of-patients">(5) Get data on the cost and health utility of patients</h2>
-<p>For each treatment against advanced RCC, studies were identified which reported either:</p>
+<p>For each treatment against advanced RCC, further studies were identified which reported either:</p>
 <ul>
 <li>The costs of each treatment for the healthcare system (e.g.&nbsp;costs of drugs, appointments, care)</li>
 <li>The quality of life for patients on or off each treatment at each line of therapy (first-line through to fourth-line). This is described using a measure called a “health utility value”.</li>
@@ -334,11 +334,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="construct-an-economic-model" class="level2">
 <h2 class="anchored" data-anchor-id="construct-an-economic-model">(6) Construct an economic model</h2>
-<p><mark>TODO: finish</mark></p>
-<p>proportion of people</p>
-<p>data from above</p>
-<p>simulate people receiving each treatment, their outcomes, their costs</p>
-<p>can then compare treatments</p>
+<p>The data from steps (3), (4) and (5) were then fed into a computer model. The model simulates what happens to groups of patients who receive each treatment: how long they live, how much their treatments cost, and what their quality of life is like. By comparing these results, decisions can be made as to which treatments offer the best combination of effectiveness and value for money.</p>
 
 
 </section>
@@ -765,7 +761,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/plain_english.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"descPosition":"bottom","openEffect":"zoom","selector":".lightbox","loop":false,"closeEffect":"zoom"});
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/plain_english.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"loop":false,"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
