@@ -33,7 +33,8 @@ website:
             href: pages/model_overview.qmd
           - text: "Plain english summary"
             href: pages/plain_english.qmd
-      - section: "Installation"
+      - text: "Installation"
+        href: pages/installation.qmd
       - pages/input_data.qmd
       - section: "Code walkthrough"
         contents:
