@@ -2,66 +2,119 @@
 title: "Input data"
 ---
 
+```{r}
+#| echo: FALSE
+#| include: FALSE
+
+# Load the libraries required
+
+library(openxlsx, quiet = TRUE)
+library(data.table, quiet = TRUE)
+library(knitr, quiet = TRUE)
+```
+
+There are five input data files (stored in `1_Data/`) that are used by `2_Scripts/Model_Structure.R`.
+
+These are each described below.
+
 ## Excel user interface
 
-The majority of inputs for the EOM:RCC are made using an excel spreadsheet.
+::: {.callout-note appearance="minimal" collapse=true}
 
-### Model settings
+## `ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm`
 
-<mark>describe</mark>
+The majority of inputs for the code are made using an excel spreadsheet. This is currently populated with inputs that align with the final appraisal document (FAD) for TA964/ID6184, which is the appraisal of cabozantinib with nivolumab for untreated advanced renal cell carcinoma. Some of the inputs have been redacted in the publicly available spreadsheet as they are either academic and commercial in confidence (ACIC) or relate to the confident patient access scheme (cPAS).
 
-### Patient characteristics
+The data in the excel workbook will be imported to R using the sheet `named ranges`. In R, a nested list will be created where the `Name` is the reference for each item and the `Cell Range` is the content of the list.
 
-<mark>describe</mark>
+To illustrate how this works, this example works through the parameter which contains a list of treatments allowed for population 1.
 
-### Resource use and costs
+On the `named ranges` sheet, row 184 has Name `List_pop1_allowed` and Cell Range `=Lists!$BA$11:$BA$22`.
 
-<mark>describe</mark>
+![](../images/excel_named_range.png)
 
-### Effectiveness settings
+On the `Lists` sheet, we can see the list of allowed treatments.
 
-<mark>describe</mark>
+![](../images/excel_list.png)
 
-### Time on treatment
+Then, if we import the excel spreadsheet, we can view that same parameter within the nested list `i`.
 
-<mark>describe</mark>
+```{r}
+# Import the functions required
+source(file.path("../../3_Functions/excel/extract.R"))
 
-### Mortality parameters
+# Import the excel file
+excel_path <- "../../1_Data/ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm"
+i <- f_excel_extract(excel_path, verbose = FALSE)
 
-<mark>describe</mark>
+# Tidy the imported parameters
+i <- c(i,f_excel_cleanParams(i$R_table_param))
 
-### Safety parameters
+# View the parameter
+i$List_pop1_allowed
+```
 
-<mark>describe</mark>
+:::
 
-### Treatment sequence
+## Hazard ratios (HR) from the network meta-analyses (NMA)
 
-<mark>describe</mark>
+::: {.callout-note appearance="minimal" collapse=true}
 
-### Utilities
+## `PH_NMA_CODA.rds` and `FPNMA_means.rds`
 
-<mark>describe</mark>
+These files contain the outputs of the proportional hazards NMA (PH NMA) and the fractional polynomial NMA (FP NMA).
 
-### Scenario controls
+```{r}
+# Import the NMA results
+RDS_path2 <- "../../1_Data/PH_NMA_CODA.rds"
+RDS_path3 <- "../../1_Data/FPNMA_means.rds"
+i$PHNMA <- readRDS(RDS_path2)
+i$FPNMA$means  <- readRDS(RDS_path3)
+```
 
-<mark>describe</mark>
+```{r}
+# Preview the PH NMA results
+kable(head(i$PHNMA$data))
 
-### wastage calcs
+# Preview the FP NMA results
+kable(head(i$FPNMA$means))
+```
 
-<mark>describe</mark>
+In both tables, you can see that each row has a **HR** (`hr`/`V1`), and that these are for each combination of:
 
-### Age sex IPD_CIC
+* **Population** (`population`)
+* **Line** (`line`)
+* **Treatment** (`molecule`/`intervention_code`)
+* **Endpoint** (`endpoint`)
+* **Reference treatment** (`referencetreatment`/`reference_treatment_code`)
+* **Reference trial** (`referencetrial`/`ref_trial_code`)
 
-<mark>describe</mark>
+The PH NMA results are from a Bayesian analysis and so has lots of samples for each HR (10,000). Hence, the filename is `PH_NMA_CODA.rds`, with CODA referring to "Convergence Diagnosis and Output Analysis". When you run a Bayesian analysis, CODA samples are samples from the posterior distribution of your model parameters - in this case, the HRs.
 
-### Lists
+```{r}
+max(i$PHNMA$data$run)
+```
 
-<mark>describe</mark>
+The FP NMA results are also from a Bayesian analysis, but a mean has been taken of each sample. Hence, the filename `FPNMA_means.rds`. However, it does have another column `time`, which is present as FP NMA generates time-varying HR.
 
-### named ranges
+:::
 
-<mark>describe</mark>
+## Individual patient data (IPD) from the real-world evidence (RWE)
 
-### All parameters
+::: {.callout-note appearance="minimal" collapse=true}
 
-<mark>describe</mark>
+## `IPD_R_input_noACIC.xlsx`
+
+*TODO: Write this section*
+
+:::
+
+## Results from the survival analysis on the RWE IPD data
+
+::: {.callout-note appearance="minimal" collapse=true}
+
+## `survival_analysis_no_ipd_CompanyTTDTTPPPS_redacted.rds`
+
+*TODO: Write this section*
+
+:::

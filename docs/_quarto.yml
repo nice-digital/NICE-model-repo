@@ -35,9 +35,10 @@ website:
             href: pages/plain_english.qmd
       - text: "Installation"
         href: pages/installation.qmd
-      - pages/input_data.qmd
       - section: "Code walkthrough"
         contents:
+          - text: "Input data"
+            href: pages/input_data.qmd
           - pages/report.qmd
       - section: "Annotated reporting guidelines"
       - section: "Model validation"
