@@ -550,6 +550,24 @@ div.csl-indent {
 <li>Utility value for <strong>BSC</strong></li>
 </ul>
 <p>The values were sourced from prior NICE technology appraisals - TA645 for 1L and then adjustment to that based on TA498 for 2L to 4L. These were identified through a systematic search for published cost-effectiveness studies.</p>
+<p>Utility values were adjusted for age and sex using Ara and Brazier et al.&nbsp;2010 <span class="citation" data-cites="ara_populating_2010">[<a href="#ref-ara_populating_2010" role="doc-biblioref">8</a>]</span> / 2011 <span class="citation" data-cites="ara_using_2011">[<a href="#ref-ara_using_2011" role="doc-biblioref">9</a>]</span> and the Health Survey England (HSE) 2014 dataset.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note about values in probablistic model
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<!--TODO: Move this to probablistic page once created -->
+<p>It was not possible to adjust utilities values in the probablistic models, as the interactions between age and sex would need to be accounted for, but Ara and Brazier et al.&nbsp;2011 <span class="citation" data-cites="ara_using_2011">[<a href="#ref-ara_using_2011" role="doc-biblioref">9</a>]</span> do not report the variance-covariance matrix that would have described how the variations correlate with each other. Varying age and sex separately could lead to spurious results or inference due to non-linear interactions between the parameters (some of which are transformed).</p>
+</div>
+</div>
+</div>
 <p>For more information, see sections 1.25 “Health-related quality of life” and 1.26 “Source of utility values” in the Pathway Model Report <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span> and sections 4.1 “Published cost-effectiveness studies” and 4.3.7 “Utility values” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
 <section id="resource-use-and-costs" class="level3">
@@ -653,6 +671,12 @@ div.csl-indent {
 </div>
 <div id="ref-challapalli_1463p_2022" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[7] </div><div class="csl-right-inline">Challapalli A, Ratnayake G, McGrane J, Frazer R, Gupta S, Parslow DS, et al. <span>1463P</span> <span>Patterns</span> of care and outcomes of metastatic renal cell carcinoma (<span class="nocase">mRCC</span>) patients (pts) with bone metastases (<span>BM</span>): <span>A</span> <span>UK</span> multicenter review. Annals of Oncology 2022;33:S1215. <a href="https://doi.org/10.1016/j.annonc.2022.07.1566">https://doi.org/10.1016/j.annonc.2022.07.1566</a>.</div>
+</div>
+<div id="ref-ara_populating_2010" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">Ara R, Brazier JE. Populating an <span>Economic</span> <span>Model</span> with <span>Health</span> <span>State</span> <span>Utility</span> <span>Values</span>: <span>Moving</span> toward <span>Better</span> <span>Practice</span>. Value in Health 2010;13:509–18. <a href="https://doi.org/10.1111/j.1524-4733.2010.00700.x">https://doi.org/10.1111/j.1524-4733.2010.00700.x</a>.</div>
+</div>
+<div id="ref-ara_using_2011" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">Ara R, Brazier JE. Using health state utility values from the general population to approximate baselines in decision analytic models when condition-specific data are not available. Value in Health: The Journal of the International Society for Pharmacoeconomics and Outcomes Research 2011;14:539–45. <a href="https://doi.org/10.1016/j.jval.2010.10.029">https://doi.org/10.1016/j.jval.2010.10.029</a>.</div>
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1076,7 +1100,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/model_overview.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"descPosition":"bottom","loop":false,"selector":".lightbox","openEffect":"zoom","closeEffect":"zoom"});
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/model_overview.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","openEffect":"zoom","loop":false,"closeEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
