@@ -1,0 +1,361 @@
+---
+title: "Set-up"
+format:
+  html:
+    code-overflow: wrap
+---
+
+::: {.callout-note collapse="true"}
+
+## Adjustments
+
+The adjustments from `Model_Structure.R` on this page are:
+
+* Changed the path to the folders - e.g. "./3_Functions" to "../../3_Functions".
+  * Instead of amending this in each string, I created `path_` variables to store the path to the folder, and then imported individual files using `file.path()` to combine the folder path with the file name.
+  * These folder paths are all set-up in a code chunk `paths` after we load the required packages.
+* Set `f_excel_extract()` from `verbose = TRUE` to `verbose = FALSE`, as it otherwise repeatedly prints "Extracting named range X from ../../1_Data/ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm" where X is the name of each parameter
+
+:::
+
+<mark>TODO: Save .RData at end so can load for subsequent `.qmd` or will the file become too large?</mark>
+
+## Load required packages
+
+```{r packages}
+#| output: false
+
+#### 1. Installation ###########
+#### This code has been created using R version 4.3.1
+#### All packages used by this model are provided here
+
+#### Comment out the below section which installs the relevant packages after the first run of the model
+# install.packages("shiny", quiet = TRUE)   ### the quiet argument is used to avoid warnings appearing in the console (useful for later conversion to web app)
+# install.packages("gtools", quiet = TRUE)
+# install.packages("openxlsx", quiet = TRUE)
+# install.packages("flexsurv", quiet = TRUE)
+# install.packages("tidyverse", quiet = TRUE)
+# install.packages("data.table", quiet = TRUE)
+# install.packages("heemod", quiet = TRUE)
+# install.packages("logOfGamma", quiet = TRUE)
+# install.packages("ggplot2", quiet = TRUE)
+# install.packages("survminer", quiet = TRUE)
+# install.packages("officer", quiet = TRUE)
+# install.packages("officedown", quiet = TRUE)
+# install.packages("magrittr", quiet = TRUE)
+# install.packages("Hmisc", quiet = TRUE)
+# install.packages("future.apply", quiet = TRUE)
+# install.packages("crosstable", quiet = TRUE)
+# install.packages("flextable", quiet = TRUE)
+# install.packages("stringr", quiet = TRUE)
+# install.packages("BCEA", quiet = TRUE)
+# install.packages("collapse", quiet = TRUE)
+# install.packages("scales", quiet = TRUE)
+# install.packages("Matrix", quiet = TRUE)
+# install.packages("dplyr", quiet = TRUE)
+# install.packages("progressr", quiet = TRUE)
+# install.packages("microbenchmark", quiet = TRUE)
+
+### Loading libraries 
+
+#### This section needs to be run every time and calls each package from the library 
+library(shiny, quiet = TRUE)   
+library(gtools, quiet = TRUE)
+library(openxlsx, quiet = TRUE)
+library(flexsurv, quiet = TRUE)
+library(tidyverse, quiet = TRUE)
+library(data.table, quiet = TRUE)
+library(heemod, quiet = TRUE)
+library(logOfGamma, quiet = TRUE)
+library(ggplot2, quiet = TRUE)
+library(survminer, quiet = TRUE)
+library(officer, quiet = TRUE)
+library(officedown, quiet = TRUE)
+library(magrittr, quiet = TRUE)
+library(Hmisc, quiet = TRUE)
+library(future.apply, quiet = TRUE)
+library(crosstable, quiet = TRUE)
+library(flextable, quiet = TRUE)
+library(stringr, quiet = TRUE)
+library(BCEA, quiet = TRUE)
+library(collapse, quiet = TRUE)
+library(scales, quiet = TRUE)
+library(Matrix, quiet = TRUE)
+library(dplyr, quiet = TRUE)
+library(progressr, quiet = TRUE)
+library(microbenchmark, quiet = TRUE)
+```
+
+## Set file paths
+
+```{r}
+# Set path to folders
+d_path = "../../1_Data"
+f_path = "../../3_Functions"
+o_path = "../../4_Output"
+```
+
+## Define some of the model settings
+
+The majority of this code block is dedicated to setting the model to **run sequentially or in parallel**. If running the base case using `Model_Structure.R` as provided (e.g. with pre-run survival analysis), you may find that the quickest option is to run the model sequentially. This is already set up by default, with `keep_free_cores <- NA`. For reference, the run time for this on an Intel Core i7-12700H with 32GB RAM running Ubuntu 22.04.4 Linux was 40 minutes.
+
+```{r cores}
+# Multi-core processing:
+# 
+# Instructions.
+# 
+# This model is highly RAM intensive. You need a lot of RAM on your computer
+# to run this model due to the large amount of very large matrix multiplications
+# (up to approximately 15,000 discrete health states in the model). Therefore,
+# in order to efficiently run the model, it is a balancing act between RAM
+# usage and CPU usage. 
+# 
+# Some rough guidance is:
+# 
+# - If you have 8GB of RAM on your computer, you can run this model with 2 cores only
+#   but it may even be faster to run in series if you have other things open on your
+#   computer at the same time. Therefore, please set keep_free_cores to NA and run
+#   the model in series. This is because when the RAM on your computer runs out
+#   your computer will use the hard-disk instead which is extremely slow.
+# - If you have 16GB of RAM on your computer, parallel should be a lot faster.
+#   On my laptop (I7 8th gen, 16GB RAM, running Linux for low RAM usage) I can
+#   run with 5 cores whilst using about 12GB of RAM running this model. 
+# - if you have 24GB or 32GB of RAM, you should be able to run the model with 8
+#   and up to around 14 cores before running out of RAM whilst running the model.
+# - if you are using a HPC, you should be able to run this model with many cores
+#   due to the typically large amount of RAM available per core in a HPC
+# 
+# 
+# IF YOU DO NOT WANT MULTICORE SET keep_free_cores TO NA
+# 
+# 
+keep_free_cores <- NA
+if (any(is.na(keep_free_cores), keep_free_cores<0)) {
+  plan(sequential)
+} else {
+  plan(multisession(workers = max(availableCores()-keep_free_cores,1)))
+}
+```
+
+The three settings in this code block:
+
+* `progressr::handlers("progress")` - one of the settings for how progress is reported whilst code is running
+* `crosstable::options(crosstable_units="cm")` - the `crosstable` package generates descriptive statistics with function `crosstable()`, and this sets the unit for it, although it should be noted that this appears to be legacy code as it doesn't appear that `crosstable()` is used anywhere in the repository
+* `qc_mode` - the input for `verbose` in `f_NMA_AddAssumptionsToNetwork()` which, if true, will mean that extra outputs are printed to the console
+
+```{r settings}
+# Other generic settings for the progress bar and units for table widths
+handlers("progress")
+options(crosstable_units="cm")
+
+#### 2. Loading functions ###########
+
+
+# This variable is used throughout the model to define whether to provide additional outputs useful for QC or not
+# The model will take longer to run when this is set to TRUE
+qc_mode <- FALSE
+```
+
+## Import model functions
+
+The functions for the analysis in `Model_Structure.R` are stored in the `3_Functions/` folder. Here, they are imported into our environment.
+
+```{r functions}
+# 2.1. Excel data extraction functions -----------------------------------------
+
+#### These functions are used to extract parameters from the Excel input workbook for use in R
+#### During Phase 2 a Shiny front-end will be added to the model which will allow an alternative mechanism to upload these types of inputs
+
+source(file.path(f_path, "excel/extract.R"))
+
+# 2.2. Treatment sequencing functions ----------------------------------------
+
+#### Function: filter to active treatments and lines
+##### Takes as an input the defined sequences, evaluation type and line to start the evaluation from 
+##### Other input is % receiving each subs therapy at each line dependent on previous treatments received 
+##### Reweights so that the % receiving each treatment sums to 100% within each arm / line being studied
+##### Outputs a matrix that has the % receiving each possible combination
+
+source(file.path(f_path, "sequencing/sequences.R"))
+
+# 2.3. Survival analysis functions ---------------------------------------------
+
+# Function: conduct survival analysis
+##### by treatment, line, population and outcome fitted survival curves using Flexsurvreg (exp, Weibull, lognormal, loglog, Gompertz, gen gamma)
+##### calculation of and adjustment for general population
+##### adjustment for treatment effect waning
+
+source(file.path(f_path, "survival/Survival_functions.R"))
+source(file.path(f_path, "survival/other_cause_mortality.R"))
+source(file.path(f_path, "survival/treatment_effect_waning.R"))
+
+# 2.4 Misc functions ----------------------------------------------------------
+
+### these functions enable smoother data cleaning and manipulation
+
+source(file.path(f_path, "misc/other.R"))
+source(file.path(f_path, "misc/shift_and_pad.R"))
+source(file.path(f_path, "misc/cleaning.R"))
+
+# 2.4.1 Functions imposing list structures -----------------------------------
+
+source(file.path(f_path, "misc/nesting.R"))
+source(file.path(f_path, "misc/discounting.R"))
+source(file.path(f_path, "misc/qdirichlet.R"))
+source(file.path(f_path, "misc/plotting.R"))
+source(file.path(f_path, "misc/structure.R"))
+
+# 2.4.2 Functions calculating HRs from FPNMA coefficients and other FPNMA manipulation ------
+
+source(file.path(f_path, "misc/fpnma_fns.R"))
+
+
+# 2.5 Utility functions -------------------------------------------------------
+
+source(file.path(f_path, "utility/age_related.R"))
+source(file.path(f_path, "costs_and_QALYs/utility_processing.R"))
+
+# 2.6 AE functions --------------------------------------------------------
+
+source(file.path(f_path, "adverse_events/AE_steps.R"))
+
+# 2.7 Cost calculation functions --------------------------------------------
+
+source(file.path(f_path, "costs_and_QALYs/cost_processing.R"))
+
+
+# 2.8 State transition modelling functions --------------------------------
+
+source(file.path(f_path, "markov/markov.R"))
+
+# 2.9 Patient flow functions ----------------------------------------------
+
+source(file.path(f_path, "patient_flow/overarching.R"))
+source(file.path(f_path, "patient_flow/partitioned_survival.R"))
+source(file.path(f_path, "patient_flow/markov.R"))
+source(file.path(f_path, "patient_flow/drug_costs.R"))
+source(file.path(f_path, "patient_flow/hcru_costs.R"))
+source(file.path(f_path, "patient_flow/qalys.R"))
+source(file.path(f_path, "patient_flow/ae.R"))
+
+
+
+# 2.10 Results processing functions ---------------------------------------
+
+source(file.path(f_path, "results/incremental_analysis.R"))
+source(file.path(f_path, "results/model_averaging.R"))
+source(file.path(f_path, "results/partitioned_survival.R"))
+source(file.path(f_path, "misc/severity_modifier.R"))
+source(file.path(f_path, "results/results_tables.R"))
+source(file.path(f_path, "psa/psa functions.R"))
+
+
+
+# 2.11 Office software outputs --------------------------------------------
+
+source(file.path(f_path, "reporting/word_document_output.R"))
+```
+
+## Get model inputs
+
+### Introductory comments
+
+This section of the code is mostly comments that describe:
+
+* The structure of `i` which contains model inputs
+* That survival analysis will be conducted using state transition (markov) models and partitioned survival analysis (partSA)
+* The five input files, which are detailed within the documentation on the page [Input data](input_data.qmd)
+
+There is a line of code to define `User_types`, but this appears to be legacy as it is not used anywhere.
+
+```{r inputs}
+# 3. Model inputs structure --------------------------------------------------
+
+# Model inputs should be in a list called i. This list then contains all of the
+# inputs for the model, NOT the parameters used to calculate the model. In effect,
+# this is a place to store all model information BEFORE it gets boiled down to
+# what's needed to run 1 model.
+# 
+# using i allows subsetting by categorisation, which makes things a lot easier
+# to find and avoids all long variable names
+# 
+# the structure of i should be by category. There are the following 
+# categories:
+# 
+# dd - dropdown inputs taken from Excel
+# i - parameter inputs taken from Excel
+# r_ tables taken from Excel
+# List, id and lookup - lists defined and used within the code
+# basic - basic inputs (time horizon, cycle length, discount rates, so on so forth)
+# surv  - survival analysis inputs including raw data
+# sequences and seq - inputs and outputs related to the possible sequences of treatments
+# cost  - drug and hcru costs. All costs are here to keep things together (dosing is not cost)
+# util and QALYs  - utility and QALY inputs
+# misc  - misc inputs e.g. graph labelling
+# 
+
+#### 3.1 Loading input parameters ###########
+
+# This model allows two possible structures to be analysed: state transition with a user definable number of lines
+# with health states based on time to discontinuation (drug costs) and progression status (quality of life and movement 
+# between lines) and PartSA with 3 health states (pre-progression, post-progression and death)
+
+# During Phase 1 of this pilot we use the model to evaluate the decision problem for a single therapy 
+# (cabo+nivo, defined as molecule 1) starting at 1st line
+# During Phase 2 we will adapt this code to evaluate the cost-effectiveness of sequences starting at a user-defined line
+
+# Inputs to this model need to be downloaded from NICEdocs 
+
+User_types <- c("Submitting company", "NICE", "EAG", "Committee", "NHSE", "Clinical expert", "Patient expert", "Non-intervention stakeholder", "Public")
+
+# The submitting company are able to see their own CIC and AIC data (marked up blue / yellow in reporting but not anything else: green marking
+# green marked data has been either be replaced with 0 [PAS discounts, RWE IPD] or dummy data)
+# NICE users will be able to see everything
+# Other users will not be able to see any marked data, this is replaced with dummy data
+
+# The way raw data is fed into the model currently works as follows
+# Define the path to where the data file lives using the select file functionality
+
+# The model then processes the file the user selected
+
+# There are a number of files which contain raw or intermediate inputs:
+# 1. The Excel user interface - this contains information from company data and the UK RWE
+# 2. The proportional hazards NMA CODA RDS file - this contains information from company data
+# 3. The fractional polynomials NMA RDS file - this contains information from company data 
+# 4. Either the raw data file containing the pseudo-IPD for all trials for survival analysis (RWE and company data included); or
+# 5. The RDS output from the survival analysis using both RWE and company data
+
+# You will need to manually select the inputs file relevant to your user type, this is not stored on Github as access to CIC information differs by user type
+```
+
+### Get inputs from excel workbook and save as list `i`
+
+Import the file at `excel_path` using `f_excel_extract()`.
+
+If the file doesn't exist, assuming the user is in RStudio, a dialog box will appear with the system files, and the user should then select a file from their directory. The dialog will open in `1_Data/`, show only `.xlsm` files, and the accept/ok button has the text `ID6184_RCC_model inputs....xlsm`.
+
+```{r excel}
+# The first part of this code pulls all of the named ranges from the excel workbook, expand the parameters table
+
+#Option to define Excel path on local machine - comment in this and comment out the code below to select file
+excel_path <- file.path(d_path, "ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm")
+#i <- f_excel_extract(excel_path, verbose = TRUE)
+
+if (file.exists(excel_path)) {
+  i <- f_excel_extract(excel_path, verbose = FALSE)
+} else {
+  i <- f_excel_extract(rstudioapi::selectFile(
+    caption = "Select the Excel inputs file (ID6184_RCC_model inputs....xlsm)",
+    label = "ID6184_RCC_model inputs....xlsm",
+    path = "./1_Data/",
+    filter = "Excel Files (*.xlsm)",
+    existing = TRUE
+  ), verbose = FALSE)
+}
+
+i <- c(i,f_excel_cleanParams(i$R_table_param))
+```
+
+<mark>TODO: add description of what f_excel_Extract() is doing</mark>
+
+<mark>TODO: add further set-up aspects to this notebook</mark>
