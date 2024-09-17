@@ -29,16 +29,14 @@ website:
           - pages/publication.qmd
       - section: "Model overview"
         contents:
-          - text: "Detailed summary"
-            href: pages/model_overview.qmd
-          - text: "Plain english summary"
-            href: pages/plain_english.qmd
-      - text: "Installation"
-        href: pages/installation.qmd
+          - pages/model_overview.qmd
+          - pages/plain_english.qmd
+      - pages/installation.qmd
       - section: "Code walkthrough"
         contents:
-          - text: "Input data"
-            href: pages/input_data.qmd
+          - pages/walkthrough_preface.qmd
+          - pages/input_data.qmd
+          - pages/code1_setup.qmd
           - pages/report.qmd
       - section: "Annotated reporting guidelines"
       - section: "Model validation"
