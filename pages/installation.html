@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>NICE appraisals – &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exeter Oncology Model: Renal Cell Carcinoma edition</title>
+<title>Installation – &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exeter Oncology Model: Renal Cell Carcinoma edition</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -59,6 +73,9 @@ div.csl-indent {
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -122,7 +139,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/appraisals.html">Context</a></li><li class="breadcrumb-item"><a href="../pages/appraisals.html">NICE appraisals</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/installation.html">Installation</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -157,7 +174,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/appraisals.html" class="sidebar-item-text sidebar-link active">
+  <a href="../pages/appraisals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NICE appraisals</span></a>
   </div>
 </li>
@@ -194,7 +211,7 @@ div.csl-indent {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/installation.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/installation.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Installation</span></a>
   </div>
 </li>
@@ -261,17 +278,25 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#renal-cell-carcinoma-pathways-pilot-id6186-gid-ta11186" id="toc-renal-cell-carcinoma-pathways-pilot-id6186-gid-ta11186" class="nav-link active" data-scroll-target="#renal-cell-carcinoma-pathways-pilot-id6186-gid-ta11186">Renal cell carcinoma Pathways Pilot (ID6186, GID-TA11186)</a></li>
-  <li><a href="#cabozantinib-with-nivolumab-for-untreated-advanced-renal-cell-carcinoma-ta964-formerly-id6184" id="toc-cabozantinib-with-nivolumab-for-untreated-advanced-renal-cell-carcinoma-ta964-formerly-id6184" class="nav-link" data-scroll-target="#cabozantinib-with-nivolumab-for-untreated-advanced-renal-cell-carcinoma-ta964-formerly-id6184">Cabozantinib with nivolumab for untreated advanced renal cell carcinoma (TA964, formerly ID6184)</a></li>
+  <li><a href="#installing-the-model" id="toc-installing-the-model" class="nav-link active" data-scroll-target="#installing-the-model">Installing the model</a>
+  <ul class="collapse">
+  <li><a href="#accessing-the-code-via-git-version-control" id="toc-accessing-the-code-via-git-version-control" class="nav-link" data-scroll-target="#accessing-the-code-via-git-version-control">Accessing the code via Git (version control)</a></li>
+  <li><a href="#accessing-the-code-by-downloading-the-model" id="toc-accessing-the-code-by-downloading-the-model" class="nav-link" data-scroll-target="#accessing-the-code-by-downloading-the-model">Accessing the code by downloading the model</a></li>
+  </ul></li>
+  <li><a href="#installing-the-model-dependencies" id="toc-installing-the-model-dependencies" class="nav-link" data-scroll-target="#installing-the-model-dependencies">Installing the model dependencies</a>
+  <ul class="collapse">
+  <li><a href="#installing-into-current-environment" id="toc-installing-into-current-environment" class="nav-link" data-scroll-target="#installing-into-current-environment">Installing into current environment</a></li>
+  <li><a href="#restoring-provided-renv" id="toc-restoring-provided-renv" class="nav-link" data-scroll-target="#restoring-provided-renv">Restoring provided <code>renv</code></a></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/appraisals.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/installation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/appraisals.html">Context</a></li><li class="breadcrumb-item"><a href="../pages/appraisals.html">NICE appraisals</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">NICE appraisals</h1>
+<h1 class="title">Installation</h1>
 </div>
 
 
@@ -288,54 +313,59 @@ div.csl-indent {
 </header>
 
 
-<p>This model was developed by the <strong>Peninsula Technology Assessment Group (PenTAG)</strong> at the <strong>University of Exeter</strong>. This was in collaboration with the <strong>National Institute for Health and Care Excellence (NICE)</strong> as part of two appraisals, described below.</p>
-<section id="renal-cell-carcinoma-pathways-pilot-id6186-gid-ta11186" class="level2">
-<h2 class="anchored" data-anchor-id="renal-cell-carcinoma-pathways-pilot-id6186-gid-ta11186">Renal cell carcinoma Pathways Pilot (ID6186, GID-TA11186)</h2>
-<p>In 2022, NICE announced a programme aimed at taking a “proportionate approach to technology appraisals” (PATT). In the first phase of the programme, they “simplified, removed, or reconfigured parts of the appraisals process”. This was to enable the production of rapid guidance for simpler low-risk decisions by allowing “light-touch, faster evaluations” for those topics. In the second phase of the programme, they have been exploring several other ways of working, one of which being to take a “<strong>pathways approach</strong> to technology appraisals.” <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_taking_nodate">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_taking_nodate" role="doc-biblioref">1</a>]</span></p>
-<p>The pathways approach involves the production of a reusable <strong>platform/reference model</strong> for each disease area. The rationale for this that many NICE appraisals are in only a few disease areas, with almost half of health technology assessments within ten disease areas. Hence, developing a single reference model for each disease area should help “reduce repetition and improve consistency in decision making”. <span class="citation" data-cites="lee_nices_2024">[<a href="#ref-lee_nices_2024" role="doc-biblioref">2</a>]</span></p>
-<p>In their analysis plan, Lee et al.&nbsp;2023 <span class="citation" data-cites="lee_treatments_2023">[<a href="#ref-lee_treatments_2023" role="doc-biblioref">3</a>]</span> emphasise the importance of these models being <strong>open-source</strong> so they can be reused and maintained without restriction. They give the example of the <strong>Innovation and Value Initiative (IVI)</strong> Open-Source Value project which started in 2018 and has since produced three disease models which are freely shared on their GitHub. <span class="citation" data-cites="lee_treatments_2023">[<a href="#ref-lee_treatments_2023" role="doc-biblioref">3</a>]</span> Each of these models are developed in R, with the first two being <strong>R packages</strong> with <strong>hosted documentation</strong> and supporting <strong>web applications</strong> (created with a commercial organisation, <a href="https://clarityviz.com/" class="uri">https://clarityviz.com/</a>):</p>
-<ul>
-<li>Non-small cell lung cancer - <a href="https://github.com/InnovationValueInitiative/IVI-NSCLC">GitHub</a>, <a href="https://innovationvalueinitiative.github.io/IVI-NSCLC/">documentation</a>, <a href="https://vt-nsclc.clarityviz.com/">basic web app</a>, <a href="https://et-nsclc.clarityviz.com/">advanced web app</a> (note: these web apps are not working currently)</li>
-<li>Rheumatoid arthritis - <a href="https://github.com/InnovationValueInitiative/IVI-RA">GitHub</a>, <a href="https://innovationvalueinitiative.github.io/IVI-RA/">documentation</a>, <a href="https://ivi-ra-expert.clarityviz.com/">model interface (advanced app)</a>, <a href="https://ivi-ra.clarityviz.com/">value tool (basic app)</a></li>
-<li>Major depressive disorder - <a href="https://github.com/InnovationValueInitiative/IVI-MDD">GitHub</a></li>
-</ul>
-<p>The NICE pilot of the pathways approach was in <strong>renal cell carcinoma</strong> (ID6186, GID-TA11186). <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_nodate">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_nodate" role="doc-biblioref">4</a>]</span> This pilot was the <strong>Exeter Oncology Model: Renal Cell Carcinoma edition (EOM:RCC)</strong>, as described and presented in this repository. In 2024, Lee et al.&nbsp;published an article describing their experience of developing this model (see <a href="../pages/publication.html">publication</a> page). <span class="citation" data-cites="lee_nices_2024">[<a href="#ref-lee_nices_2024" role="doc-biblioref">2</a>]</span> A final report from NICE on the pilot will be released in 2024/25. <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_taking_nodate">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_taking_nodate" role="doc-biblioref">1</a>]</span></p>
+<p>To install and run this model, you will need to have the following on your machine:</p>
+<p><a href="https://www.r-project.org/" style="text-decoration:none; margin:0; padding:0;"> <img src="https://img.shields.io/badge/-r≥4.3-black?style=for-the-badge&amp;logoColor=white&amp;logo=r&amp;color=276DC3" alt="R"> </a> <a href="https://posit.co/download/rstudio-desktop/" style="text-decoration:none; margin:0; padding:0;"> <img src="https://img.shields.io/badge/-RStudio-black?style=for-the-badge&amp;logoColor=white&amp;logo=rstudioide&amp;color=75AADB" alt="RStudio"> </a> <a href="https://cran.r-project.org/bin/windows/Rtools/" style="text-decoration:none; margin:0; padding:0;"> <img src="https://img.shields.io/badge/-Rtools-black?style=for-the-badge&amp;color=04AA6D" alt="Rtools"> </a> <a href="https://git-scm.com/" style="text-decoration:none; margin:0; padding:0;"> <img src="https://img.shields.io/badge/-Git-black?style=for-the-badge&amp;logoColor=white&amp;logo=git&amp;color=F05032" alt="Git"> </a></p>
+<section id="installing-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="installing-the-model">Installing the model</h2>
+<p>There are a few options for installing this model.</p>
+<section id="accessing-the-code-via-git-version-control" class="level3">
+<h3 class="anchored" data-anchor-id="accessing-the-code-via-git-version-control">Accessing the code via Git (version control)</h3>
+<p>To access the model using Git the easiest method is to create a new project in RStudio which links to the NICE github website. Simply click <code>New Project</code> in the right hand of your RStudio screen:</p>
+<p><a href="../images/rstudio_git_1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/rstudio_git_1.png" class="img-fluid"></a></p>
+<p>Then select <code>Version Control</code>:</p>
+<p><a href="../images/rstudio_git_2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="../images/rstudio_git_2.png" class="img-fluid"></a></p>
+<p>Then choose <code>Git</code>:</p>
+<p><a href="../images/rstudio_git_3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../images/rstudio_git_3.png" class="img-fluid"></a></p>
+<p>Paste in the URL of the NICE repository (<a href="https://github.com/nice-digital/NICE-model-repo" class="uri">https://github.com/nice-digital/NICE-model-repo</a>) in the repository URL and decide where you want the project to be saved on your computer using the <code>Browse</code> functionality. All of your team can access the code then in the same way.</p>
+<p>If there is more than one branch of code available as the model is updated you can select what branch of the code to look at on the top right of your screen.</p>
+<p><a href="../images/rstudio_git_4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../images/rstudio_git_4.png" class="img-fluid"></a></p>
 </section>
-<section id="cabozantinib-with-nivolumab-for-untreated-advanced-renal-cell-carcinoma-ta964-formerly-id6184" class="level2">
-<h2 class="anchored" data-anchor-id="cabozantinib-with-nivolumab-for-untreated-advanced-renal-cell-carcinoma-ta964-formerly-id6184">Cabozantinib with nivolumab for untreated advanced renal cell carcinoma (TA964, formerly ID6184)</h2>
-<p>The technology appraisal guidance for cabozantinib with nivolumab for untreated advanced renal cell carcinoma was published on 10 April 2024. When developing this guidance, the evaluation comittee considered:</p>
-<ul>
-<li>Evidence submitted by Ipsen</li>
-<li>A revise of Ipsen’s submission by the external assessment group (EAG)</li>
-<li>The EAG’s economic model (EOM:RCC)</li>
-<li>Responses from stakeholders</li>
-</ul>
-<p>The main source of evidence for clinical effectiveness was the results of “<strong>CheckMate 9ER</strong>, a single-blind randomised controlled trial comparing cabozantinib plus nivolumab with sunitinib”. The economic model was the <strong>EOM:RCC</strong>, and the preferred assumptions for this model from the committee and from the company are outlined in the appraisal guidance. <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_cabozantinib_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_cabozantinib_2024" role="doc-biblioref">5</a>]</span> The model itself is then further described in a pathway model report. <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span></p>
-
+<section id="accessing-the-code-by-downloading-the-model" class="level3">
+<h3 class="anchored" data-anchor-id="accessing-the-code-by-downloading-the-model">Accessing the code by downloading the model</h3>
+<p>If you do not wish to access the model via Git you can instead download the code and run the model on your local machine either using RStudio or R.</p>
+<p>To do this click the <code>Code</code> button and then <code>Download ZIP</code>:</p>
+<p><a href="../images/zip_1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="../images/zip_1.png" class="img-fluid"></a></p>
+<p>Extract the zip file to wherever on your machine you want to store the model. We would suggest saving it somewhere other than the <code>Downloads/</code> folder. Open RStudio and press <code>File</code> then <code>New Project</code>:</p>
+<p><a href="../images/zip_2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="../images/zip_2.png" class="img-fluid"></a></p>
+<p>Click <code>Existing Directory</code>:</p>
+<p><a href="../images/zip_3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="../images/zip_3.png" class="img-fluid"></a></p>
+<p>Click on the folder where you have saved the model. Make sure you click fully through until you can see the sub folders. Then press <code>Open</code> and then <code>Create Project</code>.</p>
+<p><a href="../images/zip_4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="../images/zip_4.png" class="img-fluid"></a></p>
+</section>
+</section>
+<section id="installing-the-model-dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="installing-the-model-dependencies">Installing the model dependencies</h2>
+<p>You’ll also need to install the model dependencies. Your options for this include:</p>
+<section id="installing-into-current-environment" class="level3">
+<h3 class="anchored" data-anchor-id="installing-into-current-environment">Installing into current environment</h3>
+<p>In <code>Model_Structure.R</code>, lines 6 to 28 contain instructions for installing the relevant packages. You can use <code>ctrl+shift+c</code> to uncomment these lines and <code>ctrl+enter</code> to run a line or a group of highlighted lines. You only need to do this once and then should recomment the lines using <code>ctrl+shift+c</code>.</p>
+<p>This will install the packages into your current environment. If you want to create an isolated environment to install these packages into, then you can set up an R environment with <code>renv</code> by running:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="at">install.packages("renv")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">renv::init()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Install your packages as above, and then keep a record of what you installed by running:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="at">renv::snapshot()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="restoring-provided-renv" class="level3">
+<h3 class="anchored" data-anchor-id="restoring-provided-renv">Restoring provided <code>renv</code></h3>
+<p>We have created an R environment with all the required packages and the versions we used. You can see the version of R this was set up with in the <code>renv.lock</code> file. To install the dependencies by copying this environment, run the following commands in your R console:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="at">install.packages("renv")</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">renv::restore()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
+</section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
-<div id="ref-national_institute_for_health_and_care_excellence_nice_taking_nodate" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">National Institute for Health and Care Excellence (NICE). <a href="https://www.nice.org.uk/about/what-we-do/proportionate-approach-to-technology-appraisals">Taking a proportionate approach to technology appraisals</a> n.d.</div>
-</div>
-<div id="ref-lee_nices_2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">Lee D, Burns D, Wilson E. <span>NICE</span>’s <span>Pathways</span> <span>Pilot</span>: <span>Pursuing</span> <span>Good</span> <span>Decision</span> <span>Making</span> in <span>Difficult</span> <span>Circumstances</span>. PharmacoEconomics - Open 2024. <a href="https://doi.org/10.1007/s41669-024-00490-x">https://doi.org/10.1007/s41669-024-00490-x</a>.</div>
-</div>
-<div id="ref-lee_treatments_2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">Lee D, Muthukumar M, Robinson S, Lovell A, Coelho H, Matthews J, et al. <a href="https://www.nice.org.uk/guidance/gid-ta11186/documents/assessment-report-3">Treatments for renal cell carcinoma [<span>ID6186</span>]. <span>Final</span> <span>Analysis</span> <span>Plan</span>.</a> 2023.</div>
-</div>
-<div id="ref-national_institute_for_health_and_care_excellence_nice_renal_nodate" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">National Institute for Health and Care Excellence (NICE). <a href="https://www.nice.org.uk/guidance/indevelopment/gid-ta11186">Renal cell carcinoma <span>Pathways</span> <span>Pilot</span> [<span>ID6186</span>]. <span>In</span> development [<span>GID</span>-<span>TA11186</span>]</a> n.d.</div>
-</div>
-<div id="ref-national_institute_for_health_and_care_excellence_nice_cabozantinib_2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[5] </div><div class="csl-right-inline">National Institute for Health and Care Excellence (NICE). <a href="https://www.nice.org.uk/guidance/ta964">Cabozantinib with nivolumab for untreated advanced renal cell carcinoma. <span>Technology</span> appraisal guidance [<span>TA964</span>]</a> 2024.</div>
-</div>
-<div id="ref-national_institute_for_health_and_care_excellence_nice_renal_2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[6] </div><div class="csl-right-inline">National Institute for Health and Care Excellence (NICE). <a href="https://www.nice.org.uk/guidance/ta964/resources/renal-cell-carcinoma-pathway-model-report-pdf-17325260829637">Renal cell carcinoma pathway model report. <span>Economic</span> analysis.</a> 2024.</div>
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -757,8 +787,40 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/installation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"loop":false,"closeEffect":"zoom","descPosition":"bottom","selector":".lightbox","openEffect":"zoom"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/appraisals.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+</body></html>

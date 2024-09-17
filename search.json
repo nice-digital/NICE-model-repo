@@ -142,23 +142,83 @@
     ]
   },
   {
-    "objectID": "pages/input_data.html",
-    "href": "pages/input_data.html",
-    "title": "Input data",
+    "objectID": "pages/installation.html",
+    "href": "pages/installation.html",
+    "title": "Installation",
     "section": "",
-    "text": "The majority of inputs for the EOM:RCC are made using an excel spreadsheet.\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe",
+    "text": "To install and run this model, you will need to have the following on your machine:",
     "crumbs": [
-      "Input data"
+      "Installation"
     ]
   },
   {
-    "objectID": "pages/input_data.html#excel-user-interface",
-    "href": "pages/input_data.html#excel-user-interface",
-    "title": "Input data",
-    "section": "",
-    "text": "The majority of inputs for the EOM:RCC are made using an excel spreadsheet.\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe",
+    "objectID": "pages/installation.html#installing-the-model",
+    "href": "pages/installation.html#installing-the-model",
+    "title": "Installation",
+    "section": "Installing the model",
+    "text": "Installing the model\nThere are a few options for installing this model.\n\nAccessing the code via Git (version control)\nTo access the model using Git the easiest method is to create a new project in RStudio which links to the NICE github website. Simply click New Project in the right hand of your RStudio screen:\n\nThen select Version Control:\n\nThen choose Git:\n\nPaste in the URL of the NICE repository (https://github.com/nice-digital/NICE-model-repo) in the repository URL and decide where you want the project to be saved on your computer using the Browse functionality. All of your team can access the code then in the same way.\nIf there is more than one branch of code available as the model is updated you can select what branch of the code to look at on the top right of your screen.\n\n\n\nAccessing the code by downloading the model\nIf you do not wish to access the model via Git you can instead download the code and run the model on your local machine either using RStudio or R.\nTo do this click the Code button and then Download ZIP:\n\nExtract the zip file to wherever on your machine you want to store the model. We would suggest saving it somewhere other than the Downloads/ folder. Open RStudio and press File then New Project:\n\nClick Existing Directory:\n\nClick on the folder where you have saved the model. Make sure you click fully through until you can see the sub folders. Then press Open and then Create Project.",
     "crumbs": [
-      "Input data"
+      "Installation"
+    ]
+  },
+  {
+    "objectID": "pages/installation.html#installing-the-model-dependencies",
+    "href": "pages/installation.html#installing-the-model-dependencies",
+    "title": "Installation",
+    "section": "Installing the model dependencies",
+    "text": "Installing the model dependencies\nYou’ll also need to install the model dependencies. Your options for this include:\n\nInstalling into current environment\nIn Model_Structure.R, lines 6 to 28 contain instructions for installing the relevant packages. You can use ctrl+shift+c to uncomment these lines and ctrl+enter to run a line or a group of highlighted lines. You only need to do this once and then should recomment the lines using ctrl+shift+c.\nThis will install the packages into your current environment. If you want to create an isolated environment to install these packages into, then you can set up an R environment with renv by running:\ninstall.packages(\"renv\")\nrenv::init()\nInstall your packages as above, and then keep a record of what you installed by running:\nrenv::snapshot()\n\n\nRestoring provided renv\nWe have created an R environment with all the required packages and the versions we used. You can see the version of R this was set up with in the renv.lock file. To install the dependencies by copying this environment, run the following commands in your R console:\ninstall.packages(\"renv\")\nrenv::restore()",
+    "crumbs": [
+      "Installation"
+    ]
+  },
+  {
+    "objectID": "pages/citation.html",
+    "href": "pages/citation.html",
+    "title": "Citation",
+    "section": "",
+    "text": "If you re-use this model please appropriately credit PenTAG for the work and refer to it as the Exeter Oncology Model: RCC edition. You can use the following citation:\n\nLee D., Muthukumar M., Lovell A., Farmer C., Burns D., Matthews J., Coelho H., O’Toole B., Trigg L., Snowsill T., Barnish M., Nikoglou T., Brand A., Ahmad Z., Abdelsabour A., Robinson S., Wilson E., Melendez-Torres G. Exeter Oncology Model: RCC edition URL: https://github.com/nice-digital/NICE-model-repo",
+    "crumbs": [
+      "Citation"
+    ]
+  },
+  {
+    "objectID": "pages/citation.html#how-to-cite-this-model",
+    "href": "pages/citation.html#how-to-cite-this-model",
+    "title": "Citation",
+    "section": "",
+    "text": "If you re-use this model please appropriately credit PenTAG for the work and refer to it as the Exeter Oncology Model: RCC edition. You can use the following citation:\n\nLee D., Muthukumar M., Lovell A., Farmer C., Burns D., Matthews J., Coelho H., O’Toole B., Trigg L., Snowsill T., Barnish M., Nikoglou T., Brand A., Ahmad Z., Abdelsabour A., Robinson S., Wilson E., Melendez-Torres G. Exeter Oncology Model: RCC edition URL: https://github.com/nice-digital/NICE-model-repo",
+    "crumbs": [
+      "Citation"
+    ]
+  },
+  {
+    "objectID": "pages/citation.html#acknowledgements",
+    "href": "pages/citation.html#acknowledgements",
+    "title": "Citation",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\n\nThis modified repository was developed by Amy Heather . Changes from the original repository can be viewed in the changelog.\nThese modifications were made to improve the clarity and open science credentials of the EOM:RCC model, as part of the project STARS.",
+    "crumbs": [
+      "Citation"
+    ]
+  },
+  {
+    "objectID": "pages/acronyms.html",
+    "href": "pages/acronyms.html",
+    "title": "Acryonyms",
+    "section": "",
+    "text": "Acronym\nMeaning\n\n\n\n\n1L\nFirst line\n\n\n2L\nSecond line\n\n\n3L\nThird line\n\n\n4L\nFourth line\n\n\nAbs\nAbsolute\n\n\nACIC\nAcademic and commercial in confidence\n\n\nADaM\nAnalysis Data Model\n\n\nAE\nAdverse event\n\n\nASCO\nAmerican Society Of Clinical Oncology\n\n\naRCC\nAdvanced renal cell carcinoma\n\n\nAUC\nArea under the curve\n\n\nBSC\nBest supportive care\n\n\ncabo\ncabozantinib\n\n\nCIC\nCommercial in confidence\n\n\nCDF\nCancer Drugs Fund\n\n\nCE\nCost effectiveness\n\n\nCEA\nCost effectiveness analysis\n\n\nCODA\nConvergence diagnosis and output analysis\n\n\ncPAS\nConfident patient access scheme\n\n\nDSU\nDecision support unit\n\n\nEAG\nExternal assessment group\n\n\nEOL\nEnd of life\n\n\nEOM-RCC\nExeter Oncology Model: Renal Cell Carcinoma edition\n\n\nERG\nEvidence Review Group\n\n\nevero\nEverolimus\n\n\nFAD\nFinal appraisal document\n\n\nfav\nFavourable\n\n\nFP\nFractional polynomial\n\n\nFP NMA\nFractional polynomial network meta-analysis\n\n\nGen\ngeneral\n\n\nHFS\nHand-foot syndrome\n\n\nHPC\nHigh-performance computing\n\n\nHR\nHazard ratio\n\n\nHRQL\nHealth-related quality of life\n\n\nHTA\nHealth technology assessment\n\n\nICER\nIncremental Cost-Effectiveness Ratio\n\n\nint\nIntermediate\n\n\nIMDC\nInternational Metastatic Renal Cell Carcinoma Database Consortium\n\n\nIO\nImmuno-oncology\n\n\nIPD\nIndividual patient data\n\n\nipi\nIpilimumab\n\n\nIV\nIntravenous\n\n\nKM\nKaplan-Meier\n\n\nlenv\nLenvatinib\n\n\nLY\nLife year(s)\n\n\nLYG\nLife year(s) gained\n\n\nMRC\nMedical Research Council\n\n\nMRU\nMedical Resource Use\n\n\nMTA\nMultiple technology appraisal\n\n\nNHS\nNational Health Service\n\n\nNHSE\nNational Health ServiceEngland\n\n\nNICE\nNational Institute for Health and Care Excellence\n\n\nNIHR\nNational Institute for Health and Care Research\n\n\nnivo\nNivolumab\n\n\nNMA\nNetwork meta-analysis\n\n\nONS\nOffice for National Statistics\n\n\nOS\nOverall survival\n\n\nPartSA\nPartitioned-survival analysis\n\n\nPAS\nPatient access scheme\n\n\nPATT\nProportionate approach to technology appraisals\n\n\npazo\npazopanib\n\n\nPD\nProgressed disease\n\n\npem\nPembrolizumab\n\n\nPenTAG\nPeninsula Technology Assessment Group\n\n\nPFS\nProgression-free survival\n\n\nPH\nProportional hazards\n\n\nPH NMA\nProportional hazards network meta-analysis\n\n\nPLD\nPatient-level data\n\n\nPLMT\nPopulation + Line + Molecule + Trial\n\n\nPLMTE\nPopulation + Line + Molecule + Trial + Endpoint\n\n\npop\nPopulation\n\n\nPPS\nPost-progression survival\n\n\nprop\nProportional\n\n\nPSA\nProbablistic sensitivity analysis\n\n\nPSM\nProgressed state membership\n\n\nQALY\nQuality-adjusted life year(s)\n\n\nQC\nQuality check\n\n\nRCC\nRenal cell carcinoma\n\n\nRDI\nRelative dosing intensity\n\n\nRE\nRelative efficacy\n\n\nROC\nRenal Oncology Collaborative\n\n\nRWE\nReal-world evidence\n\n\nSF\nShortfall\n\n\nSOC\nStandard of care\n\n\nst\nSurvival at time t\n\n\nSTA\nSingle technology appraisal\n\n\nsuni\nSunitinib\n\n\nTA\nTechnology appraisal\n\n\ntivo\nTivozanib\n\n\nTKI\nTyrosine Kinase Inhibitor\n\n\nTP matrices\nTreatment pathway matrices\n\n\nTSD\nTechnical Support Document\n\n\nTTD\nTime to discontinuation\n\n\nTOT\nTime on treatment\n\n\nTTNT\nTime to next treatment\n\n\nTTP\nTime to progression\n\n\nTuotA\nTime unit of the analysis\n\n\nUK\nUnited Kingdom\n\n\nVEGF\nVascular endothelial growth factor\n\n\nvs\nVersus\n\n\nWTP\nWillingness to pay",
+    "crumbs": [
+      "Acryonyms"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exeter Oncology Model: Renal Cell Carcinoma edition",
+    "section": "",
+    "text": "The Exeter Oncology Model: Renal Cell Carcinoma edition (EOM-RCC) is a platform cost-effectiveness model encompassing each decision node in the disease area for advanced renal cell carcinoma.\nIt has been constructed as part of the National Institute for Health and Care Excellence (NICE) Pathways Pilot appraisal (ID6186, GID-TA11186) [1] and the appraisal of cabozantinib plus nivolumab (TA964) [2] (formerly ID6184, whilst in development). The development of this model is described in Lee et al. 2024. [3]\nThis website was created by Amy Heather . It shares model documentation to support understanding of how the model works, and how you can use it. Please use the sidebar to navigate through the site pages.\n\n\n\n\nReferences\n\n[1] National Institute for Health and Care Excellence (NICE). Renal cell carcinoma Pathways Pilot [ID6186]. In development [GID-TA11186] n.d.\n\n\n[2] National Institute for Health and Care Excellence (NICE). Cabozantinib with nivolumab for untreated advanced renal cell carcinoma. Technology appraisal guidance [TA964] 2024.\n\n\n[3] Lee D, Burns D, Wilson E. NICE’s Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances. PharmacoEconomics - Open 2024. https://doi.org/10.1007/s41669-024-00490-x.",
+    "crumbs": [
+      "Home"
     ]
   },
   {
@@ -195,53 +255,23 @@
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exeter Oncology Model: Renal Cell Carcinoma edition",
+    "objectID": "pages/input_data.html",
+    "href": "pages/input_data.html",
+    "title": "Input data",
     "section": "",
-    "text": "The Exeter Oncology Model: Renal Cell Carcinoma edition (EOM-RCC) is a platform cost-effectiveness model encompassing each decision node in the disease area for advanced renal cell carcinoma.\nIt has been constructed as part of the National Institute for Health and Care Excellence (NICE) Pathways Pilot appraisal (ID6186, GID-TA11186) [1] and the appraisal of cabozantinib plus nivolumab (TA964) [2] (formerly ID6184, whilst in development). The development of this model is described in Lee et al. 2024. [3]\nThis website was created by Amy Heather . It shares model documentation to support understanding of how the model works, and how you can use it. Please use the sidebar to navigate through the site pages.\n\n\n\n\nReferences\n\n[1] National Institute for Health and Care Excellence (NICE). Renal cell carcinoma Pathways Pilot [ID6186]. In development [GID-TA11186] n.d.\n\n\n[2] National Institute for Health and Care Excellence (NICE). Cabozantinib with nivolumab for untreated advanced renal cell carcinoma. Technology appraisal guidance [TA964] 2024.\n\n\n[3] Lee D, Burns D, Wilson E. NICE’s Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances. PharmacoEconomics - Open 2024. https://doi.org/10.1007/s41669-024-00490-x.",
+    "text": "The majority of inputs for the EOM:RCC are made using an excel spreadsheet.\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe",
     "crumbs": [
-      "Home"
+      "Input data"
     ]
   },
   {
-    "objectID": "pages/acronyms.html",
-    "href": "pages/acronyms.html",
-    "title": "Acryonyms",
+    "objectID": "pages/input_data.html#excel-user-interface",
+    "href": "pages/input_data.html#excel-user-interface",
+    "title": "Input data",
     "section": "",
-    "text": "Acronym\nMeaning\n\n\n\n\n1L\nFirst line\n\n\n2L\nSecond line\n\n\n3L\nThird line\n\n\n4L\nFourth line\n\n\nAbs\nAbsolute\n\n\nACIC\nAcademic and commercial in confidence\n\n\nADaM\nAnalysis Data Model\n\n\nAE\nAdverse event\n\n\nASCO\nAmerican Society Of Clinical Oncology\n\n\naRCC\nAdvanced renal cell carcinoma\n\n\nAUC\nArea under the curve\n\n\nBSC\nBest supportive care\n\n\ncabo\ncabozantinib\n\n\nCIC\nCommercial in confidence\n\n\nCDF\nCancer Drugs Fund\n\n\nCE\nCost effectiveness\n\n\nCEA\nCost effectiveness analysis\n\n\nCODA\nConvergence diagnosis and output analysis\n\n\ncPAS\nConfident patient access scheme\n\n\nDSU\nDecision support unit\n\n\nEAG\nExternal assessment group\n\n\nEOL\nEnd of life\n\n\nEOM-RCC\nExeter Oncology Model: Renal Cell Carcinoma edition\n\n\nERG\nEvidence Review Group\n\n\nevero\nEverolimus\n\n\nFAD\nFinal appraisal document\n\n\nfav\nFavourable\n\n\nFP\nFractional polynomial\n\n\nFP NMA\nFractional polynomial network meta-analysis\n\n\nGen\ngeneral\n\n\nHFS\nHand-foot syndrome\n\n\nHPC\nHigh-performance computing\n\n\nHR\nHazard ratio\n\n\nHRQL\nHealth-related quality of life\n\n\nHTA\nHealth technology assessment\n\n\nICER\nIncremental Cost-Effectiveness Ratio\n\n\nint\nIntermediate\n\n\nIMDC\nInternational Metastatic Renal Cell Carcinoma Database Consortium\n\n\nIO\nImmuno-oncology\n\n\nIPD\nIndividual patient data\n\n\nipi\nIpilimumab\n\n\nIV\nIntravenous\n\n\nKM\nKaplan-Meier\n\n\nlenv\nLenvatinib\n\n\nLY\nLife year(s)\n\n\nLYG\nLife year(s) gained\n\n\nMRC\nMedical Research Council\n\n\nMRU\nMedical Resource Use\n\n\nMTA\nMultiple technology appraisal\n\n\nNHS\nNational Health Service\n\n\nNHSE\nNational Health ServiceEngland\n\n\nNICE\nNational Institute for Health and Care Excellence\n\n\nNIHR\nNational Institute for Health and Care Research\n\n\nnivo\nNivolumab\n\n\nNMA\nNetwork meta-analysis\n\n\nONS\nOffice for National Statistics\n\n\nOS\nOverall survival\n\n\nPartSA\nPartitioned-survival analysis\n\n\nPAS\nPatient access scheme\n\n\nPATT\nProportionate approach to technology appraisals\n\n\npazo\npazopanib\n\n\nPD\nProgressed disease\n\n\npem\nPembrolizumab\n\n\nPenTAG\nPeninsula Technology Assessment Group\n\n\nPFS\nProgression-free survival\n\n\nPH\nProportional hazards\n\n\nPH NMA\nProportional hazards network meta-analysis\n\n\nPLD\nPatient-level data\n\n\nPLMT\nPopulation + Line + Molecule + Trial\n\n\nPLMTE\nPopulation + Line + Molecule + Trial + Endpoint\n\n\npop\nPopulation\n\n\nPPS\nPost-progression survival\n\n\nprop\nProportional\n\n\nPSA\nProbablistic sensitivity analysis\n\n\nPSM\nProgressed state membership\n\n\nQALY\nQuality-adjusted life year(s)\n\n\nQC\nQuality check\n\n\nRCC\nRenal cell carcinoma\n\n\nRDI\nRelative dosing intensity\n\n\nRE\nRelative efficacy\n\n\nROC\nRenal Oncology Collaborative\n\n\nRWE\nReal-world evidence\n\n\nSF\nShortfall\n\n\nSOC\nStandard of care\n\n\nst\nSurvival at time t\n\n\nSTA\nSingle technology appraisal\n\n\nsuni\nSunitinib\n\n\nTA\nTechnology appraisal\n\n\ntivo\nTivozanib\n\n\nTKI\nTyrosine Kinase Inhibitor\n\n\nTP matrices\nTreatment pathway matrices\n\n\nTSD\nTechnical Support Document\n\n\nTTD\nTime to discontinuation\n\n\nTOT\nTime on treatment\n\n\nTTNT\nTime to next treatment\n\n\nTTP\nTime to progression\n\n\nTuotA\nTime unit of the analysis\n\n\nUK\nUnited Kingdom\n\n\nVEGF\nVascular endothelial growth factor\n\n\nvs\nVersus\n\n\nWTP\nWillingness to pay",
+    "text": "The majority of inputs for the EOM:RCC are made using an excel spreadsheet.\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe\n\n\n\ndescribe",
     "crumbs": [
-      "Acryonyms"
-    ]
-  },
-  {
-    "objectID": "pages/citation.html",
-    "href": "pages/citation.html",
-    "title": "Citation",
-    "section": "",
-    "text": "If you re-use this model please appropriately credit PenTAG for the work and refer to it as the Exeter Oncology Model: RCC edition. You can use the following citation:\n\nLee D., Muthukumar M., Lovell A., Farmer C., Burns D., Matthews J., Coelho H., O’Toole B., Trigg L., Snowsill T., Barnish M., Nikoglou T., Brand A., Ahmad Z., Abdelsabour A., Robinson S., Wilson E., Melendez-Torres G. Exeter Oncology Model: RCC edition URL: https://github.com/nice-digital/NICE-model-repo",
-    "crumbs": [
-      "Citation"
-    ]
-  },
-  {
-    "objectID": "pages/citation.html#how-to-cite-this-model",
-    "href": "pages/citation.html#how-to-cite-this-model",
-    "title": "Citation",
-    "section": "",
-    "text": "If you re-use this model please appropriately credit PenTAG for the work and refer to it as the Exeter Oncology Model: RCC edition. You can use the following citation:\n\nLee D., Muthukumar M., Lovell A., Farmer C., Burns D., Matthews J., Coelho H., O’Toole B., Trigg L., Snowsill T., Barnish M., Nikoglou T., Brand A., Ahmad Z., Abdelsabour A., Robinson S., Wilson E., Melendez-Torres G. Exeter Oncology Model: RCC edition URL: https://github.com/nice-digital/NICE-model-repo",
-    "crumbs": [
-      "Citation"
-    ]
-  },
-  {
-    "objectID": "pages/citation.html#acknowledgements",
-    "href": "pages/citation.html#acknowledgements",
-    "title": "Citation",
-    "section": "Acknowledgements",
-    "text": "Acknowledgements\n\nThis modified repository was developed by Amy Heather . Changes from the original repository can be viewed in the changelog.\nThese modifications were made to improve the clarity and open science credentials of the EOM:RCC model, as part of the project STARS.",
-    "crumbs": [
-      "Citation"
+      "Input data"
     ]
   },
   {
