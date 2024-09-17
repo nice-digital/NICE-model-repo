@@ -1,0 +1,22 @@
+---
+title: "Preface"
+---
+
+## Aim of the walkthrough
+
+The following pages will provide a walk-through for running the Base Case EOM:RCC model, including an explanation of the:
+
+* **Input data**
+* **Code in `Model_Structure.R`**
+* **Output report**
+
+## Adjustments
+
+In order to run the code from `Model_Structure.R` within this documentation, **minor adjustments** have been made such as to:
+
+* Amend file paths
+* Include additional pre-run results, enabling:
+  * Quicker run times
+  * The code to be split across multiple pages
+
+Hence, it is advised that you use the original R script when running the model for yourself, rather than these `.qmd` files.
