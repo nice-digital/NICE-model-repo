@@ -60,7 +60,7 @@ The studies had to report at least one of the outcomes of interest:
 
 The review identified 24 RCTs to include (plus an additional 6, but these were ongoing). All 24 studies recorded OS, PFS, response rate and adverse events, whilst other outcomes were more sparsely recorded.
 
-For more information, see section "3.1.1 Identification of systematic literature reviews and randomised controlled trials" and "Table 11 Outcomes reported by RCTs included in the review" in the Assessment Report. @lee_treatments_2023-1
+For more information, see section "3.1.1 Identification of systematic literature reviews and randomised controlled trials" and "Table 11 Outcomes reported by RCTs included in the review" in the Assessment Report @lee_treatments_2023-1 and section 1.8 "Literature review approach" in the Pathway Model Report. @national_institute_for_health_and_care_excellence_nice_renal_2024
 
 ### Network meta-analysis
 
@@ -110,7 +110,7 @@ For more information, see section 1.12 "Real-world evidence" in the Pathway Mode
  
 The OS, PFS, time to discontinuation (TTD), time to progression (TTP) and post-progression survival (PPS) survival curves from Challapalli et al. 2022 @challapalli_1463p_2022 were extrapolated so that they covered the **time horizon** of the economic model, which was **40 years**. Extrapolation was conducted using **survival analysis** (with a **partitioned survival model**).
 
-For more information, see section 4.3.5.1 "Extrapolation of survival curves" in the Assessment Report. @lee_treatments_2023-1
+For more information, see section 4.3.5.1 "Extrapolation of survival curves" in the Assessment Report @lee_treatments_2023-1 and section 1.13 "Baseline risk" in the Pathway Model Report. @national_institute_for_health_and_care_excellence_nice_renal_2024 
 
 ## Stage 3. Applying NMA hazard ratios to RWE reference curves
 
@@ -131,7 +131,7 @@ For 2L and 3L, the reference treatment used was **cabozantinib** as:
 
 The reference treatment was based on RWE as per recommendations from the NICE manual and other recent appraisals.
 
-For more information, see section 4.3.5 "Treatment effectiveness and extrapolation" in the Assessment Report. @lee_treatments_2023-1
+For more information, see section 4.3.5 "Treatment effectiveness and extrapolation" in the Assessment Report @lee_treatments_2023-1 and sections 1.13 "Baseline risk" and 1.14 "Appropriateness" in the Pathway Model Report. @national_institute_for_health_and_care_excellence_nice_renal_2024 
 
 ### Applying the hazard ratios to the reference curves
 
@@ -148,7 +148,7 @@ The source of the HRs for each treatment, line and outcome were as follows:
 
 In the code, the nested list containing the HRs and survival times for each treatment is referred to as a **relative efficacy network**, and when the hazard ratios are applied to the reference curve, this was described as **propagating** the network.
 
-For more information, see section 4.3.5.2 "Calculation of relative treatment effectiveness" in the Assessment Report. @lee_treatments_2023-1
+For more information, see section 4.3.5.2 "Calculation of relative treatment effectiveness" in the Assessment Report @lee_treatments_2023-1 and section 1.16 "Relative effectiveness" in the Pathway Model Report. @national_institute_for_health_and_care_excellence_nice_renal_2024 
 
 ## Stage 4. Modifications to the extrapolations
 
@@ -217,6 +217,12 @@ A list of possible treatment sequences was defined based on rules which were est
 * Some therapies can't be used if an immuno-oncology treatment was used in the past year
 * Lenvatinib plus everolimus can only be used after a prior anti-vascular endothelial growth factor (anti-VEGF) treatment
 
+### Proportion of people receiving each treatment in practice
+
+The proportion of people receiving each treatment in the model is based on the observed practices in the RWE.
+
+For more information, see section 4.3.1.8 "EAG model structure" in the Assessment Report @lee_treatments_2023-1 and section 1.23 "Sequencing subsequent treatments" in the Pathway Model Report. @national_institute_for_health_and_care_excellence_nice_renal_2024
+
 ## Stage 6. Economic models
 
 ### Model diagram
@@ -235,6 +241,8 @@ Transition between lines of treatment can be defined by either progression-free 
 <!-- This is based on the diagrams in the excel input sheet, and in the renal cell carcinoma (RCC) pathway model report, but created in draw.io -->
 
 ![Structure of the model and transition between health states](../images/eomrcc_transitions.drawio.png){.lightbox}
+
+For more information, see section 4.3.1.8 "EAG model structure" in the Assessment Report @lee_treatments_2023-1 and 1.6 "Economic model structure" in the Pathway Model Report. @national_institute_for_health_and_care_excellence_nice_renal_2024
 
 ### Methodology
 
