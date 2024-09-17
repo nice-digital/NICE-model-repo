@@ -26,11 +26,11 @@ In these cases, a method called "network meta-analysis" can be used to estimate 
 
 ## (2) Get patient outcomes over time for reference treatment
 
-Studies were found that looked at how advanced kidney cancer patients responded to treatments in the real world, outside of clinical trials. These studies provided data on how long patients survived and whether their cancer got worse.
+Studies were also found that looked at how advanced kidney cancer patients responded to treatments in the real world, outside of clinical trials. These studies provided data on things like how long patients survived and whether their cancer got worse.
 
-For each stage of treatment (first-line, second-line, etc.), a "reference treatment" was chosen. This was the treatment most commonly used in practice.
+For each stage of treatment (first-line, second-line, etc.), a "reference treatment" was chosen. This was the treatment most commonly used in practice. The outcomes for patients receiving those reference treatments were then taken from real-world data.
 
-The outcomes for patients receiving these reference treatments were taken from real-world data. However, because the analysis needed to predict outcomes over a long period (40 years), and the real-world data didn’t cover that entire time, a technique called "survival analysis" was used. This method estimates long-term outcomes based on the patterns observed over the shorter period covered by the data.
+However, because the analysis needed to predict outcomes over a long period (40 years), and the real-world data didn’t cover that entire time, a technique called "survival analysis" was used. This method estimates long-term outcomes based on the patterns observed over the shorter period covered by the data.
 
 ![Illustrative figure showing the proportion of patients who survived over time](../images/simple_survival_blue.png){.lightbox width=33% fig-align="center"}
 
@@ -44,23 +44,15 @@ Using the results from step (1), the real-world data can be adjusted to estimate
 
 ## (4) Find how many people receive each treatment
 
-From the real-world data identified in step (2), we can find the proportion of people that we expect to receive each treatment in practice.
+From the real-world data identified in step (2), we can also find the proportion of people that we expect to receive each treatment in practice.
 
 ## (5) Get data on the cost and health utility of patients
 
-For each treatment against advanced RCC, studies were identified which reported either:
+For each treatment against advanced RCC, further studies were identified which reported either:
 
 * The costs of each treatment for the healthcare system (e.g. costs of drugs, appointments, care)
 * The quality of life for patients on or off each treatment at each line of therapy (first-line through to fourth-line). This is described using a measure called a "health utility value".
 
 ## (6) Construct an economic model
 
-<mark>TODO: finish</mark>
-
-proportion of people
-
-data from above
-
-simulate people receiving each treatment, their outcomes, their costs
-
-can then compare treatments
+The data from steps (3), (4) and (5) were then fed into a computer model. The model simulates what happens to groups of patients who receive each treatment: how long they live, how much their treatments cost, and what their quality of life is like. By comparing these results, decisions can be made as to which treatments offer the best combination of effectiveness and value for money.
