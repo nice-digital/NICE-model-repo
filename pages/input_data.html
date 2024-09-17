@@ -20,7 +20,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -102,7 +156,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/input_data.html">Input data</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/input_data.html">Code walkthrough</a></li><li class="breadcrumb-item"><a href="../pages/input_data.html">Input data</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -178,12 +232,6 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Installation</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/input_data.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Input data</span></a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
@@ -193,6 +241,12 @@ ul.task-list li input[type="checkbox"] {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/input_data.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Input data</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/report.html" class="sidebar-item-text sidebar-link">
@@ -241,31 +295,17 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#excel-user-interface" id="toc-excel-user-interface" class="nav-link active" data-scroll-target="#excel-user-interface">Excel user interface</a>
-  <ul class="collapse">
-  <li><a href="#model-settings" id="toc-model-settings" class="nav-link" data-scroll-target="#model-settings">Model settings</a></li>
-  <li><a href="#patient-characteristics" id="toc-patient-characteristics" class="nav-link" data-scroll-target="#patient-characteristics">Patient characteristics</a></li>
-  <li><a href="#resource-use-and-costs" id="toc-resource-use-and-costs" class="nav-link" data-scroll-target="#resource-use-and-costs">Resource use and costs</a></li>
-  <li><a href="#effectiveness-settings" id="toc-effectiveness-settings" class="nav-link" data-scroll-target="#effectiveness-settings">Effectiveness settings</a></li>
-  <li><a href="#time-on-treatment" id="toc-time-on-treatment" class="nav-link" data-scroll-target="#time-on-treatment">Time on treatment</a></li>
-  <li><a href="#mortality-parameters" id="toc-mortality-parameters" class="nav-link" data-scroll-target="#mortality-parameters">Mortality parameters</a></li>
-  <li><a href="#safety-parameters" id="toc-safety-parameters" class="nav-link" data-scroll-target="#safety-parameters">Safety parameters</a></li>
-  <li><a href="#treatment-sequence" id="toc-treatment-sequence" class="nav-link" data-scroll-target="#treatment-sequence">Treatment sequence</a></li>
-  <li><a href="#utilities" id="toc-utilities" class="nav-link" data-scroll-target="#utilities">Utilities</a></li>
-  <li><a href="#scenario-controls" id="toc-scenario-controls" class="nav-link" data-scroll-target="#scenario-controls">Scenario controls</a></li>
-  <li><a href="#wastage-calcs" id="toc-wastage-calcs" class="nav-link" data-scroll-target="#wastage-calcs">wastage calcs</a></li>
-  <li><a href="#age-sex-ipd_cic" id="toc-age-sex-ipd_cic" class="nav-link" data-scroll-target="#age-sex-ipd_cic">Age sex IPD_CIC</a></li>
-  <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists">Lists</a></li>
-  <li><a href="#named-ranges" id="toc-named-ranges" class="nav-link" data-scroll-target="#named-ranges">named ranges</a></li>
-  <li><a href="#all-parameters" id="toc-all-parameters" class="nav-link" data-scroll-target="#all-parameters">All parameters</a></li>
-  </ul></li>
+  <li><a href="#excel-user-interface" id="toc-excel-user-interface" class="nav-link active" data-scroll-target="#excel-user-interface">Excel user interface</a></li>
+  <li><a href="#hazard-ratios-hr-from-the-network-meta-analyses-nma" id="toc-hazard-ratios-hr-from-the-network-meta-analyses-nma" class="nav-link" data-scroll-target="#hazard-ratios-hr-from-the-network-meta-analyses-nma">Hazard ratios (HR) from the network meta-analyses (NMA)</a></li>
+  <li><a href="#individual-patient-data-ipd-from-the-real-world-evidence-rwe" id="toc-individual-patient-data-ipd-from-the-real-world-evidence-rwe" class="nav-link" data-scroll-target="#individual-patient-data-ipd-from-the-real-world-evidence-rwe">Individual patient data (IPD) from the real-world evidence (RWE)</a></li>
+  <li><a href="#results-from-the-survival-analysis-on-the-rwe-ipd-data" id="toc-results-from-the-survival-analysis-on-the-rwe-ipd-data" class="nav-link" data-scroll-target="#results-from-the-survival-analysis-on-the-rwe-ipd-data">Results from the survival analysis on the RWE IPD data</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/input_data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/input_data.html">Code walkthrough</a></li><li class="breadcrumb-item"><a href="../pages/input_data.html">Input data</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Input data</h1>
 </div>
@@ -284,74 +324,713 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>There are five input data files (stored in <code>1_Data/</code>) that are used by <code>2_Scripts/Model_Structure.R</code>.</p>
+<p>These are each described below.</p>
 <section id="excel-user-interface" class="level2">
 <h2 class="anchored" data-anchor-id="excel-user-interface">Excel user interface</h2>
-<p>The majority of inputs for the EOM:RCC are made using an excel spreadsheet.</p>
-<section id="model-settings" class="level3">
-<h3 class="anchored" data-anchor-id="model-settings">Model settings</h3>
-<p><mark>describe</mark></p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The majority of inputs for the code are made using an excel spreadsheet. This is currently populated with inputs that align with the final appraisal document (FAD) for TA964/ID6184, which is the appraisal of cabozantinib with nivolumab for untreated advanced renal cell carcinoma. Some of the inputs have been redacted in the publicly available spreadsheet as they are either academic and commercial in confidence (ACIC) or relate to the confident patient access scheme (cPAS). Hence, this version does not contain confidential company data, confidential price discounts or company individual patient data and treatment sequence data. The model does now contain UK real-world evidence (RWE) data which was redacted at the time of the appraisal at the request of the UK real-world evidence (RWE) data holders.</p>
+<p>The data in the excel workbook will be imported to R using the sheet <code>named ranges</code>. In R, a nested list will be created where the <code>Name</code> is the reference for each item and the <code>Cell Range</code> is the content of the list.</p>
+<p>To illustrate how this works, this example works through the parameter which contains a list of treatments allowed for population 1.</p>
+<p>On the <code>named ranges</code> sheet, row 184 has Name <code>List_pop1_allowed</code> and Cell Range <code>=Lists!$BA$11:$BA$22</code>.</p>
+<p><img src="../images/excel_named_range.png" class="img-fluid"></p>
+<p>On the <code>Lists</code> sheet, we can see the list of allowed treatments.</p>
+<p><img src="../images/excel_list.png" class="img-fluid"></p>
+<p>Then, if we import the excel spreadsheet, we can view that same parameter within the nested list <code>i</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the functions required</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(<span class="st">"../../3_Functions/excel/extract.R"</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the excel file</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>excel_path <span class="ot">&lt;-</span> <span class="st">"../../1_Data/ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">f_excel_extract</span>(excel_path, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Tidy the imported parameters</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">c</span>(i,<span class="fu">f_excel_cleanParams</span>(i<span class="sc">$</span>R_table_param))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># View the parameter</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>List_pop1_allowed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "avelumab_plus_axitinib"      "axitinib"                   
+ [3] "cabozantinib"                "everolimus"                 
+ [5] "lenvatinib_plus_everolimus"  "cabozantinib_plus_nivolumab"
+ [7] "nivolumab_monotherapy"       "pazopanib"                  
+ [9] "sunitinib"                   "tivozanib"                  </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
-<section id="patient-characteristics" class="level3">
-<h3 class="anchored" data-anchor-id="patient-characteristics">Patient characteristics</h3>
-<p><mark>describe</mark></p>
+<section id="hazard-ratios-hr-from-the-network-meta-analyses-nma" class="level2">
+<h2 class="anchored" data-anchor-id="hazard-ratios-hr-from-the-network-meta-analyses-nma">Hazard ratios (HR) from the network meta-analyses (NMA)</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>PH_NMA_CODA.rds</code> and <code>FPNMA_means.rds</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>These files contain the outputs of the proportional hazards NMA (PH NMA) and the fractional polynomial NMA (FP NMA). In the publicly available versions, time to next treatment as a surrogate for nivolumab plus ipilimumab is not available to the public as this data was marked as confidential by the data holders.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the NMA results</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>RDS_path2 <span class="ot">&lt;-</span> <span class="st">"../../1_Data/PH_NMA_CODA.rds"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>RDS_path3 <span class="ot">&lt;-</span> <span class="st">"../../1_Data/FPNMA_means.rds"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>PHNMA <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(RDS_path2)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>FPNMA<span class="sc">$</span>means  <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(RDS_path3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview the PH NMA results</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i<span class="sc">$</span>PHNMA<span class="sc">$</span>data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 13%">
+<col style="width: 6%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 23%">
+<col style="width: 18%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">run</th>
+<th style="text-align: right;">population</th>
+<th style="text-align: right;">line</th>
+<th style="text-align: right;">molecule</th>
+<th style="text-align: right;">endpoint</th>
+<th style="text-align: right;">referencetreatment</th>
+<th style="text-align: right;">referencetrial</th>
+<th style="text-align: right;">hr</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.8958580</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.7821468</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.4324613</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.7571763</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.9492596</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.8561836</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview the FP NMA results</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i<span class="sc">$</span>FPNMA<span class="sc">$</span>means))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 17%">
+<col style="width: 24%">
+<col style="width: 4%">
+<col style="width: 8%">
+<col style="width: 10%">
+<col style="width: 14%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">time</th>
+<th style="text-align: right;">intervention_code</th>
+<th style="text-align: right;">reference_treatment_code</th>
+<th style="text-align: right;">line</th>
+<th style="text-align: right;">endpoint</th>
+<th style="text-align: right;">population</th>
+<th style="text-align: right;">ref_trial_code</th>
+<th style="text-align: right;">V1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.4615385</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6.0866273</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.6923077</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.7948374</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.9230769</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.6307802</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.1538462</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.6127038</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1.3846154</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.6141338</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.6153846</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.6184885</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>In both tables, you can see that each row has a <strong>HR</strong> (<code>hr</code>/<code>V1</code>), and that these are for each combination of:</p>
+<ul>
+<li><strong>Population</strong> (<code>population</code>)</li>
+<li><strong>Line</strong> (<code>line</code>)</li>
+<li><strong>Treatment</strong> (<code>molecule</code>/<code>intervention_code</code>)</li>
+<li><strong>Endpoint</strong> (<code>endpoint</code>)</li>
+<li><strong>Reference treatment</strong> (<code>referencetreatment</code>/<code>reference_treatment_code</code>)</li>
+<li><strong>Reference trial</strong> (<code>referencetrial</code>/<code>ref_trial_code</code>)</li>
+</ul>
+<p>The PH NMA results are from a Bayesian analysis and so has lots of samples for each HR (10,000). Hence, the filename is <code>PH_NMA_CODA.rds</code>, with CODA referring to “Convergence Diagnosis and Output Analysis”. When you run a Bayesian analysis, CODA samples are samples from the posterior distribution of your model parameters - in this case, the HRs.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(i<span class="sc">$</span>PHNMA<span class="sc">$</span>data<span class="sc">$</span>run)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10000</code></pre>
+</div>
+</div>
+<p>The FP NMA results are also from a Bayesian analysis, but a mean has been taken of each sample. Hence, the filename <code>FPNMA_means.rds</code>. However, it does have another column <code>time</code>, which is present as FP NMA generates time-varying HR.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="resource-use-and-costs" class="level3">
-<h3 class="anchored" data-anchor-id="resource-use-and-costs">Resource use and costs</h3>
-<p><mark>describe</mark></p>
+<section id="individual-patient-data-ipd-from-the-real-world-evidence-rwe" class="level2">
+<h2 class="anchored" data-anchor-id="individual-patient-data-ipd-from-the-real-world-evidence-rwe">Individual patient data (IPD) from the real-world evidence (RWE)</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>IPD_R_input_noACIC.xlsx</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This data represents the results from the RWE study by Challapalli et al.&nbsp;2022, <span class="citation" data-cites="challapalli_1463p_2022">[<a href="#ref-challapalli_1463p_2022" role="doc-biblioref">1</a>]</span> with the patient-level data from that study shared by the owners of the dataset. In the publicly available version, data has been simulated to replaced data considered confidential by either the UK RWE dataholders or involved companies. The workbook has a sheet <code>IPD</code> which contains the patient-level data we want to import.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from excel</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>excel_path2 <span class="ot">&lt;-</span> <span class="st">"../../1_Data/IPD_R_input_noACIC.xlsx"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>wb <span class="ot">&lt;-</span> <span class="fu">f_excel_extract</span>(excel_path2, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Save to `i` as a data table</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># (`surv` as will use this data in survival analysis, and `pld` as it is</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># patient-level data)</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>pld <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(wb<span class="sc">$</span><span class="st">`</span><span class="at">_xlnm._FilterDatabase</span><span class="st">`</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview data table</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i<span class="sc">$</span>surv<span class="sc">$</span>pld))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 12%">
+<col style="width: 5%">
+<col style="width: 10%">
+<col style="width: 6%">
+<col style="width: 10%">
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">ID</th>
+<th style="text-align: right;">population</th>
+<th style="text-align: right;">line</th>
+<th style="text-align: right;">molecule</th>
+<th style="text-align: right;">trial</th>
+<th style="text-align: right;">endpoint</th>
+<th style="text-align: right;">timew</th>
+<th style="text-align: right;">event_censor</th>
+<th style="text-align: right;">Timeoriginalunits</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">6477</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">205.28572</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">205.28572</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6478</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">40.00357</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">40.00357</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6479</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">145.42857</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">145.42857</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6480</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">108.85714</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">108.85714</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6481</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">86.85714</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">86.85714</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6482</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">53.42857</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">53.42857</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Each row represents a patient. It states their:</p>
+<ul>
+<li>Population, line, treatment and trial</li>
+<li>Endpoint (e.g.&nbsp;overall survival (OS), progression-free survival (PFS))</li>
+<li>At the timepoint given by <code>timew</code> (which is the time in weeks), whether they have experienced the event (<code>event_censor</code>). This can either be:
+<ul>
+<li>1 - indicating the event occurred (e.g.&nbsp;patient died)</li>
+<li>0 - meaning their point is censored, so at the point when timing stopped (for whatever reason), the event had not occurred</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
 </section>
-<section id="effectiveness-settings" class="level3">
-<h3 class="anchored" data-anchor-id="effectiveness-settings">Effectiveness settings</h3>
-<p><mark>describe</mark></p>
-</section>
-<section id="time-on-treatment" class="level3">
-<h3 class="anchored" data-anchor-id="time-on-treatment">Time on treatment</h3>
-<p><mark>describe</mark></p>
-</section>
-<section id="mortality-parameters" class="level3">
-<h3 class="anchored" data-anchor-id="mortality-parameters">Mortality parameters</h3>
-<p><mark>describe</mark></p>
-</section>
-<section id="safety-parameters" class="level3">
-<h3 class="anchored" data-anchor-id="safety-parameters">Safety parameters</h3>
-<p><mark>describe</mark></p>
-</section>
-<section id="treatment-sequence" class="level3">
-<h3 class="anchored" data-anchor-id="treatment-sequence">Treatment sequence</h3>
-<p><mark>describe</mark></p>
-</section>
-<section id="utilities" class="level3">
-<h3 class="anchored" data-anchor-id="utilities">Utilities</h3>
-<p><mark>describe</mark></p>
-</section>
-<section id="scenario-controls" class="level3">
-<h3 class="anchored" data-anchor-id="scenario-controls">Scenario controls</h3>
-<p><mark>describe</mark></p>
-</section>
-<section id="wastage-calcs" class="level3">
-<h3 class="anchored" data-anchor-id="wastage-calcs">wastage calcs</h3>
-<p><mark>describe</mark></p>
-</section>
-<section id="age-sex-ipd_cic" class="level3">
-<h3 class="anchored" data-anchor-id="age-sex-ipd_cic">Age sex IPD_CIC</h3>
-<p><mark>describe</mark></p>
-</section>
-<section id="lists" class="level3">
-<h3 class="anchored" data-anchor-id="lists">Lists</h3>
-<p><mark>describe</mark></p>
-</section>
-<section id="named-ranges" class="level3">
-<h3 class="anchored" data-anchor-id="named-ranges">named ranges</h3>
-<p><mark>describe</mark></p>
-</section>
-<section id="all-parameters" class="level3">
-<h3 class="anchored" data-anchor-id="all-parameters">All parameters</h3>
-<p><mark>describe</mark></p>
+<section id="results-from-the-survival-analysis-on-the-rwe-ipd-data" class="level2">
+<h2 class="anchored" data-anchor-id="results-from-the-survival-analysis-on-the-rwe-ipd-data">Results from the survival analysis on the RWE IPD data</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>survival_analysis_no_ipd_CompanyTTDTTPPPS_redacted.rds</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This R data file contains the results from a pre-run survival analysis on the patient-level RWE data (i.e.&nbsp;the output of the if statement run if <code>i$dd_run_surv_reg == "Yes"</code> in <code>Model_Structure.R</code>). In the publicly available version, time to discontinuation (TTD) and time to progression (TTP) are set equal to PFS in order to protect data considered confidential by the involved companies, and post-progression survival (PPS) is set equal to the UK RWE</p>
+<p>The R data file is a large nested list from which you can select a:</p>
+<ul>
+<li>Population (<code>pop_0</code> to <code>pop_2</code>)</li>
+<li>Line (<code>line_1</code> to <code>line_5</code>)</li>
+<li>Molecule (<code>mol_0</code> to <code>mol_12</code> and <code>mol_990</code>)</li>
+<li>Trial (<code>trial_0</code> to `trial_2)</li>
+<li>Endpoint (<code>endpoint_0</code> to <code>endpoint_4</code>)</li>
+</ul>
+<p>There are then results with:</p>
+<ul>
+<li><code>fs_fits</code></li>
+<li><code>gof</code></li>
+<li><code>st</code></li>
+<li><code>plot</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>RDS_path <span class="ot">&lt;-</span> <span class="st">"../../1_Data/survival_analysis_no_ipd_CompanyTTDTTPPPS_redacted.rds"</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>reg <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(RDS_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Example with no result from survival analysis:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>reg<span class="sc">$</span>pop_0<span class="sc">$</span>line_1<span class="sc">$</span>mol_0<span class="sc">$</span>trial_0<span class="sc">$</span>endpoint_0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$pop
+[1] "All"
+
+$line
+[1] "Previously untreated"
+
+$mol
+[1] "Nivolumab monotherapy"
+
+$tr
+[1] "CheckMate 9ER"
+
+$endpoint
+[1] "OS"
+
+$fs_fits
+NULL
+
+$gof
+NULL
+
+$st
+NULL
+
+$plot
+NULL</code></pre>
+</div>
+</div>
+<p>Example with a result - PFS on avelumab plus axitinib as a 1L treatment in a favourable risk population based on the real world evidence.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(<span class="fu">c</span>(<span class="st">"pop"</span>, <span class="st">"line"</span>, <span class="st">"mol"</span>, <span class="st">"tr"</span>, <span class="st">"endpoint"</span>), <span class="cf">function</span>(x) i<span class="sc">$</span>surv<span class="sc">$</span>reg<span class="sc">$</span>pop_2<span class="sc">$</span>line_1<span class="sc">$</span>mol_4<span class="sc">$</span>trial_2<span class="sc">$</span>endpoint_1[[x]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "Favourable risk"
+
+[[2]]
+[1] "Previously untreated"
+
+[[3]]
+[1] "Avelumab plus axitinib"
+
+[[4]]
+[1] "Real world evidence"
+
+[[5]]
+[1] "PFS"</code></pre>
+</div>
+</div>
+<p>Various distributions were fit - for example, exponential…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>reg<span class="sc">$</span>pop_2<span class="sc">$</span>line_1<span class="sc">$</span>mol_4<span class="sc">$</span>trial_2<span class="sc">$</span>endpoint_1<span class="sc">$</span>fs_fits<span class="sc">$</span>exp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$coefs
+[1] -5.016078
+
+$vcov
+           rate
+rate 0.03846153
+
+$fit
+      AIC       BIC    logLik 
+ 314.8361  316.9792 -156.4180 </code></pre>
+</div>
+</div>
+<p>The goodness of fit for each distribution is described…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(i<span class="sc">$</span>surv<span class="sc">$</span>reg<span class="sc">$</span>pop_2<span class="sc">$</span>line_1<span class="sc">$</span>mol_4<span class="sc">$</span>trial_2<span class="sc">$</span>endpoint_1<span class="sc">$</span>gof)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">AIC</th>
+<th style="text-align: right;">BIC</th>
+<th style="text-align: right;">logLik</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">gengamma</td>
+<td style="text-align: right;">317.6759</td>
+<td style="text-align: right;">324.1053</td>
+<td style="text-align: right;">-155.8380</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">exp</td>
+<td style="text-align: right;">314.8361</td>
+<td style="text-align: right;">316.9792</td>
+<td style="text-align: right;">-156.4180</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">weibull</td>
+<td style="text-align: right;">316.2418</td>
+<td style="text-align: right;">320.5281</td>
+<td style="text-align: right;">-156.1209</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">lnorm</td>
+<td style="text-align: right;">316.5742</td>
+<td style="text-align: right;">320.8604</td>
+<td style="text-align: right;">-156.2871</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">gamma</td>
+<td style="text-align: right;">316.0581</td>
+<td style="text-align: right;">320.3443</td>
+<td style="text-align: right;">-156.0290</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gompertz</td>
+<td style="text-align: right;">316.8228</td>
+<td style="text-align: right;">321.1090</td>
+<td style="text-align: right;">-156.4114</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">llogis</td>
+<td style="text-align: right;">315.2343</td>
+<td style="text-align: right;">319.5206</td>
+<td style="text-align: right;">-155.6172</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>And the extrapolated survival times are provided from survival analysis using each distribution…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i<span class="sc">$</span>surv<span class="sc">$</span>reg<span class="sc">$</span>pop_2<span class="sc">$</span>line_1<span class="sc">$</span>mol_4<span class="sc">$</span>trial_2<span class="sc">$</span>endpoint_1<span class="sc">$</span>st, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">gengamma</th>
+<th style="text-align: right;">exp</th>
+<th style="text-align: right;">weibull</th>
+<th style="text-align: right;">lnorm</th>
+<th style="text-align: right;">gamma</th>
+<th style="text-align: right;">gompertz</th>
+<th style="text-align: right;">llogis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1.0000000</td>
+<td style="text-align: right;">1.0000000</td>
+<td style="text-align: right;">1.0000000</td>
+<td style="text-align: right;">1.0000000</td>
+<td style="text-align: right;">1.0000000</td>
+<td style="text-align: right;">1.0000000</td>
+<td style="text-align: right;">1.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.9985777</td>
+<td style="text-align: right;">0.9933915</td>
+<td style="text-align: right;">0.9964812</td>
+<td style="text-align: right;">0.9996291</td>
+<td style="text-align: right;">0.9972167</td>
+<td style="text-align: right;">0.9935903</td>
+<td style="text-align: right;">0.9980669</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.9958140</td>
+<td style="text-align: right;">0.9868266</td>
+<td style="text-align: right;">0.9922259</td>
+<td style="text-align: right;">0.9979763</td>
+<td style="text-align: right;">0.9935048</td>
+<td style="text-align: right;">0.9872169</td>
+<td style="text-align: right;">0.9950622</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.9922663</td>
+<td style="text-align: right;">0.9803051</td>
+<td style="text-align: right;">0.9876526</td>
+<td style="text-align: right;">0.9950948</td>
+<td style="text-align: right;">0.9893592</td>
+<td style="text-align: right;">0.9808795</td>
+<td style="text-align: right;">0.9914695</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.9881616</td>
+<td style="text-align: right;">0.9738267</td>
+<td style="text-align: right;">0.9828687</td>
+<td style="text-align: right;">0.9912317</td>
+<td style="text-align: right;">0.9849185</td>
+<td style="text-align: right;">0.9745780</td>
+<td style="text-align: right;">0.9874457</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.9836342</td>
+<td style="text-align: right;">0.9673911</td>
+<td style="text-align: right;">0.9779288</td>
+<td style="text-align: right;">0.9866047</td>
+<td style="text-align: right;">0.9802557</td>
+<td style="text-align: right;">0.9683123</td>
+<td style="text-align: right;">0.9830798</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.9787752</td>
+<td style="text-align: right;">0.9609981</td>
+<td style="text-align: right;">0.9728668</td>
+<td style="text-align: right;">0.9813859</td>
+<td style="text-align: right;">0.9754168</td>
+<td style="text-align: right;">0.9620820</td>
+<td style="text-align: right;">0.9784315</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.9736504</td>
+<td style="text-align: right;">0.9546473</td>
+<td style="text-align: right;">0.9677061</td>
+<td style="text-align: right;">0.9757088</td>
+<td style="text-align: right;">0.9704341</td>
+<td style="text-align: right;">0.9558872</td>
+<td style="text-align: right;">0.9735446</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.9683099</td>
+<td style="text-align: right;">0.9483384</td>
+<td style="text-align: right;">0.9624641</td>
+<td style="text-align: right;">0.9696773</td>
+<td style="text-align: right;">0.9653318</td>
+<td style="text-align: right;">0.9497276</td>
+<td style="text-align: right;">0.9684535</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.9627928</td>
+<td style="text-align: right;">0.9420713</td>
+<td style="text-align: right;">0.9571540</td>
+<td style="text-align: right;">0.9633732</td>
+<td style="text-align: right;">0.9601284</td>
+<td style="text-align: right;">0.9436030</td>
+<td style="text-align: right;">0.9631860</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 
-</section>
+
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-challapalli_1463p_2022" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Challapalli A, Ratnayake G, McGrane J, Frazer R, Gupta S, Parslow DS, et al. <span>1463P</span> <span>Patterns</span> of care and outcomes of metastatic renal cell carcinoma (<span class="nocase">mRCC</span>) patients (pts) with bone metastases (<span>BM</span>): <span>A</span> <span>UK</span> multicenter review. Annals of Oncology 2022;33:S1215. <a href="https://doi.org/10.1016/j.annonc.2022.07.1566">https://doi.org/10.1016/j.annonc.2022.07.1566</a>.</div>
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
