@@ -1,0 +1,8 @@
+---
+engine: knitr
+---
+
+```{bash}
+sed -n '/SPLITMD_CODE1_START/,/SPLITMD_CODE1_END/{/SPLITMD_CODE1_START/d;/SPLITMD_CODE1_END/d;p}' code0a_walkthrough.html.md > code1.md
+sed -n '/SPLITMD_CODE2_START/,/SPLITMD_CODE2_END/{/SPLITMD_CODE2_START/d;/SPLITMD_CODE2_END/d;p}' code0a_walkthrough.html.md > code2.md
+```

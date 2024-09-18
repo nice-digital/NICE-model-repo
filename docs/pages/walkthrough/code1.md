@@ -1,6 +1,3 @@
----
-title: "Set-up"
----
 
 This page contains some of the basic set-up steps like **loading the functions** and lots of the **model inputs**, as well as establishing the **possible treatment sequences**.
 
@@ -10,7 +7,7 @@ This page contains some of the basic set-up steps like **loading the functions**
 
 The adjustments from `Model_Structure.R` on this page are:
 
-* Changed the path to the folders - e.g. "./3_Functions" to "../../3_Functions".
+* Changed the path to the folders - e.g. "./3_Functions" to "../../../3_Functions".
   * Instead of amending this in each string, I created `path_` variables to store the path to the folder, and then imported individual files using `file.path()` to combine the folder path with the file name.
   * These folder paths are all set-up in a code chunk `paths` after we load the required packages.
 * Set `f_excel_extract()` from `verbose = TRUE` to `verbose = FALSE`, as it otherwise repeatedly prints "Extracting named range X from ../../1_Data/ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm" where X is the name of each parameter
@@ -19,9 +16,10 @@ The adjustments from `Model_Structure.R` on this page are:
 
 ## Load required packages
 
-```{r packages}
-#| output: false
 
+::: {.cell}
+
+```{.r .cell-code}
 #### 1. Installation ###########
 #### This code has been created using R version 4.3.1
 #### All packages used by this model are provided here
@@ -82,22 +80,31 @@ library(dplyr, quiet = TRUE)
 library(progressr, quiet = TRUE)
 library(microbenchmark, quiet = TRUE)
 ```
+:::
+
 
 ## Set file paths
 
-```{r}
+
+::: {.cell}
+
+```{.r .cell-code}
 # Set path to folders
-d_path = "../../1_Data"
-f_path = "../../3_Functions"
-o_path = "../../4_Output"
-q_path = "../data"  # q_path as related to quarto docs
+d_path = "../../../1_Data"
+f_path = "../../../3_Functions"
+o_path = "../../../4_Output"
 ```
+:::
+
 
 ## Define some of the model settings
 
 The majority of this code block is dedicated to setting the model to **run sequentially or in parallel**. If running the base case using `Model_Structure.R` as provided (e.g. with pre-run survival analysis), you may find that the quickest option is to run the model sequentially. This is already set up by default, with `keep_free_cores <- NA`. For reference, the run time for this on an Intel Core i7-12700H with 32GB RAM running Ubuntu 22.04.4 Linux was 40 minutes.
 
-```{r cores}
+
+::: {.cell}
+
+```{.r .cell-code}
 # Multi-core processing:
 # 
 # Instructions.
@@ -134,6 +141,8 @@ if (any(is.na(keep_free_cores), keep_free_cores<0)) {
   plan(multisession(workers = max(availableCores()-keep_free_cores,1)))
 }
 ```
+:::
+
 
 The three settings in this code block:
 
@@ -141,7 +150,10 @@ The three settings in this code block:
 * `crosstable::options(crosstable_units="cm")` - the `crosstable` package generates descriptive statistics with function `crosstable()`, and this sets the unit for it, although it should be noted that this appears to be legacy code as it doesn't appear that `crosstable()` is used anywhere in the repository
 * `qc_mode` - the input for `verbose` in `f_NMA_AddAssumptionsToNetwork()` which, if true, will mean that extra outputs are printed to the console
 
-```{r settings}
+
+::: {.cell}
+
+```{.r .cell-code}
 # Other generic settings for the progress bar and units for table widths
 handlers("progress")
 options(crosstable_units="cm")
@@ -153,12 +165,17 @@ options(crosstable_units="cm")
 # The model will take longer to run when this is set to TRUE
 qc_mode <- FALSE
 ```
+:::
+
 
 ## Import model functions
 
 The functions for the analysis in `Model_Structure.R` are stored in the `3_Functions/` folder. Here, they are imported into our environment.
 
-```{r functions}
+
+::: {.cell}
+
+```{.r .cell-code}
 # 2.1. Excel data extraction functions -----------------------------------------
 
 #### These functions are used to extract parameters from the Excel input workbook for use in R
@@ -253,6 +270,8 @@ source(file.path(f_path, "psa/psa functions.R"))
 
 source(file.path(f_path, "reporting/word_document_output.R"))
 ```
+:::
+
 
 ## Get some of the model inputs
 
@@ -262,11 +281,14 @@ This section of the code is mostly comments that describe:
 
 * The structure of `i` which contains model inputs
 * That survival analysis will be conducted using state transition (markov) models and partitioned survival analysis (partSA)
-* The five input files, which are detailed within the documentation on the page [Input data](input_data.qmd)
+* The five input files, which are detailed within the documentation on the page [Input data](../input_data.qmd)
 
 There is a line of code to define `User_types`, but this appears to be legacy as it is not used anywhere.
 
-```{r inputs}
+
+::: {.cell}
+
+```{.r .cell-code}
 # 3. Model inputs structure --------------------------------------------------
 
 # Model inputs should be in a list called i. This list then contains all of the
@@ -325,6 +347,8 @@ User_types <- c("Submitting company", "NICE", "EAG", "Committee", "NHSE", "Clini
 
 # You will need to manually select the inputs file relevant to your user type, this is not stored on Github as access to CIC information differs by user type
 ```
+:::
+
 
 ### Get inputs from excel workbook and save as list `i`
 
@@ -332,7 +356,10 @@ Import the file at `excel_path` using `f_excel_extract()`, and then tidy `i$R_ta
 
 If the file doesn't exist, assuming the user is in RStudio, a dialog box will appear with the system files, and the user should then select a file from their directory. The dialog will open in `1_Data/`, show only `.xlsm` files, and the accept/ok button has the text `ID6184_RCC_model inputs....xlsm`.
 
-```{r excel}
+
+::: {.cell}
+
+```{.r .cell-code}
 # The first part of this code pulls all of the named ranges from the excel workbook, expand the parameters table
 
 #Option to define Excel path on local machine - comment in this and comment out the code below to select file
@@ -353,29 +380,58 @@ if (file.exists(excel_path)) {
 
 i <- c(i,f_excel_cleanParams(i$R_table_param))
 ```
+:::
+
 
 ::: {.callout-note collapse="true"}
 
 ## What does `f_excel_extract()` do?
 
-This function uses `openxlsx::getNamedRegions()` to find named regions in the workbook. These are all stored in a sheet called `named ranges`. As illustrated in [Input data](input_data.qmd), these consist of two columns:
+This function uses `openxlsx::getNamedRegions()` to find named regions in the workbook. These are all stored in a sheet called `named ranges`. As illustrated in [Input data](../input_data.qmd), these consist of two columns:
 
 * A name for the region (e.g. `List_pop1_allowed`)
 * The region, which consists of the: sheet, column/s and row/s (e.g. `=Lists!$BA$11:$BA$22`)
 
-![](../images/excel_named_range.png)
+![](../../images/excel_named_range.png)
 
 The function `f_excel_extract()` extracts each of these, saving them into a nested list called `i`. Each element in the list is a row from the `named ranges` sheet - for example:
 
-```{r excel_extract_1}
+
+::: {.cell}
+
+```{.r .cell-code}
 i$List_pop1_allowed
 ```
 
+::: {.cell-output .cell-output-stdout}
+
+```
+ [1] "avelumab_plus_axitinib"      "axitinib"                   
+ [3] "cabozantinib"                "everolimus"                 
+ [5] "lenvatinib_plus_everolimus"  "cabozantinib_plus_nivolumab"
+ [7] "nivolumab_monotherapy"       "pazopanib"                  
+ [9] "sunitinib"                   "tivozanib"                  
+```
+
+
+:::
+:::
+
+
 The exception is the first element which is a copy of the named ranges sheet:
 
-```{r excel_extract_2}
+
+::: {.cell}
+
+```{.r .cell-code}
 head(i[[1]])
 ```
+
+::: {.cell-output-display}
+
+:::
+:::
+
 
 :::
 
@@ -385,9 +441,18 @@ head(i[[1]])
 
 This function is applied to `i$R_table_param` which is the full table from the sheet `All parameters`.
 
-```{r excel_clean_1}
+
+::: {.cell}
+
+```{.r .cell-code}
 head(i$R_table_param)
 ```
+
+::: {.cell-output-display}
+
+:::
+:::
+
 
 The function `f_excel_cleanParams()`:
 
@@ -396,15 +461,42 @@ The function `f_excel_cleanParams()`:
 
 These lists were then concatenated with `i`, so we can access them from `i` as follows:
 
-```{r excel_clean_2}
+
+::: {.cell}
+
+```{.r .cell-code}
 i$cabo_nivo_include
 ```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+$Parameter.description
+[1] "Include cabo nivo? (1=yes, 0=no)"
+
+$Parameter.name
+[1] "cabo_nivo_include"
+
+$Mean.current.value
+[1] "1"
+
+$Mean
+[1] 1
+```
+
+
+:::
+:::
+
 
 :::
 
 ### Manually add some extra inputs to `i`
 
-```{r extra_inputs}
+
+::: {.cell}
+
+```{.r .cell-code}
 # Set which decision problem to look at, initially functionality has been geared towards the decision problem for cabozantinib plus nivolumab
 i$decision_problem <- "cabo+nivo"
 
@@ -433,10 +525,15 @@ i$distnames <-
     llogis        = "llogis"
   )
 ```
+:::
+
 
 ### Use `i` to make another list `p`
 
-```{r make_p}
+
+::: {.cell}
+
+```{.r .cell-code}
 # The next step is to then "tidy up" i into another object, p. p doesn't necessarily
 # have to house everything, only things that will change in PSA
 
@@ -451,10 +548,15 @@ p$basic$R_maxlines <- 4
 # Pass this into p so that p can be used to exclusively compute the model:
 p$basic$decision_problem <- i$decision_problem
 ```
+:::
+
 
 ## Treatment sequences
 
-```{r seq}
+
+::: {.cell}
+
+```{.r .cell-code}
 #### 3.2 Define sequences  ###########
 
 #### This code produces a list of possible sequences per population based upon the rules defined for RCC
@@ -496,6 +598,261 @@ for (population in 1:populations) {
   colnames(s) <- paste0('V', seq_len(ncol(s))) # rbind no longer likes un-named columns so added this
   seqs <- rbind(seqs, s)
 }
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+Applying sequence restrictions to population 1 
+Dropping drugs not allowed for this population.
+applying rule: avelumab_plus_axitinib axitinib cabozantinib everolimus lenvatinib_plus_everolimus cabozantinib_plus_nivolumab nivolumab_monotherapy pazopanib sunitinib tivozanib are only allowed treatments.
+Permutations before applying rule: 26404 
+Permutations after applying rule : 5860 
+applying rule: drug line restrictions.
+Permutations before applying rule: 5860 
+Permutations after applying rule : 628 
+[1] "axitinib"
+applying rule. axitinib is only allowed after avelumab_plus_axitinib cabozantinib lenvatinib_plus_everolimus cabozantinib_plus_nivolumab pazopanib lenvatinib_plus_pembrolizumab sunitinib tivozanib 
+Permutations before applying rule: 628 
+Permutations after applying rule : 628 
+[1] "everolimus"
+applying rule. everolimus is only allowed after avelumab_plus_axitinib axitinib cabozantinib lenvatinib_plus_everolimus cabozantinib_plus_nivolumab pazopanib lenvatinib_plus_pembrolizumab sunitinib tivozanib 
+Permutations before applying rule: 628 
+Permutations after applying rule : 628 
+[1] "lenvatinib_plus_everolimus"
+applying rule. lenvatinib_plus_everolimus is not allowed immediately after nivolumab_plus_ipilimumab 
+Permutations before applying rule: 628 
+Permutations after applying rule : 628 
+[1] "axitinib"
+applying rule axitinib : avelumab_plus_axitinib axitinib cannot be in one permutation
+Permutations before applying rule: 628 
+Permutations after applying rule : 559 
+[1] "cabozantinib"
+applying rule cabozantinib : cabozantinib cabozantinib_plus_nivolumab cannot be in one permutation
+Permutations before applying rule: 559 
+Permutations after applying rule : 520 
+[1] "everolimus"
+applying rule everolimus : lenvatinib_plus_everolimus everolimus cannot be in one permutation
+Permutations before applying rule: 520 
+Permutations after applying rule : 452 
+[1] "io"
+applying rule io : avelumab_plus_axitinib nivolumab_plus_ipilimumab cabozantinib_plus_nivolumab nivolumab_monotherapy lenvatinib_plus_pembrolizumab cannot be in one permutation
+Permutations before applying rule: 452 
+Permutations after applying rule : 400 
+[1] "nivolumab"
+applying rule nivolumab : nivolumab_plus_ipilimumab cabozantinib_plus_nivolumab nivolumab_monotherapy cannot be in one permutation
+Permutations before applying rule: 400 
+Permutations after applying rule : 400 
+[1] "TKIs"
+applying rule TKIs : sunitinib pazopanib tivozanib cannot be in one permutation
+Permutations before applying rule: 400 
+Permutations after applying rule : 202 
+[1] "lenvatinib_plus_everolimus"
+applying rule: lenvatinib_plus_everolimus can only be after ONE of avelumab_plus_axitinib axitinib cabozantinib cabozantinib_plus_nivolumab pazopanib lenvatinib_plus_pembrolizumab sunitinib tivozanib 
+Permutations before applying rule: 202 
+Permutations after applying rule : 182 
+[1] "cabozantinib"
+applying rule: cabozantinib as 2L+ only allowed after avelumab_plus_axitinib axitinib lenvatinib_plus_everolimus cabozantinib_plus_nivolumab pazopanib lenvatinib_plus_pembrolizumab sunitinib tivozanib 
+Permutations before applying rule: 182 
+Permutations after applying rule : 182 
+[1] "pazopanib"
+applying rule: pazopanib as 2L+ only allowed immediately after avelumab_plus_axitinib lenvatinib_plus_pembrolizumab cabozantinib_plus_nivolumab nivolumab_plus_ipilimumab 
+Permutations before applying rule: 182 
+Permutations after applying rule : 172 
+[1] "sunitinib"
+applying rule: sunitinib as 2L+ only allowed immediately after avelumab_plus_axitinib lenvatinib_plus_pembrolizumab cabozantinib_plus_nivolumab nivolumab_plus_ipilimumab 
+Permutations before applying rule: 172 
+Permutations after applying rule : 162 
+[1] "tivozanib"
+applying rule: tivozanib as 2L+ only allowed immediately after avelumab_plus_axitinib lenvatinib_plus_pembrolizumab cabozantinib_plus_nivolumab nivolumab_plus_ipilimumab 
+Permutations before applying rule: 162 
+Permutations after applying rule : 152 
+Applying sequence restrictions to population 2 
+Dropping drugs not allowed for this population.
+applying rule: avelumab_plus_axitinib axitinib cabozantinib everolimus nivolumab_plus_ipilimumab lenvatinib_plus_everolimus cabozantinib_plus_nivolumab nivolumab_monotherapy pazopanib lenvatinib_plus_pembrolizumab sunitinib tivozanib are only allowed treatments.
+Permutations before applying rule: 26404 
+Permutations after applying rule : 13344 
+applying rule: drug line restrictions.
+Permutations before applying rule: 13344 
+Permutations after applying rule : 1036 
+[1] "axitinib"
+applying rule. axitinib is only allowed after avelumab_plus_axitinib cabozantinib lenvatinib_plus_everolimus cabozantinib_plus_nivolumab pazopanib lenvatinib_plus_pembrolizumab sunitinib tivozanib 
+Permutations before applying rule: 1036 
+Permutations after applying rule : 1017 
+[1] "everolimus"
+applying rule. everolimus is only allowed after avelumab_plus_axitinib axitinib cabozantinib lenvatinib_plus_everolimus cabozantinib_plus_nivolumab pazopanib lenvatinib_plus_pembrolizumab sunitinib tivozanib 
+Permutations before applying rule: 1017 
+Permutations after applying rule : 1004 
+[1] "lenvatinib_plus_everolimus"
+applying rule. lenvatinib_plus_everolimus is not allowed immediately after nivolumab_plus_ipilimumab 
+Permutations before applying rule: 1004 
+Permutations after applying rule : 984 
+[1] "axitinib"
+applying rule axitinib : avelumab_plus_axitinib axitinib cannot be in one permutation
+Permutations before applying rule: 984 
+Permutations after applying rule : 915 
+[1] "cabozantinib"
+applying rule cabozantinib : cabozantinib cabozantinib_plus_nivolumab cannot be in one permutation
+Permutations before applying rule: 915 
+Permutations after applying rule : 876 
+[1] "everolimus"
+applying rule everolimus : lenvatinib_plus_everolimus everolimus cannot be in one permutation
+Permutations before applying rule: 876 
+Permutations after applying rule : 773 
+[1] "io"
+applying rule io : avelumab_plus_axitinib nivolumab_plus_ipilimumab cabozantinib_plus_nivolumab nivolumab_monotherapy lenvatinib_plus_pembrolizumab cannot be in one permutation
+Permutations before applying rule: 773 
+Permutations after applying rule : 657 
+[1] "lenvatinib_plus_everolimus"
+applying rule lenvatinib_plus_everolimus : lenvatinib_plus_everolimus lenvatinib_plus_pembrolizumab cannot be in one permutation
+Permutations before applying rule: 657 
+Permutations after applying rule : 638 
+[1] "nivolumab"
+applying rule nivolumab : nivolumab_plus_ipilimumab cabozantinib_plus_nivolumab nivolumab_monotherapy cannot be in one permutation
+Permutations before applying rule: 638 
+Permutations after applying rule : 638 
+[1] "TKIs"
+applying rule TKIs : sunitinib pazopanib tivozanib cannot be in one permutation
+Permutations before applying rule: 638 
+Permutations after applying rule : 386 
+[1] "lenvatinib_plus_everolimus"
+applying rule: lenvatinib_plus_everolimus can only be after ONE of avelumab_plus_axitinib axitinib cabozantinib cabozantinib_plus_nivolumab pazopanib lenvatinib_plus_pembrolizumab sunitinib tivozanib 
+Permutations before applying rule: 386 
+Permutations after applying rule : 359 
+[1] "cabozantinib"
+applying rule: cabozantinib as 2L+ only allowed after avelumab_plus_axitinib axitinib nivolumab_plus_ipilimumab lenvatinib_plus_everolimus cabozantinib_plus_nivolumab pazopanib lenvatinib_plus_pembrolizumab sunitinib tivozanib 
+Permutations before applying rule: 359 
+Permutations after applying rule : 359 
+[1] "pazopanib"
+applying rule: pazopanib as 2L+ only allowed immediately after avelumab_plus_axitinib lenvatinib_plus_pembrolizumab cabozantinib_plus_nivolumab nivolumab_plus_ipilimumab 
+Permutations before applying rule: 359 
+Permutations after applying rule : 339 
+[1] "sunitinib"
+applying rule: sunitinib as 2L+ only allowed immediately after avelumab_plus_axitinib lenvatinib_plus_pembrolizumab cabozantinib_plus_nivolumab nivolumab_plus_ipilimumab 
+Permutations before applying rule: 339 
+Permutations after applying rule : 319 
+[1] "tivozanib"
+applying rule: tivozanib as 2L+ only allowed immediately after avelumab_plus_axitinib lenvatinib_plus_pembrolizumab cabozantinib_plus_nivolumab nivolumab_plus_ipilimumab 
+Permutations before applying rule: 319 
+Permutations after applying rule : 299 
+Applying sequence restrictions to population 3 
+Dropping drugs not allowed for this population.
+applying rule: axitinib cabozantinib everolimus lenvatinib_plus_everolimus nivolumab_monotherapy pazopanib sunitinib tivozanib are only allowed treatments.
+Permutations before applying rule: 26404 
+Permutations after applying rule : 2080 
+applying rule: drug line restrictions.
+Permutations before applying rule: 2080 
+Permutations after applying rule : 330 
+[1] "axitinib"
+applying rule. axitinib is only allowed after avelumab_plus_axitinib cabozantinib lenvatinib_plus_everolimus cabozantinib_plus_nivolumab pazopanib lenvatinib_plus_pembrolizumab sunitinib tivozanib 
+Permutations before applying rule: 330 
+Permutations after applying rule : 330 
+[1] "everolimus"
+applying rule. everolimus is only allowed after avelumab_plus_axitinib axitinib cabozantinib lenvatinib_plus_everolimus cabozantinib_plus_nivolumab pazopanib lenvatinib_plus_pembrolizumab sunitinib tivozanib 
+Permutations before applying rule: 330 
+Permutations after applying rule : 330 
+[1] "lenvatinib_plus_everolimus"
+applying rule. lenvatinib_plus_everolimus is not allowed immediately after nivolumab_plus_ipilimumab 
+Permutations before applying rule: 330 
+Permutations after applying rule : 330 
+[1] "axitinib"
+applying rule axitinib : avelumab_plus_axitinib axitinib cannot be in one permutation
+Permutations before applying rule: 330 
+Permutations after applying rule : 330 
+[1] "everolimus"
+applying rule everolimus : lenvatinib_plus_everolimus everolimus cannot be in one permutation
+Permutations before applying rule: 330 
+Permutations after applying rule : 288 
+[1] "lenvatinib_plus_everolimus"
+applying rule lenvatinib_plus_everolimus : lenvatinib_plus_everolimus lenvatinib_plus_pembrolizumab cannot be in one permutation
+Permutations before applying rule: 288 
+Permutations after applying rule : 288 
+[1] "TKIs"
+applying rule TKIs : sunitinib pazopanib tivozanib cannot be in one permutation
+Permutations before applying rule: 288 
+Permutations after applying rule : 120 
+[1] "lenvatinib_plus_everolimus"
+applying rule: lenvatinib_plus_everolimus can only be after ONE of axitinib cabozantinib pazopanib lenvatinib_plus_pembrolizumab sunitinib tivozanib 
+Permutations before applying rule: 120 
+Permutations after applying rule : 111 
+[1] "cabozantinib"
+applying rule: cabozantinib as 2L+ only allowed after avelumab_plus_axitinib axitinib lenvatinib_plus_everolimus cabozantinib_plus_nivolumab pazopanib lenvatinib_plus_pembrolizumab sunitinib tivozanib 
+Permutations before applying rule: 111 
+Permutations after applying rule : 111 
+[1] "pazopanib"
+applying rule: pazopanib as 2L+ only allowed immediately after avelumab_plus_axitinib lenvatinib_plus_pembrolizumab cabozantinib_plus_nivolumab nivolumab_plus_ipilimumab 
+Permutations before applying rule: 111 
+Permutations after applying rule : 111 
+[1] "sunitinib"
+applying rule: sunitinib as 2L+ only allowed immediately after avelumab_plus_axitinib lenvatinib_plus_pembrolizumab cabozantinib_plus_nivolumab nivolumab_plus_ipilimumab 
+Permutations before applying rule: 111 
+Permutations after applying rule : 111 
+[1] "tivozanib"
+applying rule: tivozanib as 2L+ only allowed immediately after avelumab_plus_axitinib lenvatinib_plus_pembrolizumab cabozantinib_plus_nivolumab nivolumab_plus_ipilimumab 
+Permutations before applying rule: 111 
+Permutations after applying rule : 111 
+Applying sequence restrictions to population 4 
+Dropping drugs not allowed for this population.
+applying rule: axitinib cabozantinib everolimus lenvatinib_plus_everolimus nivolumab_monotherapy pazopanib sunitinib tivozanib are only allowed treatments.
+Permutations before applying rule: 26404 
+Permutations after applying rule : 2080 
+applying rule: drug line restrictions.
+Permutations before applying rule: 2080 
+Permutations after applying rule : 440 
+[1] "axitinib"
+applying rule. axitinib is only allowed after avelumab_plus_axitinib cabozantinib lenvatinib_plus_everolimus cabozantinib_plus_nivolumab pazopanib lenvatinib_plus_pembrolizumab sunitinib tivozanib 
+Permutations before applying rule: 440 
+Permutations after applying rule : 440 
+[1] "everolimus"
+applying rule. everolimus is only allowed after avelumab_plus_axitinib axitinib cabozantinib lenvatinib_plus_everolimus cabozantinib_plus_nivolumab pazopanib lenvatinib_plus_pembrolizumab sunitinib tivozanib 
+Permutations before applying rule: 440 
+Permutations after applying rule : 440 
+[1] "lenvatinib_plus_everolimus"
+applying rule. lenvatinib_plus_everolimus is not allowed immediately after nivolumab_plus_ipilimumab 
+Permutations before applying rule: 440 
+Permutations after applying rule : 440 
+[1] "axitinib"
+applying rule axitinib : avelumab_plus_axitinib axitinib cannot be in one permutation
+Permutations before applying rule: 440 
+Permutations after applying rule : 440 
+[1] "everolimus"
+applying rule everolimus : lenvatinib_plus_everolimus everolimus cannot be in one permutation
+Permutations before applying rule: 440 
+Permutations after applying rule : 384 
+[1] "lenvatinib_plus_everolimus"
+applying rule lenvatinib_plus_everolimus : lenvatinib_plus_everolimus lenvatinib_plus_pembrolizumab cannot be in one permutation
+Permutations before applying rule: 384 
+Permutations after applying rule : 384 
+[1] "TKIs"
+applying rule TKIs : sunitinib pazopanib tivozanib cannot be in one permutation
+Permutations before applying rule: 384 
+Permutations after applying rule : 198 
+[1] "lenvatinib_plus_everolimus"
+applying rule: lenvatinib_plus_everolimus can only be after ONE of axitinib cabozantinib pazopanib lenvatinib_plus_pembrolizumab sunitinib tivozanib 
+Permutations before applying rule: 198 
+Permutations after applying rule : 182 
+[1] "cabozantinib"
+applying rule: cabozantinib as 2L+ only allowed after avelumab_plus_axitinib axitinib lenvatinib_plus_everolimus cabozantinib_plus_nivolumab pazopanib lenvatinib_plus_pembrolizumab sunitinib tivozanib 
+Permutations before applying rule: 182 
+Permutations after applying rule : 182 
+[1] "pazopanib"
+applying rule: pazopanib as 2L+ only allowed immediately after avelumab_plus_axitinib lenvatinib_plus_pembrolizumab cabozantinib_plus_nivolumab nivolumab_plus_ipilimumab 
+Permutations before applying rule: 182 
+Permutations after applying rule : 182 
+[1] "sunitinib"
+applying rule: sunitinib as 2L+ only allowed immediately after avelumab_plus_axitinib lenvatinib_plus_pembrolizumab cabozantinib_plus_nivolumab nivolumab_plus_ipilimumab 
+Permutations before applying rule: 182 
+Permutations after applying rule : 182 
+[1] "tivozanib"
+applying rule: tivozanib as 2L+ only allowed immediately after avelumab_plus_axitinib lenvatinib_plus_pembrolizumab cabozantinib_plus_nivolumab nivolumab_plus_ipilimumab 
+Permutations before applying rule: 182 
+Permutations after applying rule : 182 
+```
+
+
+:::
+
+```{.r .cell-code}
 rownames(seqs) <- NULL
 
 i$sequences <- seqs
@@ -508,3 +865,6 @@ rm(s, seqs, populations)
 
 # define number of cycles and a vector of the cycles 
 ```
+:::
+
+

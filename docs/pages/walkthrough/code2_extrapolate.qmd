@@ -1,0 +1,5 @@
+---
+title: "Extrapolate real-world evidence"
+---
+
+{{< include code2.md >}}
