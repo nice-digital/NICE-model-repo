@@ -1,11 +1,10 @@
 ---
 title: "Set-up"
-format:
-  html:
-    code-overflow: wrap
 ---
 
-::: {.callout-note collapse="true"}
+This page contains some of the basic set-up steps like **loading the functions** and lots of the **model inputs**, as well as establishing the **possible treatment sequences**.
+
+::: {.callout-warning collapse="true"}
 
 ## Adjustments
 
@@ -17,8 +16,6 @@ The adjustments from `Model_Structure.R` on this page are:
 * Set `f_excel_extract()` from `verbose = TRUE` to `verbose = FALSE`, as it otherwise repeatedly prints "Extracting named range X from ../../1_Data/ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm" where X is the name of each parameter
 
 :::
-
-<mark>TODO: Save .RData at end so can load for subsequent `.qmd` or will the file become too large?</mark>
 
 ## Load required packages
 
@@ -93,6 +90,7 @@ library(microbenchmark, quiet = TRUE)
 d_path = "../../1_Data"
 f_path = "../../3_Functions"
 o_path = "../../4_Output"
+q_path = "../data"  # q_path as related to quarto docs
 ```
 
 ## Define some of the model settings
@@ -256,7 +254,7 @@ source(file.path(f_path, "psa/psa functions.R"))
 source(file.path(f_path, "reporting/word_document_output.R"))
 ```
 
-## Get model inputs
+## Get some of the model inputs
 
 ### Introductory comments
 
@@ -330,7 +328,7 @@ User_types <- c("Submitting company", "NICE", "EAG", "Committee", "NHSE", "Clini
 
 ### Get inputs from excel workbook and save as list `i`
 
-Import the file at `excel_path` using `f_excel_extract()`.
+Import the file at `excel_path` using `f_excel_extract()`, and then tidy `i$R_table_param` using `f_excel_cleanParams()`.
 
 If the file doesn't exist, assuming the user is in RStudio, a dialog box will appear with the system files, and the user should then select a file from their directory. The dialog will open in `1_Data/`, show only `.xlsm` files, and the accept/ok button has the text `ID6184_RCC_model inputs....xlsm`.
 
@@ -356,6 +354,157 @@ if (file.exists(excel_path)) {
 i <- c(i,f_excel_cleanParams(i$R_table_param))
 ```
 
-<mark>TODO: add description of what f_excel_Extract() is doing</mark>
+::: {.callout-note collapse="true"}
 
-<mark>TODO: add further set-up aspects to this notebook</mark>
+## What does `f_excel_extract()` do?
+
+This function uses `openxlsx::getNamedRegions()` to find named regions in the workbook. These are all stored in a sheet called `named ranges`. As illustrated in [Input data](input_data.qmd), these consist of two columns:
+
+* A name for the region (e.g. `List_pop1_allowed`)
+* The region, which consists of the: sheet, column/s and row/s (e.g. `=Lists!$BA$11:$BA$22`)
+
+![](../images/excel_named_range.png)
+
+The function `f_excel_extract()` extracts each of these, saving them into a nested list called `i`. Each element in the list is a row from the `named ranges` sheet - for example:
+
+```{r excel_extract_1}
+i$List_pop1_allowed
+```
+
+The exception is the first element which is a copy of the named ranges sheet:
+
+```{r excel_extract_2}
+head(i[[1]])
+```
+
+:::
+
+::: {.callout-note collapse="true"}
+
+## What does `f_excel_cleanParams()` do?
+
+This function is applied to `i$R_table_param` which is the full table from the sheet `All parameters`.
+
+```{r excel_clean_1}
+head(i$R_table_param)
+```
+
+The function `f_excel_cleanParams()`:
+
+* Converts each row of the table into a list, with value from `Parameter.name` used as the list name
+* Adds `Mean` which is simply `Mean.current.value` converted to numeric
+
+These lists were then concatenated with `i`, so we can access them from `i` as follows:
+
+```{r excel_clean_2}
+i$cabo_nivo_include
+```
+
+:::
+
+### Manually add some extra inputs to `i`
+
+```{r extra_inputs}
+# Set which decision problem to look at, initially functionality has been geared towards the decision problem for cabozantinib plus nivolumab
+i$decision_problem <- "cabo+nivo"
+
+# We then create a place for identifiers. Adding in an object to i full of lookup tables makes automated translation
+# possible even when one doesn't know the number of items ex ante, or how they combine.
+# 
+# If the lookup table is correct one can translate id numbers to text strings which are
+# consistent throughout the entire model. This is extremely useful as the model can
+# be expanded to any number of treatments and potentially even any number of lines 
+# (up to a reasonable maximum)
+
+i$id     <- list(ipd = list())
+i$lookup <- list(ipd = list())
+
+# Add distribution names to i
+# This model only includes standard parametric distributions as more complex distributions were not deemed to be required for the included treatments
+
+i$distnames <- 
+  c(
+    gengamma      = "gengamma",
+    exp           = "exp",
+    weibull       = "weibull",
+    lnorm         = "lnorm",
+    gamma         = "gamma",
+    gompertz      = "gompertz",
+    llogis        = "llogis"
+  )
+```
+
+### Use `i` to make another list `p`
+
+```{r make_p}
+# The next step is to then "tidy up" i into another object, p. p doesn't necessarily
+# have to house everything, only things that will change in PSA
+
+p <- f_misc_param_generate_p(i)
+
+# Set seed for PSA - note this is done in the script to run the PSA, not here!
+# set.seed(1475)
+
+# Max lines within the R model
+p$basic$R_maxlines <- 4
+
+# Pass this into p so that p can be used to exclusively compute the model:
+p$basic$decision_problem <- i$decision_problem
+```
+
+## Treatment sequences
+
+```{r seq}
+#### 3.2 Define sequences  ###########
+
+#### This code produces a list of possible sequences per population based upon the rules defined for RCC
+#### and the user input number of lines
+
+
+# Add drug names to comparators vector extracted from inputs list.
+
+i$sequences <- f_generate_sequences(
+  comparators = i$List_comparators, 
+  maxlines    = p$basic$R_maxlines
+)
+
+# restrict the pathways to those that are possible and permitted.
+i$sequences <- as.data.frame(i$sequences)
+
+populations <- i$i_nr_populations
+
+seqs <- NULL
+for (population in 1:populations) {
+  cat("Applying sequence restrictions to population", population,"\n")
+  
+  s <- f_path_tx_restrict(
+    sequences                = i$sequences,
+    allowed                  = f_get_allowed_lists(i, population), #overall list of allowed drugs in this popn
+    L1                       = f_get_L1_lists(i, population), # 1L drugs allowed in this popn
+    L2                       = f_get_L2_lists(i, population), # 2L drugs allowed in this popn
+    L3                       = f_get_L3_lists(i, population), # 3L drugs allowed in this popn
+    L4                       = f_get_L4_lists(i, population), # 4L drugs allowed in this popn
+    only_after               = f_get_only_after_lists(i, population), #list of restrictions where tx can be only after the listed txs
+    not_immediate_after      = f_get_not_immediate_after_lists(i, population), #list of restrictions where tx can be only immediately before the listed txs
+    one_in_list              = f_get_one_in_list_lists(i, population), #list of restrictions where only one of the tx in each list is allowed 
+    only_after_one           = f_get_only_after_one_lists(i, population), #list of restrictions where only one of the listed treatments is allowed prior to current therapy 
+    L2_only_after            = f_get_2L_only_after_lists(i, population), #list of 2L+ restrictions: if drug is used 2L, 3L or 4L, can only be after drug x
+    L2_only_immediate_after  = f_get_2L_only_immediate_after_lists(i, population), #list of 2L+ restrictions: if drug is used 2L, 3L or 4L, can only be immediately after drug x
+    L2_only_one              = f_get_2L_only_one_lists(i, population) #list of 2L+ drugs where only one of them allowed in a given sequence
+  )
+  s <- cbind(rep(paste0("pop", population),nrow(s)), s)
+  colnames(s) <- paste0('V', seq_len(ncol(s))) # rbind no longer likes un-named columns so added this
+  seqs <- rbind(seqs, s)
+}
+rownames(seqs) <- NULL
+
+i$sequences <- seqs
+
+#### Uncomment this code to view the sequences and write the sequences defined to csv
+
+# i$sequences
+# write.csv(seqs, "4_Output/sequences.csv", row.names = F)
+rm(s, seqs, populations)
+
+# define number of cycles and a vector of the cycles 
+```
