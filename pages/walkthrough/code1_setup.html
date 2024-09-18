@@ -384,32 +384,6 @@ window.Quarto = {
 
 
 <p>This page contains some of the basic set-up steps like <strong>loading the functions</strong> and lots of the <strong>model inputs</strong>, as well as establishing the <strong>possible treatment sequences</strong>.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Adjustments
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<!--TODO: Move each of these adjustments boxes to just be fully listed in the preface, as if it pertains to one page, it may pertain to them all -->
-<p>The adjustments from <code>Model_Structure.R</code> on this page are:</p>
-<ul>
-<li>Changed the path to the folders - e.g.&nbsp;“./3_Functions” to “../../../3_Functions”.
-<ul>
-<li>Instead of amending this in each string, I created <code>path_</code> variables to store the path to the folder, and then imported individual files using <code>file.path()</code> to combine the folder path with the file name.</li>
-<li>These folder paths are all set-up in a code chunk <code>paths</code> after we load the required packages.</li>
-</ul></li>
-<li>Set <code>f_excel_extract()</code> from <code>verbose = TRUE</code> to <code>verbose = FALSE</code>, as it otherwise repeatedly prints “Extracting named range X from ../../1_Data/ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm” where X is the name of each parameter</li>
-<li>Add <code>knitr</code> so can use kable()`</li>
-</ul>
-</div>
-</div>
-</div>
 <section id="load-required-packages" class="level2">
 <h2 class="anchored" data-anchor-id="load-required-packages">Load required packages</h2>
 <div class="cell">
@@ -739,7 +713,7 @@ Adjustments
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">c</span>(i,<span class="fu">f_excel_cleanParams</span>(i<span class="sc">$</span>R_table_param))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -748,7 +722,7 @@ What does <code>f_excel_extract()</code> do?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This function uses <code>openxlsx::getNamedRegions()</code> to find named regions in the workbook. These are all stored in a sheet called <code>named ranges</code>. As illustrated in <a href="../../pages/input_data.html">Input data</a>, these consist of two columns:</p>
 <ul>
@@ -800,7 +774,7 @@ What does <code>f_excel_extract()</code> do?
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -809,7 +783,7 @@ What does <code>f_excel_cleanParams()</code> do?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This function is applied to <code>i$R_table_param</code> which is the full table from the sheet <code>All parameters</code>.</p>
 <div class="cell">
@@ -940,7 +914,7 @@ $Mean
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>basic<span class="sc">$</span>decision_problem <span class="ot">&lt;-</span> i<span class="sc">$</span>decision_problem</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -949,7 +923,7 @@ What does <code>f_misc_param_generate_p()</code> do?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This function consists of relatively simple calculations using parameters from <code>i</code> to generate <code>p</code>. For the full overview of these calculations, check out the code for the function. To give an example though, the function code includes:</p>
 <pre><code>p &lt;- list(
@@ -1000,7 +974,7 @@ What does <code>f_misc_param_generate_p()</code> do?
 <span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1009,7 +983,7 @@ What does <code>f_generate_sequences()</code> do?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The input to this function is a list of all the possible treatments (14 options), and the maximum number of treatment lines (4).</p>
 <div class="cell">
@@ -1167,7 +1141,7 @@ What does <code>f_generate_sequences()</code> do?
 <span id="cb30-41"><a href="#cb30-41" aria-hidden="true" tabindex="-1"></a><span class="co"># define number of cycles and a vector of the cycles </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1176,7 +1150,7 @@ About the populations being looped through
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This code chunk restricted to valid sequences by population. In this analysis, there are four populations defined by time since an immuno-oncology (IO) treatment, and International Metastatic Renal Cell Carcinoma Database Consortium (IMDC) risk status. They are:</p>
 <ul>
@@ -1190,7 +1164,7 @@ About the populations being looped through
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1199,7 +1173,7 @@ What criteria are there for valid treatments?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <section id="by-population-and-line" class="level3">
 <h3 class="anchored" data-anchor-id="by-population-and-line">By population and line</h3>
@@ -1333,7 +1307,7 @@ $TKIs
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1342,7 +1316,7 @@ What does <code>f_path_tx_restrict()</code> do?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The function <code>f_path_tx_restrict()</code> is defined in <code>sequences.R</code> (there is also a function of the same name in <code>rccFunctions.R</code> but this is not sourced).</p>
 <p>Its purpose is to restrict the table of all possible sequences to just the valid sequences for each population, restricting it from <strong>26404</strong> rows with possible treatment sequences to just <strong>744</strong>.</p>
@@ -1366,7 +1340,7 @@ for (n in 1:ncol(perms)) {
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1375,7 +1349,7 @@ View the sequence restrictions applied
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output cell-output-stdout">
