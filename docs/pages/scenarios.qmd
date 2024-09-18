@@ -1,0 +1,7 @@
+---
+title: "Scenario analysis"
+---
+
+**TODO: Write this page**
+
+There is also an exploratory analysis - 4.3.5.8 "Exploratory analysis looking at the impact of prior adjuvant therapy" in the Assessment Report. @lee_treatments_2023-1

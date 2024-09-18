@@ -41,6 +41,8 @@ website:
           - pages/report.qmd
       - section: "Annotated reporting guidelines"
       - section: "Model validation"
+      - pages/scenarios.qmd
+      - pages/probablistic.qmd
       - pages/license.qmd
       - pages/citation.qmd
       - section: "Contributing"
