@@ -37,6 +37,10 @@ website:
           - pages/walkthrough_preface.qmd
           - pages/input_data.qmd
           - pages/code1_setup.qmd
+          - pages/code2_extrapolate_rwe.qmd
+          - pages/code3_apply_hr.qmd
+          - pages/code4_prep.qmd
+          - pages/code5_model.qmd
           - pages/report.qmd
       - section: "Annotated reporting guidelines"
       - section: "Model validation"
@@ -48,6 +52,7 @@ website:
 
 format:
   html:
+    code-overflow: wrap
     theme: cosmo
     toc: true
     css: styles.css
