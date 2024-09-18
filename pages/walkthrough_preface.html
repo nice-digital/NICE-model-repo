@@ -324,19 +324,24 @@ Bonus information
 </ul>
 <p>Hence, it is advised that you use the original R script when running the model for yourself, rather than these <code>.qmd</code> files.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Adjustments
+Full list of adjustments
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>These drop-down boxes will appear at the start of each page, explaining how the code copied over from <code>Model_Structure.R</code> has been amended for the purposes of the walkthrough.</p>
-</div>
+<ul>
+<li>Changed the path to the folders - e.g.&nbsp;“./3_Functions” to “../../../3_Functions”.
+<ul>
+<li>Instead of amending this in each string, I created <code>path_</code> variables to store the path to the folder, and then imported individual files using <code>file.path()</code> to combine the folder path with the file name.</li>
+<li>These folder paths are all set-up in a code chunk <code>paths</code> after we load the required packages.</li>
+</ul></li>
+<li>Set <code>f_excel_extract()</code> from <code>verbose = TRUE</code> to <code>verbose = FALSE</code>, as it otherwise repeatedly prints “Extracting named range X from ../../1_Data/ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm” where X is the name of each parameter</li>
+<li>Add <code>library(knitr)</code> so can use <code>kable()</code></li>
+</ul>
 </div>
 </div>
 

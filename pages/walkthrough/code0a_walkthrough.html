@@ -338,6 +338,12 @@ window.Quarto = {
   <li><a href="#find-all-possible-sequences" id="toc-find-all-possible-sequences" class="nav-link" data-scroll-target="#find-all-possible-sequences">Find all possible sequences</a></li>
   <li><a href="#filter-to-valid-sequences" id="toc-filter-to-valid-sequences" class="nav-link" data-scroll-target="#filter-to-valid-sequences">Filter to valid sequences</a></li>
   </ul></li>
+  <li><a href="#import-patient-level-data" id="toc-import-patient-level-data" class="nav-link" data-scroll-target="#import-patient-level-data">Import patient-level data</a></li>
+  <li><a href="#create-look-ups-to-convert-between-numeric-categories-and-labels" id="toc-create-look-ups-to-convert-between-numeric-categories-and-labels" class="nav-link" data-scroll-target="#create-look-ups-to-convert-between-numeric-categories-and-labels">Create look-ups to convert between numeric categories and labels</a></li>
+  <li><a href="#further-pre-processing-before-survival-analysis" id="toc-further-pre-processing-before-survival-analysis" class="nav-link" data-scroll-target="#further-pre-processing-before-survival-analysis">Further pre-processing before survival analysis</a></li>
+  <li><a href="#run-model" id="toc-run-model" class="nav-link" data-scroll-target="#run-model">Run model</a></li>
+  <li><a href="#load-pre-run-survival-analysis" id="toc-load-pre-run-survival-analysis" class="nav-link" data-scroll-target="#load-pre-run-survival-analysis">Load pre-run survival analysis</a></li>
+  <li><a href="#make-survival-analysis-report" id="toc-make-survival-analysis-report" class="nav-link" data-scroll-target="#make-survival-analysis-report">Make survival analysis report</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/walkthrough/code0a_walkthrough.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -367,32 +373,6 @@ window.Quarto = {
 <p>This is done as running the code within seperate <code>.qmd</code> pages requires that the global environment is shared between them, which is difficult to achieve without long run times or very large files containing the environment.</p>
 <p>SPLITMD_CODE1_START</p>
 <p>This page contains some of the basic set-up steps like <strong>loading the functions</strong> and lots of the <strong>model inputs</strong>, as well as establishing the <strong>possible treatment sequences</strong>.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Adjustments
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<!--TODO: Move each of these adjustments boxes to just be fully listed in the preface, as if it pertains to one page, it may pertain to them all -->
-<p>The adjustments from <code>Model_Structure.R</code> on this page are:</p>
-<ul>
-<li>Changed the path to the folders - e.g.&nbsp;“./3_Functions” to “../../../3_Functions”.
-<ul>
-<li>Instead of amending this in each string, I created <code>path_</code> variables to store the path to the folder, and then imported individual files using <code>file.path()</code> to combine the folder path with the file name.</li>
-<li>These folder paths are all set-up in a code chunk <code>paths</code> after we load the required packages.</li>
-</ul></li>
-<li>Set <code>f_excel_extract()</code> from <code>verbose = TRUE</code> to <code>verbose = FALSE</code>, as it otherwise repeatedly prints “Extracting named range X from ../../1_Data/ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm” where X is the name of each parameter</li>
-<li>Add <code>knitr</code> so can use kable()`</li>
-</ul>
-</div>
-</div>
-</div>
 <section id="load-required-packages" class="level2">
 <h2 class="anchored" data-anchor-id="load-required-packages">Load required packages</h2>
 <div class="cell">
@@ -722,7 +702,7 @@ Adjustments
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">c</span>(i,<span class="fu">f_excel_cleanParams</span>(i<span class="sc">$</span>R_table_param))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -731,7 +711,7 @@ What does <code>f_excel_extract()</code> do?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This function uses <code>openxlsx::getNamedRegions()</code> to find named regions in the workbook. These are all stored in a sheet called <code>named ranges</code>. As illustrated in <a href="../../pages/input_data.html">Input data</a>, these consist of two columns:</p>
 <ul>
@@ -783,7 +763,7 @@ What does <code>f_excel_extract()</code> do?
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -792,7 +772,7 @@ What does <code>f_excel_cleanParams()</code> do?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This function is applied to <code>i$R_table_param</code> which is the full table from the sheet <code>All parameters</code>.</p>
 <div class="cell">
@@ -923,7 +903,7 @@ $Mean
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>basic<span class="sc">$</span>decision_problem <span class="ot">&lt;-</span> i<span class="sc">$</span>decision_problem</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -932,7 +912,7 @@ What does <code>f_misc_param_generate_p()</code> do?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This function consists of relatively simple calculations using parameters from <code>i</code> to generate <code>p</code>. For the full overview of these calculations, check out the code for the function. To give an example though, the function code includes:</p>
 <pre><code>p &lt;- list(
@@ -983,7 +963,7 @@ What does <code>f_misc_param_generate_p()</code> do?
 <span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -992,7 +972,7 @@ What does <code>f_generate_sequences()</code> do?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The input to this function is a list of all the possible treatments (14 options), and the maximum number of treatment lines (4).</p>
 <div class="cell">
@@ -1150,7 +1130,7 @@ What does <code>f_generate_sequences()</code> do?
 <span id="cb30-41"><a href="#cb30-41" aria-hidden="true" tabindex="-1"></a><span class="co"># define number of cycles and a vector of the cycles </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1159,7 +1139,7 @@ About the populations being looped through
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This code chunk restricted to valid sequences by population. In this analysis, there are four populations defined by time since an immuno-oncology (IO) treatment, and International Metastatic Renal Cell Carcinoma Database Consortium (IMDC) risk status. They are:</p>
 <ul>
@@ -1173,7 +1153,7 @@ About the populations being looped through
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1182,7 +1162,7 @@ What criteria are there for valid treatments?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <section id="by-population-and-line" class="level3">
 <h3 class="anchored" data-anchor-id="by-population-and-line">By population and line</h3>
@@ -1316,7 +1296,7 @@ $TKIs
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1325,7 +1305,7 @@ What does <code>f_path_tx_restrict()</code> do?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The function <code>f_path_tx_restrict()</code> is defined in <code>sequences.R</code> (there is also a function of the same name in <code>rccFunctions.R</code> but this is not sourced).</p>
 <p>Its purpose is to restrict the table of all possible sequences to just the valid sequences for each population, restricting it from <strong>26404</strong> rows with possible treatment sequences to just <strong>744</strong>.</p>
@@ -1349,7 +1329,7 @@ for (n in 1:ncol(perms)) {
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1358,7 +1338,7 @@ View the sequence restrictions applied
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -1613,35 +1593,638 @@ Permutations after applying rule : 182 </code></pre>
 </div>
 <p>SPLITMD_CODE1_END</p>
 <p>SPLITMD_CODE2_START</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<p>This page performs a <strong>partitioned survival analysis</strong> on the patient-level data, which is <strong>real-world evidence (RWE)</strong> sent by the data owners for that observational study. The analysis is performed in order to <strong>extrapolate the survival curves</strong> so they cover the full time horizon of the economic model (40 years).</p>
+</section>
+</section>
+<section id="import-patient-level-data" class="level2">
+<h2 class="anchored" data-anchor-id="import-patient-level-data">Import patient-level data</h2>
+<p>The patient-level data (or individual patient data (IPD)) is imported from <code>IPD_R_input_noACIC.xlsx</code>. This data has a row for each statement which states their population, line, treatment and trial, and then the time taken for them to experience an endpoint (e.g.&nbsp;overall survival) or be censored (i.e.&nbsp;stopped timing for some other reason). For more information, see the <a href="../../pages/input_data.html">Input data</a> page.</p>
+<p>The data is imported using <code>f_excel_extract()</code> which produces the object <code>wb</code> which is a list with a single item: the table from the <code>IPD</code> sheet of the workbook. The code chunk converts this to a data table and filters it just the relevant columns.</p>
+<p>As a survival time of 0 is not allowed, these are converted to 1 day (hence, <code>1/7</code> as the time unit of the analysis is weeks).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.3. Survival analysis -------------------------------------------------------</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co"># All objects here go in i$surv initially, and are then streamlined down to </span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="co"># what's needed to run models in the transition from i to p.</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Some values of p are used during the below (primarily p$surv$distNames, which</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="co"># controls which distributions are included in the flexsurv runs)</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.3.1 Survival input structure ------------------------------------------</span></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a><span class="do">#### Read in survival data from Excel workbook </span></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull out the raw data from the IPD excel book - one named range per treatment at each line</span></span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Each reference curve is defined in Excel as time (weeks), event/censor (event coded as 1, censor as 0), patient group, line, molecule, trial and endpoint</span></span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull all of the named ranges from the excel workbook, expand the parameters table</span></span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>excel_path2 <span class="ot">&lt;-</span> <span class="fu">file.path</span>(d_path, <span class="st">"IPD_R_input_noACIC.xlsx"</span>)</span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">file.exists</span>(excel_path2)) {</span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a>  wb <span class="ot">&lt;-</span> <span class="fu">f_excel_extract</span>(excel_path2, <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a>  i<span class="sc">$</span>surv<span class="sc">$</span>pld <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(wb<span class="sc">$</span><span class="st">`</span><span class="at">_xlnm._FilterDatabase</span><span class="st">`</span>)</span>
+<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rm</span>(wb)</span>
+<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a>  wb <span class="ot">&lt;-</span> <span class="fu">f_excel_extract</span>(rstudioapi<span class="sc">::</span><span class="fu">selectFile</span>(</span>
+<span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Select the IPD file (IPD_R_input_noACIC.xlsx)"</span>,</span>
+<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"IPD_R_input_noACIC.xlsx"</span>,</span>
+<span id="cb52-29"><a href="#cb52-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">path =</span> <span class="st">"./1_Data/"</span>,</span>
+<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">filter =</span> <span class="st">"Excel Files (*.xlsx)"</span>,</span>
+<span id="cb52-31"><a href="#cb52-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">existing =</span> <span class="cn">TRUE</span></span>
+<span id="cb52-32"><a href="#cb52-32" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb52-33"><a href="#cb52-33" aria-hidden="true" tabindex="-1"></a>  i<span class="sc">$</span>surv<span class="sc">$</span>pld <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(wb<span class="sc">$</span><span class="st">`</span><span class="at">_xlnm._FilterDatabase</span><span class="st">`</span>)</span>
+<span id="cb52-34"><a href="#cb52-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-35"><a href="#cb52-35" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb52-36"><a href="#cb52-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-37"><a href="#cb52-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-38"><a href="#cb52-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Some small cleaning of the PLD.</span></span>
+<span id="cb52-39"><a href="#cb52-39" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>pld <span class="ot">&lt;-</span> i<span class="sc">$</span>surv<span class="sc">$</span>pld[,<span class="fu">list</span>(population,line,molecule,trial,endpoint,timew,event_censor)]</span>
+<span id="cb52-40"><a href="#cb52-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-41"><a href="#cb52-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Do not allow zero survival times, they have to be at least 1 day. the TUotA is</span></span>
+<span id="cb52-42"><a href="#cb52-42" aria-hidden="true" tabindex="-1"></a><span class="co"># weeks, so 1 day is 1/7 weeks:</span></span>
+<span id="cb52-43"><a href="#cb52-43" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>pld[timew <span class="sc">==</span><span class="dv">0</span>,<span class="st">"timew"</span>] <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">7</span></span>
+<span id="cb52-44"><a href="#cb52-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-45"><a href="#cb52-45" aria-hidden="true" tabindex="-1"></a><span class="co"># The named range r_pld has numeric identifiers for:</span></span>
+<span id="cb52-46"><a href="#cb52-46" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb52-47"><a href="#cb52-47" aria-hidden="true" tabindex="-1"></a><span class="co"># - pop</span></span>
+<span id="cb52-48"><a href="#cb52-48" aria-hidden="true" tabindex="-1"></a><span class="co"># - line</span></span>
+<span id="cb52-49"><a href="#cb52-49" aria-hidden="true" tabindex="-1"></a><span class="co"># - mol (i.e., regimen - combination therapies are under the same number)</span></span>
+<span id="cb52-50"><a href="#cb52-50" aria-hidden="true" tabindex="-1"></a><span class="co"># - trial (trial id WITHIN population line and molecule to set them apart from each other - usually just 1!)</span></span>
+<span id="cb52-51"><a href="#cb52-51" aria-hidden="true" tabindex="-1"></a><span class="co"># - endpoint</span></span>
+<span id="cb52-52"><a href="#cb52-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-53"><a href="#cb52-53" aria-hidden="true" tabindex="-1"></a><span class="co"># These numeric identifiers are then used to create a nested list of survival regression models and</span></span>
+<span id="cb52-54"><a href="#cb52-54" aria-hidden="true" tabindex="-1"></a><span class="co"># extrapolations. The extrapolations are filtered down to the extrapolations that are selected</span></span>
+<span id="cb52-55"><a href="#cb52-55" aria-hidden="true" tabindex="-1"></a><span class="co"># within the excel input sheet, but the rest are kept here in i in case of scenario analysis.</span></span>
+<span id="cb52-56"><a href="#cb52-56" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb52-57"><a href="#cb52-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that the lookup tables in the next section are used to translate these numbers</span></span>
+<span id="cb52-58"><a href="#cb52-58" aria-hidden="true" tabindex="-1"></a><span class="co"># into human-readable identifiers.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Adjustments
+Preview <code>i$surv$pld</code>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Changes from <code>Model_Structure.R</code>:</p>
-<ul>
-<li>Amend path to <code>.xlsx</code> file using d_path</li>
-</ul>
-</div>
-</div>
-</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>apply_waning_to</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "ref trt hazard"   "ref trt abs surv"</code></pre>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i<span class="sc">$</span>surv<span class="sc">$</span>pld))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">population</th>
+<th style="text-align: right;">line</th>
+<th style="text-align: right;">molecule</th>
+<th style="text-align: right;">trial</th>
+<th style="text-align: right;">endpoint</th>
+<th style="text-align: right;">timew</th>
+<th style="text-align: right;">event_censor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">205.28572</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">40.00357</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">145.42857</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">108.85714</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">86.85714</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">53.42857</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
 </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="create-look-ups-to-convert-between-numeric-categories-and-labels" class="level2">
+<h2 class="anchored" data-anchor-id="create-look-ups-to-convert-between-numeric-categories-and-labels">Create look-ups to convert between numeric categories and labels</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.3.2 Data identification ------------------------------------------</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="co"># There is a lot of nesting involved in this part of the analysis, with population line, regimen trial and endpoint</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="co"># making a total of 5 layers of nesting to automatically go through each endpoint for each trial for</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="co"># each regimen for each line for each population, perform all regression analyses, produce parameters</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="co"># and have an easily identifiable (and therefore programmable) spaces for the results of each analysis</span></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="co"># which can then be spat out into reporting.</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a><span class="co"># The first step is to break up r_pld into separate datasets depending on the identifiers. A function</span></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="co"># is used to do this which returns nothing if such data for one id set doesn't exist. </span></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that at this stage it is just those contexts which HAVE got PLD which are to be organised.</span></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="co"># For those endpoints and so on that do not have data, a separate step after this one to populate </span></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a><span class="co"># every endpoint for every treatment line for every treatment sequence is performed.</span></span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>id<span class="sc">$</span>ipd <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">pop      =</span> i<span class="sc">$</span>r_pld_lookup_pop<span class="sc">$</span>Number[<span class="sc">!</span><span class="fu">is.na</span>(i<span class="sc">$</span>r_pld_lookup_pop<span class="sc">$</span>Number)],</span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">line     =</span> i<span class="sc">$</span>r_pld_lookup_line<span class="sc">$</span>Number[<span class="sc">!</span><span class="fu">is.na</span>(i<span class="sc">$</span>r_pld_lookup_line<span class="sc">$</span>Number)],</span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">mol      =</span> i<span class="sc">$</span>r_pld_lookup_mol<span class="sc">$</span>Number[<span class="sc">!</span><span class="fu">is.na</span>(i<span class="sc">$</span>r_pld_lookup_mol<span class="sc">$</span>Number)],</span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">trial    =</span> i<span class="sc">$</span>r_pld_lookup_trial<span class="sc">$</span>Number[<span class="sc">!</span><span class="fu">is.na</span>(i<span class="sc">$</span>r_pld_lookup_trial<span class="sc">$</span>Number)],</span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">endpoint =</span> i<span class="sc">$</span>r_pld_lookup_endpoint<span class="sc">$</span>Number[<span class="sc">!</span><span class="fu">is.na</span>(i<span class="sc">$</span>r_pld_lookup_endpoint<span class="sc">$</span>Number)]</span>
+<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-24"><a href="#cb54-24" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(i<span class="sc">$</span>id<span class="sc">$</span>ipd<span class="sc">$</span>pop)      <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"pop_"</span>     , i<span class="sc">$</span>id<span class="sc">$</span>ipd<span class="sc">$</span>pop)</span>
+<span id="cb54-25"><a href="#cb54-25" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(i<span class="sc">$</span>id<span class="sc">$</span>ipd<span class="sc">$</span>line)     <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"line_"</span>    , i<span class="sc">$</span>id<span class="sc">$</span>ipd<span class="sc">$</span>line)</span>
+<span id="cb54-26"><a href="#cb54-26" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(i<span class="sc">$</span>id<span class="sc">$</span>ipd<span class="sc">$</span>mol)      <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"mol_"</span>     , i<span class="sc">$</span>id<span class="sc">$</span>ipd<span class="sc">$</span>mol)</span>
+<span id="cb54-27"><a href="#cb54-27" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(i<span class="sc">$</span>id<span class="sc">$</span>ipd<span class="sc">$</span>trial)    <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"trial_"</span>   , i<span class="sc">$</span>id<span class="sc">$</span>ipd<span class="sc">$</span>trial)</span>
+<span id="cb54-28"><a href="#cb54-28" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(i<span class="sc">$</span>id<span class="sc">$</span>ipd<span class="sc">$</span>endpoint) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"endpoint_"</span>, i<span class="sc">$</span>id<span class="sc">$</span>ipd<span class="sc">$</span>endpoint)</span>
+<span id="cb54-29"><a href="#cb54-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-30"><a href="#cb54-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-31"><a href="#cb54-31" aria-hidden="true" tabindex="-1"></a><span class="co"># to see this, we have:</span></span>
+<span id="cb54-32"><a href="#cb54-32" aria-hidden="true" tabindex="-1"></a><span class="co">#i$id$ipd</span></span>
+<span id="cb54-33"><a href="#cb54-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-34"><a href="#cb54-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Generating the same structure but with the translation table from number to</span></span>
+<span id="cb54-35"><a href="#cb54-35" aria-hidden="true" tabindex="-1"></a><span class="co"># text:</span></span>
+<span id="cb54-36"><a href="#cb54-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-37"><a href="#cb54-37" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>lookup<span class="sc">$</span>ipd <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb54-38"><a href="#cb54-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">pop      =</span> <span class="fu">data.table</span>(i<span class="sc">$</span>r_pld_lookup_pop)[Description <span class="sc">!=</span> <span class="dv">0</span>],</span>
+<span id="cb54-39"><a href="#cb54-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">line     =</span> <span class="fu">data.table</span>(i<span class="sc">$</span>r_pld_lookup_line)[Description <span class="sc">!=</span> <span class="dv">0</span>],</span>
+<span id="cb54-40"><a href="#cb54-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">mol      =</span> <span class="fu">data.table</span>(i<span class="sc">$</span>r_pld_lookup_mol)[Description <span class="sc">!=</span> <span class="dv">0</span>],</span>
+<span id="cb54-41"><a href="#cb54-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">trial    =</span> <span class="fu">data.table</span>(i<span class="sc">$</span>r_pld_lookup_trial)[Description <span class="sc">!=</span> <span class="dv">0</span>],</span>
+<span id="cb54-42"><a href="#cb54-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">endpoint =</span> <span class="fu">data.table</span>(i<span class="sc">$</span>r_pld_lookup_endpoint)[Description <span class="sc">!=</span> <span class="dv">0</span>]</span>
+<span id="cb54-43"><a href="#cb54-43" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb54-44"><a href="#cb54-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-45"><a href="#cb54-45" aria-hidden="true" tabindex="-1"></a><span class="co"># For treatment line, add a translator for the column in the sequences output:</span></span>
+<span id="cb54-46"><a href="#cb54-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-47"><a href="#cb54-47" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>line<span class="sc">$</span>seq_col <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"V"</span>,<span class="dv">2</span><span class="sc">:</span>(<span class="fu">nrow</span>(i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>line)<span class="sc">+</span><span class="dv">1</span>))</span>
+<span id="cb54-48"><a href="#cb54-48" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>line<span class="sc">$</span>R_id    <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"line_"</span>,<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>line))</span>
+<span id="cb54-49"><a href="#cb54-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-50"><a href="#cb54-50" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>lookup<span class="sc">$</span>dist <span class="ot">&lt;-</span> i<span class="sc">$</span>r_pld_lookup_dist</span>
+<span id="cb54-51"><a href="#cb54-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-52"><a href="#cb54-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-53"><a href="#cb54-53" aria-hidden="true" tabindex="-1"></a><span class="co"># This means that you can easily look up things like so:</span></span>
+<span id="cb54-54"><a href="#cb54-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-55"><a href="#cb54-55" aria-hidden="true" tabindex="-1"></a><span class="co"># i$lookup$ipd$mol[Number == 1,list(Description,RCC_input_desc)]</span></span>
+<span id="cb54-56"><a href="#cb54-56" aria-hidden="true" tabindex="-1"></a><span class="co"># i$lookup$ipd$mol[Number == 2,list(Description,RCC_input_desc)]</span></span>
+<span id="cb54-57"><a href="#cb54-57" aria-hidden="true" tabindex="-1"></a><span class="co"># i$lookup$ipd$line[Number == 1,list(Description,RCC_input_desc)]</span></span>
+<span id="cb54-58"><a href="#cb54-58" aria-hidden="true" tabindex="-1"></a><span class="co"># i$lookup$ipd$pop[Number == 0,list(Description,RCC_input_desc)]</span></span>
+<span id="cb54-59"><a href="#cb54-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-60"><a href="#cb54-60" aria-hidden="true" tabindex="-1"></a><span class="co"># One can also do the opposite, translating input file descriptions into numbers:</span></span>
+<span id="cb54-61"><a href="#cb54-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-62"><a href="#cb54-62" aria-hidden="true" tabindex="-1"></a><span class="co"># i$lookup$ipd$mol[RCC_input_desc == "ipi_nivo",list(Description,Number)]</span></span>
+<span id="cb54-63"><a href="#cb54-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-64"><a href="#cb54-64" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>lookup<span class="sc">$</span>trt <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>mol<span class="sc">$</span>Number</span>
+<span id="cb54-65"><a href="#cb54-65" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(i<span class="sc">$</span>lookup<span class="sc">$</span>trt) <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>mol<span class="sc">$</span>RCC_input_desc</span>
+<span id="cb54-66"><a href="#cb54-66" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(i<span class="sc">$</span>lookup<span class="sc">$</span>trt)[<span class="fu">length</span>(i<span class="sc">$</span>lookup<span class="sc">$</span>trt)] <span class="ot">&lt;-</span> <span class="st">"BSC"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="further-pre-processing-before-survival-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="further-pre-processing-before-survival-analysis">Further pre-processing before survival analysis</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pass to p whenever i$lookup has been populated/updated.</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>basic<span class="sc">$</span>lookup <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>basic<span class="sc">$</span>id <span class="ot">&lt;-</span> i<span class="sc">$</span>id</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="co"># one can then simply i$lookup$trt["nivolumab"] or i$lookup$trt["sorafenib"] to </span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="co"># get the id numbers.</span></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="co"># This then means that one can translate the treatment sequence data generated earlier</span></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="co"># into numerical versions in one go:</span></span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Start by making the id for population fit with the rest of the model (pop_ with pop</span></span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="co"># starting from 0). </span><span class="al">NOTE</span><span class="co"> that there is 1 more population in treatment sequences than</span></span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a><span class="co"># in the rest of the model...</span></span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>seq_clean <span class="ot">&lt;-</span> <span class="fu">data.table</span>(i<span class="sc">$</span>sequences)</span>
+<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>seq_clean<span class="sc">$</span>V1 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"pop_"</span>,<span class="fu">as.numeric</span>(<span class="fu">substr</span>(i<span class="sc">$</span>seq_clean<span class="sc">$</span>V1,<span class="dv">4</span>,<span class="dv">4</span>)) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>seq_pops <span class="ot">&lt;-</span> <span class="fu">unique</span>(i<span class="sc">$</span>seq_clean<span class="sc">$</span>V1)</span>
+<span id="cb55-20"><a href="#cb55-20" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(i<span class="sc">$</span>seq_pops) <span class="ot">&lt;-</span> i<span class="sc">$</span>seq_pops</span>
+<span id="cb55-21"><a href="#cb55-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-22"><a href="#cb55-22" aria-hidden="true" tabindex="-1"></a><span class="co"># The "clean" version of sequences - first with words, then with numbers, then references</span></span>
+<span id="cb55-23"><a href="#cb55-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-24"><a href="#cb55-24" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>seq_clean <span class="ot">&lt;-</span> <span class="fu">lapply</span>(i<span class="sc">$</span>seq_pops, <span class="cf">function</span>(popu) {</span>
+<span id="cb55-25"><a href="#cb55-25" aria-hidden="true" tabindex="-1"></a>  tmp <span class="ot">&lt;-</span> i<span class="sc">$</span>seq_clean[V1 <span class="sc">==</span> popu,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb55-26"><a href="#cb55-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(tmp) <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>line<span class="sc">$</span>R_id[<span class="dv">1</span><span class="sc">:</span>(p<span class="sc">$</span>basic<span class="sc">$</span>R_maxlines <span class="sc">+</span> <span class="dv">1</span>)]</span>
+<span id="cb55-27"><a href="#cb55-27" aria-hidden="true" tabindex="-1"></a>  tmp</span>
+<span id="cb55-28"><a href="#cb55-28" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb55-29"><a href="#cb55-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-30"><a href="#cb55-30" aria-hidden="true" tabindex="-1"></a><span class="co"># It's pretty nested this but simplifies upon explanation: lapply on a data.frame</span></span>
+<span id="cb55-31"><a href="#cb55-31" aria-hidden="true" tabindex="-1"></a><span class="co"># or data.table goes column-wise, so going across columns substitute the values</span></span>
+<span id="cb55-32"><a href="#cb55-32" aria-hidden="true" tabindex="-1"></a><span class="co"># for the values in i$lookup$trt which have corresponding names, returning the numbers</span></span>
+<span id="cb55-33"><a href="#cb55-33" aria-hidden="true" tabindex="-1"></a><span class="co"># which are consistent throughout the model. The way of looking inside e.g. network</span></span>
+<span id="cb55-34"><a href="#cb55-34" aria-hidden="true" tabindex="-1"></a><span class="co"># is e.g. pop_2$line_5$mol_2$endpoint_1, so now we can use the tables produced below</span></span>
+<span id="cb55-35"><a href="#cb55-35" aria-hidden="true" tabindex="-1"></a><span class="co"># to "order" the inputs for a treatment pathway </span></span>
+<span id="cb55-36"><a href="#cb55-36" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>seq_n <span class="ot">&lt;-</span> <span class="fu">lapply</span>(i<span class="sc">$</span>seq_clean, <span class="cf">function</span>(popu) {</span>
+<span id="cb55-37"><a href="#cb55-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.table</span>(<span class="fu">lapply</span>(popu, <span class="cf">function</span>(co) i<span class="sc">$</span>lookup<span class="sc">$</span>trt[co]))</span>
+<span id="cb55-38"><a href="#cb55-38" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb55-39"><a href="#cb55-39" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>seq_ref <span class="ot">&lt;-</span> <span class="fu">lapply</span>(i<span class="sc">$</span>seq_clean, <span class="cf">function</span>(popu) {</span>
+<span id="cb55-40"><a href="#cb55-40" aria-hidden="true" tabindex="-1"></a>  tmp <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(<span class="fu">lapply</span>(popu, <span class="cf">function</span>(co) {</span>
+<span id="cb55-41"><a href="#cb55-41" aria-hidden="true" tabindex="-1"></a>    vals <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"mol_"</span>,i<span class="sc">$</span>lookup<span class="sc">$</span>trt[co])</span>
+<span id="cb55-42"><a href="#cb55-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ifelse</span>(vals <span class="sc">==</span> <span class="st">"mol_NA"</span>,<span class="cn">NA</span>,vals)</span>
+<span id="cb55-43"><a href="#cb55-43" aria-hidden="true" tabindex="-1"></a>  }))</span>
+<span id="cb55-44"><a href="#cb55-44" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb55-45"><a href="#cb55-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-46"><a href="#cb55-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-47"><a href="#cb55-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Now that we have the final sequence list, we can add them to p:</span></span>
+<span id="cb55-48"><a href="#cb55-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-49"><a href="#cb55-49" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>seq<span class="sc">$</span>n   <span class="ot">&lt;-</span> i<span class="sc">$</span>seq_n</span>
+<span id="cb55-50"><a href="#cb55-50" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>seq<span class="sc">$</span>ref <span class="ot">&lt;-</span> i<span class="sc">$</span>seq_ref</span>
+<span id="cb55-51"><a href="#cb55-51" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>seq<span class="sc">$</span>qc <span class="ot">&lt;-</span> i<span class="sc">$</span>seq_clean</span>
+<span id="cb55-52"><a href="#cb55-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-53"><a href="#cb55-53" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: QC check here is for NAs that are not beyond a 999 (i.e. past BSC)</span></span>
+<span id="cb55-54"><a href="#cb55-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-55"><a href="#cb55-55" aria-hidden="true" tabindex="-1"></a><span class="co"># We now have all the treatment sequences in the form of the molecule</span></span>
+<span id="cb55-56"><a href="#cb55-56" aria-hidden="true" tabindex="-1"></a><span class="co"># number and the consistent reference linking right back to the named range</span></span>
+<span id="cb55-57"><a href="#cb55-57" aria-hidden="true" tabindex="-1"></a><span class="co"># r_pld_lookup_mol in the excel front end. This ensures that the R model is</span></span>
+<span id="cb55-58"><a href="#cb55-58" aria-hidden="true" tabindex="-1"></a><span class="co"># consistent with the R model in terms of which drugs are feeding through</span></span>
+<span id="cb55-59"><a href="#cb55-59" aria-hidden="true" tabindex="-1"></a><span class="co"># to different places, as manually checking that is a very difficult and time </span></span>
+<span id="cb55-60"><a href="#cb55-60" aria-hidden="true" tabindex="-1"></a><span class="co"># consuming task.</span></span>
+<span id="cb55-61"><a href="#cb55-61" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb55-62"><a href="#cb55-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Long story short:</span></span>
+<span id="cb55-63"><a href="#cb55-63" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb55-64"><a href="#cb55-64" aria-hidden="true" tabindex="-1"></a><span class="co">#  - i$seq_clean: names of treatments per excel front end in order for all populations. use i$lookup$ipd$mol as reference table.</span></span>
+<span id="cb55-65"><a href="#cb55-65" aria-hidden="true" tabindex="-1"></a><span class="co">#  - i$seq_n: corresponding treatment numbers per named range r_pld_lookup_mol in excel</span></span>
+<span id="cb55-66"><a href="#cb55-66" aria-hidden="true" tabindex="-1"></a><span class="co">#  - i$seq_ref: reference name for pulling things out of R lists (e.g. p$drug[unlist(i$seq_ref$pop_0[1,])]) pulls pop 0 first sequence drug info IN ORDER :)</span></span>
+<span id="cb55-67"><a href="#cb55-67" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb55-68"><a href="#cb55-68" aria-hidden="true" tabindex="-1"></a><span class="co"># This is automatically in line with the reference tables in the excel front end</span></span>
+<span id="cb55-69"><a href="#cb55-69" aria-hidden="true" tabindex="-1"></a><span class="co"># loaded at the time. If the ordering is changed there it needs updating in the IPD</span></span>
+<span id="cb55-70"><a href="#cb55-70" aria-hidden="true" tabindex="-1"></a><span class="co"># and in the lookup tables in the lists sheet of excel (and throughout excel!)</span></span>
+<span id="cb55-71"><a href="#cb55-71" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb55-72"><a href="#cb55-72" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb55-73"><a href="#cb55-73" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb55-74"><a href="#cb55-74" aria-hidden="true" tabindex="-1"></a><span class="co"># i.e, if Excel lookup tables are wrong, this will be wrong!!!</span></span>
+<span id="cb55-75"><a href="#cb55-75" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb55-76"><a href="#cb55-76" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb55-77"><a href="#cb55-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-78"><a href="#cb55-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-79"><a href="#cb55-79" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.3.3 TSD14 survival analysis ------------------------------------------</span></span>
+<span id="cb55-80"><a href="#cb55-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-81"><a href="#cb55-81" aria-hidden="true" tabindex="-1"></a><span class="co"># Now that treatment sequences are brought in and cleaned up ready for use, we</span></span>
+<span id="cb55-82"><a href="#cb55-82" aria-hidden="true" tabindex="-1"></a><span class="co"># can perform the survival analysis.</span></span>
+<span id="cb55-83"><a href="#cb55-83" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb55-84"><a href="#cb55-84" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the function in Survival_functions.R to perform "simple" extrapolations</span></span>
+<span id="cb55-85"><a href="#cb55-85" aria-hidden="true" tabindex="-1"></a><span class="co"># on all pop line mol trial endpoint combinations with available data and return</span></span>
+<span id="cb55-86"><a href="#cb55-86" aria-hidden="true" tabindex="-1"></a><span class="co"># NULL for the rest</span></span>
+<span id="cb55-87"><a href="#cb55-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-88"><a href="#cb55-88" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's  perform some labelling like we did for treatment sequences for convenience/QC</span></span>
+<span id="cb55-89"><a href="#cb55-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-90"><a href="#cb55-90" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb55-91"><a href="#cb55-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-92"><a href="#cb55-92" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>population <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>pop<span class="sc">$</span>Number</span>
+<span id="cb55-93"><a href="#cb55-93" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>population) <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>pop<span class="sc">$</span>Description</span>
+<span id="cb55-94"><a href="#cb55-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-95"><a href="#cb55-95" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>line <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>line<span class="sc">$</span>Number</span>
+<span id="cb55-96"><a href="#cb55-96" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>line) <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>line<span class="sc">$</span>Description</span>
+<span id="cb55-97"><a href="#cb55-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-98"><a href="#cb55-98" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>molecule <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>mol<span class="sc">$</span>Number</span>
+<span id="cb55-99"><a href="#cb55-99" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>molecule) <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>mol<span class="sc">$</span>Description</span>
+<span id="cb55-100"><a href="#cb55-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-101"><a href="#cb55-101" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>trial <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>trial<span class="sc">$</span>Number</span>
+<span id="cb55-102"><a href="#cb55-102" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>trial) <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>trial<span class="sc">$</span>Description</span>
+<span id="cb55-103"><a href="#cb55-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-104"><a href="#cb55-104" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>endpoint <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>endpoint<span class="sc">$</span>Number</span>
+<span id="cb55-105"><a href="#cb55-105" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>endpoint) <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>endpoint<span class="sc">$</span>Description</span>
+<span id="cb55-106"><a href="#cb55-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-107"><a href="#cb55-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-108"><a href="#cb55-108" aria-hidden="true" tabindex="-1"></a><span class="co"># Now, put the data in a space and replace numbers with labels:</span></span>
+<span id="cb55-109"><a href="#cb55-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-110"><a href="#cb55-110" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>dat <span class="ot">&lt;-</span> i<span class="sc">$</span>surv<span class="sc">$</span>pld</span>
+<span id="cb55-111"><a href="#cb55-111" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>dat<span class="sc">$</span>population <span class="ot">&lt;-</span> <span class="fu">names</span>(i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>population)[<span class="fu">match</span>(i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>dat<span class="sc">$</span>population,i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>population)]</span>
+<span id="cb55-112"><a href="#cb55-112" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>dat<span class="sc">$</span>line       <span class="ot">&lt;-</span> <span class="fu">names</span>(i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>line)[<span class="fu">match</span>(i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>dat<span class="sc">$</span>line,i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>line)]</span>
+<span id="cb55-113"><a href="#cb55-113" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>dat<span class="sc">$</span>molecule   <span class="ot">&lt;-</span> <span class="fu">names</span>(i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>molecule)[<span class="fu">match</span>(i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>dat<span class="sc">$</span>molecule,i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>molecule)]</span>
+<span id="cb55-114"><a href="#cb55-114" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>dat<span class="sc">$</span>trial      <span class="ot">&lt;-</span> <span class="fu">names</span>(i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>trial)[<span class="fu">match</span>(i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>dat<span class="sc">$</span>trial,i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>trial)]</span>
+<span id="cb55-115"><a href="#cb55-115" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>dat<span class="sc">$</span>endpoint   <span class="ot">&lt;-</span> <span class="fu">names</span>(i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>endpoint)[<span class="fu">match</span>(i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>dat<span class="sc">$</span>endpoint,i<span class="sc">$</span>surv<span class="sc">$</span>lab_pld<span class="sc">$</span>endpoint)]</span>
+<span id="cb55-116"><a href="#cb55-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-117"><a href="#cb55-117" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we have a labelled version which is a bit easier to QC.</span></span>
+<span id="cb55-118"><a href="#cb55-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-119"><a href="#cb55-119" aria-hidden="true" tabindex="-1"></a><span class="co"># Note to debug it is very helpful to set verbose to TRUE below so that you can identify</span></span>
+<span id="cb55-120"><a href="#cb55-120" aria-hidden="true" tabindex="-1"></a><span class="co"># the datasets which are problematic (e.g. not converging, 0 time values)</span></span>
+<span id="cb55-121"><a href="#cb55-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-122"><a href="#cb55-122" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>n_by_plmte <span class="ot">&lt;-</span> i<span class="sc">$</span>surv<span class="sc">$</span>pld[, .N, by <span class="ot">=</span> <span class="fu">list</span>(population, line,molecule,trial,endpoint)] <span class="sc">%&gt;%</span></span>
+<span id="cb55-123"><a href="#cb55-123" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(population,line, molecule,trial,endpoint)</span>
+<span id="cb55-124"><a href="#cb55-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-125"><a href="#cb55-125" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>n_by_plmte<span class="sc">$</span>population <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>pop[<span class="fu">match</span>(i<span class="sc">$</span>surv<span class="sc">$</span>n_by_plmte<span class="sc">$</span>population       ,i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>pop<span class="sc">$</span>Number),Description]</span>
+<span id="cb55-126"><a href="#cb55-126" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>n_by_plmte<span class="sc">$</span>line       <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>line[<span class="fu">match</span>(i<span class="sc">$</span>surv<span class="sc">$</span>n_by_plmte<span class="sc">$</span>line       ,i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>line<span class="sc">$</span>Number),Description]</span>
+<span id="cb55-127"><a href="#cb55-127" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>n_by_plmte<span class="sc">$</span>molecule   <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>mol[<span class="fu">match</span>(i<span class="sc">$</span>surv<span class="sc">$</span>n_by_plmte<span class="sc">$</span>molecule       ,i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>mol<span class="sc">$</span>Number),Description]</span>
+<span id="cb55-128"><a href="#cb55-128" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>n_by_plmte<span class="sc">$</span>molecule[<span class="fu">which</span>(<span class="fu">is.na</span>(i<span class="sc">$</span>surv<span class="sc">$</span>n_by_plmte<span class="sc">$</span>molecule))]   <span class="ot">&lt;-</span> <span class="st">"Non-UK treatments (pooled)"</span></span>
+<span id="cb55-129"><a href="#cb55-129" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>n_by_plmte<span class="sc">$</span>trial      <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>trial[<span class="fu">match</span>(i<span class="sc">$</span>surv<span class="sc">$</span>n_by_plmte<span class="sc">$</span>trial       ,i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>trial<span class="sc">$</span>Number),Description]</span>
+<span id="cb55-130"><a href="#cb55-130" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>n_by_plmte<span class="sc">$</span>endpoint   <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>endpoint[<span class="fu">match</span>(i<span class="sc">$</span>surv<span class="sc">$</span>n_by_plmte<span class="sc">$</span>endpoint       ,i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>endpoint<span class="sc">$</span>Number),Description]</span>
+<span id="cb55-131"><a href="#cb55-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-132"><a href="#cb55-132" aria-hidden="true" tabindex="-1"></a><span class="co"># The number of rows in this table is the number of SETS of regression analyses</span></span>
+<span id="cb55-133"><a href="#cb55-133" aria-hidden="true" tabindex="-1"></a><span class="co"># that are going to be run (each is 7 regressions)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="run-model" class="level2">
+<h2 class="anchored" data-anchor-id="run-model">Run model</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The below code runs the survival analysis and saves as an RDS file for upload, this will only run if you set </span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="co"># i$dd_run_surv_reg to "Yes" either in the Excel input or here</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (i<span class="sc">$</span>dd_run_surv_reg <span class="sc">==</span> <span class="st">"Yes"</span>) {</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  i<span class="sc">$</span>surv<span class="sc">$</span>reg <span class="ot">&lt;-</span> <span class="fu">f_surv_runAllTSD14</span>(</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">r_pld             =</span> i<span class="sc">$</span>surv<span class="sc">$</span>pld,</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">id                =</span> i<span class="sc">$</span>id<span class="sc">$</span>ipd,</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">lookups           =</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd,</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">draw_plots        =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">distnames         =</span> i<span class="sc">$</span>distnames,</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">cl_y              =</span> p<span class="sc">$</span>basic<span class="sc">$</span>cl_y,</span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">t_cyc             =</span> p<span class="sc">$</span>basic<span class="sc">$</span>t_cyc,</span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim_survplots_yr =</span> p<span class="sc">$</span>misc<span class="sc">$</span>plot<span class="sc">$</span>xlim_survplots_yr,</span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">t_yr              =</span> p<span class="sc">$</span>basic<span class="sc">$</span>t_yr,</span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose           =</span> qc_mode,</span>
+<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_obs           =</span> <span class="dv">28</span></span>
+<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># now, there is very little information available on BSC overall survival,</span></span>
+<span id="cb56-21"><a href="#cb56-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for those people that decide they do not want further treatment</span></span>
+<span id="cb56-22"><a href="#cb56-22" aria-hidden="true" tabindex="-1"></a>  <span class="co">#</span></span>
+<span id="cb56-23"><a href="#cb56-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The best data available currently is pooled PPS data on 4L patients, these</span></span>
+<span id="cb56-24"><a href="#cb56-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># are then 5L+ patients and given that there are currently 4 lines of therapy</span></span>
+<span id="cb56-25"><a href="#cb56-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the proportion that receive something active subsequently is likely to be</span></span>
+<span id="cb56-26"><a href="#cb56-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># small. Consequently, this is likely a pooled analysis which can inform</span></span>
+<span id="cb56-27"><a href="#cb56-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># early (and 5L) BSC OVERALL SURVIVAL.</span></span>
+<span id="cb56-28"><a href="#cb56-28" aria-hidden="true" tabindex="-1"></a>  <span class="co">#</span></span>
+<span id="cb56-29"><a href="#cb56-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Therefore the molecule 999 4th line PPS should be informed by a pooled analysis</span></span>
+<span id="cb56-30"><a href="#cb56-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># of all molecules' PPS at 4th line. That is, i$surv$pld[line == 4 &amp; trial == 2 &amp; endpoint == 4,]</span></span>
+<span id="cb56-31"><a href="#cb56-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># is the data that should inform endpoint 0 for all BSC.</span></span>
+<span id="cb56-32"><a href="#cb56-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb56-33"><a href="#cb56-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># MANUALLY RUN SURVIVAL FOR BSC PPS AS POOLED!!!</span></span>
+<span id="cb56-34"><a href="#cb56-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb56-35"><a href="#cb56-35" aria-hidden="true" tabindex="-1"></a>  i<span class="sc">$</span>surv<span class="sc">$</span>reg<span class="sc">$</span>pop_0<span class="sc">$</span>line_4<span class="sc">$</span>mol_999<span class="sc">$</span>trial_2<span class="sc">$</span>endpoint_4 <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>,<span class="cf">function</span>(x) {</span>
+<span id="cb56-36"><a href="#cb56-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb56-37"><a href="#cb56-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter down to the parameters above associated with this combination:</span></span>
+<span id="cb56-38"><a href="#cb56-38" aria-hidden="true" tabindex="-1"></a>    ipd <span class="ot">&lt;-</span> i<span class="sc">$</span>surv<span class="sc">$</span>pld[line<span class="sc">==</span><span class="dv">4</span> <span class="sc">&amp;</span> endpoint<span class="sc">==</span><span class="dv">4</span>,<span class="fu">list</span>(timew,event_censor)]</span>
+<span id="cb56-39"><a href="#cb56-39" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb56-40"><a href="#cb56-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(ipd) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"t"</span>,<span class="st">"e"</span>)</span>
+<span id="cb56-41"><a href="#cb56-41" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb56-42"><a href="#cb56-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="fu">paste0</span>(</span>
+<span id="cb56-43"><a href="#cb56-43" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Survival analysis - population: "</span>, i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>pop[Number      <span class="sc">==</span> <span class="dv">0</span>, Description],</span>
+<span id="cb56-44"><a href="#cb56-44" aria-hidden="true" tabindex="-1"></a>      <span class="st">"</span><span class="sc">\t</span><span class="st"> line: "</span>                       , i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>line[Number     <span class="sc">==</span> <span class="dv">4</span>, Description],</span>
+<span id="cb56-45"><a href="#cb56-45" aria-hidden="true" tabindex="-1"></a>      <span class="st">"</span><span class="sc">\t</span><span class="st"> molecule: "</span>                   , i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>mol[Number     <span class="sc">==</span> <span class="dv">999</span>, Description],</span>
+<span id="cb56-46"><a href="#cb56-46" aria-hidden="true" tabindex="-1"></a>      <span class="st">"</span><span class="sc">\t</span><span class="st"> trial: "</span>                      , i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>trial[Number     <span class="sc">==</span> <span class="dv">2</span>, Description],</span>
+<span id="cb56-47"><a href="#cb56-47" aria-hidden="true" tabindex="-1"></a>      <span class="st">"</span><span class="sc">\t</span><span class="st"> endpoint: "</span>                   , i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>endpoint[Number <span class="sc">==</span> <span class="dv">4</span>, Description], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span></span>
+<span id="cb56-48"><a href="#cb56-48" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb56-49"><a href="#cb56-49" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb56-50"><a href="#cb56-50" aria-hidden="true" tabindex="-1"></a>    fs_fits <span class="ot">&lt;-</span> <span class="fu">lapply</span>(i<span class="sc">$</span>distnames, <span class="cf">function</span>(dist) {  <span class="co"># applying all parametric survival curves in the list of distNames</span></span>
+<span id="cb56-51"><a href="#cb56-51" aria-hidden="true" tabindex="-1"></a>      fs_fit <span class="ot">&lt;-</span> <span class="fu">flexsurvreg</span>(</span>
+<span id="cb56-52"><a href="#cb56-52" aria-hidden="true" tabindex="-1"></a>        <span class="at">formula =</span> <span class="fu">Surv</span>(t, e) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb56-53"><a href="#cb56-53" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> ipd,</span>
+<span id="cb56-54"><a href="#cb56-54" aria-hidden="true" tabindex="-1"></a>        <span class="at">dist =</span> dist</span>
+<span id="cb56-55"><a href="#cb56-55" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb56-56"><a href="#cb56-56" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="fu">list</span>(</span>
+<span id="cb56-57"><a href="#cb56-57" aria-hidden="true" tabindex="-1"></a>        <span class="at">coefs =</span> <span class="fu">coefficients</span>(fs_fit),                                         <span class="co"># coefficients for the fitted model</span></span>
+<span id="cb56-58"><a href="#cb56-58" aria-hidden="true" tabindex="-1"></a>        <span class="at">vcov  =</span> <span class="fu">vcov</span>(fs_fit),                                                 <span class="co"># variance covariance matrix for the fitted model</span></span>
+<span id="cb56-59"><a href="#cb56-59" aria-hidden="true" tabindex="-1"></a>        <span class="at">fit   =</span> <span class="fu">c</span>(<span class="at">AIC=</span> <span class="fu">AIC</span>(fs_fit), <span class="at">BIC=</span><span class="fu">BIC</span>(fs_fit), <span class="at">logLik =</span> <span class="fu">logLik</span>(fs_fit)) <span class="co"># goodness of fit statistics for the fitted model</span></span>
+<span id="cb56-60"><a href="#cb56-60" aria-hidden="true" tabindex="-1"></a>      ))</span>
+<span id="cb56-61"><a href="#cb56-61" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb56-62"><a href="#cb56-62" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb56-63"><a href="#cb56-63" aria-hidden="true" tabindex="-1"></a>    gof <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(i<span class="sc">$</span>distnames, <span class="cf">function</span>(dist) fs_fits[[dist]]<span class="sc">$</span>fit))</span>
+<span id="cb56-64"><a href="#cb56-64" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb56-65"><a href="#cb56-65" aria-hidden="true" tabindex="-1"></a>    st <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb56-66"><a href="#cb56-66" aria-hidden="true" tabindex="-1"></a>      <span class="fu">unlist</span>(<span class="fu">lapply</span>(i<span class="sc">$</span>distnames, <span class="cf">function</span>(dist) {</span>
+<span id="cb56-67"><a href="#cb56-67" aria-hidden="true" tabindex="-1"></a>        <span class="fu">f_extrapolate</span>(p<span class="sc">$</span>basic<span class="sc">$</span>t_cyc, fs_fits[[dist]]<span class="sc">$</span>coefs, dist)</span>
+<span id="cb56-68"><a href="#cb56-68" aria-hidden="true" tabindex="-1"></a>      })),</span>
+<span id="cb56-69"><a href="#cb56-69" aria-hidden="true" tabindex="-1"></a>      <span class="at">ncol =</span> <span class="fu">length</span>(i<span class="sc">$</span>distnames),</span>
+<span id="cb56-70"><a href="#cb56-70" aria-hidden="true" tabindex="-1"></a>      <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="cn">NULL</span>, i<span class="sc">$</span>distnames),</span>
+<span id="cb56-71"><a href="#cb56-71" aria-hidden="true" tabindex="-1"></a>      <span class="at">byrow =</span> <span class="cn">FALSE</span></span>
+<span id="cb56-72"><a href="#cb56-72" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb56-73"><a href="#cb56-73" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb56-74"><a href="#cb56-74" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb56-75"><a href="#cb56-75" aria-hidden="true" tabindex="-1"></a>    <span class="co"># curly braces on their own mean do this stuff and only return the last thing</span></span>
+<span id="cb56-76"><a href="#cb56-76" aria-hidden="true" tabindex="-1"></a>    <span class="co"># or what's in a return call</span></span>
+<span id="cb56-77"><a href="#cb56-77" aria-hidden="true" tabindex="-1"></a>    plot <span class="ot">&lt;-</span> {</span>
+<span id="cb56-78"><a href="#cb56-78" aria-hidden="true" tabindex="-1"></a>      <span class="co"># First the IPD is produced in a format that survminer will accept. Data must all be</span></span>
+<span id="cb56-79"><a href="#cb56-79" aria-hidden="true" tabindex="-1"></a>      <span class="co"># the same format with the same column names.</span></span>
+<span id="cb56-80"><a href="#cb56-80" aria-hidden="true" tabindex="-1"></a>      <span class="co"># this assumes no covariate adjustment</span></span>
+<span id="cb56-81"><a href="#cb56-81" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb56-82"><a href="#cb56-82" aria-hidden="true" tabindex="-1"></a>      sm_ipd <span class="ot">&lt;-</span> <span class="fu">f_ce_km_MakeDatSurvFriendly</span>(</span>
+<span id="cb56-83"><a href="#cb56-83" aria-hidden="true" tabindex="-1"></a>        <span class="at">Data_required =</span> ipd,</span>
+<span id="cb56-84"><a href="#cb56-84" aria-hidden="true" tabindex="-1"></a>        <span class="at">time_column   =</span> <span class="st">"t"</span>,                 <span class="co"># note that this is taking IPD in weeks</span></span>
+<span id="cb56-85"><a href="#cb56-85" aria-hidden="true" tabindex="-1"></a>        <span class="at">event_column  =</span> <span class="st">"e"</span>,</span>
+<span id="cb56-86"><a href="#cb56-86" aria-hidden="true" tabindex="-1"></a>        <span class="at">t_multiplier  =</span> p<span class="sc">$</span>basic<span class="sc">$</span>cl_y             <span class="co"># data in weeks, cycle length in plot years</span></span>
+<span id="cb56-87"><a href="#cb56-87" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb56-88"><a href="#cb56-88" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb56-89"><a href="#cb56-89" aria-hidden="true" tabindex="-1"></a>      <span class="co"># get the survival analysis in the form we need for survminer</span></span>
+<span id="cb56-90"><a href="#cb56-90" aria-hidden="true" tabindex="-1"></a>      <span class="co"># and make the extrapolations we need for survminer</span></span>
+<span id="cb56-91"><a href="#cb56-91" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb56-92"><a href="#cb56-92" aria-hidden="true" tabindex="-1"></a>      form          <span class="ot">&lt;-</span> <span class="fu">Surv</span>(t, ec) <span class="sc">~</span> <span class="dv">1</span></span>
+<span id="cb56-93"><a href="#cb56-93" aria-hidden="true" tabindex="-1"></a>      sm_surv_est   <span class="ot">&lt;-</span> <span class="fu">surv_fit</span>(<span class="at">formula =</span> form, <span class="at">data =</span> sm_ipd)</span>
+<span id="cb56-94"><a href="#cb56-94" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb56-95"><a href="#cb56-95" aria-hidden="true" tabindex="-1"></a>      <span class="co"># make the plot with the input data:</span></span>
+<span id="cb56-96"><a href="#cb56-96" aria-hidden="true" tabindex="-1"></a>      survival_plot <span class="ot">&lt;-</span> <span class="fu">suppressMessages</span>(<span class="fu">f_extrap_plot</span>(</span>
+<span id="cb56-97"><a href="#cb56-97" aria-hidden="true" tabindex="-1"></a>        <span class="at">SurvEstimate   =</span> sm_surv_est,</span>
+<span id="cb56-98"><a href="#cb56-98" aria-hidden="true" tabindex="-1"></a>        <span class="at">Data_required  =</span> sm_ipd,</span>
+<span id="cb56-99"><a href="#cb56-99" aria-hidden="true" tabindex="-1"></a>        <span class="at">curvefits_data =</span> st,</span>
+<span id="cb56-100"><a href="#cb56-100" aria-hidden="true" tabindex="-1"></a>        <span class="at">time_vector    =</span> p<span class="sc">$</span>basic<span class="sc">$</span>t_yr,</span>
+<span id="cb56-101"><a href="#cb56-101" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlim           =</span> p<span class="sc">$</span>misc<span class="sc">$</span>plot<span class="sc">$</span>xlim_survplots_yr,   <span class="do">#### this will need replacing dependent on how many years we decide to show per time horizon</span></span>
+<span id="cb56-102"><a href="#cb56-102" aria-hidden="true" tabindex="-1"></a>        <span class="at">break_by       =</span> <span class="fu">round</span>(<span class="dv">20</span><span class="sc">/</span><span class="dv">8</span>,<span class="dv">0</span>) <span class="do">#### this will need replacing dependent on how many years we decide to show per time horizon</span></span>
+<span id="cb56-103"><a href="#cb56-103" aria-hidden="true" tabindex="-1"></a>      ))</span>
+<span id="cb56-104"><a href="#cb56-104" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(</span>
+<span id="cb56-105"><a href="#cb56-105" aria-hidden="true" tabindex="-1"></a>        <span class="at">ipd     =</span> sm_ipd,</span>
+<span id="cb56-106"><a href="#cb56-106" aria-hidden="true" tabindex="-1"></a>        <span class="at">formula =</span> form,</span>
+<span id="cb56-107"><a href="#cb56-107" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot    =</span> survival_plot</span>
+<span id="cb56-108"><a href="#cb56-108" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb56-109"><a href="#cb56-109" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb56-110"><a href="#cb56-110" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb56-111"><a href="#cb56-111" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb56-112"><a href="#cb56-112" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Now that we've done everything for this dataset, return a list of the stuff</span></span>
+<span id="cb56-113"><a href="#cb56-113" aria-hidden="true" tabindex="-1"></a>    <span class="co"># we need for it:</span></span>
+<span id="cb56-114"><a href="#cb56-114" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">list</span>(</span>
+<span id="cb56-115"><a href="#cb56-115" aria-hidden="true" tabindex="-1"></a>      <span class="at">pop      =</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>pop[     Number <span class="sc">==</span> <span class="dv">0</span>,Description],</span>
+<span id="cb56-116"><a href="#cb56-116" aria-hidden="true" tabindex="-1"></a>      <span class="at">line     =</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>line[    Number <span class="sc">==</span> <span class="dv">4</span>,Description],</span>
+<span id="cb56-117"><a href="#cb56-117" aria-hidden="true" tabindex="-1"></a>      <span class="at">mol      =</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>mol[     Number <span class="sc">==</span> <span class="dv">999</span>,Description],</span>
+<span id="cb56-118"><a href="#cb56-118" aria-hidden="true" tabindex="-1"></a>      <span class="at">tr       =</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>trial[     Number <span class="sc">==</span> <span class="dv">2</span>,Description],</span>
+<span id="cb56-119"><a href="#cb56-119" aria-hidden="true" tabindex="-1"></a>      <span class="at">endpoint =</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>endpoint[Number <span class="sc">==</span> <span class="dv">4</span>,Description],</span>
+<span id="cb56-120"><a href="#cb56-120" aria-hidden="true" tabindex="-1"></a>      <span class="at">ipd      =</span> ipd,</span>
+<span id="cb56-121"><a href="#cb56-121" aria-hidden="true" tabindex="-1"></a>      <span class="at">fs_fits  =</span> fs_fits,</span>
+<span id="cb56-122"><a href="#cb56-122" aria-hidden="true" tabindex="-1"></a>      <span class="at">gof      =</span> gof,</span>
+<span id="cb56-123"><a href="#cb56-123" aria-hidden="true" tabindex="-1"></a>      <span class="at">st       =</span> st,</span>
+<span id="cb56-124"><a href="#cb56-124" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot     =</span> plot</span>
+<span id="cb56-125"><a href="#cb56-125" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb56-126"><a href="#cb56-126" aria-hidden="true" tabindex="-1"></a>  })[[<span class="dv">1</span>]]</span>
+<span id="cb56-127"><a href="#cb56-127" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb56-128"><a href="#cb56-128" aria-hidden="true" tabindex="-1"></a>  <span class="fu">saveRDS</span>(i<span class="sc">$</span>surv<span class="sc">$</span>reg, <span class="at">file =</span> <span class="fu">file.path</span>(d_path, <span class="st">"Survival_analysis.rds"</span>))</span>
+<span id="cb56-129"><a href="#cb56-129" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb56-130"><a href="#cb56-130" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="load-pre-run-survival-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="load-pre-run-survival-analysis">Load pre-run survival analysis</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># to load in pre-run survival analysis select the RDS file here</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="co"># option to load from pre-specified file path on local machine, uncomment this and comment out the line below to use</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>RDS_path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(d_path, <span class="st">"survival_analysis_no_ipd_CompanyTTDTTPPPS_redacted.rds"</span>)</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">file.exists</span>(RDS_path)) {</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>  i<span class="sc">$</span>surv<span class="sc">$</span>reg <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(RDS_path)</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>  i<span class="sc">$</span>surv<span class="sc">$</span>reg <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(rstudioapi<span class="sc">::</span><span class="fu">selectFile</span>(</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Please select 'Survival_analysis_noTTDorTTPorPPS[NoACIC].rds'"</span>,</span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Survival_analysis_noTTDorTTPorPPS[NoACIC].rds"</span>,</span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">path =</span> <span class="st">"./1_Data/"</span>,</span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">filter =</span> <span class="st">"R Files (*.rds)"</span>,</span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">existing =</span> <span class="cn">TRUE</span></span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Limit to model time horizon</span></span>
+<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-21"><a href="#cb57-21" aria-hidden="true" tabindex="-1"></a>TH <span class="ot">&lt;-</span> p<span class="sc">$</span>basic<span class="sc">$</span>th <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb57-22"><a href="#cb57-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-23"><a href="#cb57-23" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>reg <span class="ot">&lt;-</span><span class="fu">lapply</span>(i<span class="sc">$</span>surv<span class="sc">$</span>reg, <span class="cf">function</span>(popu) {</span>
+<span id="cb57-24"><a href="#cb57-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(popu, <span class="cf">function</span>(li) {</span>
+<span id="cb57-25"><a href="#cb57-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lapply</span>(li, <span class="cf">function</span>(mol) {</span>
+<span id="cb57-26"><a href="#cb57-26" aria-hidden="true" tabindex="-1"></a>      <span class="fu">lapply</span>(mol, <span class="cf">function</span>(tr) {</span>
+<span id="cb57-27"><a href="#cb57-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">lapply</span>(tr, <span class="cf">function</span>(endp) {</span>
+<span id="cb57-28"><a href="#cb57-28" aria-hidden="true" tabindex="-1"></a>          <span class="cf">if</span> (<span class="fu">is.null</span>(endp<span class="sc">$</span>st)) {</span>
+<span id="cb57-29"><a href="#cb57-29" aria-hidden="true" tabindex="-1"></a>            <span class="fu">return</span>(endp)</span>
+<span id="cb57-30"><a href="#cb57-30" aria-hidden="true" tabindex="-1"></a>          } <span class="cf">else</span> {</span>
+<span id="cb57-31"><a href="#cb57-31" aria-hidden="true" tabindex="-1"></a>            endp<span class="sc">$</span>st <span class="ot">&lt;-</span> endp<span class="sc">$</span>st[<span class="dv">1</span><span class="sc">:</span>TH,]</span>
+<span id="cb57-32"><a href="#cb57-32" aria-hidden="true" tabindex="-1"></a>            <span class="fu">return</span>(endp)</span>
+<span id="cb57-33"><a href="#cb57-33" aria-hidden="true" tabindex="-1"></a>          }</span>
+<span id="cb57-34"><a href="#cb57-34" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb57-35"><a href="#cb57-35" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb57-36"><a href="#cb57-36" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb57-37"><a href="#cb57-37" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb57-38"><a href="#cb57-38" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb57-39"><a href="#cb57-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-40"><a href="#cb57-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-41"><a href="#cb57-41" aria-hidden="true" tabindex="-1"></a><span class="co"># !!!!!!</span></span>
+<span id="cb57-42"><a href="#cb57-42" aria-hidden="true" tabindex="-1"></a><span class="co"># !!!!!!</span></span>
+<span id="cb57-43"><a href="#cb57-43" aria-hidden="true" tabindex="-1"></a><span class="co"># !!!!!!</span></span>
+<span id="cb57-44"><a href="#cb57-44" aria-hidden="true" tabindex="-1"></a><span class="co"># !!!!!!</span></span>
+<span id="cb57-45"><a href="#cb57-45" aria-hidden="true" tabindex="-1"></a><span class="co"># !!!!!!</span></span>
+<span id="cb57-46"><a href="#cb57-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: i$surv$reg$pop_0$line_4$mol_999$trial_2$endpoint_4 is used</span></span>
+<span id="cb57-47"><a href="#cb57-47" aria-hidden="true" tabindex="-1"></a><span class="co"># to inform ALL BSC OS. This will be decided in the EXCEL FILE, which </span></span>
+<span id="cb57-48"><a href="#cb57-48" aria-hidden="true" tabindex="-1"></a><span class="co"># dropdowns for BSC OS should link to 4L PPS for mol 999</span></span>
+<span id="cb57-49"><a href="#cb57-49" aria-hidden="true" tabindex="-1"></a><span class="co"># !!!!!!</span></span>
+<span id="cb57-50"><a href="#cb57-50" aria-hidden="true" tabindex="-1"></a><span class="co"># !!!!!!</span></span>
+<span id="cb57-51"><a href="#cb57-51" aria-hidden="true" tabindex="-1"></a><span class="co"># !!!!!!</span></span>
+<span id="cb57-52"><a href="#cb57-52" aria-hidden="true" tabindex="-1"></a><span class="co"># !!!!!!</span></span>
+<span id="cb57-53"><a href="#cb57-53" aria-hidden="true" tabindex="-1"></a><span class="co"># !!!!!!</span></span>
+<span id="cb57-54"><a href="#cb57-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-55"><a href="#cb57-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-56"><a href="#cb57-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-57"><a href="#cb57-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that draw_plots will be a switch in the shiny application.</span></span>
+<span id="cb57-58"><a href="#cb57-58" aria-hidden="true" tabindex="-1"></a><span class="co"># In this case we draw plots because we need those plots later (for word output</span></span>
+<span id="cb57-59"><a href="#cb57-59" aria-hidden="true" tabindex="-1"></a><span class="co"># assisting with model selection)</span></span>
+<span id="cb57-60"><a href="#cb57-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-61"><a href="#cb57-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-62"><a href="#cb57-62" aria-hidden="true" tabindex="-1"></a><span class="co"># So that's all of the TSD14 survival analysis done. The next step is to programmatically </span></span>
+<span id="cb57-63"><a href="#cb57-63" aria-hidden="true" tabindex="-1"></a><span class="co"># proliferate comparative efficacy </span></span>
+<span id="cb57-64"><a href="#cb57-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-65"><a href="#cb57-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-66"><a href="#cb57-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-67"><a href="#cb57-67" aria-hidden="true" tabindex="-1"></a><span class="co"># On a tablet with very little computational power this takes a couple of minutes to run. on a new</span></span>
+<span id="cb57-68"><a href="#cb57-68" aria-hidden="true" tabindex="-1"></a><span class="co"># laptop its not long at all</span></span>
+<span id="cb57-69"><a href="#cb57-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-70"><a href="#cb57-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-71"><a href="#cb57-71" aria-hidden="true" tabindex="-1"></a><span class="co"># So, to pull out the visual fit of the analysis of TTD for a population</span></span>
+<span id="cb57-72"><a href="#cb57-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-73"><a href="#cb57-73" aria-hidden="true" tabindex="-1"></a><span class="co"># i$surv$reg$pop_0$line_1$mol_7$trial_0$endpoint_0$plot$plot</span></span>
+<span id="cb57-74"><a href="#cb57-74" aria-hidden="true" tabindex="-1"></a><span class="co"># i$surv$reg$pop_0$line_1$mol_1$trial_0$endpoint_3$plot$plot</span></span>
+<span id="cb57-75"><a href="#cb57-75" aria-hidden="true" tabindex="-1"></a><span class="co"># i$surv$reg$pop_0$line_1$mol_7$trial_0$endpoint_1$plot$plot</span></span>
+<span id="cb57-76"><a href="#cb57-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-77"><a href="#cb57-77" aria-hidden="true" tabindex="-1"></a><span class="co"># More importantly, to pull a particular extrapolation:</span></span>
+<span id="cb57-78"><a href="#cb57-78" aria-hidden="true" tabindex="-1"></a><span class="co"># i$surv$reg$pop_0$line_1$mol_1$trial_0$endpoint_1$st[,"weibull"]</span></span>
+<span id="cb57-79"><a href="#cb57-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-80"><a href="#cb57-80" aria-hidden="true" tabindex="-1"></a><span class="co"># Where the "weibull" part would come from a dropdown list in the Excel front-end of the model specific</span></span>
+<span id="cb57-81"><a href="#cb57-81" aria-hidden="true" tabindex="-1"></a><span class="co"># to that endpoint for that treatment for that line for that population (i.e. a lot of selections need to be made!)</span></span>
+<span id="cb57-82"><a href="#cb57-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-83"><a href="#cb57-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-84"><a href="#cb57-84" aria-hidden="true" tabindex="-1"></a><span class="co"># The stuff inside of i$surv$reg can be used to automatically populate a report presenting the full plot, regression summaries,</span></span>
+<span id="cb57-85"><a href="#cb57-85" aria-hidden="true" tabindex="-1"></a><span class="co"># goodness-of-fit results and the fit of the selected (via excel) distribution. The output can then be manually appended to include</span></span>
+<span id="cb57-86"><a href="#cb57-86" aria-hidden="true" tabindex="-1"></a><span class="co"># written justification for the selection(s) to drastically reduce the overhead associated with reporting survival analysis</span></span>
+<span id="cb57-87"><a href="#cb57-87" aria-hidden="true" tabindex="-1"></a><span class="co"># results and decisions made.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="make-survival-analysis-report" class="level2">
+<h2 class="anchored" data-anchor-id="make-survival-analysis-report">Make survival analysis report</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.3.4 Survival analysis reporting ---------------------------------------</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the next step is to go through all of the results based directly on survival data</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="co"># and produce a readout containing:</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="co"># - Regression summary tables</span></span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="co"># - goodness of fit</span></span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="co"># - extrapolations (short and long-term) for visual fit assessment</span></span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Each of these should have a separate section which at least states the identifiers</span></span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="co"># (i.e., translating from numbers to text as in Section 3.4.2 above)</span></span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="co"># The best way to do this is with either Reduce or base for loops:</span></span>
+<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-16"><a href="#cb58-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Produce all the KM, extrapolations and gof tables for decisions on the front-end</span></span>
+<span id="cb58-17"><a href="#cb58-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-18"><a href="#cb58-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Note whether or not the survival analysis report is run by the code is set in Excel as this takes a long time to produce</span></span>
+<span id="cb58-19"><a href="#cb58-19" aria-hidden="true" tabindex="-1"></a><span class="co"># This cannot be produced without access to PLD</span></span>
+<span id="cb58-20"><a href="#cb58-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-21"><a href="#cb58-21" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (i<span class="sc">$</span>dd_report_req_surv_reg<span class="sc">==</span><span class="st">"Yes"</span>) {</span>
+<span id="cb58-22"><a href="#cb58-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb58-23"><a href="#cb58-23" aria-hidden="true" tabindex="-1"></a>  doc_surv <span class="ot">&lt;-</span> <span class="fu">f_surv_makeTSD14Report</span>(</span>
+<span id="cb58-24"><a href="#cb58-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">fs_res =</span> i<span class="sc">$</span>surv<span class="sc">$</span>reg,</span>
+<span id="cb58-25"><a href="#cb58-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">id     =</span> i<span class="sc">$</span>id<span class="sc">$</span>ipd,</span>
+<span id="cb58-26"><a href="#cb58-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">lookup =</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd</span>
+<span id="cb58-27"><a href="#cb58-27" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb58-28"><a href="#cb58-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(doc_surv, <span class="at">target =</span> <span class="fu">file.path</span>(o_path, <span class="st">"Survival_Analysis.docx"</span>))</span>
+<span id="cb58-29"><a href="#cb58-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb58-30"><a href="#cb58-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rm</span>(doc_surv)</span>
+<span id="cb58-31"><a href="#cb58-31" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>SPLITMD_CODE2_END</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
