@@ -29,10 +29,14 @@ In order to run the code from `Model_Structure.R` within this documentation, **m
 
 Hence, it is advised that you use the original R script when running the model for yourself, rather than these `.qmd` files.
 
-::: {.callout-warning collapse="false"}
+::: {.callout-warning}
 
-## Adjustments
+## Full list of adjustments
 
-These drop-down boxes will appear at the start of each page, explaining how the code copied over from `Model_Structure.R` has been amended for the purposes of the walkthrough.
+* Changed the path to the folders - e.g. "./3_Functions" to "../../../3_Functions".
+  * Instead of amending this in each string, I created `path_` variables to store the path to the folder, and then imported individual files using `file.path()` to combine the folder path with the file name.
+  * These folder paths are all set-up in a code chunk `paths` after we load the required packages.
+* Set `f_excel_extract()` from `verbose = TRUE` to `verbose = FALSE`, as it otherwise repeatedly prints "Extracting named range X from ../../1_Data/ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm" where X is the name of each parameter
+* Add `library(knitr)` so can use `kable()`
 
 :::
