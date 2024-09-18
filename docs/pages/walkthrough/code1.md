@@ -5,12 +5,15 @@ This page contains some of the basic set-up steps like **loading the functions**
 
 ## Adjustments
 
+<!--TODO: Move each of these adjustments boxes to just be fully listed in the preface, as if it pertains to one page, it may pertain to them all -->
+
 The adjustments from `Model_Structure.R` on this page are:
 
 * Changed the path to the folders - e.g. "./3_Functions" to "../../../3_Functions".
   * Instead of amending this in each string, I created `path_` variables to store the path to the folder, and then imported individual files using `file.path()` to combine the folder path with the file name.
   * These folder paths are all set-up in a code chunk `paths` after we load the required packages.
 * Set `f_excel_extract()` from `verbose = TRUE` to `verbose = FALSE`, as it otherwise repeatedly prints "Extracting named range X from ../../1_Data/ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm" where X is the name of each parameter
+* Add `knitr` so can use kable()`
 
 :::
 
@@ -79,6 +82,7 @@ library(Matrix, quiet = TRUE)
 library(dplyr, quiet = TRUE)
 library(progressr, quiet = TRUE)
 library(microbenchmark, quiet = TRUE)
+library(knitr, quiet = TRUE)
 ```
 :::
 
@@ -424,10 +428,21 @@ The exception is the first element which is a copy of the named ranges sheet:
 ::: {.cell}
 
 ```{.r .cell-code}
-head(i[[1]])
+kable(head(i[[1]]))
 ```
 
 ::: {.cell-output-display}
+
+
+|Name                   |Cell.Range              |
+|:----------------------|:-----------------------|
+|apply_waning_to        |=Lists!$Y$10:$Y$11      |
+|bc_settings_rng        |=Lists!$B$99:$B$174     |
+|cabo_nivo_outcome_from |=Lists!$W$10            |
+|cabo_nivo_outcomes     |=Lists!$X$10:$X$12      |
+|count_bc_settings      |=Lists!$B$97            |
+|dd_2ndline_NMA         |='Model settings'!$G$40 |
+
 
 :::
 :::
@@ -445,10 +460,21 @@ This function is applied to `i$R_table_param` which is the full table from the s
 ::: {.cell}
 
 ```{.r .cell-code}
-head(i$R_table_param)
+kable(head(i$R_table_param))
 ```
 
 ::: {.cell-output-display}
+
+
+|Parameter.description                   |Parameter.name    |Mean.current.value |
+|:---------------------------------------|:-----------------|:------------------|
+|Include cabo nivo? (1=yes, 0=no)        |cabo_nivo_include |1                  |
+|Include pem len? (1=yes, 0=no)          |pem_len_include   |1                  |
+|Include panzopanib? (1=yes, 0=no)       |pazopanib_include |1                  |
+|Include tivozanib? (1=yes, 0=no)        |tivozanib_include |1                  |
+|Include sunitinib? (1=yes, 0=no)        |sunitinib_include |1                  |
+|Include cabo monotherapy? (1=yes, 0=no) |cabo_include      |1                  |
+
 
 :::
 :::
@@ -530,6 +556,8 @@ i$distnames <-
 
 ### Use `i` to make another list `p`
 
+The list `p` is based on `i`, either copying over parameters or using them to calculate new parameters. The list is first created by `f_misc_param_generate_p()`. A few extra additions are then made to `p` in this code block, such as to set a maximum of 4 treatment lines before best supportive care.
+
 
 ::: {.cell}
 
@@ -551,7 +579,76 @@ p$basic$decision_problem <- i$decision_problem
 :::
 
 
+::: {.callout-note collapse="true"}
+
+## What does `f_misc_param_generate_p()` do?
+
+This function consists of relatively simple calculations using parameters from `i` to generate `p`. For the full overview of these calculations, check out the code for the function. To give an example though, the function code includes:
+
+```
+p <- list(
+    basic = list(
+      th   = ceiling(i$ui_time_horizon * 365.25 / 7), 
+      th_y = i$ui_time_horizon, 
+      ...
+    )
+    ...
+)
+```
+
+In this example, we can see that is makes a copy of `i$ui_time_horizon` which has time horizon of model in years (40 years) (`p$basic$th_y`). It also converts the time horizon into weeks (`p$basic$th`).
+
+
+::: {.cell}
+
+```{.r .cell-code}
+i$ui_time_horizon
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+[1] 40
+```
+
+
+:::
+
+```{.r .cell-code}
+p$basic$th
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+[1] 2088
+```
+
+
+:::
+
+```{.r .cell-code}
+p$basic$th_y
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+[1] 40
+```
+
+
+:::
+:::
+
+
+:::
+
 ## Treatment sequences
+
+### Find all possible sequences
+
+The first step in determining the possible treatment sequences is to determine all possible combinations and orders of treatment, saving this as `i$sequences`.
 
 
 ::: {.cell}
@@ -569,14 +666,119 @@ i$sequences <- f_generate_sequences(
   comparators = i$List_comparators, 
   maxlines    = p$basic$R_maxlines
 )
+```
+:::
 
+
+::: {.callout-note collapse="true"}
+
+## What does `f_generate_sequences()` do?
+
+The input to this function is a list of all the possible treatments (14 options), and the maximum number of treatment lines (4).
+
+
+::: {.cell}
+
+```{.r .cell-code}
+i$List_comparators
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+ [1] "nivolumab_monotherapy"         "cabozantinib_plus_nivolumab"  
+ [3] "nivolumab_plus_ipilimumab"     "lenvatinib_plus_pembrolizumab"
+ [5] "avelumab_plus_axitinib"        "pazopanib"                    
+ [7] "tivozanib"                     "sunitinib"                    
+ [9] "cabozantinib"                  "lenvatinib_plus_everolimus"   
+[11] "everolimus"                    "axitinib"                     
+[13] "sorafenib"                     "placebo_BSC"                  
+```
+
+
+:::
+:::
+
+
+The function `f_generate_sequences()` outputs a table saved as `i$sequences`. This contains every possible order and combination of treatments.
+
+
+::: {.cell}
+
+```{.r .cell-code}
+kable(head(i$sequences, 3))
+```
+
+::: {.cell-output-display}
+
+
+|V1                     |V2       |V3           |V4                          |V5  |
+|:----------------------|:--------|:------------|:---------------------------|:---|
+|avelumab_plus_axitinib |axitinib |cabozantinib |cabozantinib_plus_nivolumab |BSC |
+|avelumab_plus_axitinib |axitinib |cabozantinib |everolimus                  |BSC |
+|avelumab_plus_axitinib |axitinib |cabozantinib |lenvatinib_plus_everolimus  |BSC |
+
+
+:::
+
+```{.r .cell-code}
+dim(i$sequences)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+[1] 26404     5
+```
+
+
+:::
+:::
+
+
+These varied from a single treatment to up to four subsequent treatments, but always ended with best supportive case (BSC).
+
+
+::: {.cell}
+
+```{.r .cell-code}
+kable(head(i$sequences[i$sequences$V3=="",], 3))
+```
+
+::: {.cell-output-display}
+
+
+|V1                     |V2  |V3 |V4 |V5 |
+|:----------------------|:---|:--|:--|:--|
+|avelumab_plus_axitinib |BSC |   |   |   |
+|axitinib               |BSC |   |   |   |
+|cabozantinib           |BSC |   |   |   |
+
+
+:::
+:::
+
+
+:::
+
+### Filter to valid sequences
+
+The table of all possible treatment sequences is then filtered down to valid sequences (for example, removing drugs if not allowed for a given population, or after another particular drug).
+
+<!-- This section is set to eval FALSE as the progress statements are from cat() so cannot suppress output. Instead, actually run in dropdown below, where there, hide the code but can still see the output -->
+
+
+::: {.cell}
+
+```{.r .cell-code}
 # restrict the pathways to those that are possible and permitted.
 i$sequences <- as.data.frame(i$sequences)
 
 populations <- i$i_nr_populations
 
 seqs <- NULL
-for (population in 1:populations) {
+invisible(
+ for (population in 1:populations) {
   cat("Applying sequence restrictions to population", population,"\n")
   
   s <- f_path_tx_restrict(
@@ -597,9 +799,312 @@ for (population in 1:populations) {
   s <- cbind(rep(paste0("pop", population),nrow(s)), s)
   colnames(s) <- paste0('V', seq_len(ncol(s))) # rbind no longer likes un-named columns so added this
   seqs <- rbind(seqs, s)
+} 
+)
+rownames(seqs) <- NULL
+
+i$sequences <- seqs
+
+#### Uncomment this code to view the sequences and write the sequences defined to csv
+
+# i$sequences
+# write.csv(seqs, "4_Output/sequences.csv", row.names = F)
+rm(s, seqs, populations)
+
+# define number of cycles and a vector of the cycles 
+```
+:::
+
+
+::: {.callout-note collapse="true"}
+
+## About the populations being looped through
+
+This code chunk restricted to valid sequences by population. In this analysis, there are four populations defined by time since an immuno-oncology (IO) treatment, and International Metastatic Renal Cell Carcinoma Database Consortium (IMDC) risk status. They are:
+
+* pop1 >12m since IO, favourable risk
+* pop2 >12m since IO, intermediate/poor risk
+* pop3 <12m since IO, favourable risk
+* pop4 <12m since IO, intermediate/poor risk
+
+Each risk group has to be broken down by time since IO as there are five treatments that cannot be used within 12 months of an adjuvant IO treatment (4.3.5.6 in Assessment Report @lee_treatments_2023-1). An adjuvant treatment is one given alongside the primary treatment.
+
+:::
+
+::: {.callout-note collapse="true"}
+
+## What criteria are there for valid treatments?
+
+### By population and line
+
+For **each population**, there are a list of valid treatments at **each line** of therapy (first-line through to fourth). For example, valid first-line treatments for population 1 are:
+
+
+::: {.cell}
+
+```{.r .cell-code}
+# Pop1 1L treatments
+f_get_L1_lists(i, 1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+[1] "avelumab_plus_axitinib"      "cabozantinib_plus_nivolumab"
+[3] "pazopanib"                   "sunitinib"                  
+[5] "tivozanib"                  
+```
+
+
+:::
+:::
+
+
+### Only after
+
+There are some treatments that can only come after other treatments. For example, for population 1:
+
+* Axitinib can only be administered **after** a tyrosine kinase inhibitor (TKI) or cytokine treatment
+* Everolimus can only be administered **after** a vascular endothelial growth factor (VEGF) treatment
+* At 2L 3L or 4L, cabozantinib can only be administered **after** one of the listed treatments
+
+
+::: {.cell}
+
+```{.r .cell-code}
+f_get_only_after_lists(i, 1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+$axitinib
+[1] "avelumab_plus_axitinib"        "cabozantinib"                 
+[3] "lenvatinib_plus_everolimus"    "cabozantinib_plus_nivolumab"  
+[5] "pazopanib"                     "lenvatinib_plus_pembrolizumab"
+[7] "sunitinib"                     "tivozanib"                    
+
+$everolimus
+[1] "avelumab_plus_axitinib"        "axitinib"                     
+[3] "cabozantinib"                  "lenvatinib_plus_everolimus"   
+[5] "cabozantinib_plus_nivolumab"   "pazopanib"                    
+[7] "lenvatinib_plus_pembrolizumab" "sunitinib"                    
+[9] "tivozanib"                    
+```
+
+
+:::
+
+```{.r .cell-code}
+f_get_2L_only_after_lists(i, 1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+$cabozantinib
+[1] "avelumab_plus_axitinib"        "axitinib"                     
+[3] "lenvatinib_plus_everolimus"    "cabozantinib_plus_nivolumab"  
+[5] "pazopanib"                     "lenvatinib_plus_pembrolizumab"
+[7] "sunitinib"                     "tivozanib"                    
+```
+
+
+:::
+:::
+
+
+### Not immediately after
+
+Some treatments cannot come immediately after another treatment. For example, for population 1:
+
+* Lenvatinib plus everolimus must **not come immediately after** nivolumab plus ipilimumab
+* At 2L 3L or 4L, pazopanib and sunitinib and tivozanib must **not come immediately after** their respective listed treatments
+
+
+::: {.cell}
+
+```{.r .cell-code}
+f_get_not_immediate_after_lists(i, 1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+$lenvatinib_plus_everolimus
+[1] "nivolumab_plus_ipilimumab"
+```
+
+
+:::
+
+```{.r .cell-code}
+f_get_2L_only_immediate_after_lists(i, 1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+$pazopanib
+[1] "avelumab_plus_axitinib"        "lenvatinib_plus_pembrolizumab"
+[3] "cabozantinib_plus_nivolumab"   "nivolumab_plus_ipilimumab"    
+
+$sunitinib
+[1] "avelumab_plus_axitinib"        "lenvatinib_plus_pembrolizumab"
+[3] "cabozantinib_plus_nivolumab"   "nivolumab_plus_ipilimumab"    
+
+$tivozanib
+[1] "avelumab_plus_axitinib"        "lenvatinib_plus_pembrolizumab"
+[3] "cabozantinib_plus_nivolumab"   "nivolumab_plus_ipilimumab"    
+```
+
+
+:::
+:::
+
+
+### Only one from list
+
+Some treatments are not allowed if another has already been given at any point prior.
+
+For example, for population 1 there are five lists of treatments where **only one treatment from each list** is allowed.
+
+There are no restrictions like this for population 1 specific to just 2L 3L or 4L treatments (hence, empty list).
+
+
+::: {.cell}
+
+```{.r .cell-code}
+f_get_one_in_list_lists(i, 1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+$axitinib
+[1] "avelumab_plus_axitinib" "axitinib"              
+
+$cabozantinib
+[1] "cabozantinib"                "cabozantinib_plus_nivolumab"
+
+$everolimus
+[1] "lenvatinib_plus_everolimus" "everolimus"                
+
+$io
+[1] "avelumab_plus_axitinib"        "nivolumab_plus_ipilimumab"    
+[3] "cabozantinib_plus_nivolumab"   "nivolumab_monotherapy"        
+[5] "lenvatinib_plus_pembrolizumab"
+
+$nivolumab
+[1] "nivolumab_plus_ipilimumab"   "cabozantinib_plus_nivolumab"
+[3] "nivolumab_monotherapy"      
+
+$TKIs
+[1] "sunitinib" "pazopanib" "tivozanib"
+```
+
+
+:::
+
+```{.r .cell-code}
+f_get_2L_only_one_lists(i, 1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+named list()
+```
+
+
+:::
+:::
+
+
+### Only one allowed before
+
+In other cases, a treatment is not allowed if more than one of a particular category of treatment has been given. For example, for population 1:
+
+* Of the listed treatments, **only one is allowed before** lenvatinib plus everolimus
+
+
+::: {.cell}
+
+```{.r .cell-code}
+f_get_only_after_one_lists(i, 1)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+$lenvatinib_plus_everolimus
+[1] "avelumab_plus_axitinib"        "axitinib"                     
+[3] "cabozantinib"                  "cabozantinib_plus_nivolumab"  
+[5] "pazopanib"                     "lenvatinib_plus_pembrolizumab"
+[7] "sunitinib"                     "tivozanib"                    
+```
+
+
+:::
+:::
+
+
+:::
+
+::: {.callout-note collapse="true"}
+
+## What does `f_path_tx_restrict()` do?
+
+The function `f_path_tx_restrict()` is defined in `sequences.R` (there is also a function of the same name in `rccFunctions.R` but this is not sourced).
+
+Its purpose is to restrict the table of all possible sequences to just the valid sequences for each population, restricting it from **26404** rows with possible treatment sequences to just **744**.
+
+
+::: {.cell}
+
+```{.r .cell-code}
+dim(i$sequences)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+[1] 26404     5
+```
+
+
+:::
+:::
+
+
+The inputs to this function are lists defining valid treatments by different criteria (e.g. line of therapy, subsequent treatments), as detailed in the note above. 
+
+Within `f_path_tx_restrict()`, there are then several other functions which take these lists and use them to remove invalid sequences from the table.
+
+For example, the allowed treatments identified using `f_get_allowed_lists()` are input to `f_path_tx_restrict()` as `allowed`. The function `f_path_allowed()` then uses that list to remove invalid drugs for a given population:
+
+```
+s <- f_path_allowed(s, allowed[[1]])
+```
+
+Looking at an excerpt of the code for `f_path_allowed()`, we can see that is adds "BSC" and no treatment ("") as valid options, and then only keeps rows if their treatments are in (`%in%`) the list of valid treatments.
+
+```
+rule <- c(rule, "BSC", "")
+
+for (n in 1:ncol(perms)) {
+  perms <- perms[perms[,n] %in% rule,]
 }
 ```
 
+:::
+
+::: {.callout-note collapse="true"}
+
+## View the sequence restrictions applied
+
+
+::: {.cell}
 ::: {.cell-output .cell-output-stdout}
 
 ```
@@ -851,20 +1356,8 @@ Permutations after applying rule : 182
 
 
 :::
-
-```{.r .cell-code}
-rownames(seqs) <- NULL
-
-i$sequences <- seqs
-
-#### Uncomment this code to view the sequences and write the sequences defined to csv
-
-# i$sequences
-# write.csv(seqs, "4_Output/sequences.csv", row.names = F)
-rm(s, seqs, populations)
-
-# define number of cycles and a vector of the cycles 
-```
 :::
 
+
+:::
 
