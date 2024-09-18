@@ -218,47 +218,57 @@
     ]
   },
   {
-    "objectID": "pages/publication.html",
-    "href": "pages/publication.html",
-    "title": "List of articles and reports",
+    "objectID": "pages/report.html",
+    "href": "pages/report.html",
+    "title": "Report",
     "section": "",
-    "text": "As referred to in the description of the NICE appraisals, there are several articles and reports that have been published in relation to this model. Several of these are listed below.",
+    "text": "This page shares an example of the output report produced by this model and walks through each section.",
     "crumbs": [
-      "Context",
-      "List of articles and reports"
+      "Code walkthrough",
+      "Report"
     ]
   },
   {
-    "objectID": "pages/publication.html#web-pages",
-    "href": "pages/publication.html#web-pages",
-    "title": "List of articles and reports",
-    "section": "Web pages",
-    "text": "Web pages\nThe pathways pilot is mentioned as part of NICE’s webpage on taking a proportion approach to technology appraisals. [1] There are also then webpages available for each of the appraisals: the pathways pilot [2] and the appraisal of cabozatinib with nivolumab [3]",
+    "objectID": "pages/report.html#view-full-report",
+    "href": "pages/report.html#view-full-report",
+    "title": "Report",
+    "section": "View full report",
+    "text": "View full report\nThe model produces a .docx report, which has been converted to a PDF and displayed below.",
     "crumbs": [
-      "Context",
-      "List of articles and reports"
+      "Code walkthrough",
+      "Report"
     ]
   },
   {
-    "objectID": "pages/publication.html#reports",
-    "href": "pages/publication.html#reports",
-    "title": "List of articles and reports",
-    "section": "Reports",
-    "text": "Reports\nThe above web pages link to relevant NICE reports, and these include….\n\nFinal analysis plan for the model available as a PDF [4]\nRenal cell carcinoma pathway model report, which is “a summary of the external assessment group’s model and assumptions on renal cell carcinoma, discussed by NICE’s technology appraisal committee B”. Available as a PDF or within their website [5]\nNICE’s technology appraisal guidance on cabozatinib with nivolumab for untreated advanced renal cell carcinoma. Avaliable as a PDF or within their website [3]\n\nAnd others from the appraisal history like:\n\nAssessment report plain english summary - PDF\nAssessment report final analysis plan - this appears the same as that from the alternative link above - PDF\nAssessment report - PDF",
+    "objectID": "pages/report.html#walkthrough-of-report-sections",
+    "href": "pages/report.html#walkthrough-of-report-sections",
+    "title": "Report",
+    "section": "Walkthrough of report sections",
+    "text": "Walkthrough of report sections\nTODO: Walk through and explain each section\n\nTable 1\n\n\n\nTable 1: Base-case results (ordered in increasing costs)\n\n\n\n\nTable 2\n\n\n\nTable 2: Application of the severity modifier to the base case\n\n\n\n\nTable 3 to 5\nThese tables present the life years (LY) gained by health state. They compare two treatment strategies marked X and Y.\nTable 3 compares Cabozantinib plus nivolumab against Pazopanib for the all risk group.\nTable 4 is for the favourable risk group and also compares against Pazopanib, whilst Table 5 is for the intermediate/poor risk group and the comparator is Lenvatinib plus pembrolizumab.\n\n\n\nTable 3: Summary of LY gain by health state (all risk, cabo+nivo vs next best non- dominated comparator: Pazopanib)\n\n\n\n\nTables 6 to 8\n\n\n\nTable 6: Summary of QALY gain by health state (all risk, cabo+nivo vs next best non-dominated comparator: Pazopanib)\n\n\n\n\nTable 9\n\n\n\nTable 9: Summary of costs by health state\n\n\n\n\nTables 10 to 12\n\n\n\nTable 10 : Summary of predicted resource use by category of cost (all risk, cabo+nivo vs next best non-dominated comparator: Pazopanib)\n\n\n\n\nFigures 1 to 15\n\n\n\nFigure 1: Markov trace: All risk, Cabozantinib plus nivolumab. Abbreviations: L1, 1st line; L2, 2nd line; L3, 3rd line; L4, 4th line; L5, 5th line.\n\n\n\n\nFigures 16 to 18\n\n\n\nFigure 16: Cost-effectiveness acceptability frontier – all risk\n\n\n\n\nTables 13 to 15\n\n\n\nTable 13: Scenario analysis - all risk\n\n\n\n\nTable 16\n\n\n\nTable 16: Scenario analysis pairwise comparison table",
     "crumbs": [
-      "Context",
-      "List of articles and reports"
+      "Code walkthrough",
+      "Report"
     ]
   },
   {
-    "objectID": "pages/publication.html#publications",
-    "href": "pages/publication.html#publications",
-    "title": "List of articles and reports",
-    "section": "Publications",
-    "text": "Publications\nThere has been one related publication: the article NICE’s Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances [6], with a later correction published. [7] These are licensed under a CC-BY-NC-4.0 license, which enables us to share them below.\nArticle [6]:\n\n\nCorrection [7]:",
+    "objectID": "pages/report.html#viewing-the-report",
+    "href": "pages/report.html#viewing-the-report",
+    "title": "Report",
+    "section": "Viewing the report",
+    "text": "Viewing the report\nThe output report will be in .docx format, so this is best viewed within Microsoft Word. If viewed in LibreOffice, you may find the tables are misformatted (going outside the page margins so not visible). If viewed in Google Docs, you may find the figures are not visible/fail to correctly load.",
     "crumbs": [
-      "Context",
-      "List of articles and reports"
+      "Code walkthrough",
+      "Report"
+    ]
+  },
+  {
+    "objectID": "pages/probablistic.html",
+    "href": "pages/probablistic.html",
+    "title": "Probablistic analysis",
+    "section": "",
+    "text": "TODO: Write this page",
+    "crumbs": [
+      "Probablistic analysis"
     ]
   },
   {
@@ -573,47 +583,57 @@
     ]
   },
   {
-    "objectID": "pages/report.html",
-    "href": "pages/report.html",
-    "title": "Report",
+    "objectID": "pages/publication.html",
+    "href": "pages/publication.html",
+    "title": "List of articles and reports",
     "section": "",
-    "text": "This page shares an example of the output report produced by this model and walks through each section.",
+    "text": "As referred to in the description of the NICE appraisals, there are several articles and reports that have been published in relation to this model. Several of these are listed below.",
     "crumbs": [
-      "Code walkthrough",
-      "Report"
+      "Context",
+      "List of articles and reports"
     ]
   },
   {
-    "objectID": "pages/report.html#view-full-report",
-    "href": "pages/report.html#view-full-report",
-    "title": "Report",
-    "section": "View full report",
-    "text": "View full report\nThe model produces a .docx report, which has been converted to a PDF and displayed below.",
+    "objectID": "pages/publication.html#web-pages",
+    "href": "pages/publication.html#web-pages",
+    "title": "List of articles and reports",
+    "section": "Web pages",
+    "text": "Web pages\nThe pathways pilot is mentioned as part of NICE’s webpage on taking a proportion approach to technology appraisals. [1] There are also then webpages available for each of the appraisals: the pathways pilot [2] and the appraisal of cabozatinib with nivolumab [3]",
     "crumbs": [
-      "Code walkthrough",
-      "Report"
+      "Context",
+      "List of articles and reports"
     ]
   },
   {
-    "objectID": "pages/report.html#walkthrough-of-report-sections",
-    "href": "pages/report.html#walkthrough-of-report-sections",
-    "title": "Report",
-    "section": "Walkthrough of report sections",
-    "text": "Walkthrough of report sections\nTODO: Walk through and explain each section\n\nTable 1\n\n\n\nTable 1: Base-case results (ordered in increasing costs)\n\n\n\n\nTable 2\n\n\n\nTable 2: Application of the severity modifier to the base case\n\n\n\n\nTable 3 to 5\nThese tables present the life years (LY) gained by health state. They compare two treatment strategies marked X and Y.\nTable 3 compares Cabozantinib plus nivolumab against Pazopanib for the all risk group.\nTable 4 is for the favourable risk group and also compares against Pazopanib, whilst Table 5 is for the intermediate/poor risk group and the comparator is Lenvatinib plus pembrolizumab.\n\n\n\nTable 3: Summary of LY gain by health state (all risk, cabo+nivo vs next best non- dominated comparator: Pazopanib)\n\n\n\n\nTables 6 to 8\n\n\n\nTable 6: Summary of QALY gain by health state (all risk, cabo+nivo vs next best non-dominated comparator: Pazopanib)\n\n\n\n\nTable 9\n\n\n\nTable 9: Summary of costs by health state\n\n\n\n\nTables 10 to 12\n\n\n\nTable 10 : Summary of predicted resource use by category of cost (all risk, cabo+nivo vs next best non-dominated comparator: Pazopanib)\n\n\n\n\nFigures 1 to 15\n\n\n\nFigure 1: Markov trace: All risk, Cabozantinib plus nivolumab. Abbreviations: L1, 1st line; L2, 2nd line; L3, 3rd line; L4, 4th line; L5, 5th line.\n\n\n\n\nFigures 16 to 18\n\n\n\nFigure 16: Cost-effectiveness acceptability frontier – all risk\n\n\n\n\nTables 13 to 15\n\n\n\nTable 13: Scenario analysis - all risk\n\n\n\n\nTable 16\n\n\n\nTable 16: Scenario analysis pairwise comparison table",
+    "objectID": "pages/publication.html#reports",
+    "href": "pages/publication.html#reports",
+    "title": "List of articles and reports",
+    "section": "Reports",
+    "text": "Reports\nThe above web pages link to relevant NICE reports, and these include….\n\nFinal analysis plan for the model available as a PDF [4]\nRenal cell carcinoma pathway model report, which is “a summary of the external assessment group’s model and assumptions on renal cell carcinoma, discussed by NICE’s technology appraisal committee B”. Available as a PDF or within their website [5]\nNICE’s technology appraisal guidance on cabozatinib with nivolumab for untreated advanced renal cell carcinoma. Avaliable as a PDF or within their website [3]\n\nAnd others from the appraisal history like:\n\nAssessment report plain english summary - PDF\nAssessment report final analysis plan - this appears the same as that from the alternative link above - PDF\nAssessment report - PDF",
     "crumbs": [
-      "Code walkthrough",
-      "Report"
+      "Context",
+      "List of articles and reports"
     ]
   },
   {
-    "objectID": "pages/report.html#viewing-the-report",
-    "href": "pages/report.html#viewing-the-report",
-    "title": "Report",
-    "section": "Viewing the report",
-    "text": "Viewing the report\nThe output report will be in .docx format, so this is best viewed within Microsoft Word. If viewed in LibreOffice, you may find the tables are misformatted (going outside the page margins so not visible). If viewed in Google Docs, you may find the figures are not visible/fail to correctly load.",
+    "objectID": "pages/publication.html#publications",
+    "href": "pages/publication.html#publications",
+    "title": "List of articles and reports",
+    "section": "Publications",
+    "text": "Publications\nThere has been one related publication: the article NICE’s Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances [6], with a later correction published. [7] These are licensed under a CC-BY-NC-4.0 license, which enables us to share them below.\nArticle [6]:\n\n\nCorrection [7]:",
     "crumbs": [
-      "Code walkthrough",
-      "Report"
+      "Context",
+      "List of articles and reports"
+    ]
+  },
+  {
+    "objectID": "pages/scenarios.html",
+    "href": "pages/scenarios.html",
+    "title": "Scenario analysis",
+    "section": "",
+    "text": "TODO: Write this page\nThere is also an exploratory analysis - 4.3.5.8 “Exploratory analysis looking at the impact of prior adjuvant therapy” in the Assessment Report. @lee_treatments_2023-1",
+    "crumbs": [
+      "Scenario analysis"
     ]
   },
   {
