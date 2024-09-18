@@ -1,22 +1,6 @@
 
 This page contains some of the basic set-up steps like **loading the functions** and lots of the **model inputs**, as well as establishing the **possible treatment sequences**.
 
-::: {.callout-warning collapse="true"}
-
-## Adjustments
-
-<!--TODO: Move each of these adjustments boxes to just be fully listed in the preface, as if it pertains to one page, it may pertain to them all -->
-
-The adjustments from `Model_Structure.R` on this page are:
-
-* Changed the path to the folders - e.g. "./3_Functions" to "../../../3_Functions".
-  * Instead of amending this in each string, I created `path_` variables to store the path to the folder, and then imported individual files using `file.path()` to combine the folder path with the file name.
-  * These folder paths are all set-up in a code chunk `paths` after we load the required packages.
-* Set `f_excel_extract()` from `verbose = TRUE` to `verbose = FALSE`, as it otherwise repeatedly prints "Extracting named range X from ../../1_Data/ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm" where X is the name of each parameter
-* Add `knitr` so can use kable()`
-
-:::
-
 ## Load required packages
 
 
