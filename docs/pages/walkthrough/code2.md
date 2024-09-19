@@ -1091,7 +1091,7 @@ The result of the survival analysis is a large nested list.
 
 Below is an example of the result for population 2 (favourable risk) 1L treatment with avelumab plus axitinib, with an endpoint of progression-free survival.
 
-For each distribution, it has `$coefs`, `$vcov` and `$fit` - for example, for weibull
+For each distribution, it has `$coefs`, `$vcov` and `$fit` - for example, for weibull:
 
 
 ::: {.cell}
