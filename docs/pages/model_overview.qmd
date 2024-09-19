@@ -197,15 +197,6 @@ The values were sourced from prior NICE technology appraisals - TA645 for 1L and
 
 Utility values were adjusted for age and sex using Ara and Brazier et al. 2010 @ara_populating_2010 / 2011 @ara_using_2011 and the Health Survey England (HSE) 2014 dataset.
 
-::: {.callout-note appearance="minimal" collapse=true}
-## Note about values in probablistic model
-
-<!--TODO: Move this to probablistic page once created -->
-
-It was not possible to adjust utilities values in the probablistic models, as the interactions between age and sex would need to be accounted for, but 
-Ara and Brazier et al. 2011 @ara_using_2011 do not report the variance-covariance matrix that would have described how the variations correlate with each other. Varying age and sex separately could lead to spurious results or inference due to non-linear interactions between the parameters (some of which are transformed).
-:::
-
 For more information, see sections 1.25 "Health-related quality of life" and 1.26 "Source of utility values" in the Pathway Model Report @national_institute_for_health_and_care_excellence_nice_renal_2024 and sections 4.1 "Published cost-effectiveness studies" and 4.3.7 "Utility values" in the Assessment Report. @lee_treatments_2023-1
 
 ### Resource use and costs
