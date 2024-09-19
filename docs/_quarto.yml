@@ -38,6 +38,9 @@ website:
           - pages/input_data.qmd
           - pages/walkthrough/code1_setup.qmd
           - pages/walkthrough/code2_extrapolate.qmd
+          - pages/walkthrough/code3_hr.qmd
+          - pages/walkthrough/code4_prep.qmd
+          - pages/walkthrough/code5_model.qmd
           - pages/report.qmd
       - section: "Annotated reporting guidelines"
       - section: "Model validation"

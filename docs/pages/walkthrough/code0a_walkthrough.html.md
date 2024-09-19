@@ -1362,13 +1362,13 @@ SPLITMD_CODE1_END
 
 SPLITMD_CODE2_START
 
-This page performs a **partitioned survival analysis** on the patient-level data, which is **real-world evidence (RWE)** sent by the data owners for that observational study. The analysis is performed in order to **extrapolate the survival curves** so they cover the full time horizon of the economic model (40 years).
+This page performs a **partitioned survival analysis** on the patient-level data, which is **real-world evidence (RWE)**. The analysis is performed in order to **extrapolate the survival curves** so they cover the full time horizon of the economic model (40 years).
 
 ## Import patient-level data
 
-The patient-level data (or individual patient data (IPD)) is imported from `IPD_R_input_noACIC.xlsx`. This data has a row for each statement which states their population, line, treatment and trial, and then the time taken for them to experience an endpoint (e.g. overall survival) or be censored (i.e. stopped timing for some other reason). For more information, see the [Input data](../input_data.qmd) page.
+The patient-level data (or individual patient data (IPD)) is imported from `IPD_R_input_noACIC.xlsx`. This data has a row for each patient which states their population, line, treatment and trial, and then the time taken for them to experience an endpoint (e.g. overall survival) or be censored (i.e. stopped timing for some other reason). For more information, see the [Input data](../input_data.qmd) page.
 
-The data is imported using `f_excel_extract()` which produces the object `wb` which is a list with a single item: the table from the `IPD` sheet of the workbook. The code chunk converts this to a data table and filters it just the relevant columns.
+The data is imported using `f_excel_extract()` which produces the object `wb`. This is a list with a single item: the table from the `IPD` sheet of the workbook. The code chunk converts this to a data table and filters it just the relevant columns.
 
 As a survival time of 0 is not allowed, these are converted to 1 day (hence, `1/7` as the time unit of the analysis is weeks).
 
@@ -1470,6 +1470,8 @@ kable(head(i$surv$pld))
 
 ## Create look-ups to convert between numeric categories and labels
 
+This section creates "look-ups" which enable us to convert between numeric and categorical variables.
+
 
 ::: {.cell}
 
@@ -1503,10 +1505,64 @@ names(i$id$ipd$mol)      <- paste0("mol_"     , i$id$ipd$mol)
 names(i$id$ipd$trial)    <- paste0("trial_"   , i$id$ipd$trial)
 names(i$id$ipd$endpoint) <- paste0("endpoint_", i$id$ipd$endpoint)
 
-
 # to see this, we have:
 #i$id$ipd
+```
+:::
 
+
+::: {.callout-note collapse="true"}
+
+## View the `i$id$ipd` look-up
+
+The first step in creating these look-up tables was to find the unique values in each of the `i$r_pld_lookup_...` lists, which contain numeric categories.
+
+This lookup simply contains the unique numeric values from the `i$r_pld_lookup_...` lists, either just as numeric values or appended with `pop`, `line`, `mol`, `trial` or `endpoint`.
+
+
+::: {.cell}
+
+```{.r .cell-code}
+i$id$ipd
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+$pop
+pop_0 pop_1 pop_2 
+    0     1     2 
+
+$line
+line_1 line_2 line_3 line_4 line_5 
+     1      2      3      4      5 
+
+$mol
+  mol_0   mol_1   mol_2   mol_3   mol_4   mol_5   mol_6   mol_7   mol_8   mol_9 
+      0       1       2       3       4       5       6       7       8       9 
+ mol_10  mol_11  mol_12 mol_999 
+     10      11      12     999 
+
+$trial
+trial_0 trial_1 trial_2 
+      0       1       2 
+
+$endpoint
+endpoint_0 endpoint_1 endpoint_2 endpoint_3 endpoint_4 
+         0          1          2          3          4 
+```
+
+
+:::
+:::
+
+
+:::
+
+
+::: {.cell}
+
+```{.r .cell-code}
 # Generating the same structure but with the translation table from number to
 # text:
 
@@ -1522,10 +1578,148 @@ i$lookup$ipd <- list(
 
 i$lookup$ipd$line$seq_col <- paste0("V",2:(nrow(i$lookup$ipd$line)+1))
 i$lookup$ipd$line$R_id    <- paste0("line_",1:nrow(i$lookup$ipd$line))
+```
+:::
 
+
+::: {.callout-note collapse="true"}
+
+## View the `i$lookup$ipd` look-up
+
+This look-up consists of five data tables for population, treatment, molecule, trial and endpoint. Each converts between the numeric and two different categorical versions of each variable.
+
+
+::: {.cell}
+
+```{.r .cell-code}
+kable(i$lookup$ipd)
+```
+
+::: {.cell-output-display}
+
+
+<table class="kable_wrapper">
+<tbody>
+  <tr>
+   <td> 
+
+|Description              |RCC_input_desc                  | Number|
+|:------------------------|:-------------------------------|------:|
+|All                      |All risk groups                 |      0|
+|Poor / intermediate risk |Poor or intermediate risk group |      1|
+|Favourable risk          |Favourable risk group           |      2|
+
+ </td>
+   <td> 
+
+|Description          |RCC_input_desc | Number|seq_col |R_id   |
+|:--------------------|:--------------|------:|:-------|:------|
+|Previously untreated |1L             |      1|V2      |line_1 |
+|2nd line             |2L             |      2|V3      |line_2 |
+|3rd line             |3L             |      3|V4      |line_3 |
+|4th line             |4L             |      4|V5      |line_4 |
+|BSC                  |5L             |      5|V6      |line_5 |
+
+ </td>
+   <td> 
+
+|Description                   |RCC_input_desc                | Number|
+|:-----------------------------|:-----------------------------|------:|
+|Nivolumab monotherapy         |nivolumab_monotherapy         |      0|
+|Cabozantinib plus nivolumab   |cabozantinib_plus_nivolumab   |      1|
+|Nivolumab plus ipilimumab     |nivolumab_plus_ipilimumab     |      2|
+|Lenvatinib plus pembrolizumab |lenvatinib_plus_pembrolizumab |      3|
+|Avelumab plus axitinib        |avelumab_plus_axitinib        |      4|
+|Pazopanib                     |pazopanib                     |      5|
+|Tivozanib                     |tivozanib                     |      6|
+|Sunitinib                     |sunitinib                     |      7|
+|Cabozantinib                  |cabozantinib                  |      8|
+|Lenvatinib plus everolimus    |lenvatinib_plus_everolimus    |      9|
+|Everolimus                    |everolimus                    |     10|
+|Axitinib                      |axitinib                      |     11|
+|Sorafenib                     |sorafenib                     |     12|
+|Placebo / BSC                 |placebo_BSC                   |    999|
+
+ </td>
+   <td> 
+
+|Description         |RCC_input_desc | Number|
+|:-------------------|:--------------|------:|
+|CheckMate 9ER       |CheckMate_9ER  |      0|
+|CheckMate 025       |CheckMate_025  |      1|
+|Real world evidence |RWE            |      2|
+
+ </td>
+   <td> 
+
+|Description |RCC_input_desc                    | Number|
+|:-----------|:---------------------------------|------:|
+|OS          |Overall survival                  |      0|
+|PFS         |Progression free survival         |      1|
+|TTD         |Time to treatment discontinuation |      2|
+|TTP         |Time to progression               |      3|
+|PPS         |Post progression survival         |      4|
+
+ </td>
+  </tr>
+</tbody>
+</table>
+
+
+:::
+:::
+
+
+:::
+
+This pre-existing lookup is simply copied but with a new name.
+
+
+::: {.cell}
+
+```{.r .cell-code}
 i$lookup$dist <- i$r_pld_lookup_dist
+```
+:::
 
 
+::: {.callout-note collapse="true"}
+
+## View the `i$lookup$dist` look-up
+
+This look-up is for the distributions used in the survival analyses.
+
+
+::: {.cell}
+
+```{.r .cell-code}
+kable(i$lookup$dist)
+```
+
+::: {.cell-output-display}
+
+
+|Description       |RCC_input_desc | Number|
+|:-----------------|:--------------|------:|
+|Generalised gamma |gengamma       |      0|
+|Exponential       |exp            |      1|
+|Weibull           |weibull        |      2|
+|Log-normal        |lnorm          |      3|
+|Gamma             |gamma          |      4|
+|Gompertz          |gompertz       |      5|
+|Log-logistic      |llogis         |      6|
+
+
+:::
+:::
+
+
+:::
+
+
+::: {.cell}
+
+```{.r .cell-code}
 # This means that you can easily look up things like so:
 
 # i$lookup$ipd$mol[Number == 1,list(Description,RCC_input_desc)]
@@ -1544,7 +1738,50 @@ names(i$lookup$trt)[length(i$lookup$trt)] <- "BSC"
 :::
 
 
+::: {.callout-note collapse="true"}
+
+## View the `i$lookup$trt` look-up
+
+This look-up is for the treatments.
+
+
+::: {.cell}
+
+```{.r .cell-code}
+i$lookup$trt
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+        nivolumab_monotherapy   cabozantinib_plus_nivolumab 
+                            0                             1 
+    nivolumab_plus_ipilimumab lenvatinib_plus_pembrolizumab 
+                            2                             3 
+       avelumab_plus_axitinib                     pazopanib 
+                            4                             5 
+                    tivozanib                     sunitinib 
+                            6                             7 
+                 cabozantinib    lenvatinib_plus_everolimus 
+                            8                             9 
+                   everolimus                      axitinib 
+                           10                            11 
+                    sorafenib                           BSC 
+                           12                           999 
+```
+
+
+:::
+:::
+
+
+:::
+
 ## Further pre-processing before survival analysis
+
+### Copy items into `p`
+
+Copy look-ups and IDs from `i` into `p`.
 
 
 ::: {.cell}
@@ -1556,7 +1793,22 @@ p$basic$id <- i$id
 
 # one can then simply i$lookup$trt["nivolumab"] or i$lookup$trt["sorafenib"] to 
 # get the id numbers.
+```
+:::
 
+
+### Tidy sequences for each population
+
+Convert sequences into a data table, but making some amendments:
+
+* Changing population to start from 0 - so `pop_0` to `pop_3` (rather than `pop_1` to `pop_4`) (as this aligns with populations elsewhere)
+* Changing the columns to `line_1` to `line_5` (instead of `V1` to `V5`)
+* Seperating the tables for each of the four populations
+
+
+::: {.cell}
+
+```{.r .cell-code}
 # This then means that one can translate the treatment sequence data generated earlier
 # into numerical versions in one go:
 
@@ -1578,7 +1830,74 @@ i$seq_clean <- lapply(i$seq_pops, function(popu) {
   colnames(tmp) <- i$lookup$ipd$line$R_id[1:(p$basic$R_maxlines + 1)]
   tmp
 })
+```
+:::
 
+
+::: {.callout-note collapse="true"}
+
+## View `i$seq_clean`
+
+As described above, we started with `i$sequences`:
+
+
+::: {.cell}
+
+```{.r .cell-code}
+kable(head(i$sequences))
+```
+
+::: {.cell-output-display}
+
+
+|V1   |V2                          |V3        |V4           |V5         |V6  |
+|:----|:---------------------------|:---------|:------------|:----------|:---|
+|pop1 |avelumab_plus_axitinib      |pazopanib |cabozantinib |everolimus |BSC |
+|pop1 |avelumab_plus_axitinib      |sunitinib |cabozantinib |everolimus |BSC |
+|pop1 |avelumab_plus_axitinib      |tivozanib |cabozantinib |everolimus |BSC |
+|pop1 |cabozantinib_plus_nivolumab |pazopanib |axitinib     |everolimus |BSC |
+|pop1 |cabozantinib_plus_nivolumab |pazopanib |everolimus   |axitinib   |BSC |
+|pop1 |cabozantinib_plus_nivolumab |sunitinib |axitinib     |everolimus |BSC |
+
+
+:::
+:::
+
+
+Which was tidied to create `i$seq_clean` with seperate dataframes for each population. For example, population 0:
+
+
+::: {.cell}
+
+```{.r .cell-code}
+kable(head(i$seq_clean$pop_0))
+```
+
+::: {.cell-output-display}
+
+
+|line_1                      |line_2    |line_3       |line_4     |line_5 |
+|:---------------------------|:---------|:------------|:----------|:------|
+|avelumab_plus_axitinib      |pazopanib |cabozantinib |everolimus |BSC    |
+|avelumab_plus_axitinib      |sunitinib |cabozantinib |everolimus |BSC    |
+|avelumab_plus_axitinib      |tivozanib |cabozantinib |everolimus |BSC    |
+|cabozantinib_plus_nivolumab |pazopanib |axitinib     |everolimus |BSC    |
+|cabozantinib_plus_nivolumab |pazopanib |everolimus   |axitinib   |BSC    |
+|cabozantinib_plus_nivolumab |sunitinib |axitinib     |everolimus |BSC    |
+
+
+:::
+:::
+
+
+:::
+
+Numeric versions of the `i$seq_clean` tables are also created.
+
+
+::: {.cell}
+
+```{.r .cell-code}
 # It's pretty nested this but simplifies upon explanation: lapply on a data.frame
 # or data.table goes column-wise, so going across columns substitute the values
 # for the values in i$lookup$trt which have corresponding names, returning the numbers
@@ -1594,8 +1913,71 @@ i$seq_ref <- lapply(i$seq_clean, function(popu) {
     ifelse(vals == "mol_NA",NA,vals)
   }))
 })
+```
+:::
 
 
+::: {.callout-note collapse="true"}
+
+## View `i$seq_n` and `i$seq_ref`
+
+These are numeric versions of the possible treatment sequences for each population.
+
+They either represent each treatment just as a number (`i$seq_n`) or as mol_number (`i$seq_ref`).
+
+For example, for population 0:
+
+
+::: {.cell}
+
+```{.r .cell-code}
+kable(head(i$seq_n$pop_0))
+```
+
+::: {.cell-output-display}
+
+
+| line_1| line_2| line_3| line_4| line_5|
+|------:|------:|------:|------:|------:|
+|      4|      5|      8|     10|    999|
+|      4|      7|      8|     10|    999|
+|      4|      6|      8|     10|    999|
+|      1|      5|     11|     10|    999|
+|      1|      5|     10|     11|    999|
+|      1|      7|     11|     10|    999|
+
+
+:::
+
+```{.r .cell-code}
+kable(head(i$seq_ref$pop_0))
+```
+
+::: {.cell-output-display}
+
+
+|line_1 |line_2 |line_3 |line_4 |line_5  |
+|:------|:------|:------|:------|:-------|
+|mol_4  |mol_5  |mol_8  |mol_10 |mol_999 |
+|mol_4  |mol_7  |mol_8  |mol_10 |mol_999 |
+|mol_4  |mol_6  |mol_8  |mol_10 |mol_999 |
+|mol_1  |mol_5  |mol_11 |mol_10 |mol_999 |
+|mol_1  |mol_5  |mol_10 |mol_11 |mol_999 |
+|mol_1  |mol_7  |mol_11 |mol_10 |mol_999 |
+
+
+:::
+:::
+
+
+:::
+
+These are then copied into `p`.
+
+
+::: {.cell}
+
+```{.r .cell-code}
 # Now that we have the final sequence list, we can add them to p:
 
 p$seq$n   <- i$seq_n
@@ -1626,8 +2008,18 @@ p$seq$qc <- i$seq_clean
 # i.e, if Excel lookup tables are wrong, this will be wrong!!!
 # 
 # 
+```
+:::
 
 
+### Make a categorical version of the patient-level data
+
+First, the look-ups are converted into lists.
+
+
+::: {.cell}
+
+```{.r .cell-code}
 # 3.3.3 TSD14 survival analysis ------------------------------------------
 
 # Now that treatment sequences are brought in and cleaned up ready for use, we
@@ -1655,8 +2047,68 @@ names(i$surv$lab_pld$trial) <- i$lookup$ipd$trial$Description
 
 i$surv$lab_pld$endpoint <- i$lookup$ipd$endpoint$Number
 names(i$surv$lab_pld$endpoint) <- i$lookup$ipd$endpoint$Description
+```
+:::
 
 
+::: {.callout-note collapse="true"}
+
+## View `i$surv$lab_pld`
+
+The look-up tables in `i$lookup$ipd` convert between the numeric and categorical variables, and we will use these to relabel the patient-level data. However, to do this, we need to convert them into lists, where the labels are the categories and the values are the numeric versions of each categories.
+
+For example, the original population look-up table:
+
+
+::: {.cell}
+
+```{.r .cell-code}
+kable(i$lookup$ipd$pop)
+```
+
+::: {.cell-output-display}
+
+
+|Description              |RCC_input_desc                  | Number|
+|:------------------------|:-------------------------------|------:|
+|All                      |All risk groups                 |      0|
+|Poor / intermediate risk |Poor or intermediate risk group |      1|
+|Favourable risk          |Favourable risk group           |      2|
+
+
+:::
+:::
+
+
+And the new list created from that:
+
+
+::: {.cell}
+
+```{.r .cell-code}
+i$surv$lab_pld$population
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+                     All Poor / intermediate risk          Favourable risk 
+                       0                        1                        2 
+```
+
+
+:::
+:::
+
+
+:::
+
+These look-up lists are then used to convert the patient-level data from numeric to categorical versions of each variable.
+
+
+::: {.cell}
+
+```{.r .cell-code}
 # Now, put the data in a space and replace numbers with labels:
 
 i$surv$lab_pld$dat <- i$surv$pld
@@ -1670,7 +2122,78 @@ i$surv$lab_pld$dat$endpoint   <- names(i$surv$lab_pld$endpoint)[match(i$surv$lab
 
 # Note to debug it is very helpful to set verbose to TRUE below so that you can identify
 # the datasets which are problematic (e.g. not converging, 0 time values)
+```
+:::
 
+
+::: {.callout-note collapse="true"}
+
+## View `i$surv$lab_pld$dat`
+
+As mentioned, this code has converted the numeric patient-level data (`i$surv$pld`)...
+
+
+::: {.cell}
+
+```{.r .cell-code}
+kable(head(i$surv$pld))
+```
+
+::: {.cell-output-display}
+
+
+| population| line| molecule| trial| endpoint|     timew| event_censor|
+|----------:|----:|--------:|-----:|--------:|---------:|------------:|
+|          0|    1|        1|     0|        0| 205.28572|            1|
+|          0|    1|        1|     0|        0|  40.00357|            0|
+|          0|    1|        1|     0|        0| 145.42857|            0|
+|          0|    1|        1|     0|        0| 108.85714|            1|
+|          0|    1|        1|     0|        0|  86.85714|            1|
+|          0|    1|        1|     0|        0|  53.42857|            0|
+
+
+:::
+:::
+
+
+...Into categorical...
+
+
+::: {.cell}
+
+```{.r .cell-code}
+kable(head(i$surv$lab_pld$dat))
+```
+
+::: {.cell-output-display}
+
+
+|population |line                 |molecule                    |trial         |endpoint |     timew| event_censor|
+|:----------|:--------------------|:---------------------------|:-------------|:--------|---------:|------------:|
+|All        |Previously untreated |Cabozantinib plus nivolumab |CheckMate 9ER |OS       | 205.28572|            1|
+|All        |Previously untreated |Cabozantinib plus nivolumab |CheckMate 9ER |OS       |  40.00357|            0|
+|All        |Previously untreated |Cabozantinib plus nivolumab |CheckMate 9ER |OS       | 145.42857|            0|
+|All        |Previously untreated |Cabozantinib plus nivolumab |CheckMate 9ER |OS       | 108.85714|            1|
+|All        |Previously untreated |Cabozantinib plus nivolumab |CheckMate 9ER |OS       |  86.85714|            1|
+|All        |Previously untreated |Cabozantinib plus nivolumab |CheckMate 9ER |OS       |  53.42857|            0|
+
+
+:::
+:::
+
+
+:::
+
+## Count the number of patients with each treatment, line, molecule, trial and endpoint in patient-level data
+
+The first line of this code chunk counted the number of rows for each combination of population, line, molecule trial and endpoint (PLMTE - hence the name `n_by_plmte`).
+
+The remaining lines convert the numeric categories into categorical versions
+
+
+::: {.cell}
+
+```{.r .cell-code}
 i$surv$n_by_plmte <- i$surv$pld[, .N, by = list(population, line,molecule,trial,endpoint)] %>%
   arrange(population,line, molecule,trial,endpoint)
 
@@ -1687,7 +2210,53 @@ i$surv$n_by_plmte$endpoint   <- i$lookup$ipd$endpoint[match(i$surv$n_by_plmte$en
 :::
 
 
+::: {.callout-note collapse="true"}
+
+## View `i$surv$n_by_plmte`
+
+
+::: {.cell}
+
+```{.r .cell-code}
+kable(head(i$surv$n_by_plmte))
+```
+
+::: {.cell-output-display}
+
+
+|population |line                 |molecule                    |trial               |endpoint |   N|
+|:----------|:--------------------|:---------------------------|:-------------------|:--------|---:|
+|All        |Previously untreated |Nivolumab monotherapy       |Real world evidence |OS       |  86|
+|All        |Previously untreated |Nivolumab monotherapy       |Real world evidence |PFS      |  86|
+|All        |Previously untreated |Nivolumab monotherapy       |Real world evidence |TTD      |  84|
+|All        |Previously untreated |Nivolumab monotherapy       |Real world evidence |TTP      |  86|
+|All        |Previously untreated |Nivolumab monotherapy       |Real world evidence |PPS      |  16|
+|All        |Previously untreated |Cabozantinib plus nivolumab |CheckMate 9ER       |OS       | 323|
+
+
+:::
+:::
+
+
+:::
+
 ## Run model
+
+In `Model_Structure.R`, this section is not run as `i$dd_run_surv_reg` is set to "No", as set in the excel workbook.
+
+However, if run, this function would:
+
+**1. Run survival analysis**. Using `f_surv_runAllTSD14()` from `survival/` (see dropdown below). "TSD14" refers to technical support document 14 which is a methods guide from NICE for performing survival analysis, [available here](https://www.sheffield.ac.uk/nice-dsu/tsds/survival-analysis). The function;
+
+* Runs through all possible populations, lines, molecules, trials and endpoints in `id` (`i$id$ipd`, the lookup of unique values for each of those items)
+* If there is data available in `r_pld` (`i$surv$pld`, the patient level data), then it performs survival analysis using the function `flexsurv::flexsurvreg()`. This data will need to meet the threshold you set for the number of observations (default `28`).
+* It repeats this for each with each of the distributions in `distnames`
+* It saves the coefficients, variance covariance matrix, and goodness of fit statistics, and saves these as `fs_fits` (and also `gof`)
+* The survival curves are then extrapolated using the fitted models over the specified time cycle (`t_cyc` (`p$basic$t_cyc`)) using the function `f_extrapolate()`. These are saved in the matrix `st` (survival at time t, or st for short)
+* If creating plots, this is done using the function `f_extrap_plot()`
+* Finally, the function returns the results for each combination
+
+**2. Seperately, manually run survival analysis for best supportive care (BSC)**. This is done seperately as there is very little information available on BSC overall survival (OS). Hence, the best source of data is to use the pooled post-progression survival (PPS) data from 4L (fourth line) patients (since they are unlikely to receive something after that treatment). It has similar steps to `f_surv_runAllTSD14()`.
 
 
 ::: {.cell}
@@ -1829,6 +2398,8 @@ if (i$dd_run_surv_reg == "Yes") {
 
 ## Load pre-run survival analysis
 
+This section loads a provided pre-run survival analysis. It then limits the matrices with the extrapolated survival curves to the time horizon of the study (40 years).
+
 
 ::: {.cell}
 
@@ -1871,8 +2442,130 @@ i$surv$reg <-lapply(i$surv$reg, function(popu) {
     })
   })
 })
+```
+:::
 
 
+::: {.callout-note collapse="true"}
+
+## View `i$surv$reg`
+
+The result of the survival analysis is a large nested list.
+
+Below is an example of the result for population 2 (favourable risk) 1L treatment with avelumab plus axitinib, with an endpoint of progression-free survival.
+
+For each distribution, it has `$coefs`, `$vcov` and `$fit` - for example, for weibull
+
+
+::: {.cell}
+
+```{.r .cell-code}
+i$surv$reg$pop_2$line_1$mol_4$trial_2$endpoint_1$fs_fits$weibull
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+$coefs
+    shape     scale 
+0.1368876 4.9253396 
+
+$vcov
+            shape       scale
+shape  0.02973812 -0.01789284
+scale -0.01789284  0.04001588
+
+$fit
+      AIC       BIC    logLik 
+ 316.2418  320.5281 -156.1209 
+```
+
+
+:::
+:::
+
+
+The fit of each distribution is also summarised in a single table:
+
+
+::: {.cell}
+
+```{.r .cell-code}
+kable(i$surv$reg$pop_2$line_1$mol_4$trial_2$endpoint_1$gof)
+```
+
+::: {.cell-output-display}
+
+
+|         |      AIC|      BIC|    logLik|
+|:--------|--------:|--------:|---------:|
+|gengamma | 317.6759| 324.1053| -155.8380|
+|exp      | 314.8361| 316.9792| -156.4180|
+|weibull  | 316.2418| 320.5281| -156.1209|
+|lnorm    | 316.5742| 320.8604| -156.2871|
+|gamma    | 316.0581| 320.3443| -156.0290|
+|gompertz | 316.8228| 321.1090| -156.4114|
+|llogis   | 315.2343| 319.5206| -155.6172|
+
+
+:::
+:::
+
+
+And finally, the survival times for each distribution are provided:
+
+
+::: {.cell}
+
+```{.r .cell-code}
+kable(head(i$surv$reg$pop_2$line_1$mol_4$trial_2$endpoint_1$st))
+```
+
+::: {.cell-output-display}
+
+
+|  gengamma|       exp|   weibull|     lnorm|     gamma|  gompertz|    llogis|
+|---------:|---------:|---------:|---------:|---------:|---------:|---------:|
+| 1.0000000| 1.0000000| 1.0000000| 1.0000000| 1.0000000| 1.0000000| 1.0000000|
+| 0.9985777| 0.9933915| 0.9964812| 0.9996291| 0.9972167| 0.9935903| 0.9980669|
+| 0.9958140| 0.9868266| 0.9922259| 0.9979763| 0.9935048| 0.9872169| 0.9950622|
+| 0.9922663| 0.9803051| 0.9876526| 0.9950948| 0.9893592| 0.9808795| 0.9914695|
+| 0.9881616| 0.9738267| 0.9828687| 0.9912317| 0.9849185| 0.9745780| 0.9874457|
+| 0.9836342| 0.9673911| 0.9779288| 0.9866047| 0.9802557| 0.9683123| 0.9830798|
+
+
+:::
+:::
+
+
+If `draw_plots` was set to TRUE for `f_surv_runAllTSD14()` when this dataset was produced, then there is also a plot available - but in this case, it was not.
+
+
+::: {.cell}
+
+```{.r .cell-code}
+i$surv$reg$pop_2$line_1$mol_4$trial_2$endpoint_1$plot
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+NULL
+```
+
+
+:::
+:::
+
+
+:::
+
+There are also some comments afterwards would provide some further details around the survival analysis.
+
+
+::: {.cell}
+
+```{.r .cell-code}
 # !!!!!!
 # !!!!!!
 # !!!!!!
@@ -1926,6 +2619,15 @@ i$surv$reg <-lapply(i$surv$reg, function(popu) {
 
 ## Make survival analysis report
 
+If `i$dd_report_req_surv_reg=="Yes"` then a report is create - by default, this was set to "No".
+
+This code will only work if you have run `f_surv_runAllTSD14()` with `draw_plots` set to TRUE. As the provided pre-run survival analysis does not include plots, this section will not run, and encounters an error if tried:
+
+```
+Error in optim(method = "BFGS", par = c(mu = 5.82584217367559, sigma = -0.208272130470619,  : 
+  non-finite finite-difference value [1]
+```
+
 
 ::: {.cell}
 
@@ -1966,3 +2668,43 @@ if (i$dd_report_req_surv_reg=="Yes") {
 
 
 SPLITMD_CODE2_END
+
+SPLITMD_CODE3_START
+
+On this page, the hazard ratios (HR) from some pre-run network meta-analyses are applied to the extrapolated RWE survival curves generated on the previous page.
+
+
+::: {.cell}
+
+```{.r .cell-code}
+# 3.3.5 Comparative efficacy propagation (NMA) ---------------------------------------------------------------
+
+# Pull in the data and calculate means by pop line mol endpoint reftrt and reftrial
+
+# First read in RDS file containing the PH NMA coda samples
+
+
+# 3.3.5.1.1 PH NMA data -----------------------------------------------------
+
+# Option to read in PH NMA CODA from local machine, uncomment this and comment out the line below to use
+RDS_path2 <- file.path(d_path, "PH_NMA_CODA.rds")
+if (file.exists(RDS_path2)) {
+  i$PHNMA <- readRDS(RDS_path2)
+} else {
+  i$PHNMA <- readRDS(rstudioapi::selectFile(
+    caption = "Please select 'PH_NMA_CODA.rds'",
+    label = "PH_NMA_CODA.rds",
+    path = "./1_Data/",
+    filter = "R Files (*.rds)",
+    existing = TRUE
+  ))
+}
+
+
+colnames(i$PHNMA$data) <- c("Run", "Population", "Line", "Molecule", "Endpoint", "Reference.treatment", "Reference.trial", "HR")
+i$PHNMA$data$Reference.endpoint <- i$PHNMA$data$Endpoint
+```
+:::
+
+
+SPLITMD_CODE3_END
