@@ -380,7 +380,38 @@ window.Quarto = {
   <li><a href="#run-model" id="toc-run-model" class="nav-link" data-scroll-target="#run-model">Run model</a></li>
   <li><a href="#load-pre-run-survival-analysis" id="toc-load-pre-run-survival-analysis" class="nav-link" data-scroll-target="#load-pre-run-survival-analysis">Load pre-run survival analysis</a></li>
   <li><a href="#make-survival-analysis-report" id="toc-make-survival-analysis-report" class="nav-link" data-scroll-target="#make-survival-analysis-report">Make survival analysis report</a></li>
-  <li><a href="#import-results-of-proportional-hazards-nma-ph-nma" id="toc-import-results-of-proportional-hazards-nma-ph-nma" class="nav-link" data-scroll-target="#import-results-of-proportional-hazards-nma-ph-nma">Import results of proportional hazards NMA (PH NMA)</a></li>
+  <li><a href="#import-and-process-results-of-proportional-hazards-nma-ph-nma" id="toc-import-and-process-results-of-proportional-hazards-nma-ph-nma" class="nav-link" data-scroll-target="#import-and-process-results-of-proportional-hazards-nma-ph-nma">Import and process results of proportional hazards NMA (PH NMA)</a>
+  <ul class="collapse">
+  <li><a href="#import-results" id="toc-import-results" class="nav-link" data-scroll-target="#import-results">Import results</a></li>
+  <li><a href="#set-3l-to-2l-and-ttd-and-ttp-to-pfs" id="toc-set-3l-to-2l-and-ttd-and-ttp-to-pfs" class="nav-link" data-scroll-target="#set-3l-to-2l-and-ttd-and-ttp-to-pfs">Set 3L to 2L, and TTD and TTP to PFS</a></li>
+  <li><a href="#find-mean-hrs" id="toc-find-mean-hrs" class="nav-link" data-scroll-target="#find-mean-hrs">Find mean HRs</a></li>
+  </ul></li>
+  <li><a href="#import-and-process-results-of-fractional-polynomial-nma-fp-nma" id="toc-import-and-process-results-of-fractional-polynomial-nma-fp-nma" class="nav-link" data-scroll-target="#import-and-process-results-of-fractional-polynomial-nma-fp-nma">Import and process results of fractional polynomial NMA (FP NMA)</a>
+  <ul class="collapse">
+  <li><a href="#import-results-1" id="toc-import-results-1" class="nav-link" data-scroll-target="#import-results-1">Import results</a></li>
+  <li><a href="#set-cabozantinib-as-reference" id="toc-set-cabozantinib-as-reference" class="nav-link" data-scroll-target="#set-cabozantinib-as-reference">Set cabozantinib as reference</a></li>
+  <li><a href="#set-3l-to-2l" id="toc-set-3l-to-2l" class="nav-link" data-scroll-target="#set-3l-to-2l">Set 3L to 2L</a></li>
+  <li><a href="#find-unique-combinations" id="toc-find-unique-combinations" class="nav-link" data-scroll-target="#find-unique-combinations">Find unique combinations</a></li>
+  <li><a href="#duplicate-results-with-rwe-as-reference-trial" id="toc-duplicate-results-with-rwe-as-reference-trial" class="nav-link" data-scroll-target="#duplicate-results-with-rwe-as-reference-trial">Duplicate results with RWE as reference trial</a></li>
+  <li><a href="#copy-into-p" id="toc-copy-into-p" class="nav-link" data-scroll-target="#copy-into-p">Copy into p</a></li>
+  </ul></li>
+  <li><a href="#create-nested-list-with-ph-nma-and-fp-nma-results" id="toc-create-nested-list-with-ph-nma-and-fp-nma-results" class="nav-link" data-scroll-target="#create-nested-list-with-ph-nma-and-fp-nma-results">Create nested list with PH NMA and FP NMA results</a>
+  <ul class="collapse">
+  <li><a href="#set-up-empty-list" id="toc-set-up-empty-list" class="nav-link" data-scroll-target="#set-up-empty-list">Set-up empty list</a></li>
+  <li><a href="#create-numeric-trial-column-in-ir_table_eff_data_settings" id="toc-create-numeric-trial-column-in-ir_table_eff_data_settings" class="nav-link" data-scroll-target="#create-numeric-trial-column-in-ir_table_eff_data_settings">Create numeric trial column in <code>i$R_table_eff_data_settings</code></a></li>
+  <li><a href="#add-nma-hrs" id="toc-add-nma-hrs" class="nav-link" data-scroll-target="#add-nma-hrs">Add NMA HRs</a></li>
+  </ul></li>
+  <li><a href="#add-more-assumption-based-hrs" id="toc-add-more-assumption-based-hrs" class="nav-link" data-scroll-target="#add-more-assumption-based-hrs">Add more “assumption-based” HRs</a></li>
+  <li><a href="#apply-hrs-to-the-extrapolated-rwe-survival-times" id="toc-apply-hrs-to-the-extrapolated-rwe-survival-times" class="nav-link" data-scroll-target="#apply-hrs-to-the-extrapolated-rwe-survival-times">Apply HRs to the extrapolated RWE survival times</a></li>
+  <li><a href="#apply-modifications-to-the-survival-times" id="toc-apply-modifications-to-the-survival-times" class="nav-link" data-scroll-target="#apply-modifications-to-the-survival-times">Apply modifications to the survival times</a>
+  <ul class="collapse">
+  <li><a href="#prior-adjuvant-treatments" id="toc-prior-adjuvant-treatments" class="nav-link" data-scroll-target="#prior-adjuvant-treatments">Prior adjuvant treatments</a></li>
+  <li><a href="#effect-waning" id="toc-effect-waning" class="nav-link" data-scroll-target="#effect-waning">Effect waning</a></li>
+  <li><a href="#general-population-mortality" id="toc-general-population-mortality" class="nav-link" data-scroll-target="#general-population-mortality">General population mortality</a></li>
+  <li><a href="#curve-overlap" id="toc-curve-overlap" class="nav-link" data-scroll-target="#curve-overlap">Curve overlap</a></li>
+  <li><a href="#set-5l-to-4l" id="toc-set-5l-to-4l" class="nav-link" data-scroll-target="#set-5l-to-4l">Set 5L to 4L</a></li>
+  </ul></li>
+  <li><a href="#view-the-generated-curves" id="toc-view-the-generated-curves" class="nav-link" data-scroll-target="#view-the-generated-curves">View the generated curves</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/walkthrough/code0a_walkthrough.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -3513,8 +3544,11 @@ $fit
 <p>SPLITMD_CODE3_START</p>
 <p>On this page, the hazard ratios (HR) from some pre-run network meta-analyses (NMA) are applied to the extrapolated RWE survival curves generated on the previous page.</p>
 </section>
-<section id="import-results-of-proportional-hazards-nma-ph-nma" class="level2">
-<h2 class="anchored" data-anchor-id="import-results-of-proportional-hazards-nma-ph-nma">Import results of proportional hazards NMA (PH NMA)</h2>
+<section id="import-and-process-results-of-proportional-hazards-nma-ph-nma" class="level2">
+<h2 class="anchored" data-anchor-id="import-and-process-results-of-proportional-hazards-nma-ph-nma">Import and process results of proportional hazards NMA (PH NMA)</h2>
+<section id="import-results" class="level3">
+<h3 class="anchored" data-anchor-id="import-results">Import results</h3>
+<p>Import results from the PH NMA, as described in <a href="../../pages/input_data.html">Input data</a>. The code chunk sets new column names for the result table, and creates a duplicate of the <code>Endpoint</code> column called <code>Reference.endpoint</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.3.5 Comparative efficacy propagation (NMA) ---------------------------------------------------------------</span></span>
 <span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -3543,7 +3577,1680 @@ $fit
 <span id="cb92-25"><a href="#cb92-25" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(i<span class="sc">$</span>PHNMA<span class="sc">$</span>data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Run"</span>, <span class="st">"Population"</span>, <span class="st">"Line"</span>, <span class="st">"Molecule"</span>, <span class="st">"Endpoint"</span>, <span class="st">"Reference.treatment"</span>, <span class="st">"Reference.trial"</span>, <span class="st">"HR"</span>)</span>
 <span id="cb92-26"><a href="#cb92-26" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>PHNMA<span class="sc">$</span>data<span class="sc">$</span>Reference.endpoint <span class="ot">&lt;-</span> i<span class="sc">$</span>PHNMA<span class="sc">$</span>data<span class="sc">$</span>Endpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View <code>i$PHNMA$data</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i<span class="sc">$</span>PHNMA<span class="sc">$</span>data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 10%">
+<col style="width: 4%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 19%">
+<col style="width: 15%">
+<col style="width: 9%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Run</th>
+<th style="text-align: right;">Population</th>
+<th style="text-align: right;">Line</th>
+<th style="text-align: right;">Molecule</th>
+<th style="text-align: right;">Endpoint</th>
+<th style="text-align: right;">Reference.treatment</th>
+<th style="text-align: right;">Reference.trial</th>
+<th style="text-align: right;">HR</th>
+<th style="text-align: right;">Reference.endpoint</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.8958580</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.7821468</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.4324613</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.7571763</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.9492596</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.8561836</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="set-3l-to-2l-and-ttd-and-ttp-to-pfs" class="level3">
+<h3 class="anchored" data-anchor-id="set-3l-to-2l-and-ttd-and-ttp-to-pfs">Set 3L to 2L, and TTD and TTP to PFS</h3>
+<p>This sections implements some assumptions where we the relative effectiveness of one group/endpoint is assumed to apply to another.</p>
+<p><strong>2L and 3L</strong>: The effectiveness of 3L treatments is assumed to be equal to their effectiveness at 2L, so it simply copies the data the effectiveness data from 2L (<code>i$PHNMA$data[Line==2,]</code>) but replaces the <code>Line</code> with <code>3</code> and appends it to the main data table (<code>i$PHNMA$data</code>).</p>
+<p><strong>PFS, TTD and TTP</strong>: The time to treatment discontinuation (TTD) and time to progression (TTP) HRs are assumed to be equal to the HR for progression-free survival (PFS). If we refer to the endpoint look-up table, we can see that PFS is endpoint 1, then TTD is 2 and TTP is 3. Hence, in the code below, the PFS results (<code>i$PHNMA$data[Endpoint==1,]</code>) are simply copied, but with the endpoint replaced with 2 or 3, before appending it back to the main data table.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View endpoint lookup table
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>endpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANT: 3L relative effectiveness is assumed the same as 2L!!!!</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANT: 3L relative effectiveness is assumed the same as 2L!!!!</span></span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANT: 3L relative effectiveness is assumed the same as 2L!!!!</span></span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>PHNMA<span class="sc">$</span>assume3L      <span class="ot">&lt;-</span> i<span class="sc">$</span>PHNMA<span class="sc">$</span>data[Line<span class="sc">==</span><span class="dv">2</span>,]</span>
+<span id="cb95-6"><a href="#cb95-6" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>PHNMA<span class="sc">$</span>assume3L<span class="sc">$</span>Line <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb95-7"><a href="#cb95-7" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>PHNMA<span class="sc">$</span>data         <span class="ot">&lt;-</span> <span class="fu">rbind</span>(i<span class="sc">$</span>PHNMA<span class="sc">$</span>data,i<span class="sc">$</span>PHNMA<span class="sc">$</span>assume3L)</span>
+<span id="cb95-8"><a href="#cb95-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-9"><a href="#cb95-9" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>PHNMA<span class="sc">$</span>assumeTTD <span class="ot">&lt;-</span> i<span class="sc">$</span>PHNMA<span class="sc">$</span>data[Endpoint<span class="sc">==</span><span class="dv">1</span>,]</span>
+<span id="cb95-10"><a href="#cb95-10" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>PHNMA<span class="sc">$</span>assumeTTD<span class="sc">$</span>Endpoint <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb95-11"><a href="#cb95-11" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>PHNMA<span class="sc">$</span>data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(i<span class="sc">$</span>PHNMA<span class="sc">$</span>data,i<span class="sc">$</span>PHNMA<span class="sc">$</span>assumeTTD)</span>
+<span id="cb95-12"><a href="#cb95-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-13"><a href="#cb95-13" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>PHNMA<span class="sc">$</span>assumeTTP <span class="ot">&lt;-</span> i<span class="sc">$</span>PHNMA<span class="sc">$</span>data[Endpoint<span class="sc">==</span><span class="dv">1</span>,]</span>
+<span id="cb95-14"><a href="#cb95-14" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>PHNMA<span class="sc">$</span>assumeTTP<span class="sc">$</span>Endpoint <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb95-15"><a href="#cb95-15" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>PHNMA<span class="sc">$</span>data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(i<span class="sc">$</span>PHNMA<span class="sc">$</span>data,i<span class="sc">$</span>PHNMA<span class="sc">$</span>assumeTTP)</span>
+<span id="cb95-16"><a href="#cb95-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-17"><a href="#cb95-17" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANT: 3L relative effectiveness is assumed the same as 2L!!!!</span></span>
+<span id="cb95-18"><a href="#cb95-18" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANT: 3L relative effectiveness is assumed the same as 2L!!!!</span></span>
+<span id="cb95-19"><a href="#cb95-19" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANT: 3L relative effectiveness is assumed the same as 2L!!!!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View <code>i$PHNMA$data</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>To view are implemented assumptions we can, for example, look at the results from 2L and 3L, and see that they are the same:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i<span class="sc">$</span>PHNMA<span class="sc">$</span>data[i<span class="sc">$</span>PHNMA<span class="sc">$</span>data<span class="sc">$</span>Line<span class="sc">==</span><span class="dv">2</span>,]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 10%">
+<col style="width: 4%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 19%">
+<col style="width: 15%">
+<col style="width: 9%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Run</th>
+<th style="text-align: right;">Population</th>
+<th style="text-align: right;">Line</th>
+<th style="text-align: right;">Molecule</th>
+<th style="text-align: right;">Endpoint</th>
+<th style="text-align: right;">Reference.treatment</th>
+<th style="text-align: right;">Reference.trial</th>
+<th style="text-align: right;">HR</th>
+<th style="text-align: right;">Reference.endpoint</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.8940210</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.6664276</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.8515765</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.6339945</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">999</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.4503489</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.9477019</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i<span class="sc">$</span>PHNMA<span class="sc">$</span>data[i<span class="sc">$</span>PHNMA<span class="sc">$</span>data<span class="sc">$</span>Line<span class="sc">==</span><span class="dv">3</span>,]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 10%">
+<col style="width: 4%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 19%">
+<col style="width: 15%">
+<col style="width: 9%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Run</th>
+<th style="text-align: right;">Population</th>
+<th style="text-align: right;">Line</th>
+<th style="text-align: right;">Molecule</th>
+<th style="text-align: right;">Endpoint</th>
+<th style="text-align: right;">Reference.treatment</th>
+<th style="text-align: right;">Reference.trial</th>
+<th style="text-align: right;">HR</th>
+<th style="text-align: right;">Reference.endpoint</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.8940210</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.6664276</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.8515765</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.6339945</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">999</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.4503489</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.9477019</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="find-mean-hrs" class="level3">
+<h3 class="anchored" data-anchor-id="find-mean-hrs">Find mean HRs</h3>
+<p>The mean HR by population, line, molecule, endpoint, reference treatment and reference trial are calculated.</p>
+<p>These are then add to <code>p</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean from the CODA samples for deterministic analysis</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>PHNMA<span class="sc">$</span>means <span class="ot">&lt;-</span> i<span class="sc">$</span>PHNMA<span class="sc">$</span>data[,.(<span class="at">HR =</span> <span class="fu">mean</span>(HR)),by<span class="ot">=</span><span class="fu">list</span>(Population,Line,Molecule,Endpoint,Reference.treatment,Reference.trial)]</span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.3.5.1.2 DETERMINISTIC CODA --------------------------------------------</span></span>
+<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a><span class="co"># for the deterministic analysis we use the means. </span></span>
+<span id="cb98-9"><a href="#cb98-9" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>releff<span class="sc">$</span>CODA<span class="sc">$</span>PH <span class="ot">&lt;-</span> i<span class="sc">$</span>PHNMA<span class="sc">$</span>means</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View <code>i$PHNMA$means</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i<span class="sc">$</span>PHNMA<span class="sc">$</span>means))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 6%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 25%">
+<col style="width: 20%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Population</th>
+<th style="text-align: right;">Line</th>
+<th style="text-align: right;">Molecule</th>
+<th style="text-align: right;">Endpoint</th>
+<th style="text-align: right;">Reference.treatment</th>
+<th style="text-align: right;">Reference.trial</th>
+<th style="text-align: right;">HR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.7935352</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.7033510</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.8178626</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.7226217</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.9224925</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.7946571</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="import-and-process-results-of-fractional-polynomial-nma-fp-nma" class="level2">
+<h2 class="anchored" data-anchor-id="import-and-process-results-of-fractional-polynomial-nma-fp-nma">Import and process results of fractional polynomial NMA (FP NMA)</h2>
+<section id="import-results-1" class="level3">
+<h3 class="anchored" data-anchor-id="import-results-1">Import results</h3>
+<p>Import results from the FP NMA, as described in <a href="../../pages/input_data.html">Input data</a>. The code chunk sets new column names for the result table, and converts the time from weeks to month (<code>*52</code> as 52 weeks per year, then <code>/12</code> to get months).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.3.5.2.1 FP NMA data -----------------------------------------------------</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load in FP NMA data</span></span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>FPNMA <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a><span class="co">#read in means for deterministic and PSA parameters for probabilistic</span></span>
+<span id="cb100-7"><a href="#cb100-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-8"><a href="#cb100-8" aria-hidden="true" tabindex="-1"></a><span class="co"># option to read in from local machine, uncomment the below and comment out line 949 to use</span></span>
+<span id="cb100-9"><a href="#cb100-9" aria-hidden="true" tabindex="-1"></a>RDS_path3 <span class="ot">&lt;-</span> <span class="fu">file.path</span>(d_path, <span class="st">"FPNMA_means.rds"</span>)</span>
+<span id="cb100-10"><a href="#cb100-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">file.exists</span>(RDS_path3)) {</span>
+<span id="cb100-11"><a href="#cb100-11" aria-hidden="true" tabindex="-1"></a>  i<span class="sc">$</span>FPNMA<span class="sc">$</span>means  <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(RDS_path3)</span>
+<span id="cb100-12"><a href="#cb100-12" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb100-13"><a href="#cb100-13" aria-hidden="true" tabindex="-1"></a>  i<span class="sc">$</span>FPNMA<span class="sc">$</span>means <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(rstudioapi<span class="sc">::</span><span class="fu">selectFile</span>(</span>
+<span id="cb100-14"><a href="#cb100-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Load in FP NMA CODA (FPNMA_means.rds)"</span>,</span>
+<span id="cb100-15"><a href="#cb100-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"FPNMA_means.rds"</span>,</span>
+<span id="cb100-16"><a href="#cb100-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">path =</span> <span class="st">"./1_Data/"</span>,</span>
+<span id="cb100-17"><a href="#cb100-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">filter =</span> <span class="st">"R Files (*.rds)"</span>,</span>
+<span id="cb100-18"><a href="#cb100-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">existing =</span> <span class="cn">TRUE</span></span>
+<span id="cb100-19"><a href="#cb100-19" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb100-20"><a href="#cb100-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb100-21"><a href="#cb100-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-22"><a href="#cb100-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-23"><a href="#cb100-23" aria-hidden="true" tabindex="-1"></a><span class="co">#tidy means column names and timing</span></span>
+<span id="cb100-24"><a href="#cb100-24" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(i<span class="sc">$</span>FPNMA<span class="sc">$</span>means)[<span class="fu">colnames</span>(i<span class="sc">$</span>FPNMA<span class="sc">$</span>means) <span class="sc">==</span> <span class="st">"intervention_code"</span>] <span class="ot">&lt;-</span> <span class="st">"Molecule"</span></span>
+<span id="cb100-25"><a href="#cb100-25" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(i<span class="sc">$</span>FPNMA<span class="sc">$</span>means)[<span class="fu">colnames</span>(i<span class="sc">$</span>FPNMA<span class="sc">$</span>means) <span class="sc">==</span> <span class="st">"reference_treatment_code"</span>] <span class="ot">&lt;-</span> <span class="st">"Reference.treatment"</span></span>
+<span id="cb100-26"><a href="#cb100-26" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(i<span class="sc">$</span>FPNMA<span class="sc">$</span>means)[<span class="fu">colnames</span>(i<span class="sc">$</span>FPNMA<span class="sc">$</span>means) <span class="sc">==</span> <span class="st">"ref_trial_code"</span>] <span class="ot">&lt;-</span> <span class="st">"Reference.trial"</span></span>
+<span id="cb100-27"><a href="#cb100-27" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(i<span class="sc">$</span>FPNMA<span class="sc">$</span>means)[<span class="fu">colnames</span>(i<span class="sc">$</span>FPNMA<span class="sc">$</span>means) <span class="sc">==</span> <span class="st">"population"</span>] <span class="ot">&lt;-</span> <span class="st">"Population"</span></span>
+<span id="cb100-28"><a href="#cb100-28" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(i<span class="sc">$</span>FPNMA<span class="sc">$</span>means)[<span class="fu">colnames</span>(i<span class="sc">$</span>FPNMA<span class="sc">$</span>means) <span class="sc">==</span> <span class="st">"line"</span>] <span class="ot">&lt;-</span> <span class="st">"Line"</span></span>
+<span id="cb100-29"><a href="#cb100-29" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(i<span class="sc">$</span>FPNMA<span class="sc">$</span>means)[<span class="fu">colnames</span>(i<span class="sc">$</span>FPNMA<span class="sc">$</span>means) <span class="sc">==</span> <span class="st">"endpoint"</span>] <span class="ot">&lt;-</span> <span class="st">"Endpoint"</span></span>
+<span id="cb100-30"><a href="#cb100-30" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(i<span class="sc">$</span>FPNMA<span class="sc">$</span>means)[<span class="fu">colnames</span>(i<span class="sc">$</span>FPNMA<span class="sc">$</span>means) <span class="sc">==</span> <span class="st">"V1"</span>] <span class="ot">&lt;-</span> <span class="st">"HR"</span></span>
+<span id="cb100-31"><a href="#cb100-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-32"><a href="#cb100-32" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>FPNMA<span class="sc">$</span>means<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">round</span>(i<span class="sc">$</span>FPNMA<span class="sc">$</span>means<span class="sc">$</span>time <span class="sc">*</span> <span class="dv">52</span> <span class="sc">/</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View <code>i$FPNMA$means</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i<span class="sc">$</span>FPNMA<span class="sc">$</span>means))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 10%">
+<col style="width: 23%">
+<col style="width: 5%">
+<col style="width: 10%">
+<col style="width: 12%">
+<col style="width: 18%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">time</th>
+<th style="text-align: right;">Molecule</th>
+<th style="text-align: right;">Reference.treatment</th>
+<th style="text-align: right;">Line</th>
+<th style="text-align: right;">Endpoint</th>
+<th style="text-align: right;">Population</th>
+<th style="text-align: right;">Reference.trial</th>
+<th style="text-align: right;">HR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6.0866273</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.7948374</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.6307802</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.6127038</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.6141338</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.6184885</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="set-cabozantinib-as-reference" class="level3">
+<h3 class="anchored" data-anchor-id="set-cabozantinib-as-reference">Set cabozantinib as reference</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co"># means</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Rebasing to allow use of cabo as reference treatment in 2nd line</span></span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a><span class="co"># repeats for means (stored in i which are later transferred to p) </span></span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>FPNMA<span class="sc">$</span>means <span class="ot">&lt;-</span> <span class="fu">f_rebase_for_cabo_as_ref_in_2L</span>(<span class="at">FPNMAdata =</span> i<span class="sc">$</span>FPNMA<span class="sc">$</span>means)</span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove the now redundant objects we made in order to do this</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="set-3l-to-2l" class="level3">
+<h3 class="anchored" data-anchor-id="set-3l-to-2l">Set 3L to 2L</h3>
+<p>As implemented for PH NMA, the HRs for 3L are assumed to be the same as at 2L, and this is implemented here using <code>f_3L_rel_effect_same_as_2L()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANT: 3L relative effectiveness is assumed the same as 2L!!!!</span></span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANT: 3L relative effectiveness is assumed the same as 2L!!!!</span></span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANT: 3L relative effectiveness is assumed the same as 2L!!!!</span></span>
+<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>FPNMA<span class="sc">$</span>means <span class="ot">&lt;-</span> <span class="fu">f_3L_rel_effect_same_as_2L</span>(<span class="at">FPNMAdata =</span> i<span class="sc">$</span>FPNMA<span class="sc">$</span>means) </span>
+<span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-6"><a href="#cb103-6" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANT: 3L relative effectiveness is assumed the same as 2L!!!!</span></span>
+<span id="cb103-7"><a href="#cb103-7" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANT: 3L relative effectiveness is assumed the same as 2L!!!!</span></span>
+<span id="cb103-8"><a href="#cb103-8" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANT: 3L relative effectiveness is assumed the same as 2L!!!!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="find-unique-combinations" class="level3">
+<h3 class="anchored" data-anchor-id="find-unique-combinations">Find unique combinations</h3>
+<p><code>f_gen_destinations()</code> finds unique combinations of population, line, molecule, endpoint, reference treatment and reference trial. A duplicate version of these results is made where the referebce.trial is set to 2 (real-world evidence (RWE)). These are combined and saved as <code>i$FPNMA$destinations</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create 1 row for each destination PLMTE, so that we know where to put the</span></span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="co"># fp data without having to iterate much</span></span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>FPNMA<span class="sc">$</span>destinations <span class="ot">&lt;-</span> <span class="fu">f_gen_destinations</span>(<span class="at">fp_data =</span> i<span class="sc">$</span>FPNMA<span class="sc">$</span>means)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View <code>i$FPNMA$destinations</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-25" class="callout-25-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i<span class="sc">$</span>FPNMA<span class="sc">$</span>destinations))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 7%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 28%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Population</th>
+<th style="text-align: right;">Line</th>
+<th style="text-align: right;">Molecule</th>
+<th style="text-align: right;">Endpoint</th>
+<th style="text-align: right;">Reference.treatment</th>
+<th style="text-align: right;">Reference.trial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="duplicate-results-with-rwe-as-reference-trial" class="level3">
+<h3 class="anchored" data-anchor-id="duplicate-results-with-rwe-as-reference-trial">Duplicate results with RWE as reference trial</h3>
+<p><code>f_add_reference_trial_2()</code> creates a duplicate version of <code>i$FPNMA$means</code> where the trial is set to 2 (real-world evidence).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add in reference.trial 2</span></span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>FPNMA<span class="sc">$</span>means <span class="ot">&lt;-</span> <span class="fu">f_add_reference_trial_2</span>(<span class="at">fp_data =</span> i<span class="sc">$</span>FPNMA<span class="sc">$</span>means)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="copy-into-p" class="level3">
+<h3 class="anchored" data-anchor-id="copy-into-p">Copy into p</h3>
+<p>Copy items into <code>p</code>, removing molecules with “NA” and limiting time horizon.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.3.5.2.2 DETERMINISTIC CODA --------------------------------------------</span></span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>releff<span class="sc">$</span>CODA<span class="sc">$</span>FP <span class="ot">&lt;-</span> i<span class="sc">$</span>FPNMA<span class="sc">$</span>means</span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>releff<span class="sc">$</span>fp_dest <span class="ot">&lt;-</span> i<span class="sc">$</span>FPNMA<span class="sc">$</span>destinations[<span class="sc">!</span><span class="fu">is.na</span>(Molecule), ]</span>
+<span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-6"><a href="#cb107-6" aria-hidden="true" tabindex="-1"></a><span class="co"># limit to time horizon</span></span>
+<span id="cb107-7"><a href="#cb107-7" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>releff<span class="sc">$</span>CODA<span class="sc">$</span>FP <span class="ot">&lt;-</span> p<span class="sc">$</span>releff<span class="sc">$</span>CODA<span class="sc">$</span>FP[time <span class="sc">&lt;=</span> p<span class="sc">$</span>basic<span class="sc">$</span>th, ]</span>
+<span id="cb107-8"><a href="#cb107-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-9"><a href="#cb107-9" aria-hidden="true" tabindex="-1"></a><span class="co">#eliminate NAs in molecule</span></span>
+<span id="cb107-10"><a href="#cb107-10" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>releff<span class="sc">$</span>fp_dest <span class="ot">&lt;-</span> i<span class="sc">$</span>FPNMA<span class="sc">$</span>destinations[<span class="sc">!</span><span class="fu">is.na</span>(Molecule), ]</span>
+<span id="cb107-11"><a href="#cb107-11" aria-hidden="true" tabindex="-1"></a><span class="co"># A note on i vs p ---------------------------------------------------------------</span></span>
+<span id="cb107-12"><a href="#cb107-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-13"><a href="#cb107-13" aria-hidden="true" tabindex="-1"></a><span class="co"># P is for the parameters for one model scenario. the relative efficacy network is required</span></span>
+<span id="cb107-14"><a href="#cb107-14" aria-hidden="true" tabindex="-1"></a><span class="co"># in order to compute the s(t) for all the different PLMTEs we need to power the model with.</span></span>
+<span id="cb107-15"><a href="#cb107-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Therefore, the samples which are used should go into p not i.</span></span>
+<span id="cb107-16"><a href="#cb107-16" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb107-17"><a href="#cb107-17" aria-hidden="true" tabindex="-1"></a><span class="co"># However, the full CODA samples are a different matter as particularly for the</span></span>
+<span id="cb107-18"><a href="#cb107-18" aria-hidden="true" tabindex="-1"></a><span class="co"># FPNMA these are large files and there's no need to copy paste this many times.</span></span>
+<span id="cb107-19"><a href="#cb107-19" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb107-20"><a href="#cb107-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Instead when we get to the point of the releff network, THEN we can be putting </span></span>
+<span id="cb107-21"><a href="#cb107-21" aria-hidden="true" tabindex="-1"></a><span class="co"># it into p. this is because for a particular probabilistic iteration,  </span></span>
+<span id="cb107-22"><a href="#cb107-22" aria-hidden="true" tabindex="-1"></a><span class="co"># scenario and so on we can pull through the right HRs to the right place!</span></span>
+<span id="cb107-23"><a href="#cb107-23" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="create-nested-list-with-ph-nma-and-fp-nma-results" class="level2">
+<h2 class="anchored" data-anchor-id="create-nested-list-with-ph-nma-and-fp-nma-results">Create nested list with PH NMA and FP NMA results</h2>
+<section id="set-up-empty-list" class="level3">
+<h3 class="anchored" data-anchor-id="set-up-empty-list">Set-up empty list</h3>
+<p>This section uses <code>f_NMA_generateNetwork()</code> to create an empty list with the unique values for population &gt; line &gt; molecule &gt; trial &gt; endpoint (PLMTE). For each of these PLMTE, it then has:</p>
+<ul>
+<li><code>$dest</code> - which holds the numbers for the PLMTE</li>
+<li><code>$orig</code> - empty list of PLMTE plus dist and source</li>
+<li><code>$hr</code> - set to 1</li>
+<li><code>$fp</code> - empty list</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.3.5.3 Empty relative efficacy network ---------------------------------</span></span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Turn this into a list structure using the same naming convention as the rest of the model:</span></span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb108-6"><a href="#cb108-6" aria-hidden="true" tabindex="-1"></a><span class="co"># For this population, population line molecule trial and endpoint, generate a list</span></span>
+<span id="cb108-7"><a href="#cb108-7" aria-hidden="true" tabindex="-1"></a><span class="co"># of spaces containing information on the relationship between other</span></span>
+<span id="cb108-8"><a href="#cb108-8" aria-hidden="true" tabindex="-1"></a><span class="co"># population line molecule trial and endpoint pairings and this one.</span></span>
+<span id="cb108-9"><a href="#cb108-9" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb108-10"><a href="#cb108-10" aria-hidden="true" tabindex="-1"></a><span class="co"># For example, we need to be able to do the following:</span></span>
+<span id="cb108-11"><a href="#cb108-11" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb108-12"><a href="#cb108-12" aria-hidden="true" tabindex="-1"></a><span class="co"># - HR applied to other subgroup for same line mol tr endpoint</span></span>
+<span id="cb108-13"><a href="#cb108-13" aria-hidden="true" tabindex="-1"></a><span class="co"># - HR applied to same subgroup for different line same mol tr endpoint</span></span>
+<span id="cb108-14"><a href="#cb108-14" aria-hidden="true" tabindex="-1"></a><span class="co"># - HR applied to same subgroup same line different mol different tr same endpoint</span></span>
+<span id="cb108-15"><a href="#cb108-15" aria-hidden="true" tabindex="-1"></a><span class="co"># - HR applied to same subgroup same line different mol same tr same endpoint</span></span>
+<span id="cb108-16"><a href="#cb108-16" aria-hidden="true" tabindex="-1"></a><span class="co"># - HR applied to same subgroup same line different mol tr endpoint</span></span>
+<span id="cb108-17"><a href="#cb108-17" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb108-18"><a href="#cb108-18" aria-hidden="true" tabindex="-1"></a><span class="co"># The best way to cope with all this is to basically list out where</span></span>
+<span id="cb108-19"><a href="#cb108-19" aria-hidden="true" tabindex="-1"></a><span class="co"># the extrapolation is coming from USING THE SAME NAMES AS IN i$surv$reg</span></span>
+<span id="cb108-20"><a href="#cb108-20" aria-hidden="true" tabindex="-1"></a><span class="co"># but with the addition of the selected distribution</span></span>
+<span id="cb108-21"><a href="#cb108-21" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb108-22"><a href="#cb108-22" aria-hidden="true" tabindex="-1"></a><span class="co"># So, we have a list with dest for destination (i.e. this extrapolation)</span></span>
+<span id="cb108-23"><a href="#cb108-23" aria-hidden="true" tabindex="-1"></a><span class="co"># origin (where it's coming from), and hr (what to apply to it)</span></span>
+<span id="cb108-24"><a href="#cb108-24" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb108-25"><a href="#cb108-25" aria-hidden="true" tabindex="-1"></a><span class="co"># The next step (a different function) populates orig</span></span>
+<span id="cb108-26"><a href="#cb108-26" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb108-27"><a href="#cb108-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-28"><a href="#cb108-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-29"><a href="#cb108-29" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>releff<span class="sc">$</span>network <span class="ot">&lt;-</span> <span class="fu">f_NMA_generateNetwork</span>(i<span class="sc">$</span>id<span class="sc">$</span>ipd,i<span class="sc">$</span>lookup<span class="sc">$</span>ipd)</span>
+<span id="cb108-30"><a href="#cb108-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-31"><a href="#cb108-31" aria-hidden="true" tabindex="-1"></a><span class="co"># To visualize it a bit, the structure looks like tree roots. Like this:</span></span>
+<span id="cb108-32"><a href="#cb108-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 1   Root                                    </span></span>
+<span id="cb108-33"><a href="#cb108-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 2    ¦--pop_0                               </span></span>
+<span id="cb108-34"><a href="#cb108-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 3    ¦   ¦--line_1                          </span></span>
+<span id="cb108-35"><a href="#cb108-35" aria-hidden="true" tabindex="-1"></a><span class="co"># 4    ¦   ¦   ¦--mol_0                       </span></span>
+<span id="cb108-36"><a href="#cb108-36" aria-hidden="true" tabindex="-1"></a><span class="co"># 5    ¦   ¦   ¦   ¦--trial_0                 </span></span>
+<span id="cb108-37"><a href="#cb108-37" aria-hidden="true" tabindex="-1"></a><span class="co"># 6    ¦   ¦   ¦   ¦   ¦--endpoint_0          </span></span>
+<span id="cb108-38"><a href="#cb108-38" aria-hidden="true" tabindex="-1"></a><span class="co"># 7    ¦   ¦   ¦   ¦   ¦   ¦--dest            </span></span>
+<span id="cb108-39"><a href="#cb108-39" aria-hidden="true" tabindex="-1"></a><span class="co"># 8    ¦   ¦   ¦   ¦   ¦   °--orig            </span></span>
+<span id="cb108-40"><a href="#cb108-40" aria-hidden="true" tabindex="-1"></a><span class="co"># 9    ¦   ¦   ¦   ¦   ¦--endpoint_1          </span></span>
+<span id="cb108-41"><a href="#cb108-41" aria-hidden="true" tabindex="-1"></a><span class="co"># 10   ¦   ¦   ¦   ¦   ¦   ¦--dest            </span></span>
+<span id="cb108-42"><a href="#cb108-42" aria-hidden="true" tabindex="-1"></a><span class="co"># 11   ¦   ¦   ¦   ¦   ¦   °--orig            </span></span>
+<span id="cb108-43"><a href="#cb108-43" aria-hidden="true" tabindex="-1"></a><span class="co"># 12   ¦   ¦   ¦   ¦   ¦--endpoint_2          </span></span>
+<span id="cb108-44"><a href="#cb108-44" aria-hidden="true" tabindex="-1"></a><span class="co"># 13   ¦   ¦   ¦   ¦   ¦   ¦--dest            </span></span>
+<span id="cb108-45"><a href="#cb108-45" aria-hidden="true" tabindex="-1"></a><span class="co"># 14   ¦   ¦   ¦   ¦   ¦   °--orig            </span></span>
+<span id="cb108-46"><a href="#cb108-46" aria-hidden="true" tabindex="-1"></a><span class="co"># 15   ¦   ¦   ¦   ¦   ¦--endpoint_3          </span></span>
+<span id="cb108-47"><a href="#cb108-47" aria-hidden="true" tabindex="-1"></a><span class="co"># 16   ¦   ¦   ¦   ¦   ¦   ¦--dest            </span></span>
+<span id="cb108-48"><a href="#cb108-48" aria-hidden="true" tabindex="-1"></a><span class="co"># 17   ¦   ¦   ¦   ¦   ¦   °--orig            </span></span>
+<span id="cb108-49"><a href="#cb108-49" aria-hidden="true" tabindex="-1"></a><span class="co"># 18   ¦   ¦   ¦   ¦   ¦--endpoint_4          </span></span>
+<span id="cb108-50"><a href="#cb108-50" aria-hidden="true" tabindex="-1"></a><span class="co"># 19   ¦   ¦   ¦   ¦   ¦   ¦--dest            </span></span>
+<span id="cb108-51"><a href="#cb108-51" aria-hidden="true" tabindex="-1"></a><span class="co"># 20   ¦   ¦   ¦   ¦   ¦   °--orig            </span></span>
+<span id="cb108-52"><a href="#cb108-52" aria-hidden="true" tabindex="-1"></a><span class="co"># 21   ¦   ¦   ¦   ¦   ¦--endpoint_5          </span></span>
+<span id="cb108-53"><a href="#cb108-53" aria-hidden="true" tabindex="-1"></a><span class="co"># 22   ¦   ¦   ¦   ¦   ¦   ¦--dest            </span></span>
+<span id="cb108-54"><a href="#cb108-54" aria-hidden="true" tabindex="-1"></a><span class="co"># 23   ¦   ¦   ¦   ¦   ¦   °--orig            </span></span>
+<span id="cb108-55"><a href="#cb108-55" aria-hidden="true" tabindex="-1"></a><span class="co"># 24   ¦   ¦   ¦   ¦   ¦--endpoint_6          </span></span>
+<span id="cb108-56"><a href="#cb108-56" aria-hidden="true" tabindex="-1"></a><span class="co"># 25   ¦   ¦   ¦   ¦   ¦   ¦--dest            </span></span>
+<span id="cb108-57"><a href="#cb108-57" aria-hidden="true" tabindex="-1"></a><span class="co"># 26   ¦   ¦   ¦   ¦   ¦   °--orig            </span></span>
+<span id="cb108-58"><a href="#cb108-58" aria-hidden="true" tabindex="-1"></a><span class="co"># 27   ¦   ¦   ¦   ¦   °--endpoint_7          </span></span>
+<span id="cb108-59"><a href="#cb108-59" aria-hidden="true" tabindex="-1"></a><span class="co"># 28   ¦   ¦   ¦   ¦       ¦--dest            </span></span>
+<span id="cb108-60"><a href="#cb108-60" aria-hidden="true" tabindex="-1"></a><span class="co"># 29   ¦   ¦   ¦   ¦       °--orig            </span></span>
+<span id="cb108-61"><a href="#cb108-61" aria-hidden="true" tabindex="-1"></a><span class="co"># 80   ¦   ¦   ¦--mol_1                       </span></span>
+<span id="cb108-62"><a href="#cb108-62" aria-hidden="true" tabindex="-1"></a><span class="co"># 81   ¦   ¦   ¦   ¦--trial_0                 </span></span>
+<span id="cb108-63"><a href="#cb108-63" aria-hidden="true" tabindex="-1"></a><span class="co"># 82   ¦   ¦   ¦   ¦   ¦--endpoint_0          </span></span>
+<span id="cb108-64"><a href="#cb108-64" aria-hidden="true" tabindex="-1"></a><span class="co"># 83   ¦   ¦   ¦   ¦   ¦   ¦--dest            </span></span>
+<span id="cb108-65"><a href="#cb108-65" aria-hidden="true" tabindex="-1"></a><span class="co"># 84   ¦   ¦   ¦   ¦   ¦   °--orig            </span></span>
+<span id="cb108-66"><a href="#cb108-66" aria-hidden="true" tabindex="-1"></a><span class="co"># 85   ¦   ¦   ¦   ¦   ¦--endpoint_1          </span></span>
+<span id="cb108-67"><a href="#cb108-67" aria-hidden="true" tabindex="-1"></a><span class="co"># 86   ¦   ¦   ¦   ¦   ¦   ¦--dest            </span></span>
+<span id="cb108-68"><a href="#cb108-68" aria-hidden="true" tabindex="-1"></a><span class="co"># 87   ¦   ¦   ¦   ¦   ¦   °--orig            </span></span>
+<span id="cb108-69"><a href="#cb108-69" aria-hidden="true" tabindex="-1"></a><span class="co"># 88   ¦   ¦   ¦   ¦   ¦--endpoint_2          </span></span>
+<span id="cb108-70"><a href="#cb108-70" aria-hidden="true" tabindex="-1"></a><span class="co"># 89   ¦   ¦   ¦   ¦   ¦   ¦--dest            </span></span>
+<span id="cb108-71"><a href="#cb108-71" aria-hidden="true" tabindex="-1"></a><span class="co"># 90   ¦   ¦   ¦   ¦   ¦   °--orig            </span></span>
+<span id="cb108-72"><a href="#cb108-72" aria-hidden="true" tabindex="-1"></a><span class="co"># 91   ¦   ¦   ¦   ¦   ¦--endpoint_3          </span></span>
+<span id="cb108-73"><a href="#cb108-73" aria-hidden="true" tabindex="-1"></a><span class="co"># 92   ¦   ¦   ¦   ¦   ¦   ¦--dest            </span></span>
+<span id="cb108-74"><a href="#cb108-74" aria-hidden="true" tabindex="-1"></a><span class="co"># 93   ¦   ¦   ¦   ¦   ¦   °--orig            </span></span>
+<span id="cb108-75"><a href="#cb108-75" aria-hidden="true" tabindex="-1"></a><span class="co"># 94   ¦   ¦   ¦   ¦   ¦--endpoint_4          </span></span>
+<span id="cb108-76"><a href="#cb108-76" aria-hidden="true" tabindex="-1"></a><span class="co"># 95   ¦   ¦   ¦   ¦   ¦   ¦--dest            </span></span>
+<span id="cb108-77"><a href="#cb108-77" aria-hidden="true" tabindex="-1"></a><span class="co"># 96   ¦   ¦   ¦   ¦   ¦   °--orig            </span></span>
+<span id="cb108-78"><a href="#cb108-78" aria-hidden="true" tabindex="-1"></a><span class="co"># 97   ¦   ¦   ¦   ¦   ¦--endpoint_5          </span></span>
+<span id="cb108-79"><a href="#cb108-79" aria-hidden="true" tabindex="-1"></a><span class="co"># 98   ¦   ¦   ¦   ¦   ¦   ¦--dest            </span></span>
+<span id="cb108-80"><a href="#cb108-80" aria-hidden="true" tabindex="-1"></a><span class="co"># 99   ¦   ¦   ¦   ¦   ¦   °--orig            </span></span>
+<span id="cb108-81"><a href="#cb108-81" aria-hidden="true" tabindex="-1"></a><span class="co"># 100  ¦   ¦   ¦   ¦   °--... 2 nodes w/ 4 sub</span></span>
+<span id="cb108-82"><a href="#cb108-82" aria-hidden="true" tabindex="-1"></a><span class="co"># 101  ¦   ¦   ¦   °--... 2 nodes w/ 54 sub   </span></span>
+<span id="cb108-83"><a href="#cb108-83" aria-hidden="true" tabindex="-1"></a><span class="co"># 102  ¦   ¦   °--... 12 nodes w/ 956 sub     </span></span>
+<span id="cb108-84"><a href="#cb108-84" aria-hidden="true" tabindex="-1"></a><span class="co"># 103  ¦   °--... 5 nodes w/ 6288 sub         </span></span>
+<span id="cb108-85"><a href="#cb108-85" aria-hidden="true" tabindex="-1"></a><span class="co"># 104  °--... 3 nodes w/ 25463 sub             </span></span>
+<span id="cb108-86"><a href="#cb108-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-87"><a href="#cb108-87" aria-hidden="true" tabindex="-1"></a><span class="co"># A function (or functions) is (are) required to do several things, IN THIS ORDER:</span></span>
+<span id="cb108-88"><a href="#cb108-88" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb108-89"><a href="#cb108-89" aria-hidden="true" tabindex="-1"></a><span class="co">#  1. Put the HRs from the PH NMA in the destinations, using the CODA sample identifiers to set the origin.</span></span>
+<span id="cb108-90"><a href="#cb108-90" aria-hidden="true" tabindex="-1"></a><span class="co">#  2. Put the time-varying HRs from the FP NMA in the destinations, using the identifiers to set the origins</span></span>
+<span id="cb108-91"><a href="#cb108-91" aria-hidden="true" tabindex="-1"></a><span class="co">#  3. Use the table R_table_eff_data_settings from Excel to apply any superseding &amp; any assumption/ad-hoc stuff (HRs, assume equal to and so on)</span></span>
+<span id="cb108-92"><a href="#cb108-92" aria-hidden="true" tabindex="-1"></a><span class="co">#  4. Use the final network object to propagate relative efficacy throughout the network, producing a set of extrapolations with RE applied.</span></span>
+<span id="cb108-93"><a href="#cb108-93" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View the empty <code>p$releff$network</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-26" class="callout-26-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>See example of PMTE 0 and L1:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>releff<span class="sc">$</span>network<span class="sc">$</span>pop_0<span class="sc">$</span>line_1<span class="sc">$</span>mol_0<span class="sc">$</span>trial_0<span class="sc">$</span>endpoint_0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$dest
+$dest$pop
+[1] "pop_0"
+
+$dest$line
+[1] "line_1"
+
+$dest$mol
+[1] "mol_0"
+
+$dest$trial
+[1] "trial_0"
+
+$dest$endpoint
+[1] "endpoint_0"
+
+
+$orig
+$orig$pop
+NULL
+
+$orig$line
+NULL
+
+$orig$mol
+NULL
+
+$orig$trial
+NULL
+
+$orig$endpoint
+NULL
+
+$orig$dist
+NULL
+
+$orig$source
+NULL
+
+
+$hr
+[1] 1
+
+$fp
+list()</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="create-numeric-trial-column-in-ir_table_eff_data_settings" class="level3">
+<h3 class="anchored" data-anchor-id="create-numeric-trial-column-in-ir_table_eff_data_settings">Create numeric trial column in <code>i$R_table_eff_data_settings</code></h3>
+<p>This generates a column <code>Trial</code> in the table <code>i$R_table_eff_data_settings</code> if it doesn’t already exist. Whilst this isn’t used in making the empty nested list, it will be later used by<code>f_NMA_AddAssumptionsToNetwork()</code> and <code>f_releff_PropNetwork()</code>.</p>
+<p>The new <code>Trial</code> column is a numeric version of the column <code>i$R_table_eff_data_settings$Trial.name.if.effectiveness.source.is.trial</code>. The conversion between the categorical and numeric versions is done using the look-up <code>i$lookup$ipd$trial</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate DESTINATION trial number column if it doesn't already exist:</span></span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="st">"Trial"</span> <span class="sc">%in%</span> <span class="fu">colnames</span>(i<span class="sc">$</span>R_table_eff_data_settings)) {</span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a>  i<span class="sc">$</span>R_table_eff_data_settings<span class="sc">$</span>Trial <span class="ot">&lt;-</span> i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>trial<span class="sc">$</span>Number[<span class="fu">match</span>(i<span class="sc">$</span>R_table_eff_data_settings<span class="sc">$</span>Trial.name.if.effectiveness.source.is.trial,i<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>trial<span class="sc">$</span>Description)]</span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View the new column
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-27" class="callout-27-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Filtering to the unique trial columns, we can see that this has either set Trial to 0 or 2.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">unique</span>(i<span class="sc">$</span>R_table_eff_data_settings <span class="sc">%&gt;%</span> <span class="fu">select</span>(Trial.name.if.effectiveness.source.is.trial, Trial)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Trial.name.if.effectiveness.source.is.trial</th>
+<th style="text-align: right;">Trial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">Real world evidence</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="add-nma-hrs" class="level3">
+<h3 class="anchored" data-anchor-id="add-nma-hrs">Add NMA HRs</h3>
+<p>These functions add the HRs from the PH NMA (<code>p$releff$CODA$PH</code>) and FP NMA (<code>p$releff$CODA$FP</code>) to the nested list.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.3.5.4 Linking inputs from PH and FP NMAs --------------------------------------------</span></span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the information we have from the PHNMA CODA sample to populate the corresponding</span></span>
+<span id="cb113-5"><a href="#cb113-5" aria-hidden="true" tabindex="-1"></a><span class="co"># places within p$releff$network</span></span>
+<span id="cb113-6"><a href="#cb113-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb113-7"><a href="#cb113-7" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>releff<span class="sc">$</span>network <span class="ot">&lt;-</span> <span class="fu">f_NMA_linkPHNMA</span>(</span>
+<span id="cb113-8"><a href="#cb113-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">network       =</span> p<span class="sc">$</span>releff<span class="sc">$</span>network,</span>
+<span id="cb113-9"><a href="#cb113-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">hr_table      =</span> p<span class="sc">$</span>releff<span class="sc">$</span>CODA<span class="sc">$</span>PH</span>
+<span id="cb113-10"><a href="#cb113-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb113-11"><a href="#cb113-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-12"><a href="#cb113-12" aria-hidden="true" tabindex="-1"></a><span class="co"># All treatments included in the network:</span></span>
+<span id="cb113-13"><a href="#cb113-13" aria-hidden="true" tabindex="-1"></a><span class="co"># unique(c(unique(p$releff$means$Molecule),unique(p$releff$means$Reference.treatment),unique(i$R_table_eff_data_settings$Origin.treatment),unique(i$R_table_eff_data_settings$Treatment)))</span></span>
+<span id="cb113-14"><a href="#cb113-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-15"><a href="#cb113-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Link in the fractional polynomial point estimate time-varying hazard ratios</span></span>
+<span id="cb113-16"><a href="#cb113-16" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>releff<span class="sc">$</span>network <span class="ot">&lt;-</span> <span class="fu">f_NMA_linkFPNMA</span>(</span>
+<span id="cb113-17"><a href="#cb113-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">network       =</span> p<span class="sc">$</span>releff<span class="sc">$</span>network,</span>
+<span id="cb113-18"><a href="#cb113-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">destinations  =</span> p<span class="sc">$</span>releff<span class="sc">$</span>fp_dest,</span>
+<span id="cb113-19"><a href="#cb113-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">hr_table      =</span> p<span class="sc">$</span>releff<span class="sc">$</span>CODA<span class="sc">$</span>FP,</span>
+<span id="cb113-20"><a href="#cb113-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">time_horizon  =</span> p<span class="sc">$</span>basic<span class="sc">$</span>th</span>
+<span id="cb113-21"><a href="#cb113-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb113-22"><a href="#cb113-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-23"><a href="#cb113-23" aria-hidden="true" tabindex="-1"></a><span class="co"># See e.g.</span></span>
+<span id="cb113-24"><a href="#cb113-24" aria-hidden="true" tabindex="-1"></a><span class="co"># p$releff$network$pop_0$line_1$mol_1$trial_0$endpoint_0</span></span>
+<span id="cb113-25"><a href="#cb113-25" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb113-26"><a href="#cb113-26" aria-hidden="true" tabindex="-1"></a><span class="co"># To see that the time-varying hazard has been passed along :)</span></span>
+<span id="cb113-27"><a href="#cb113-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-28"><a href="#cb113-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-29"><a href="#cb113-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Remember that we only need to apply this one to the stuff that is NOT direct </span></span>
+<span id="cb113-30"><a href="#cb113-30" aria-hidden="true" tabindex="-1"></a><span class="co"># survival analysis applied to the data. HOWEVER, we need those rows in the table</span></span>
+<span id="cb113-31"><a href="#cb113-31" aria-hidden="true" tabindex="-1"></a><span class="co"># as well as we need the "origin" distributional selections to fill in our output!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View the updated <code>p$releff$network</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-28" class="callout-28-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>See example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PH NMA HR</span></span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>releff<span class="sc">$</span>network<span class="sc">$</span>pop_0<span class="sc">$</span>line_1<span class="sc">$</span>mol_4<span class="sc">$</span>trial_0<span class="sc">$</span>endpoint_0<span class="sc">$</span>hr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7935352</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Time-varying FP NMA HRs</span></span>
+<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(p<span class="sc">$</span>releff<span class="sc">$</span>network<span class="sc">$</span>pop_0<span class="sc">$</span>line_1<span class="sc">$</span>mol_4<span class="sc">$</span>trial_0<span class="sc">$</span>endpoint_0<span class="sc">$</span>fp<span class="sc">$</span>HR, <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0.9321210 0.7399991 0.7015206 0.6987356 0.7068145 0.7182071 0.7301949
+ [8] 0.7417350 0.7524420 0.7622070 0.7710399 0.7790003 0.7861653 0.7926152
+[15] 0.7984263 0.8036691 0.8084066 0.8126947 0.8165829 0.8201147</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="add-more-assumption-based-hrs" class="level2">
+<h2 class="anchored" data-anchor-id="add-more-assumption-based-hrs">Add more “assumption-based” HRs</h2>
+<p>The column <code>i$R_table_eff_data_settings$Effectiveness.data.source</code> sets some of the sources of HRs.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-29-contents" aria-controls="callout-29" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View <code>i$R_table_eff_data_settings$Effectiveness.data.source</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-29" class="callout-29-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(i<span class="sc">$</span>R_table_eff_data_settings<span class="sc">$</span>Effectiveness.data.source)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+                      0             Apply HR to         Assume equal to 
+                    247                      49                      44 
+                 FP_NMA                  PH_NMA Trial survival analysis 
+                     22                      39                      19 </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>If the setting <code>dd_use_PHnma_for_FPnma</code> was set to “Yes” in the excel spreadsheet, then it will replace “FP_NMA” with “PH_NMA” in this list - thereby, forcing the model to use the PH NMA HRs instead of including some from FP NMA.</p>
+<p>By default, this is currently set to “No”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.3.5.5 Assumptions from Excel ------------------------------------------</span></span>
+<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the setting dd_use_PHnma_for_FPnma from excel. This supersedes what's selected</span></span>
+<span id="cb120-4"><a href="#cb120-4" aria-hidden="true" tabindex="-1"></a><span class="co"># in efficacy settings, changing all FP NMA entries to PH NMA to force the model to use</span></span>
+<span id="cb120-5"><a href="#cb120-5" aria-hidden="true" tabindex="-1"></a><span class="co"># the PH NMA CODA sample over and above the FP NMA!</span></span>
+<span id="cb120-6"><a href="#cb120-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-7"><a href="#cb120-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (i<span class="sc">$</span>dd_use_PHnma_for_FPnma <span class="sc">==</span> <span class="st">"Yes"</span>) {</span>
+<span id="cb120-8"><a href="#cb120-8" aria-hidden="true" tabindex="-1"></a>  i<span class="sc">$</span>which_fpnma <span class="ot">&lt;-</span> <span class="fu">which</span>(i<span class="sc">$</span>R_table_eff_data_settings<span class="sc">$</span>Effectiveness.data.source <span class="sc">==</span> <span class="st">"FP_NMA"</span>)</span>
+<span id="cb120-9"><a href="#cb120-9" aria-hidden="true" tabindex="-1"></a>  i<span class="sc">$</span>R_table_eff_data_settings<span class="sc">$</span>Effectiveness.data.source[i<span class="sc">$</span>which_fpnma] <span class="ot">&lt;-</span> <span class="st">"PH_NMA"</span></span>
+<span id="cb120-10"><a href="#cb120-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb120-11"><a href="#cb120-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-12"><a href="#cb120-12" aria-hidden="true" tabindex="-1"></a><span class="co"># QC point: to test whether all entries to Effectiveness.data.source are in the</span></span>
+<span id="cb120-13"><a href="#cb120-13" aria-hidden="true" tabindex="-1"></a><span class="co"># lookup list, compare these two:</span></span>
+<span id="cb120-14"><a href="#cb120-14" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb120-15"><a href="#cb120-15" aria-hidden="true" tabindex="-1"></a><span class="co"># table(i$R_table_eff_data_settings$Effectiveness.data.source)</span></span>
+<span id="cb120-16"><a href="#cb120-16" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb120-17"><a href="#cb120-17" aria-hidden="true" tabindex="-1"></a><span class="co"># i$List_eff_datasources</span></span>
+<span id="cb120-18"><a href="#cb120-18" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb120-19"><a href="#cb120-19" aria-hidden="true" tabindex="-1"></a><span class="co"># i.e.,</span></span>
+<span id="cb120-20"><a href="#cb120-20" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb120-21"><a href="#cb120-21" aria-hidden="true" tabindex="-1"></a><span class="co"># setdiff(names(table(i$R_table_eff_data_settings$Effectiveness.data.source)),i$List_eff_datasources)</span></span>
+<span id="cb120-22"><a href="#cb120-22" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb120-23"><a href="#cb120-23" aria-hidden="true" tabindex="-1"></a><span class="co"># "0" is fine as that's empty cells, but there should be nothing else.</span></span>
+<span id="cb120-24"><a href="#cb120-24" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb120-25"><a href="#cb120-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-26"><a href="#cb120-26" aria-hidden="true" tabindex="-1"></a><span class="co"># setdiff(names(table(i$R_table_eff_data_settings$Effectiveness.data.source)),i$List_eff_datasources)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The function <code>f_NMA_AddAssumptionsToNetwork()</code> adds the “assumption-based” HRs according to <code>i$R_table_eff_data_settings$Effectiveness.data.source</code>. There are five categories within this:</p>
+<ul>
+<li><strong>Trial</strong> - <code>Trial survival analysis</code> - for these entries, they are a reference curve, so the function checks the origin and destination match, and then add some extra information from excel (e.g.&nbsp;dist, source, setting <code>fp</code> to empty list)</li>
+<li><strong>FP NMA or PH NMA</strong> - <code>FP_NMA</code>, <code>PH_NMA</code> - as I’ve understood it, this populates the hazard ratio for a given comparison using the FP/PH NMA HR from the same comparison in a different trial - so, even though the HR data has come from a different context (different trial), we are saying it is still applicable to this treatment comparison.</li>
+<li><strong>ET flag</strong> - <code>Assume equal to</code> - the treatment and reference treatment are considered to be equally effective, so the HR is set to 1</li>
+<li><strong>AHR flag</strong> - <code>Apply HR to</code> - these entries have a HR provided in the Excel spreadsheet under a column <code>HR.to.apply</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>releff<span class="sc">$</span>network <span class="ot">&lt;-</span> <span class="fu">f_NMA_AddAssumptionsToNetwork</span>(</span>
+<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">network            =</span> p<span class="sc">$</span>releff<span class="sc">$</span>network,</span>
+<span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">phnma_table        =</span> p<span class="sc">$</span>releff<span class="sc">$</span>CODA<span class="sc">$</span>PH,</span>
+<span id="cb121-4"><a href="#cb121-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">fpnma_table        =</span> p<span class="sc">$</span>releff<span class="sc">$</span>CODA<span class="sc">$</span>FP,</span>
+<span id="cb121-5"><a href="#cb121-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">fpnma_destinations =</span> p<span class="sc">$</span>releff<span class="sc">$</span>fp_dest,</span>
+<span id="cb121-6"><a href="#cb121-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">excel_table        =</span> <span class="fu">data.table</span>(i<span class="sc">$</span>R_table_eff_data_settings),</span>
+<span id="cb121-7"><a href="#cb121-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">trial_flag         =</span> i<span class="sc">$</span>List_eff_datasources[<span class="dv">1</span>],</span>
+<span id="cb121-8"><a href="#cb121-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">fpnma_flag         =</span> i<span class="sc">$</span>List_eff_datasources[<span class="dv">3</span>],</span>
+<span id="cb121-9"><a href="#cb121-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">phnma_flag         =</span> i<span class="sc">$</span>List_eff_datasources[<span class="dv">2</span>],</span>
+<span id="cb121-10"><a href="#cb121-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">et_flag            =</span> i<span class="sc">$</span>List_eff_datasources[<span class="dv">4</span>],</span>
+<span id="cb121-11"><a href="#cb121-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ahr_flag           =</span> i<span class="sc">$</span>List_eff_datasources[<span class="dv">5</span>],</span>
+<span id="cb121-12"><a href="#cb121-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose            =</span> qc_mode</span>
+<span id="cb121-13"><a href="#cb121-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb121-14"><a href="#cb121-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-15"><a href="#cb121-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-16"><a href="#cb121-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Example to see all the HRs for population 0 in some nice tables </span></span>
+<span id="cb121-17"><a href="#cb121-17" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb121-18"><a href="#cb121-18" aria-hidden="true" tabindex="-1"></a><span class="co"># f_releff_extract_all_HRs(p$releff$network)</span></span>
+<span id="cb121-19"><a href="#cb121-19" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb121-20"><a href="#cb121-20" aria-hidden="true" tabindex="-1"></a><span class="co"># assign to an object to browse through it</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="apply-hrs-to-the-extrapolated-rwe-survival-times" class="level2">
+<h2 class="anchored" data-anchor-id="apply-hrs-to-the-extrapolated-rwe-survival-times">Apply HRs to the extrapolated RWE survival times</h2>
+<p>The function <code>f_surv_getExtrapolations()</code> creates a nested list with survival times <code>st</code> for each PLMTE, as copied from <code>i$surv$reg</code> (the RWE survival analysis).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.3.5.6 Propagating the network -----------------------------------------</span></span>
+<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Now that we have collected together all of the survival extrapolations for all</span></span>
+<span id="cb122-4"><a href="#cb122-4" aria-hidden="true" tabindex="-1"></a><span class="co"># of the data we have, and all of the HRs, whether by assumption or derived</span></span>
+<span id="cb122-5"><a href="#cb122-5" aria-hidden="true" tabindex="-1"></a><span class="co"># via NMA, plus all of the underlying distributional selections, we can proceed</span></span>
+<span id="cb122-6"><a href="#cb122-6" aria-hidden="true" tabindex="-1"></a><span class="co"># to "proliferate" the evidence network, starting from the extrapolations we have already</span></span>
+<span id="cb122-7"><a href="#cb122-7" aria-hidden="true" tabindex="-1"></a><span class="co"># and working "outwards" from that point, arriving at ONLY the extrapolation for each</span></span>
+<span id="cb122-8"><a href="#cb122-8" aria-hidden="true" tabindex="-1"></a><span class="co"># possibility (rather than all distributions). From there, we can "cherry-pick"</span></span>
+<span id="cb122-9"><a href="#cb122-9" aria-hidden="true" tabindex="-1"></a><span class="co"># those population line molecule trial endpoint distribution HR application choices</span></span>
+<span id="cb122-10"><a href="#cb122-10" aria-hidden="true" tabindex="-1"></a><span class="co"># to "build-up" a given treatment pathway.</span></span>
+<span id="cb122-11"><a href="#cb122-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-12"><a href="#cb122-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-13"><a href="#cb122-13" aria-hidden="true" tabindex="-1"></a><span class="co"># These are still "raw" extraps, so should be in i as they're not used for </span></span>
+<span id="cb122-14"><a href="#cb122-14" aria-hidden="true" tabindex="-1"></a><span class="co"># computation of pf. </span></span>
+<span id="cb122-15"><a href="#cb122-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-16"><a href="#cb122-16" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>surv<span class="sc">$</span>extraps <span class="ot">&lt;-</span> <span class="fu">f_surv_getExtrapolations</span>(<span class="at">regs =</span> i<span class="sc">$</span>surv<span class="sc">$</span>reg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The function <code>f_releff_PropNetwork()</code> then applies the HR in <code>p$releff$network</code> to the survival times, saving the resulting nested list as <code>p$surv$st</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="co"># propagate the extrapolation and comparative efficacy data/assumptions:</span></span>
+<span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb123-3"><a href="#cb123-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Because this is for a particular iteration of the model, it should go into object p</span></span>
+<span id="cb123-4"><a href="#cb123-4" aria-hidden="true" tabindex="-1"></a><span class="co"># which is the input set for running one model.</span></span>
+<span id="cb123-5"><a href="#cb123-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb123-6"><a href="#cb123-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb123-7"><a href="#cb123-7" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>surv<span class="sc">$</span>st <span class="ot">&lt;-</span> <span class="fu">f_releff_PropNetwork</span>(</span>
+<span id="cb123-8"><a href="#cb123-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">network =</span> p<span class="sc">$</span>releff<span class="sc">$</span>network,</span>
+<span id="cb123-9"><a href="#cb123-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">extraps =</span> i<span class="sc">$</span>surv<span class="sc">$</span>extraps,</span>
+<span id="cb123-10"><a href="#cb123-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">dos     =</span> <span class="dv">10</span>,</span>
+<span id="cb123-11"><a href="#cb123-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> qc_mode,</span>
+<span id="cb123-12"><a href="#cb123-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">dist_lookups =</span> p<span class="sc">$</span>basic<span class="sc">$</span>lookup<span class="sc">$</span>dist,</span>
+<span id="cb123-13"><a href="#cb123-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">excel_table =</span> <span class="fu">data.table</span>(i<span class="sc">$</span>R_table_eff_data_settings)</span>
+<span id="cb123-14"><a href="#cb123-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb123-15"><a href="#cb123-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-16"><a href="#cb123-16" aria-hidden="true" tabindex="-1"></a><span class="co"># active trial depends on excel settings so it's hard to anticipate. 2 for all</span></span>
+<span id="cb123-17"><a href="#cb123-17" aria-hidden="true" tabindex="-1"></a><span class="co"># lines if rwe and </span></span>
+<span id="cb123-18"><a href="#cb123-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-19"><a href="#cb123-19" aria-hidden="true" tabindex="-1"></a><span class="co"># # pop 0 first line nivo mono trial 0</span></span>
+<span id="cb123-20"><a href="#cb123-20" aria-hidden="true" tabindex="-1"></a><span class="co"># f_qc_surv_gethead(p$surv$st,p = 0,l = 1,m = 1,t = 2,len = 3)</span></span>
+<span id="cb123-21"><a href="#cb123-21" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb123-22"><a href="#cb123-22" aria-hidden="true" tabindex="-1"></a><span class="co"># # pop 0 line 2 nivo mono trial 1</span></span>
+<span id="cb123-23"><a href="#cb123-23" aria-hidden="true" tabindex="-1"></a><span class="co"># f_qc_surv_gethead(p$surv$st,p = 0,l = 2,m = 0,t = 2,len = 3)</span></span>
+<span id="cb123-24"><a href="#cb123-24" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb123-25"><a href="#cb123-25" aria-hidden="true" tabindex="-1"></a><span class="co"># # follow pazo through the lines - so close! only OS in 4L but the others are all working</span></span>
+<span id="cb123-26"><a href="#cb123-26" aria-hidden="true" tabindex="-1"></a><span class="co"># # (just show me the first couple of rows from each for brevity). mol 5 selected</span></span>
+<span id="cb123-27"><a href="#cb123-27" aria-hidden="true" tabindex="-1"></a><span class="co"># # because it runs through all treatment lines</span></span>
+<span id="cb123-28"><a href="#cb123-28" aria-hidden="true" tabindex="-1"></a><span class="co"># f_qc_surv_gethead(p$surv$st,p = 0,l = 1,m = 5,t = 0,len = 3)</span></span>
+<span id="cb123-29"><a href="#cb123-29" aria-hidden="true" tabindex="-1"></a><span class="co"># f_qc_surv_gethead(p$surv$st,p = 0,l = 2,m = 5,t = 1,len = 3)</span></span>
+<span id="cb123-30"><a href="#cb123-30" aria-hidden="true" tabindex="-1"></a><span class="co"># f_qc_surv_gethead(p$surv$st,p = 0,l = 3,m = 5,t = 1,len = 3)</span></span>
+<span id="cb123-31"><a href="#cb123-31" aria-hidden="true" tabindex="-1"></a><span class="co"># f_qc_surv_gethead(p$surv$st,p = 0,l = 4,m = 5,t = 1,len = 3)</span></span>
+<span id="cb123-32"><a href="#cb123-32" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb123-33"><a href="#cb123-33" aria-hidden="true" tabindex="-1"></a><span class="co"># # Risk pop 1 first line nivo cabo from trial and then rwe:</span></span>
+<span id="cb123-34"><a href="#cb123-34" aria-hidden="true" tabindex="-1"></a><span class="co"># f_qc_surv_gethead(p$surv$st,1,1,1,2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-30-contents" aria-controls="callout-30" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View <code>p$surv$st</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-30" class="callout-30-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This list is similar to <code>p$releff$network</code> but with the addition of survivals, as demonstrated below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(p<span class="sc">$</span>surv<span class="sc">$</span>st<span class="sc">$</span>pop_0<span class="sc">$</span>line_3<span class="sc">$</span>mol_0<span class="sc">$</span>trial_2<span class="sc">$</span>endpoint_2<span class="sc">$</span>st, <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1.0000000 0.9921156 0.9782498 0.9609062 0.9410968 0.9194740 0.8965183
+ [8] 0.8726074 0.8480469 0.8230890 0.7979435 0.7727850 0.7477591 0.7229864
+[15] 0.6985662 0.6745796 0.6510916 0.6281539 0.6058063 0.5840786</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="apply-modifications-to-the-survival-times" class="level2">
+<h2 class="anchored" data-anchor-id="apply-modifications-to-the-survival-times">Apply modifications to the survival times</h2>
+<section id="prior-adjuvant-treatments" class="level3">
+<h3 class="anchored" data-anchor-id="prior-adjuvant-treatments">Prior adjuvant treatments</h3>
+<p>By default, this is not run as <code>i$dd_adjforprioradjuvant</code> is set to “No”.</p>
+<p>However, if “Yes”, it would adjust the survival times again for endpoint 0 (overall survival, OS) by applying another hazard ratio that is associated with prior adjuvant treatment.</p>
+<p>An adjuvant treatment is an additional treatment given alongside the primary treatment.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.3.6 Extrapolation modifications ---------------------------------------</span></span>
+<span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-3"><a href="#cb126-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This subsection focuses on applying the required modifications to the "raw" extrapolations</span></span>
+<span id="cb126-4"><a href="#cb126-4" aria-hidden="true" tabindex="-1"></a><span class="co"># now that we have propagated comparative efficacy. We need to first apply any adjustments for treatment effect waning </span></span>
+<span id="cb126-5"><a href="#cb126-5" aria-hidden="true" tabindex="-1"></a><span class="co"># and then check the following:</span></span>
+<span id="cb126-6"><a href="#cb126-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb126-7"><a href="#cb126-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  - mortality never falls below that of the general population</span></span>
+<span id="cb126-8"><a href="#cb126-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  - The extrapolations which are NOT censored for death do not cross (in abs or hazard) OS</span></span>
+<span id="cb126-9"><a href="#cb126-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-10"><a href="#cb126-10" aria-hidden="true" tabindex="-1"></a><span class="co"># During technical engagement functionality will be added here to adjust for the impact of prior adjuvant treatment as part of scenario analysis</span></span>
+<span id="cb126-11"><a href="#cb126-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-12"><a href="#cb126-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(i<span class="sc">$</span>dd_adjforprioradjuvant <span class="sc">==</span> <span class="st">"Yes"</span>) {</span>
+<span id="cb126-13"><a href="#cb126-13" aria-hidden="true" tabindex="-1"></a>  p<span class="sc">$</span>surv<span class="sc">$</span>st <span class="ot">&lt;-</span> <span class="fu">f_surv_adjuvant_HR</span>(</span>
+<span id="cb126-14"><a href="#cb126-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">st              =</span> p<span class="sc">$</span>surv<span class="sc">$</span>st,</span>
+<span id="cb126-15"><a href="#cb126-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">adjuvant_impact =</span> i<span class="sc">$</span>R_table_prior_IO_impact_eff,</span>
+<span id="cb126-16"><a href="#cb126-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">demo_table      =</span> p<span class="sc">$</span>demo<span class="sc">$</span>table,</span>
+<span id="cb126-17"><a href="#cb126-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">lookup          =</span> p<span class="sc">$</span>basic<span class="sc">$</span>lookup,</span>
+<span id="cb126-18"><a href="#cb126-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose         =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb126-19"><a href="#cb126-19" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="effect-waning" class="level3">
+<h3 class="anchored" data-anchor-id="effect-waning">Effect waning</h3>
+<p>Treatment effect waning is the loss of a treatment’s benefits over time. It is only applied to some PLMTEs, as specified by <code>i$R_table_TE_waning_settings$apply.waning</code>.</p>
+<p>This is implemented using the function <code>f_surv_twaning_apply()</code>, which reduces the effect to match the reference treatment once it reaches a certain cycle.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Curve crossing should be fixed on the treatment sequence level, NOT the original PLMT level</span></span>
+<span id="cb127-2"><a href="#cb127-2" aria-hidden="true" tabindex="-1"></a><span class="co"># through E. This is because doing it that way round could lead to implausible</span></span>
+<span id="cb127-3"><a href="#cb127-3" aria-hidden="true" tabindex="-1"></a><span class="co"># extrapolations. For instance, if the PFS from somewhere else was being injected</span></span>
+<span id="cb127-4"><a href="#cb127-4" aria-hidden="true" tabindex="-1"></a><span class="co"># in (e.g. if trial 0 for OS and trial 1 from a different PLMT for PFS via equivalence</span></span>
+<span id="cb127-5"><a href="#cb127-5" aria-hidden="true" tabindex="-1"></a><span class="co"># assumption), it may be the case that the assumed equal PFS crosses OS.</span></span>
+<span id="cb127-6"><a href="#cb127-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb127-7"><a href="#cb127-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Therefore, curve crossing fixes should be performed on the individual treatment</span></span>
+<span id="cb127-8"><a href="#cb127-8" aria-hidden="true" tabindex="-1"></a><span class="co"># pathways.</span></span>
+<span id="cb127-9"><a href="#cb127-9" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb127-10"><a href="#cb127-10" aria-hidden="true" tabindex="-1"></a><span class="co"># In conclusion, this section ONLY adjusts for gpop mortality, and curve crossing</span></span>
+<span id="cb127-11"><a href="#cb127-11" aria-hidden="true" tabindex="-1"></a><span class="co"># adjustment is performed AFTER f_seq_extrapCollector is used to pull through</span></span>
+<span id="cb127-12"><a href="#cb127-12" aria-hidden="true" tabindex="-1"></a><span class="co"># the correct extrapolations to the correct DESTINATION locations. </span></span>
+<span id="cb127-13"><a href="#cb127-13" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb127-14"><a href="#cb127-14" aria-hidden="true" tabindex="-1"></a><span class="co"># The function is ONLY applied to OS lines.</span></span>
+<span id="cb127-15"><a href="#cb127-15" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb127-16"><a href="#cb127-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Because we have pulled through the metatadata to our PLMTEs s(t) objects, </span></span>
+<span id="cb127-17"><a href="#cb127-17" aria-hidden="true" tabindex="-1"></a><span class="co"># we can use the "dest" element to decide which row of Excel range R_table_ptchar</span></span>
+<span id="cb127-18"><a href="#cb127-18" aria-hidden="true" tabindex="-1"></a><span class="co"># to apply in the general population mortality</span></span>
+<span id="cb127-19"><a href="#cb127-19" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb127-20"><a href="#cb127-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-21"><a href="#cb127-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Firstly, treatment effect waning. This is done on unadjusted curves and is </span></span>
+<span id="cb127-22"><a href="#cb127-22" aria-hidden="true" tabindex="-1"></a><span class="co"># not included in the model base-case.</span></span>
+<span id="cb127-23"><a href="#cb127-23" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb127-24"><a href="#cb127-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the information on patient characteristics from Excel into a data table</span></span>
+<span id="cb127-25"><a href="#cb127-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-26"><a href="#cb127-26" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>R_table_ptchar <span class="ot">&lt;-</span> <span class="fu">data.table</span>(i<span class="sc">$</span>R_table_ptchar)</span>
+<span id="cb127-27"><a href="#cb127-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-28"><a href="#cb127-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-29"><a href="#cb127-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-30"><a href="#cb127-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-31"><a href="#cb127-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-32"><a href="#cb127-32" aria-hidden="true" tabindex="-1"></a><span class="co"># BEFORE adjusting for general population, we must apply treatment effect waning.</span></span>
+<span id="cb127-33"><a href="#cb127-33" aria-hidden="true" tabindex="-1"></a><span class="co">#        Evidence has suggested that this predominantly affects 1L treatments,</span></span>
+<span id="cb127-34"><a href="#cb127-34" aria-hidden="true" tabindex="-1"></a><span class="co">#        and the table "R_table_TE_waning_settings" has been populated to capture</span></span>
+<span id="cb127-35"><a href="#cb127-35" aria-hidden="true" tabindex="-1"></a><span class="co">#        waning. This provides information on the "destination" and the nature</span></span>
+<span id="cb127-36"><a href="#cb127-36" aria-hidden="true" tabindex="-1"></a><span class="co">#        of the treatment effect waning. The "destination" information is then</span></span>
+<span id="cb127-37"><a href="#cb127-37" aria-hidden="true" tabindex="-1"></a><span class="co">#        used to link to the efficacy settings table "R_table_eff_data_settings"</span></span>
+<span id="cb127-38"><a href="#cb127-38" aria-hidden="true" tabindex="-1"></a><span class="co">#        in excel. This table contains the corresponding information on the "origin".</span></span>
+<span id="cb127-39"><a href="#cb127-39" aria-hidden="true" tabindex="-1"></a><span class="co">#        In the case of 1L treatments, this is the reference curve</span></span>
+<span id="cb127-40"><a href="#cb127-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-41"><a href="#cb127-41" aria-hidden="true" tabindex="-1"></a><span class="do">##### Treatment effect waning application is defined in the main Excel workbook for input</span></span>
+<span id="cb127-42"><a href="#cb127-42" aria-hidden="true" tabindex="-1"></a><span class="do">##### For each treatment and outcome:</span></span>
+<span id="cb127-43"><a href="#cb127-43" aria-hidden="true" tabindex="-1"></a><span class="do">##### apply: yes / no</span></span>
+<span id="cb127-44"><a href="#cb127-44" aria-hidden="true" tabindex="-1"></a><span class="do">##### method: either absolute survival or hazards</span></span>
+<span id="cb127-45"><a href="#cb127-45" aria-hidden="true" tabindex="-1"></a><span class="do">##### when TE waning starts (years)</span></span>
+<span id="cb127-46"><a href="#cb127-46" aria-hidden="true" tabindex="-1"></a><span class="do">##### when TE waning is fully implemented (years)</span></span>
+<span id="cb127-47"><a href="#cb127-47" aria-hidden="true" tabindex="-1"></a><span class="do">##### linear graduation is used between the start and end time</span></span>
+<span id="cb127-48"><a href="#cb127-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-49"><a href="#cb127-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Note this function produces a warning which details when there is a danger of TE waning in the usual fashion (setting hazards the same)</span></span>
+<span id="cb127-50"><a href="#cb127-50" aria-hidden="true" tabindex="-1"></a><span class="co"># being implemented producing counterintuitive results. In this case we use the higher of the hazards to prevent this problem</span></span>
+<span id="cb127-51"><a href="#cb127-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-52"><a href="#cb127-52" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">sum</span>(i<span class="sc">$</span>R_table_TE_waning_settings<span class="sc">$</span>apply.waning <span class="sc">==</span> <span class="st">"Yes"</span>) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb127-53"><a href="#cb127-53" aria-hidden="true" tabindex="-1"></a>  p<span class="sc">$</span>surv<span class="sc">$</span>st <span class="ot">&lt;-</span> <span class="fu">f_surv_twaning_apply</span>(</span>
+<span id="cb127-54"><a href="#cb127-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">st_list     =</span> p<span class="sc">$</span>surv<span class="sc">$</span>st,</span>
+<span id="cb127-55"><a href="#cb127-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">tab_waning  =</span> <span class="fu">data.table</span>(i<span class="sc">$</span>R_table_TE_waning_settings),</span>
+<span id="cb127-56"><a href="#cb127-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">tab_eff_set =</span> <span class="fu">data.table</span>(i<span class="sc">$</span>R_table_eff_data_settings),</span>
+<span id="cb127-57"><a href="#cb127-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose     =</span> qc_mode</span>
+<span id="cb127-58"><a href="#cb127-58" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb127-59"><a href="#cb127-59" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in treatment_effect_waning_with_absolute(surv_active = plmte$st, :
+Hazard rate in the active treatment is more than the hazard rate in the
+reference treatment in 1890 cycles, the first of which is 198 . Using the
+higher of the two hazards where they cross!</code></pre>
+</div>
+</div>
+</section>
+<section id="general-population-mortality" class="level3">
+<h3 class="anchored" data-anchor-id="general-population-mortality">General population mortality</h3>
+<p>In this section, the survival curves are calculated for the general population, and these are then used to adjust the treatment survival curves.</p>
+<section id="generate-the-general-population-survival-curves" class="level4">
+<h4 class="anchored" data-anchor-id="generate-the-general-population-survival-curves">Generate the general population survival curves</h4>
+<p>The survival curves are for overall survival. They are calculated for each population and each line of therapy. They can be created using one of two functions:</p>
+<ul>
+<li><code>f_surv_GenOSLines_det()</code> - calculates curves based on characteristics provided in a table</li>
+<li><code>f_surv_GenOSLines_ipd()</code> - calculates curves based on individual patient data</li>
+</ul>
+<p>The default option is to use patient-level data (<code>i$dd_age_sex_source == "PLD")</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate all the gpop lines we can generate:</span></span>
+<span id="cb129-2"><a href="#cb129-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>surv<span class="sc">$</span>gpop <span class="ot">&lt;-</span> <span class="cf">if</span> (i<span class="sc">$</span>dd_age_sex_source <span class="sc">==</span> <span class="st">"Mean"</span>) <span class="fu">f_surv_GenOSLines_det</span>(</span>
+<span id="cb129-3"><a href="#cb129-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">R_table_ptchar         =</span> i<span class="sc">$</span>R_table_ptchar,</span>
+<span id="cb129-4"><a href="#cb129-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">R_table_mort_lifeTable =</span> i<span class="sc">$</span>R_table_mort_lifeTable,</span>
+<span id="cb129-5"><a href="#cb129-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">t_yr                   =</span> p<span class="sc">$</span>basic<span class="sc">$</span>t_yr,</span>
+<span id="cb129-6"><a href="#cb129-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">lookups                =</span> i<span class="sc">$</span>lookup</span>
+<span id="cb129-7"><a href="#cb129-7" aria-hidden="true" tabindex="-1"></a>) <span class="cf">else</span> <span class="fu">f_surv_GenOSLines_ipd</span>(</span>
+<span id="cb129-8"><a href="#cb129-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">R_table_patientagesex  =</span> i<span class="sc">$</span>R_table_patientagesex,</span>
+<span id="cb129-9"><a href="#cb129-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">R_table_mort_lifeTable =</span> i<span class="sc">$</span>R_table_mort_lifeTable,</span>
+<span id="cb129-10"><a href="#cb129-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">t_yr                   =</span> p<span class="sc">$</span>basic<span class="sc">$</span>t_yr,</span>
+<span id="cb129-11"><a href="#cb129-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">lookups                =</span> i<span class="sc">$</span>lookup</span>
+<span id="cb129-12"><a href="#cb129-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View <code>p$surv$gpop</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-31" class="callout-31-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>As an example, the overall survival times for population 0 line 1 from the general population are:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(p<span class="sc">$</span>surv<span class="sc">$</span>gpop<span class="sc">$</span>pop_0<span class="sc">$</span>line_1<span class="sc">$</span>os, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1.0000000 0.9996541 0.9993084 0.9989626 0.9986170 0.9982715 0.9979260
+ [8] 0.9975807 0.9972355 0.9968905</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="compare-curves-generated-by-means-v.s.-patient-level-data" class="level4">
+<h4 class="anchored" data-anchor-id="compare-curves-generated-by-means-v.s.-patient-level-data">Compare curves generated by means v.s. patient-level data</h4>
+<p>If running the script in <code>qc_mode</code>, this code chunk will compare the general population survival curves produced based on average characteristics in a table to those produced from person-level data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="co"># During QC model we produce a comparison between mean-based and IPD based general population OS lines:</span></span>
+<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (qc_mode) {</span>
+<span id="cb132-3"><a href="#cb132-3" aria-hidden="true" tabindex="-1"></a>  i<span class="sc">$</span>gpop <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb132-4"><a href="#cb132-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">means =</span> <span class="fu">f_surv_GenOSLines_det</span>(</span>
+<span id="cb132-5"><a href="#cb132-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">R_table_ptchar         =</span> i<span class="sc">$</span>R_table_ptchar,</span>
+<span id="cb132-6"><a href="#cb132-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">R_table_mort_lifeTable =</span> i<span class="sc">$</span>R_table_mort_lifeTable,</span>
+<span id="cb132-7"><a href="#cb132-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">t_yr                   =</span> p<span class="sc">$</span>basic<span class="sc">$</span>t_yr,</span>
+<span id="cb132-8"><a href="#cb132-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">lookups                =</span> i<span class="sc">$</span>lookup</span>
+<span id="cb132-9"><a href="#cb132-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb132-10"><a href="#cb132-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">ipd =</span> <span class="fu">f_surv_GenOSLines_ipd</span>(</span>
+<span id="cb132-11"><a href="#cb132-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">R_table_patientagesex  =</span> i<span class="sc">$</span>R_table_patientagesex,</span>
+<span id="cb132-12"><a href="#cb132-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">R_table_mort_lifeTable =</span> i<span class="sc">$</span>R_table_mort_lifeTable,</span>
+<span id="cb132-13"><a href="#cb132-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">t_yr                   =</span> p<span class="sc">$</span>basic<span class="sc">$</span>t_yr,</span>
+<span id="cb132-14"><a href="#cb132-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">lookups                =</span> i<span class="sc">$</span>lookup</span>
+<span id="cb132-15"><a href="#cb132-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb132-16"><a href="#cb132-16" aria-hidden="true" tabindex="-1"></a>  ) </span>
+<span id="cb132-17"><a href="#cb132-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb132-18"><a href="#cb132-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compare all risk population first-line across the 2 methods</span></span>
+<span id="cb132-19"><a href="#cb132-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb132-20"><a href="#cb132-20" aria-hidden="true" tabindex="-1"></a>  i<span class="sc">$</span>gpop<span class="sc">$</span>plotdat <span class="ot">&lt;-</span> <span class="fu">data.table</span>(</span>
+<span id="cb132-21"><a href="#cb132-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">t =</span> <span class="fu">rep</span>(p<span class="sc">$</span>basic<span class="sc">$</span>t_yr,<span class="dv">2</span>),</span>
+<span id="cb132-22"><a href="#cb132-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">os =</span> <span class="fu">c</span>(i<span class="sc">$</span>gpop<span class="sc">$</span>means<span class="sc">$</span>pop_0<span class="sc">$</span>line_1<span class="sc">$</span>os,i<span class="sc">$</span>gpop<span class="sc">$</span>ipd<span class="sc">$</span>pop_0<span class="sc">$</span>line_1<span class="sc">$</span>os),</span>
+<span id="cb132-23"><a href="#cb132-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"Means"</span>,p<span class="sc">$</span>basic<span class="sc">$</span>th<span class="sc">+</span><span class="dv">1</span>),<span class="fu">rep</span>(<span class="st">"Patient data"</span>,p<span class="sc">$</span>basic<span class="sc">$</span>th<span class="sc">+</span><span class="dv">1</span>))</span>
+<span id="cb132-24"><a href="#cb132-24" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb132-25"><a href="#cb132-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb132-26"><a href="#cb132-26" aria-hidden="true" tabindex="-1"></a>  i<span class="sc">$</span>gpop<span class="sc">$</span>comp_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(i<span class="sc">$</span>gpop<span class="sc">$</span>plotdat, <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> os, <span class="at">colour =</span> method)) <span class="sc">+</span> </span>
+<span id="cb132-27"><a href="#cb132-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb132-28"><a href="#cb132-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb132-29"><a href="#cb132-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="at">legend.title=</span><span class="fu">element_blank</span>()) <span class="sc">+</span> </span>
+<span id="cb132-30"><a href="#cb132-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="st">"Time (years)"</span>, <span class="at">y =</span> <span class="st">"% Survival"</span>) <span class="sc">+</span> </span>
+<span id="cb132-31"><a href="#cb132-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.05</span>))) <span class="sc">+</span> </span>
+<span id="cb132-32"><a href="#cb132-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent)</span>
+<span id="cb132-33"><a href="#cb132-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb132-34"><a href="#cb132-34" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(qc_mode) {</span>
+<span id="cb132-35"><a href="#cb132-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggsave</span>(</span>
+<span id="cb132-36"><a href="#cb132-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">filename =</span> <span class="fu">file.path</span>(<span class="st">"./4_Output/"</span>,<span class="st">"gpop_1L_method_comparison.png"</span>),</span>
+<span id="cb132-37"><a href="#cb132-37" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot =</span> i<span class="sc">$</span>gpop<span class="sc">$</span>comp_plot,</span>
+<span id="cb132-38"><a href="#cb132-38" aria-hidden="true" tabindex="-1"></a>      <span class="at">device =</span> <span class="st">"png"</span>,</span>
+<span id="cb132-39"><a href="#cb132-39" aria-hidden="true" tabindex="-1"></a>      <span class="at">units =</span> <span class="st">"cm"</span>,</span>
+<span id="cb132-40"><a href="#cb132-40" aria-hidden="true" tabindex="-1"></a>      <span class="at">width =</span> <span class="dv">15</span></span>
+<span id="cb132-41"><a href="#cb132-41" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb132-42"><a href="#cb132-42" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb132-43"><a href="#cb132-43" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="adjust-treatment-curves-based-on-general-population" class="level4">
+<h4 class="anchored" data-anchor-id="adjust-treatment-curves-based-on-general-population">Adjust treatment curves based on general population</h4>
+<p>The function <code>f_surv_gpopadjust()</code> adjusts the survival curves based on the general population survival curves. This is to ensure that the advanced renal cell carcinoma (aRCC) patients are not projected to live longer than the general population.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adjust all OS lines in p$surv$st for gpop mortality</span></span>
+<span id="cb133-2"><a href="#cb133-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>surv<span class="sc">$</span>st <span class="ot">&lt;-</span> <span class="fu">f_surv_gpopadjust</span>(<span class="at">st      =</span> p<span class="sc">$</span>surv<span class="sc">$</span>st,</span>
+<span id="cb133-3"><a href="#cb133-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">gpop    =</span> p<span class="sc">$</span>surv<span class="sc">$</span>gpop,</span>
+<span id="cb133-4"><a href="#cb133-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">method  =</span> <span class="st">"hazardmax"</span>,</span>
+<span id="cb133-5"><a href="#cb133-5" aria-hidden="true" tabindex="-1"></a>                               <span class="at">verbose =</span> qc_mode)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="curve-overlap" class="level3">
+<h3 class="anchored" data-anchor-id="curve-overlap">Curve overlap</h3>
+<p>A known limitation of partitioned survival analysis (which was used to extrapolate the RWE) is that it can produce curves where PFS lies above OS (which is impossible in real-life). Hence, in cases where this occurs, it was adjusted so that PFS &lt;= OS (and also, TTD &lt;= OS, and PFS &lt;= TTP). This was implemented using the functions <code>f_surv_PFSxOS()</code>, <code>f_surv_TTDxOS()</code>, and <code>f_surv_PFSxTTP()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust PFS and TTD for OS - PFS and TTD cannot exceed OS</span></span>
+<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>surv<span class="sc">$</span>st <span class="ot">&lt;-</span> <span class="fu">f_surv_PFSxOS</span>(p<span class="sc">$</span>surv<span class="sc">$</span>st, <span class="cf">if</span>(i<span class="sc">$</span>dd_adj_cross_curves <span class="sc">==</span> <span class="st">"Use hazards"</span>){<span class="st">"hazardmax"</span>} <span class="cf">else</span>{<span class="st">"abs"</span>})</span>
+<span id="cb134-3"><a href="#cb134-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-4"><a href="#cb134-4" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>surv<span class="sc">$</span>st <span class="ot">&lt;-</span> <span class="fu">f_surv_TTDxOS</span>(p<span class="sc">$</span>surv<span class="sc">$</span>st, <span class="cf">if</span>(i<span class="sc">$</span>dd_adj_cross_curves <span class="sc">==</span> <span class="st">"Use hazards"</span>){<span class="st">"hazardmax"</span>} <span class="cf">else</span>{<span class="st">"abs"</span>})</span>
+<span id="cb134-5"><a href="#cb134-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-6"><a href="#cb134-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust TTP, PFS cannot go above TTP, this is done on absolute survival rather than allowing flexibility to look at hazards</span></span>
+<span id="cb134-7"><a href="#cb134-7" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>surv<span class="sc">$</span>st <span class="ot">&lt;-</span> <span class="fu">f_surv_PFSxTTP</span>(<span class="at">st =</span> p<span class="sc">$</span>surv<span class="sc">$</span>st,<span class="at">method =</span>  <span class="st">"abs"</span>)</span>
+<span id="cb134-8"><a href="#cb134-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-9"><a href="#cb134-9" aria-hidden="true" tabindex="-1"></a><span class="co"># The below should produce a string of positive or 0s</span></span>
+<span id="cb134-10"><a href="#cb134-10" aria-hidden="true" tabindex="-1"></a><span class="co"># p$surv$st$pop_0$line_1$mol_7$trial_2$endpoint_3$st - p$surv$st$pop_0$line_1$mol_7$trial_2$endpoint_1$st</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="set-5l-to-4l" class="level3">
+<h3 class="anchored" data-anchor-id="set-5l-to-4l">Set 5L to 4L</h3>
+<p>Here, the survival times for 5L (ie. best supportive care, BSC) are set to those from 4L.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Last assumption - 5L =4L. this moves over BSC when it comes after 4 active treatments.</span></span>
+<span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb135-3"><a href="#cb135-3" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>surv<span class="sc">$</span>st <span class="ot">&lt;-</span> <span class="fu">lapply</span>(p<span class="sc">$</span>surv<span class="sc">$</span>st, <span class="cf">function</span>(popu) {</span>
+<span id="cb135-4"><a href="#cb135-4" aria-hidden="true" tabindex="-1"></a>  popu<span class="sc">$</span>line_5 <span class="ot">&lt;-</span> popu<span class="sc">$</span>line_4</span>
+<span id="cb135-5"><a href="#cb135-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(popu)</span>
+<span id="cb135-6"><a href="#cb135-6" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="view-the-generated-curves" class="level2">
+<h2 class="anchored" data-anchor-id="view-the-generated-curves">View the generated curves</h2>
+<p>If running with <code>qc_mode</code>, this would plot survival extrapolations and hazard curves for each PLMTE.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.3.7 Visual QC of final curves ---------------------------------------</span></span>
+<span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-3"><a href="#cb136-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Here's an example of how to run the QC plots. These serve as a useful check</span></span>
+<span id="cb136-4"><a href="#cb136-4" aria-hidden="true" tabindex="-1"></a><span class="co"># later on too, because it reveals where some PLMTEs have not been populated.</span></span>
+<span id="cb136-5"><a href="#cb136-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-6"><a href="#cb136-6" aria-hidden="true" tabindex="-1"></a><span class="co"># f_qc_surv_ExtrapPlot(</span></span>
+<span id="cb136-7"><a href="#cb136-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   st   = p$surv$st,</span></span>
+<span id="cb136-8"><a href="#cb136-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   popu = "pop_0",</span></span>
+<span id="cb136-9"><a href="#cb136-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   li   = "line_1",</span></span>
+<span id="cb136-10"><a href="#cb136-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   mo   = "mol_1",</span></span>
+<span id="cb136-11"><a href="#cb136-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   tr   = "trial_2",</span></span>
+<span id="cb136-12"><a href="#cb136-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   t_yr = p$basic$t_yr,</span></span>
+<span id="cb136-13"><a href="#cb136-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   th = p$basic$th</span></span>
+<span id="cb136-14"><a href="#cb136-14" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb136-15"><a href="#cb136-15" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb136-16"><a href="#cb136-16" aria-hidden="true" tabindex="-1"></a><span class="co"># f_qc_surv_EstHazPlot(</span></span>
+<span id="cb136-17"><a href="#cb136-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   st   = p$surv$st,</span></span>
+<span id="cb136-18"><a href="#cb136-18" aria-hidden="true" tabindex="-1"></a><span class="co">#   gpop = p$surv$gpop,</span></span>
+<span id="cb136-19"><a href="#cb136-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   popu = "pop_0",</span></span>
+<span id="cb136-20"><a href="#cb136-20" aria-hidden="true" tabindex="-1"></a><span class="co">#   li   = "line_1",</span></span>
+<span id="cb136-21"><a href="#cb136-21" aria-hidden="true" tabindex="-1"></a><span class="co">#   mo   = "mol_1",</span></span>
+<span id="cb136-22"><a href="#cb136-22" aria-hidden="true" tabindex="-1"></a><span class="co">#   tr   = "trial_2",</span></span>
+<span id="cb136-23"><a href="#cb136-23" aria-hidden="true" tabindex="-1"></a><span class="co">#   t_yr = p$basic$t_yr,</span></span>
+<span id="cb136-24"><a href="#cb136-24" aria-hidden="true" tabindex="-1"></a><span class="co">#   th   = p$basic$th</span></span>
+<span id="cb136-25"><a href="#cb136-25" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb136-26"><a href="#cb136-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-27"><a href="#cb136-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-28"><a href="#cb136-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Here is a QC method for visually having a look at the extrapolated survival</span></span>
+<span id="cb136-29"><a href="#cb136-29" aria-hidden="true" tabindex="-1"></a><span class="co"># after all relative efficacy has been applied. This creates a LOT of graphs. You can look through them by pressing the arrow on the plots window</span></span>
+<span id="cb136-30"><a href="#cb136-30" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (qc_mode) {</span>
+<span id="cb136-31"><a href="#cb136-31" aria-hidden="true" tabindex="-1"></a>  i<span class="sc">$</span>excel_destinations <span class="ot">&lt;-</span> <span class="fu">data.table</span>(i<span class="sc">$</span>R_table_eff_data_settings)[Include.in.this.analysis.<span class="sc">==</span><span class="st">"Yes"</span>,<span class="fu">list</span>(Population,Treatment.line,Molecule,Origin.trial,End.point)]</span>
+<span id="cb136-32"><a href="#cb136-32" aria-hidden="true" tabindex="-1"></a>  i<span class="sc">$</span>surv<span class="sc">$</span>ExtrapSenseCheck <span class="ot">&lt;-</span> <span class="fu">Reduce</span>(</span>
+<span id="cb136-33"><a href="#cb136-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(i<span class="sc">$</span>excel_destinations),</span>
+<span id="cb136-34"><a href="#cb136-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">init =</span> <span class="fu">f_NMA_generateNetwork</span>(i<span class="sc">$</span>id<span class="sc">$</span>ipd,i<span class="sc">$</span>lookup<span class="sc">$</span>ipd),</span>
+<span id="cb136-35"><a href="#cb136-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">accumulate =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb136-36"><a href="#cb136-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">f =</span> <span class="cf">function</span>(prev, dest_row) {</span>
+<span id="cb136-37"><a href="#cb136-37" aria-hidden="true" tabindex="-1"></a>      dat <span class="ot">&lt;-</span> <span class="fu">as.list</span>(i<span class="sc">$</span>excel_destinations[dest_row,])</span>
+<span id="cb136-38"><a href="#cb136-38" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb136-39"><a href="#cb136-39" aria-hidden="true" tabindex="-1"></a>      d <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb136-40"><a href="#cb136-40" aria-hidden="true" tabindex="-1"></a>        <span class="at">pop =</span> <span class="fu">paste0</span>(<span class="st">"pop_"</span>,dat<span class="sc">$</span>Population),</span>
+<span id="cb136-41"><a href="#cb136-41" aria-hidden="true" tabindex="-1"></a>        <span class="at">line =</span> <span class="fu">paste0</span>(<span class="st">"line_"</span>,dat<span class="sc">$</span>Treatment.line),</span>
+<span id="cb136-42"><a href="#cb136-42" aria-hidden="true" tabindex="-1"></a>        <span class="at">mol =</span> <span class="fu">paste0</span>(<span class="st">"mol_"</span>,dat<span class="sc">$</span>Molecule),</span>
+<span id="cb136-43"><a href="#cb136-43" aria-hidden="true" tabindex="-1"></a>        <span class="at">trial =</span> <span class="fu">paste0</span>(<span class="st">"trial_"</span>,dat<span class="sc">$</span>Origin.trial),</span>
+<span id="cb136-44"><a href="#cb136-44" aria-hidden="true" tabindex="-1"></a>        <span class="at">endpoint =</span> <span class="fu">paste0</span>(<span class="st">"endpoint_"</span>,dat<span class="sc">$</span>End.point)</span>
+<span id="cb136-45"><a href="#cb136-45" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb136-46"><a href="#cb136-46" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb136-47"><a href="#cb136-47" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cat</span>(<span class="fu">paste0</span>(</span>
+<span id="cb136-48"><a href="#cb136-48" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Drawing plots: "</span>,</span>
+<span id="cb136-49"><a href="#cb136-49" aria-hidden="true" tabindex="-1"></a>        <span class="st">" row "</span>, dest_row, <span class="st">" i$surv$ExtrapSenseCheck$"</span>,</span>
+<span id="cb136-50"><a href="#cb136-50" aria-hidden="true" tabindex="-1"></a>        d<span class="sc">$</span>pop, <span class="st">"$"</span>,</span>
+<span id="cb136-51"><a href="#cb136-51" aria-hidden="true" tabindex="-1"></a>        d<span class="sc">$</span>line, <span class="st">"$"</span>,</span>
+<span id="cb136-52"><a href="#cb136-52" aria-hidden="true" tabindex="-1"></a>        d<span class="sc">$</span>mol, <span class="st">"$"</span>,</span>
+<span id="cb136-53"><a href="#cb136-53" aria-hidden="true" tabindex="-1"></a>        d<span class="sc">$</span>trial, <span class="st">"$plots"</span>,</span>
+<span id="cb136-54"><a href="#cb136-54" aria-hidden="true" tabindex="-1"></a>        <span class="st">"</span><span class="sc">\n</span><span class="st">"</span></span>
+<span id="cb136-55"><a href="#cb136-55" aria-hidden="true" tabindex="-1"></a>      ))</span>
+<span id="cb136-56"><a href="#cb136-56" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb136-57"><a href="#cb136-57" aria-hidden="true" tabindex="-1"></a>      p_extrap <span class="ot">&lt;-</span> <span class="fu">f_qc_surv_ExtrapPlot</span>(</span>
+<span id="cb136-58"><a href="#cb136-58" aria-hidden="true" tabindex="-1"></a>        <span class="at">st   =</span> p<span class="sc">$</span>surv<span class="sc">$</span>st,</span>
+<span id="cb136-59"><a href="#cb136-59" aria-hidden="true" tabindex="-1"></a>        <span class="at">popu =</span> d<span class="sc">$</span>pop,</span>
+<span id="cb136-60"><a href="#cb136-60" aria-hidden="true" tabindex="-1"></a>        <span class="at">li   =</span> d<span class="sc">$</span>line,</span>
+<span id="cb136-61"><a href="#cb136-61" aria-hidden="true" tabindex="-1"></a>        <span class="at">mo   =</span> d<span class="sc">$</span>mol,</span>
+<span id="cb136-62"><a href="#cb136-62" aria-hidden="true" tabindex="-1"></a>        <span class="at">tr   =</span> d<span class="sc">$</span>trial,</span>
+<span id="cb136-63"><a href="#cb136-63" aria-hidden="true" tabindex="-1"></a>        <span class="at">t_yr =</span> p<span class="sc">$</span>basic<span class="sc">$</span>t_yr,</span>
+<span id="cb136-64"><a href="#cb136-64" aria-hidden="true" tabindex="-1"></a>        <span class="at">th =</span> p<span class="sc">$</span>basic<span class="sc">$</span>th</span>
+<span id="cb136-65"><a href="#cb136-65" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb136-66"><a href="#cb136-66" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb136-67"><a href="#cb136-67" aria-hidden="true" tabindex="-1"></a>      p_haz <span class="ot">&lt;-</span> <span class="fu">f_qc_surv_EstHazPlot</span>(</span>
+<span id="cb136-68"><a href="#cb136-68" aria-hidden="true" tabindex="-1"></a>        <span class="at">st   =</span> p<span class="sc">$</span>surv<span class="sc">$</span>st,</span>
+<span id="cb136-69"><a href="#cb136-69" aria-hidden="true" tabindex="-1"></a>        <span class="at">gpop =</span> p<span class="sc">$</span>surv<span class="sc">$</span>gpop,</span>
+<span id="cb136-70"><a href="#cb136-70" aria-hidden="true" tabindex="-1"></a>        <span class="at">popu =</span> d<span class="sc">$</span>pop,</span>
+<span id="cb136-71"><a href="#cb136-71" aria-hidden="true" tabindex="-1"></a>        <span class="at">li   =</span> d<span class="sc">$</span>line,</span>
+<span id="cb136-72"><a href="#cb136-72" aria-hidden="true" tabindex="-1"></a>        <span class="at">mo   =</span> d<span class="sc">$</span>mol,</span>
+<span id="cb136-73"><a href="#cb136-73" aria-hidden="true" tabindex="-1"></a>        <span class="at">tr   =</span> d<span class="sc">$</span>trial,</span>
+<span id="cb136-74"><a href="#cb136-74" aria-hidden="true" tabindex="-1"></a>        <span class="at">t_yr =</span> p<span class="sc">$</span>basic<span class="sc">$</span>t_yr,</span>
+<span id="cb136-75"><a href="#cb136-75" aria-hidden="true" tabindex="-1"></a>        <span class="at">th   =</span> p<span class="sc">$</span>basic<span class="sc">$</span>th</span>
+<span id="cb136-76"><a href="#cb136-76" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb136-77"><a href="#cb136-77" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb136-78"><a href="#cb136-78" aria-hidden="true" tabindex="-1"></a>      plmt <span class="ot">&lt;-</span> prev[[d<span class="sc">$</span>pop]][[d<span class="sc">$</span>line]][[d<span class="sc">$</span>mol]][[d<span class="sc">$</span>trial]]</span>
+<span id="cb136-79"><a href="#cb136-79" aria-hidden="true" tabindex="-1"></a>      plmt<span class="sc">$</span>plots <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb136-80"><a href="#cb136-80" aria-hidden="true" tabindex="-1"></a>        <span class="at">p_extrap =</span> p_extrap,</span>
+<span id="cb136-81"><a href="#cb136-81" aria-hidden="true" tabindex="-1"></a>        <span class="at">p_haz =</span> p_haz</span>
+<span id="cb136-82"><a href="#cb136-82" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb136-83"><a href="#cb136-83" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb136-84"><a href="#cb136-84" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Save 2 plots for each PLM available. Takes a while to run.</span></span>
+<span id="cb136-85"><a href="#cb136-85" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (qc_mode) {</span>
+<span id="cb136-86"><a href="#cb136-86" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggsave</span>(</span>
+<span id="cb136-87"><a href="#cb136-87" aria-hidden="true" tabindex="-1"></a>          <span class="at">filename =</span> <span class="fu">file.path</span>(<span class="st">"./4_Output"</span>,<span class="fu">paste0</span>(<span class="st">"p_extrap_"</span>,<span class="fu">paste</span>(d[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>],<span class="at">collapse=</span><span class="st">"_"</span>),<span class="st">".png"</span>)),</span>
+<span id="cb136-88"><a href="#cb136-88" aria-hidden="true" tabindex="-1"></a>          <span class="at">plot     =</span> plmt<span class="sc">$</span>plots<span class="sc">$</span>p_extrap,</span>
+<span id="cb136-89"><a href="#cb136-89" aria-hidden="true" tabindex="-1"></a>          <span class="at">device =</span> <span class="st">"png"</span>,</span>
+<span id="cb136-90"><a href="#cb136-90" aria-hidden="true" tabindex="-1"></a>          <span class="at">units =</span> <span class="st">"cm"</span>,</span>
+<span id="cb136-91"><a href="#cb136-91" aria-hidden="true" tabindex="-1"></a>          <span class="at">width =</span> <span class="dv">15</span></span>
+<span id="cb136-92"><a href="#cb136-92" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb136-93"><a href="#cb136-93" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggsave</span>(</span>
+<span id="cb136-94"><a href="#cb136-94" aria-hidden="true" tabindex="-1"></a>          <span class="at">filename =</span> <span class="fu">file.path</span>(<span class="st">"./4_Output"</span>,<span class="fu">paste0</span>(<span class="st">"p_tp_"</span>,<span class="fu">paste</span>(d[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>],<span class="at">collapse=</span><span class="st">"_"</span>),<span class="st">".png"</span>)),</span>
+<span id="cb136-95"><a href="#cb136-95" aria-hidden="true" tabindex="-1"></a>          <span class="at">plot     =</span> plmt<span class="sc">$</span>plots<span class="sc">$</span>p_haz,</span>
+<span id="cb136-96"><a href="#cb136-96" aria-hidden="true" tabindex="-1"></a>          <span class="at">device =</span> <span class="st">"png"</span>,</span>
+<span id="cb136-97"><a href="#cb136-97" aria-hidden="true" tabindex="-1"></a>          <span class="at">units =</span> <span class="st">"cm"</span>,</span>
+<span id="cb136-98"><a href="#cb136-98" aria-hidden="true" tabindex="-1"></a>          <span class="at">width =</span> <span class="dv">15</span></span>
+<span id="cb136-99"><a href="#cb136-99" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb136-100"><a href="#cb136-100" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb136-101"><a href="#cb136-101" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb136-102"><a href="#cb136-102" aria-hidden="true" tabindex="-1"></a>      prev[[d<span class="sc">$</span>pop]][[d<span class="sc">$</span>line]][[d<span class="sc">$</span>mol]][[d<span class="sc">$</span>trial]] <span class="ot">&lt;-</span> plmt</span>
+<span id="cb136-103"><a href="#cb136-103" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb136-104"><a href="#cb136-104" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(prev)</span>
+<span id="cb136-105"><a href="#cb136-105" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb136-106"><a href="#cb136-106" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb136-107"><a href="#cb136-107" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb136-108"><a href="#cb136-108" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View some example plots
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-32" class="callout-32-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Although <code>qc_mode</code> is set to FALSE, we can still use the functions to view an example of a survival and hazard curves.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_qc_surv_ExtrapPlot</span>(</span>
+<span id="cb137-2"><a href="#cb137-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">st   =</span> p<span class="sc">$</span>surv<span class="sc">$</span>st,</span>
+<span id="cb137-3"><a href="#cb137-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">popu =</span> <span class="st">"pop_0"</span>,</span>
+<span id="cb137-4"><a href="#cb137-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">li   =</span> <span class="st">"line_1"</span>,</span>
+<span id="cb137-5"><a href="#cb137-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mo   =</span> <span class="st">"mol_1"</span>,</span>
+<span id="cb137-6"><a href="#cb137-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">tr   =</span> <span class="st">"trial_2"</span>,</span>
+<span id="cb137-7"><a href="#cb137-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">t_yr =</span> p<span class="sc">$</span>basic<span class="sc">$</span>t_yr,</span>
+<span id="cb137-8"><a href="#cb137-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">th =</span> p<span class="sc">$</span>basic<span class="sc">$</span>th</span>
+<span id="cb137-9"><a href="#cb137-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="code0a_walkthrough_files/figure-html/unnamed-chunk-75-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_qc_surv_EstHazPlot</span>(</span>
+<span id="cb138-2"><a href="#cb138-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">st   =</span> p<span class="sc">$</span>surv<span class="sc">$</span>st,</span>
+<span id="cb138-3"><a href="#cb138-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">gpop =</span> p<span class="sc">$</span>surv<span class="sc">$</span>gpop,</span>
+<span id="cb138-4"><a href="#cb138-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">popu =</span> <span class="st">"pop_0"</span>,</span>
+<span id="cb138-5"><a href="#cb138-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">li   =</span> <span class="st">"line_1"</span>,</span>
+<span id="cb138-6"><a href="#cb138-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">mo   =</span> <span class="st">"mol_1"</span>,</span>
+<span id="cb138-7"><a href="#cb138-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">tr   =</span> <span class="st">"trial_2"</span>,</span>
+<span id="cb138-8"><a href="#cb138-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">t_yr =</span> p<span class="sc">$</span>basic<span class="sc">$</span>t_yr,</span>
+<span id="cb138-9"><a href="#cb138-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">th   =</span> p<span class="sc">$</span>basic<span class="sc">$</span>th</span>
+<span id="cb138-10"><a href="#cb138-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="code0a_walkthrough_files/figure-html/unnamed-chunk-75-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <p>SPLITMD_CODE3_END</p>
+<p>SPLITMD_CODE4_START</p>
+<p>This section processes data on demographics, QALYs, costs, AEs, costs, subsequent treatments, and population mappings.</p>
+<p>SPLITMD_CODE4_END</p>
+<p>SPLITMD_CODE5_START</p>
+<p>SPLITMD_CODE5_END</p>
 
 
 </section>
