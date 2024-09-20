@@ -84,6 +84,7 @@ library(knitr, quiet = TRUE)
 ```{r}
 # Set path to folders
 d_path = "../../../1_Data"
+s_path = "../../../2_Scripts"
 f_path = "../../../3_Functions"
 o_path = "../../../4_Output"
 ```
@@ -3017,5 +3018,430 @@ SPLITMD_CODE4_END
 SPLITMD_CODE5_START
 
 This page runs the **economic model**.
+
+## Final pre-processing steps
+
+A table with some settings is add to `p`.
+
+```{r}
+# 3.6 PATIENT FLOW ------------------------------------------------------
+# Now that we have all of the disease evidence and modeled outcomes available,
+# we can compute the disease model. In the deterministic case, this will simply 
+# be a trace for both the PS and Markov models. 
+
+i$R_table_eff_data_settings <- data.table(i$R_table_eff_data_settings)
+p$releff$excel_table <- i$R_table_eff_data_settings
+```
+
+::: {.callout-note collapse="true"}
+
+## View `p$releff$excel_table`
+
+```{r}
+kable(head(p$releff$excel_table))
+```
+
+:::
+
+The script also confirms that the specified model structure is a valid option (from `i$dd_model_struct`, and again a bit later from `p$basic$structure`).
+
+::: {.callout-note collapse="true"}
+
+## View default model structure
+
+```{r}
+i$dd_model_struct
+p$basic$structure
+```
+
+:::
+
+The comments in the code provide some description of the modelling, which is a survival analysis using either a state transition (markov) model or partitioned state survival model.
+
+```{r}
+if(!str_trim(i$dd_model_struct) %in% c("State transition", "Partitioned survival")) stop(
+  "The model structure is not one of the available options. These are 'State transition' and 'Partitioned survival'. Either code or the excel file are out of date or wrongly set up"
+)
+
+# The process of computing patient flow is as follows:
+# 
+#   - Create an empty object for housing the patient flow (a list)
+#   - Populate the trace with either disease modelling approach
+#   - Record metadata on the approach, as this determines what the trace looks like
+#   - Compute costs based on time in state
+#   - Compute QALYs based on time in state
+#   - Compute AEs based on time in state
+#     - Costs
+#     - QALYs
+#   - Return the populated pf list
+# 
+
+
+pf <- list()
+res <- list()
+
+
+# 3.6.1 Run the model -----------------------------------------------------
+
+# Running the model can mean two different structures, a markov model which 
+# we refer to as state transition or a partitioned survival approach. These
+# both work using the same parameters object p. There is only one function
+# to compute patient flow, f_pf_computePF. This takes several different arguments
+# but the main one is p, or the parameters object to power the model with. 
+# Everything within f_pf_computePF uses objects which are within p, such that
+# a copy of p could be saved as a file and as long as all functions have been
+# defined and packages loaded the model can be run directly from there. 
+
+# The only structures allowed are state transition and partitioned survival. error
+# if it is not one of those:
+stopifnot(p$basic$structure %in% c("State transition","Partitioned survival"))
+```
+
+This code then checks whether the decision problem is "cabozantinib plus nivolumab" - in which case, the first three populations are relevant, as the final three populations can't receive this treatment.
+
+::: {.callout-note collapse="true"}
+
+## View default decision problem
+
+```{r}
+p$basic$decision_problem
+```
+
+:::
+
+```{r}
+# Check the decision problem. If it's cabo+nivo only the first 3 overall
+# populations are relevant as one cannot get cabo+nivo in pops 4-6
+if(p$basic$decision_problem == "cabo+nivo") {
+  p$basic$pops_to_run <- 1:3
+} else {
+  p$basic$pops_to_run <- NULL
+}
+```
+
+The objects `p` and `i`, which contain the parameters used to run the model, can be save as `.rds` files to make it easier to re-run the model.
+
+```{r}
+# populate the pf object irrespective of model structure or overall populations
+# to include.
+# 
+# Note that if you put n_cores as NULL or 1 then the model will run in sequence.
+
+# For QC, you can easily just save i and p as a file so all you need to do is
+# load libraries to repeat the results and QC things:
+
+saveRDS(p, file.path(s_path,"standalone scripts/QC/p.rds"))
+saveRDS(i, file.path(s_path, "standalone scripts/QC/i.rds"))
+# 
+# If you run the model using scenario 1 (rather than base case scenario 0)
+# It will be a partitioned survival model. in that case it's a good idea to 
+# save a backup of p and i under a different name so that you have an input
+# set for the paritioned survival model to hand at any time.
+# 
+# saveRDS(p,"./2_Scripts/standalone scripts/QC/p_PS.rds")
+# saveRDS(i,"./2_Scripts/standalone scripts/QC/i_PS.rds")
+                          
+# p <- readRDS("./2_Scripts/standalone scripts/QC/p.rds")
+# i <- readRDS("./2_Scripts/standalone scripts/QC/i.rds")
+```
+
+## Run the model
+
+The survival analysis run using `f_pf_computePF()`. This function can take a while to run. For the purposes of this walkthrough, the code has been modified using `if(FALSE){}` to prevent the function from running and, instead, a set of pre-run model results are loaded.
+
+::: {.callout-note collapse="true"}
+
+## Further info about pre-run model results
+
+The model result file is very large and, as such, cannot be easily synced with GitHub. Therefore, in order to run this script on a new machine (as described in the walkthrough README), you will need to run `Model_Structure.R` (or the walkthrough `.qmd` file) to generate the file. It can be saved using the following code after `f_pf_computePF()`:
+
+```{r}
+computepf_file = file.path(d_path, "computepf_example.rds")
+saveRDS(pf, file=computepf_file)
+```
+
+:::
+
+The function `f_pf_compute_PF()` will use either:
+
+* `f_pf_computePF_mk()` (if state transition model, i.e. Markov model)
+* `f_pf_computePF_ps()` (if partitioned survival model)
+
+The purpose of this is to model how patients move through different health states/treatments, from which we can find outputs like costs and utilities.
+
+**State transition model**. Steps include:
+
+* Getting relevant population data and creating `sequence_list` with the allowed treatment sequences for a given population
+* Creating `util_gpop_mat` - a matrix of health state utility values that account for ageing
+* Transition probabilities (`TPs`) are calculated for each sequence, then used to construct Markov traces (`TRACE`) (ie. matrix of state vectors across all model cycles)
+* These are used to calculate costs through the treatment sequence (`pf_costs`) (e.g. cost per cycle `cpc`, costs on initiation `coi`, and costs on death `cod`), QALYs `pf_qalys`) and adverse events (`pf_ae`)
+
+**Partitioned survival model**. Steps include:
+
+* Getting relevant population data and creating the utility matrix `util_gpop_mat`
+* Using `f_pf_partSA_state_res()`, simulates patient states (e.g. PFS) across time horizon for each treatment sequence, returns the costs (`costs`) and QALYs (`qalys`)
+
+```{r}
+# CHANGE: Set to not run for walkthrough
+
+# Make this NA to run single core:
+#if(FALSE){
+tick <- Sys.time()
+pf <- f_pf_computePF(
+  p           = p,
+  struct      = p$basic$structure,
+  verbose     = FALSE,
+  plots       = FALSE,
+  just_pop    = p$basic$pops_to_run,
+  just_nlines = NULL,
+  just_seq    = NULL
+)
+print(Sys.time() - tick)
+#}
+
+# if (is.na(keep_free_cores)) {
+#   plan(sequential)
+# } else {
+#   plan(multisession(workers = max(availableCores()-keep_free_cores,1)))
+# }
+```
+
+```{r}
+computepf_file = file.path(d_path, "computepf_example.rds")
+saveRDS(pf, file=computepf_file)
+```
+
+```{r}
+# CHANGE: Set to load pre run results for walkthrough
+computepf_file = file.path(d_path, "computepf_example.rds")
+pf <- readRDS(computepf_file)
+```
+
+## Analyse the model results
+
+The model results are compiled using `f_res_compute_results()` which will then use either:
+
+* `f_res_compute_results_mk()` for the state transition model
+* `f_res_compute_results_ps()` for the partitioned survival model
+
+These each in turn utilities various other functions to summarise the model results. There are various functions, depending on the level of detail desired in the plots. This is set to either 4 or 5, depending on whether it is scenario 0.
+
+The summary functions include:
+
+* `f_pf_mk_summary()` to get `undisc` and `disc` results (undiscounted and discounted)
+* `f_res_mk_incremental()` to get `incremental`
+* `f_res_wa_model()` to get `weighted_model` discounted or undiscounted, summarised using `f_res_sum_weighted_model()`
+* `f_pf_wa_sr_plots()` to get `weighted_trace_plots`
+
+And more! As summarised in code comments below, the outcomes of this from each detail level are:
+
+1. Top line results by sequence and weighted average results (costs, QALYs, LYs)
+2. Include incremental analysis (from `f_res_mk_incremental()`)
+3. Include weighted average pairwise comparisons
+4. Include incremental analysis by sequence
+5. Include trace plots
+
+Except for the partitioned survival, 4 is breakdown tables and 4 is state residency plots.
+
+```{r}
+# 3.6.2 Compiling model results -------------------------------------------
+
+# Depending on which model structure is used to compute patient flow, the results
+# are processed in different ways. The below function simply routes the pf object
+# to the appropriate function to process the results, and returns an object
+# res containing the results:
+
+Scenario_number <- i$R_Scenario_num
+
+if(Scenario_number == 0) {detail_level <- 5} else {detail_level <- 4}
+# Detail level guide:
+
+# State transition
+# 1 is top line results by sequence (costs, QALYs, LYs) and weighted average results
+# 2 is just the top line table and non-dominated weighted average incremental results
+# 3 includes weighted average pairwise comparisons
+# 4 includes incremental analysis by sequence 
+# 5 includes trace plots  
+
+# PartSA analysis
+# 1 is top line results for the PartSA analysis (costs, QALYs, LYs)
+# 2 is incremental analysis as well
+# 3 includes breakdown tables as well
+# 4 includes state residency plots
+
+res <- f_res_compute_results(
+  pf              = pf,
+  structure       = p$basic$structure,
+  p               = p,
+  detail_level    = detail_level,
+  vs_mol          = 1,
+  no_active_lines = i$R_max_trt_lines
+)
+```
+
+::: {.callout-note collapse="true"}
+
+## View `res`
+
+A few examples of results from `res` are shown below...
+
+```{r}
+kable(head(res$undisc$pop_1$ly$breakdown, 3))
+kable(head(res$incremental$pop_1$expanded_results, 3))
+res$weighted_trace_plots$pop_1$plots$L1_1
+res$wa_summarised$pop_1$costs
+res$pairwise_vs_mol$pop_1$qalys
+```
+
+:::
+
+## Severity modifier
+
+A severity modifier is implemented for the state transition model (and not for the partitioned survival model). These are used to weight QALYs for conditions with a high degree of severity.
+
+```{r}
+# 3.6.3 Calculate severity modifier -----------------------------------
+
+# The severity modifier for the weighted average first-line treatment comparison
+# uses the best available treatment which is not nivo cabo (molecule 1) for the
+# first 3 populations. 
+# 
+# This is because this is the best (i.e. most discounted QALYs) available 1L trt
+# pathway set.
+#
+# Calculation is only provided for the state transition model
+
+
+if (p$basic$structure == "State transition") {
+  population_numbers <- if(sum(p$basic$pops_to_run == 1:3)>0){1:3} else{1:6}
+  res$mk$qaly_shortfall_1_to_3 <- lapply(population_numbers, function(npa_pop) {
+  
+  lu_pop <- p$basic$lookup$pop_map
+  lu_rpop <- p$basic$lookup$ipd$pop
+  
+  # npa_pop is overall population, we need to look up risk population from it:
+  
+  risk_pop_n <- lu_pop[match(npa_pop,lu_pop$Overall.population.number),]$Risk.population.number
+  risk_pop <- lu_rpop[match(risk_pop_n,lu_rpop$Number),]$Description  
+  
+  i$R_table_ptchar <- as.data.table(i$R_table_ptchar)
+  
+  if (i$dd_age_sex_source == "Mean") {
+    
+    # So for this risk population, we need the baseline characteristics:
+    bl_chars <- i$R_table_ptchar[Population == risk_pop & Treatment.line == 1,]
+    bl_age  <- bl_chars$Starting.age..years..Mean
+    bl_male <- 1-bl_chars$Starting...female.Mean
+    
+  } else {
+    
+    patient_sex_age_IPD <- as.data.table(i$R_table_patientagesex)
+    patient_sex_age_IPD$Gender <- replace(patient_sex_age_IPD$Gender, patient_sex_age_IPD$Gender=="M","male")
+    patient_sex_age_IPD$Gender <- replace(patient_sex_age_IPD$Gender, patient_sex_age_IPD$Gender=="F","female")
+    
+    bl_age <- patient_sex_age_IPD[Line ==1]$Age 
+    bl_male <- patient_sex_age_IPD[Line ==1]$Gender
+    
+  }
+  
+  pna_txt <- names(res$wa_summarised)[npa_pop]
+  
+  tab <- res$wa_summarised[[pna_txt]][L1 != 1,]
+  
+  met <- tab[which.max(qalys),]
+  
+  q_met <- met$qalys
+  comp_no_met <- met$L1
+  
+  out <-    calc_severity_modifier(
+    age = bl_age,
+    sex = bl_male,
+    .patient_level = if(i$dd_age_sex_source == "Mean") {FALSE} else {TRUE},  
+    qalys = q_met,
+    .i = i,
+    .p = p
+  )
+  
+  out <- cbind(out, SOC = comp_no_met)
+  
+  return(out)
+  
+})
+}
+```
+
+```{r}
+res$mk$qaly_shortfall_1_to_3
+```
+
+## Save the results
+
+This code chunks saves the `res` list as an `.rds` file.
+
+```{r}
+# 3.6.4 Saving the results ------------------------------------------------------
+
+# the results are in list format so should be saved as an R list file (.rds)
+# The naming of the file should reflect the model structure used. The file
+# produced has a time stamp to avoid overwriting previous results files.
+
+Scenario_name <- i$R_Scenario_name    # Use ST for state transition, PS for Partitioned survival, LP for list price, cPAS for cPAS
+Scenario_number <- i$R_Scenario_num
+Run_date <- date()
+if (p$basic$structure == "State transition") {
+  saveRDS(res, file.path(o_path, paste0(
+    "ST_Scenario ", Scenario_number,"_",i$dd_drug_price_options,gsub(":","_",Run_date),".rds")))
+} else {
+  saveRDS(res, file.path(o_path, paste0(
+    "PartSA_Scenario ",Scenario_number,"_",i$dd_drug_price_options,gsub(":","_",Run_date),".rds")))
+}
+```
+
+## Creating the report
+
+```{r}
+# 3.6.5 Outputting results to Word ------------------------------------------------------
+
+# Outputting the results to word requires a series of functions to produce component
+# parts to go in the report, and then consolidating them all into the requested output.
+
+# Get the functions to produce the word document output:
+
+# Produce an automatically generated word document with required results tables
+# and automatically name it using the variables that are already inside of 
+# i and p (including structure, which is located in p$basic$structure. Note
+# that this comes from i$dd_model_struct, i.e. named range dd_model_struct from excel.
+# please ensure that this is updated for PS model scenarios):
+
+Word_width_inches      <-  29.7*0.3937
+
+f_res_ProduceWordDoc(
+  p                      = p,
+  res                    = res,
+  Scenario_name          = i$R_Scenario_name,
+  Scenario_number        = i$R_Scenario_num,
+  price_options          = i$dd_drug_price_options,
+  Run_date               = Run_date,
+  word_template_location = file.path(f_path, "reporting/empty results doc.docx"),
+  Word_width_inches      = 29.7*0.3937,
+  auto_save              = FALSE,
+  verbose = TRUE
+)
+```
+
+## Future plans
+
+```{r}
+# END OF CODE -------------------------------------------------------
+
+
+#### Additional changes were originally planned during Phase 2 of this pilot following use for the initial decision problem including
+# - Addition of Shiny user interface
+# - Genericisation of the code to allow wider use
+# - Programming and analysis of model outputs related specifically to sequencing, this may include value of information analyses
+
+# Unfortunately funding for this has not been confirmed currently. 
+# If you are interested in discussing or funding further development please contact the PenTAG team at pentag@exeter.ac.uk
+```
 
 SPLITMD_CODE5_END
