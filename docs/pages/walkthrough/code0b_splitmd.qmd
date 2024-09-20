@@ -6,4 +6,6 @@ engine: knitr
 sed -n '/SPLITMD_CODE1_START/,/SPLITMD_CODE1_END/{/SPLITMD_CODE1_START/d;/SPLITMD_CODE1_END/d;p}' code0a_walkthrough.html.md > code1.md
 sed -n '/SPLITMD_CODE2_START/,/SPLITMD_CODE2_END/{/SPLITMD_CODE2_START/d;/SPLITMD_CODE2_END/d;p}' code0a_walkthrough.html.md > code2.md
 sed -n '/SPLITMD_CODE3_START/,/SPLITMD_CODE3_END/{/SPLITMD_CODE3_START/d;/SPLITMD_CODE3_END/d;p}' code0a_walkthrough.html.md > code3.md
+sed -n '/SPLITMD_CODE4_START/,/SPLITMD_CODE4_END/{/SPLITMD_CODE4_START/d;/SPLITMD_CODE4_END/d;p}' code0a_walkthrough.html.md > code4.md
+sed -n '/SPLITMD_CODE5_START/,/SPLITMD_CODE5_END/{/SPLITMD_CODE5_START/d;/SPLITMD_CODE5_END/d;p}' code0a_walkthrough.html.md > code5.md
 ```

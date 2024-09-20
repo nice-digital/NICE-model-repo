@@ -2,6 +2,8 @@ project:
   type: website
   render:
     - "*.qmd"
+    - "!pages/walkthrough/code0a_walkthrough.qmd"
+    - "!pages/walkthrough/code0b_splitmd.qmd"
 
 website:
   title: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exeter Oncology Model: Renal Cell Carcinoma edition"
