@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -284,8 +318,20 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#final-pre-processing-steps" id="toc-final-pre-processing-steps" class="nav-link active" data-scroll-target="#final-pre-processing-steps">Final pre-processing steps</a></li>
+  <li><a href="#run-the-model" id="toc-run-the-model" class="nav-link" data-scroll-target="#run-the-model">Run the model</a></li>
+  <li><a href="#analyse-the-model-results" id="toc-analyse-the-model-results" class="nav-link" data-scroll-target="#analyse-the-model-results">Analyse the model results</a></li>
+  <li><a href="#severity-modifier" id="toc-severity-modifier" class="nav-link" data-scroll-target="#severity-modifier">Severity modifier</a></li>
+  <li><a href="#save-the-results" id="toc-save-the-results" class="nav-link" data-scroll-target="#save-the-results">Save the results</a></li>
+  <li><a href="#creating-the-report" id="toc-creating-the-report" class="nav-link" data-scroll-target="#creating-the-report">Creating the report</a></li>
+  <li><a href="#future-plans" id="toc-future-plans" class="nav-link" data-scroll-target="#future-plans">Future plans</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/walkthrough/code5_model.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -310,8 +356,1425 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>This page runs the <strong>economic model</strong>.</p>
+<section id="final-pre-processing-steps" class="level2">
+<h2 class="anchored" data-anchor-id="final-pre-processing-steps">Final pre-processing steps</h2>
+<p>A table with some settings is add to <code>p</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.6 PATIENT FLOW ------------------------------------------------------</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Now that we have all of the disease evidence and modeled outcomes available,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># we can compute the disease model. In the deterministic case, this will simply </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># be a trace for both the PS and Markov models. </span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>R_table_eff_data_settings <span class="ot">&lt;-</span> <span class="fu">data.table</span>(i<span class="sc">$</span>R_table_eff_data_settings)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>releff<span class="sc">$</span>excel_table <span class="ot">&lt;-</span> i<span class="sc">$</span>R_table_eff_data_settings</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View <code>p$releff$excel_table</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(p<span class="sc">$</span>releff<span class="sc">$</span>excel_table))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 2%">
+<col style="width: 6%">
+<col style="width: 4%">
+<col style="width: 2%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 2%">
+<col style="width: 4%">
+<col style="width: 7%">
+<col style="width: 11%">
+<col style="width: 4%">
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 9%">
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 1%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Population</th>
+<th style="text-align: left;">Population.name</th>
+<th style="text-align: right;">Treatment.line</th>
+<th style="text-align: right;">Molecule</th>
+<th style="text-align: left;">Treatment.name</th>
+<th style="text-align: left;">Include.in.this.analysis.</th>
+<th style="text-align: right;">End.point</th>
+<th style="text-align: left;">End.point.name</th>
+<th style="text-align: left;">Effectiveness.data.source</th>
+<th style="text-align: left;">Trial.name.if.effectiveness.source.is.trial</th>
+<th style="text-align: right;">Origin.population</th>
+<th style="text-align: right;">Origin.line</th>
+<th style="text-align: right;">Origin.treatment</th>
+<th style="text-align: right;">Origin.trial</th>
+<th style="text-align: right;">Origin.endpoint</th>
+<th style="text-align: left;">Curve.fit..for.survival.analysis.</th>
+<th style="text-align: right;">HR.to.apply</th>
+<th style="text-align: right;">HR.95..CI..LCL.</th>
+<th style="text-align: right;">HR.95..CI..UCL.</th>
+<th style="text-align: right;">Trial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Poor/intermediate risk</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">nivolumab_monotherapy</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Overall survival</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Exponential</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Poor/intermediate risk</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">cabozantinib_plus_nivolumab</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Overall survival</td>
+<td style="text-align: left;">FP_NMA</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Exponential</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Poor/intermediate risk</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">nivolumab_plus_ipilimumab</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Overall survival</td>
+<td style="text-align: left;">FP_NMA</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Exponential</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Poor/intermediate risk</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">lenvatinib_plus_pembrolizumab</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Overall survival</td>
+<td style="text-align: left;">Apply HR to</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">1.134</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">1.619</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Poor/intermediate risk</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">avelumab_plus_axitinib</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Overall survival</td>
+<td style="text-align: left;">PH_NMA</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Exponential</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Poor/intermediate risk</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">pazopanib</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Overall survival</td>
+<td style="text-align: left;">Assume equal to</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Exponential</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The script also confirms that the specified model structure is a valid option (from <code>i$dd_model_struct</code>, and again a bit later from <code>p$basic$structure</code>).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View default model structure
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>dd_model_struct</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "State transition"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>basic<span class="sc">$</span>structure</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "State transition"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The comments in the code provide some description of the modelling, which is a survival analysis using either a state transition (markov) model or partitioned state survival model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">str_trim</span>(i<span class="sc">$</span>dd_model_struct) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"State transition"</span>, <span class="st">"Partitioned survival"</span>)) <span class="fu">stop</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"The model structure is not one of the available options. These are 'State transition' and 'Partitioned survival'. Either code or the excel file are out of date or wrongly set up"</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># The process of computing patient flow is as follows:</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   - Create an empty object for housing the patient flow (a list)</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   - Populate the trace with either disease modelling approach</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   - Record metadata on the approach, as this determines what the trace looks like</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   - Compute costs based on time in state</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   - Compute QALYs based on time in state</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   - Compute AEs based on time in state</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#     - Costs</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#     - QALYs</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   - Return the populated pf list</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>pf <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.6.1 Run the model -----------------------------------------------------</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Running the model can mean two different structures, a markov model which </span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co"># we refer to as state transition or a partitioned survival approach. These</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co"># both work using the same parameters object p. There is only one function</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co"># to compute patient flow, f_pf_computePF. This takes several different arguments</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co"># but the main one is p, or the parameters object to power the model with. </span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Everything within f_pf_computePF uses objects which are within p, such that</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co"># a copy of p could be saved as a file and as long as all functions have been</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co"># defined and packages loaded the model can be run directly from there. </span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co"># The only structures allowed are state transition and partitioned survival. error</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="co"># if it is not one of those:</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(p<span class="sc">$</span>basic<span class="sc">$</span>structure <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"State transition"</span>,<span class="st">"Partitioned survival"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This code then checks whether the decision problem is “cabozantinib plus nivolumab” - in which case, the first three populations are relevant, as the final three populations can’t receive this treatment.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View default decision problem
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>basic<span class="sc">$</span>decision_problem</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "cabo+nivo"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the decision problem. If it's cabo+nivo only the first 3 overall</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># populations are relevant as one cannot get cabo+nivo in pops 4-6</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(p<span class="sc">$</span>basic<span class="sc">$</span>decision_problem <span class="sc">==</span> <span class="st">"cabo+nivo"</span>) {</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  p<span class="sc">$</span>basic<span class="sc">$</span>pops_to_run <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  p<span class="sc">$</span>basic<span class="sc">$</span>pops_to_run <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The objects <code>p</code> and <code>i</code>, which contain the parameters used to run the model, can be save as <code>.rds</code> files to make it easier to re-run the model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># populate the pf object irrespective of model structure or overall populations</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># to include.</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that if you put n_cores as NULL or 1 then the model will run in sequence.</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># For QC, you can easily just save i and p as a file so all you need to do is</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># load libraries to repeat the results and QC things:</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(p, <span class="fu">file.path</span>(s_path,<span class="st">"standalone scripts/QC/p.rds"</span>))</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(i, <span class="fu">file.path</span>(s_path, <span class="st">"standalone scripts/QC/i.rds"</span>))</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># If you run the model using scenario 1 (rather than base case scenario 0)</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># It will be a partitioned survival model. in that case it's a good idea to </span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># save a backup of p and i under a different name so that you have an input</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># set for the paritioned survival model to hand at any time.</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># saveRDS(p,"./2_Scripts/standalone scripts/QC/p_PS.rds")</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co"># saveRDS(i,"./2_Scripts/standalone scripts/QC/i_PS.rds")</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>                          </span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- readRDS("./2_Scripts/standalone scripts/QC/p.rds")</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co"># i &lt;- readRDS("./2_Scripts/standalone scripts/QC/i.rds")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="run-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="run-the-model">Run the model</h2>
+<p>The survival analysis run using <code>f_pf_computePF()</code>. This function can take a while to run. For the purposes of this walkthrough, the code has been modified using <code>if(FALSE){}</code> to prevent the function from running and, instead, a set of pre-run model results are loaded.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Further info about pre-run model results
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The model result file is very large and, as such, cannot be easily synced with GitHub. Therefore, in order to run this script on a new machine (as described in the walkthrough README), you will need to run <code>Model_Structure.R</code> (or the walkthrough <code>.qmd</code> file) to generate the file.</p>
+</div>
+</div>
+</div>
+<p>The function <code>f_pf_compute_PF()</code> will use either:</p>
+<ul>
+<li><code>f_pf_computePF_mk()</code> (if state transition model, i.e.&nbsp;Markov model)</li>
+<li><code>f_pf_computePF_ps()</code> (if partitioned survival model)</li>
+</ul>
+<p>The purpose of this is to model how patients move through different health states/treatments, from which we can find outputs like costs and utilities.</p>
+<p><strong>State transition model</strong>. Steps include:</p>
+<ul>
+<li>Getting relevant population data and creating <code>sequence_list</code> with the allowed treatment sequences for a given population</li>
+<li>Creating <code>util_gpop_mat</code> - a matrix of health state utility values that account for ageing</li>
+<li>Transition probabilities (<code>TPs</code>) are calculated for each sequence, then used to construct Markov traces (<code>TRACE</code>) (ie. matrix of state vectors across all model cycles)</li>
+<li>These are used to calculate costs through the treatment sequence (<code>pf_costs</code>) (e.g.&nbsp;cost per cycle <code>cpc</code>, costs on initiation <code>coi</code>, and costs on death <code>cod</code>), QALYs <code>pf_qalys</code>) and adverse events (<code>pf_ae</code>)</li>
+</ul>
+<p><strong>Partitioned survival model</strong>. Steps include:</p>
+<ul>
+<li>Getting relevant population data and creating the utility matrix <code>util_gpop_mat</code></li>
+<li>Using <code>f_pf_partSA_state_res()</code>, simulates patient states (e.g.&nbsp;PFS) across time horizon for each treatment sequence, returns the costs (<code>costs</code>) and QALYs (<code>qalys</code>)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make this NA to run single core:</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="cn">FALSE</span>){</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  tick <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  pf <span class="ot">&lt;-</span> <span class="fu">f_pf_computePF</span>(</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">p           =</span> p,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">struct      =</span> p<span class="sc">$</span>basic<span class="sc">$</span>structure,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose     =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">plots       =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">just_pop    =</span> p<span class="sc">$</span>basic<span class="sc">$</span>pops_to_run,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">just_nlines =</span> <span class="cn">NULL</span>,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">just_seq    =</span> <span class="cn">NULL</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">Sys.time</span>() <span class="sc">-</span> tick)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co"># if (is.na(keep_free_cores)) {</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   plan(sequential)</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co"># } else {</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   plan(multisession(workers = max(availableCores()-keep_free_cores,1)))</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Save result</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co"># computepf_file = file.path(d_path, "computepf_example.rds")</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co"># saveRDS(pf, file=computepf_file)</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Load result</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>computepf_file <span class="ot">=</span> <span class="fu">file.path</span>(d_path, <span class="st">"computepf_example.rds"</span>)</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>pf <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(computepf_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="analyse-the-model-results" class="level2">
+<h2 class="anchored" data-anchor-id="analyse-the-model-results">Analyse the model results</h2>
+<p>The model results are compiled using <code>f_res_compute_results()</code> which will then use either:</p>
+<ul>
+<li><code>f_res_compute_results_mk()</code> for the state transition model</li>
+<li><code>f_res_compute_results_ps()</code> for the partitioned survival model</li>
+</ul>
+<p>These each in turn utilities various other functions to summarise the model results. There are various functions, depending on the level of detail desired in the plots. This is set to either 4 or 5, depending on whether it is scenario 0.</p>
+<p>The summary functions include:</p>
+<ul>
+<li><code>f_pf_mk_summary()</code> to get <code>undisc</code> and <code>disc</code> results (undiscounted and discounted)</li>
+<li><code>f_res_mk_incremental()</code> to get <code>incremental</code></li>
+<li><code>f_res_wa_model()</code> to get <code>weighted_model</code> discounted or undiscounted, summarised using <code>f_res_sum_weighted_model()</code></li>
+<li><code>f_pf_wa_sr_plots()</code> to get <code>weighted_trace_plots</code></li>
+</ul>
+<p>And more! As summarised in code comments below, the outcomes of this from each detail level are:</p>
+<ol type="1">
+<li>Top line results by sequence and weighted average results (costs, QALYs, LYs)</li>
+<li>Include incremental analysis (from <code>f_res_mk_incremental()</code>)</li>
+<li>Include weighted average pairwise comparisons</li>
+<li>Include incremental analysis by sequence</li>
+<li>Include trace plots</li>
+</ol>
+<p>Except for the partitioned survival, 4 is breakdown tables and 4 is state residency plots.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.6.2 Compiling model results -------------------------------------------</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Depending on which model structure is used to compute patient flow, the results</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># are processed in different ways. The below function simply routes the pf object</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># to the appropriate function to process the results, and returns an object</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># res containing the results:</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>Scenario_number <span class="ot">&lt;-</span> i<span class="sc">$</span>R_Scenario_num</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(Scenario_number <span class="sc">==</span> <span class="dv">0</span>) {detail_level <span class="ot">&lt;-</span> <span class="dv">5</span>} <span class="cf">else</span> {detail_level <span class="ot">&lt;-</span> <span class="dv">4</span>}</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Detail level guide:</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># State transition</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 is top line results by sequence (costs, QALYs, LYs) and weighted average results</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 2 is just the top line table and non-dominated weighted average incremental results</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 3 includes weighted average pairwise comparisons</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 4 includes incremental analysis by sequence </span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 5 includes trace plots  </span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co"># PartSA analysis</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 is top line results for the PartSA analysis (costs, QALYs, LYs)</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 2 is incremental analysis as well</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 3 includes breakdown tables as well</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 4 includes state residency plots</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">f_res_compute_results</span>(</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">pf              =</span> pf,</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">structure       =</span> p<span class="sc">$</span>basic<span class="sc">$</span>structure,</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">p               =</span> p,</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">detail_level    =</span> detail_level,</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">vs_mol          =</span> <span class="dv">1</span>,</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">no_active_lines =</span> i<span class="sc">$</span>R_max_trt_lines</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View <code>res</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A few examples of results from <code>res</code> are shown below…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(res<span class="sc">$</span>undisc<span class="sc">$</span>pop_1<span class="sc">$</span>ly<span class="sc">$</span>breakdown, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 36%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">trt_n</th>
+<th style="text-align: left;">trt</th>
+<th style="text-align: right;">L1_on</th>
+<th style="text-align: right;">L1_off</th>
+<th style="text-align: right;">BSC</th>
+<th style="text-align: right;">L2_on</th>
+<th style="text-align: right;">L2_off</th>
+<th style="text-align: right;">L3_on</th>
+<th style="text-align: right;">L3_off</th>
+<th style="text-align: right;">L4_on</th>
+<th style="text-align: right;">L4_off</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1→999</td>
+<td style="text-align: left;">Cabozantinib plus nivolumab→Placebo / BSC</td>
+<td style="text-align: right;">1.945363</td>
+<td style="text-align: right;">0.1088617</td>
+<td style="text-align: right;">0.3625033</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5→999</td>
+<td style="text-align: left;">Pazopanib→Placebo / BSC</td>
+<td style="text-align: right;">1.144445</td>
+<td style="text-align: right;">0.1148029</td>
+<td style="text-align: right;">0.3673995</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7→999</td>
+<td style="text-align: left;">Sunitinib→Placebo / BSC</td>
+<td style="text-align: right;">1.144445</td>
+<td style="text-align: right;">0.1148029</td>
+<td style="text-align: right;">0.3673995</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(res<span class="sc">$</span>incremental<span class="sc">$</span>pop_1<span class="sc">$</span>expanded_results, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 24%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 13%">
+<col style="width: 5%">
+<col style="width: 4%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 2%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">trt_n</th>
+<th style="text-align: left;">trt</th>
+<th style="text-align: right;">costs</th>
+<th style="text-align: right;">qalys</th>
+<th style="text-align: right;">ly</th>
+<th style="text-align: left;">L1</th>
+<th style="text-align: left;">str_dom</th>
+<th style="text-align: left;">extdom</th>
+<th style="text-align: right;">ic</th>
+<th style="text-align: right;">iq</th>
+<th style="text-align: right;">il</th>
+<th style="text-align: right;">ICER</th>
+<th style="text-align: right;">r</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">7→999</td>
+<td style="text-align: left;">Sunitinib→Placebo / BSC</td>
+<td style="text-align: right;">22826.06</td>
+<td style="text-align: right;">1.085297</td>
+<td style="text-align: right;">1.626648</td>
+<td style="text-align: left;">7|999</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">0.000000</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5→999</td>
+<td style="text-align: left;">Pazopanib→Placebo / BSC</td>
+<td style="text-align: right;">24690.10</td>
+<td style="text-align: right;">1.085678</td>
+<td style="text-align: right;">1.626648</td>
+<td style="text-align: left;">5|999</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7→10→999</td>
+<td style="text-align: left;">Sunitinib→Everolimus→Placebo / BSC</td>
+<td style="text-align: right;">31562.18</td>
+<td style="text-align: right;">1.399302</td>
+<td style="text-align: right;">2.169939</td>
+<td style="text-align: left;">7|10|999</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">8736.118</td>
+<td style="text-align: right;">0.3140051</td>
+<td style="text-align: right;">0.543291</td>
+<td style="text-align: right;">27821.58</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>weighted_trace_plots<span class="sc">$</span>pop_1<span class="sc">$</span>plots<span class="sc">$</span>L1_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="code0a_walkthrough_files/figure-html/unnamed-chunk-109-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>wa_summarised<span class="sc">$</span>pop_1<span class="sc">$</span>costs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 268538.83  80398.95 100004.76  77049.92</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>pairwise_vs_mol<span class="sc">$</span>pop_1<span class="sc">$</span>qalys</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.253814 1.712196 1.674692 1.684174</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="severity-modifier" class="level2">
+<h2 class="anchored" data-anchor-id="severity-modifier">Severity modifier</h2>
+<p>A severity modifier is implemented for the state transition model (and not for the partitioned survival model). These are used to weight QALYs for conditions with a high degree of severity.</p>
+<p>The result of this section is <code>res$mk$qaly_shortfall_1_to_3</code> which is a list of three lists, each containing the QALY adjustments for each population.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.6.3 Calculate severity modifier -----------------------------------</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The severity modifier for the weighted average first-line treatment comparison</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># uses the best available treatment which is not nivo cabo (molecule 1) for the</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># first 3 populations. </span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># This is because this is the best (i.e. most discounted QALYs) available 1L trt</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># pathway set.</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculation is only provided for the state transition model</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (p<span class="sc">$</span>basic<span class="sc">$</span>structure <span class="sc">==</span> <span class="st">"State transition"</span>) {</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  population_numbers <span class="ot">&lt;-</span> <span class="cf">if</span>(<span class="fu">sum</span>(p<span class="sc">$</span>basic<span class="sc">$</span>pops_to_run <span class="sc">==</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)<span class="sc">&gt;</span><span class="dv">0</span>){<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>} <span class="cf">else</span>{<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>}</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  res<span class="sc">$</span>mk<span class="sc">$</span>qaly_shortfall_1_to_3 <span class="ot">&lt;-</span> <span class="fu">lapply</span>(population_numbers, <span class="cf">function</span>(npa_pop) {</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    lu_pop <span class="ot">&lt;-</span> p<span class="sc">$</span>basic<span class="sc">$</span>lookup<span class="sc">$</span>pop_map</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    lu_rpop <span class="ot">&lt;-</span> p<span class="sc">$</span>basic<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>pop</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># npa_pop is overall population, we need to look up risk population from it:</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>    risk_pop_n <span class="ot">&lt;-</span> lu_pop[<span class="fu">match</span>(npa_pop,lu_pop<span class="sc">$</span>Overall.population.number),]<span class="sc">$</span>Risk.population.number</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    risk_pop <span class="ot">&lt;-</span> lu_rpop[<span class="fu">match</span>(risk_pop_n,lu_rpop<span class="sc">$</span>Number),]<span class="sc">$</span>Description  </span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>    i<span class="sc">$</span>R_table_ptchar <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(i<span class="sc">$</span>R_table_ptchar)</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (i<span class="sc">$</span>dd_age_sex_source <span class="sc">==</span> <span class="st">"Mean"</span>) {</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>      <span class="co"># So for this risk population, we need the baseline characteristics:</span></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>      bl_chars <span class="ot">&lt;-</span> i<span class="sc">$</span>R_table_ptchar[Population <span class="sc">==</span> risk_pop <span class="sc">&amp;</span> Treatment.line <span class="sc">==</span> <span class="dv">1</span>,]</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>      bl_age  <span class="ot">&lt;-</span> bl_chars<span class="sc">$</span>Starting.age..years..Mean</span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>      bl_male <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span>bl_chars<span class="sc">$</span>Starting...female.Mean</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>      patient_sex_age_IPD <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(i<span class="sc">$</span>R_table_patientagesex)</span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>      patient_sex_age_IPD<span class="sc">$</span>Gender <span class="ot">&lt;-</span> <span class="fu">replace</span>(patient_sex_age_IPD<span class="sc">$</span>Gender, patient_sex_age_IPD<span class="sc">$</span>Gender<span class="sc">==</span><span class="st">"M"</span>,<span class="st">"male"</span>)</span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>      patient_sex_age_IPD<span class="sc">$</span>Gender <span class="ot">&lt;-</span> <span class="fu">replace</span>(patient_sex_age_IPD<span class="sc">$</span>Gender, patient_sex_age_IPD<span class="sc">$</span>Gender<span class="sc">==</span><span class="st">"F"</span>,<span class="st">"female"</span>)</span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>      bl_age <span class="ot">&lt;-</span> patient_sex_age_IPD[Line <span class="sc">==</span><span class="dv">1</span>]<span class="sc">$</span>Age </span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>      bl_male <span class="ot">&lt;-</span> patient_sex_age_IPD[Line <span class="sc">==</span><span class="dv">1</span>]<span class="sc">$</span>Gender</span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>    pna_txt <span class="ot">&lt;-</span> <span class="fu">names</span>(res<span class="sc">$</span>wa_summarised)[npa_pop]</span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>    tab <span class="ot">&lt;-</span> res<span class="sc">$</span>wa_summarised[[pna_txt]][L1 <span class="sc">!=</span> <span class="dv">1</span>,]</span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a>    met <span class="ot">&lt;-</span> tab[<span class="fu">which.max</span>(qalys),]</span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a>    q_met <span class="ot">&lt;-</span> met<span class="sc">$</span>qalys</span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a>    comp_no_met <span class="ot">&lt;-</span> met<span class="sc">$</span>L1</span>
+<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span>    <span class="fu">calc_severity_modifier</span>(</span>
+<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a>      <span class="at">age =</span> bl_age,</span>
+<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a>      <span class="at">sex =</span> bl_male,</span>
+<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a>      <span class="at">.patient_level =</span> <span class="cf">if</span>(i<span class="sc">$</span>dd_age_sex_source <span class="sc">==</span> <span class="st">"Mean"</span>) {<span class="cn">FALSE</span>} <span class="cf">else</span> {<span class="cn">TRUE</span>},  </span>
+<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a>      <span class="at">qalys =</span> q_met,</span>
+<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a>      <span class="at">.i =</span> i,</span>
+<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a>      <span class="at">.p =</span> p</span>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> <span class="fu">cbind</span>(out, <span class="at">SOC =</span> comp_no_met)</span>
+<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(out)</span>
+<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+How is the severity modifier calculated?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>There are first a few processing steps before the function to calculate severity, <code>calc_severity_modifier()</code>. Looking at an example of <code>npa_pop=1</code>, we start with getting the look-up for the population and the population mappings.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>npa_pop <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>lu_pop <span class="ot">&lt;-</span> p<span class="sc">$</span>basic<span class="sc">$</span>lookup<span class="sc">$</span>pop_map</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>lu_rpop <span class="ot">&lt;-</span> p<span class="sc">$</span>basic<span class="sc">$</span>lookup<span class="sc">$</span>ipd<span class="sc">$</span>pop</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>lu_pop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>lu_rpop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+</div>
+</div>
+<p>The risk population can then be identified - in this case “0” or “All risk”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># npa_pop is overall population, we need to look up risk population from it:</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>risk_pop_n <span class="ot">&lt;-</span> lu_pop[<span class="fu">match</span>(npa_pop,lu_pop<span class="sc">$</span>Overall.population.number),]<span class="sc">$</span>Risk.population.number</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>risk_pop <span class="ot">&lt;-</span> lu_rpop[<span class="fu">match</span>(risk_pop_n,lu_rpop<span class="sc">$</span>Number),]<span class="sc">$</span>Description  </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>risk_pop_n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>risk_pop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "All"</code></pre>
+</div>
+</div>
+<p>The patient characteristics table from excel is converted into a data table (if not already).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>R_table_ptchar <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(i<span class="sc">$</span>R_table_ptchar)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i<span class="sc">$</span>R_table_ptchar))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 3%">
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 7%">
+<col style="width: 5%">
+<col style="width: 4%">
+<col style="width: 5%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 4%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Population</th>
+<th style="text-align: right;">Treatment.line</th>
+<th style="text-align: right;">Starting.age..years..Mean</th>
+<th style="text-align: right;">Starting…female.Mean</th>
+<th style="text-align: right;">Starting…PorI.risk.Mean</th>
+<th style="text-align: right;">Body.weight..kg..Mean</th>
+<th style="text-align: right;">Prior.IO…in.12.months.Mean</th>
+<th style="text-align: right;">Starting.age..years..n</th>
+<th style="text-align: right;">Starting…female.n</th>
+<th style="text-align: right;">Starting…PorI.risk.n</th>
+<th style="text-align: right;">Body.weight..kg..n</th>
+<th style="text-align: right;">Starting…PIR.n</th>
+<th style="text-align: right;">Prior.IO…in.12.months.n</th>
+<th style="text-align: right;">Starting.age..years..SE</th>
+<th style="text-align: right;">Starting…female.SE</th>
+<th style="text-align: right;">Starting…PorI.risk.SE</th>
+<th style="text-align: right;">Body.weight..kg..SE</th>
+<th style="text-align: right;">Prior.IO…in.12.months.SE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">All</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">64.40</td>
+<td style="text-align: right;">0.2903715</td>
+<td style="text-align: right;">0.7755725</td>
+<td style="text-align: right;">83.38000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1311</td>
+<td style="text-align: right;">1319</td>
+<td style="text-align: right;">1310</td>
+<td style="text-align: right;">114</td>
+<td style="text-align: right;">1310</td>
+<td style="text-align: right;">1319</td>
+<td style="text-align: right;">0.2856284</td>
+<td style="text-align: right;">0.0124989</td>
+<td style="text-align: right;">0.0115269</td>
+<td style="text-align: right;">1.686593</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Poor / intermediate risk</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">64.20</td>
+<td style="text-align: right;">0.2952756</td>
+<td style="text-align: right;">1.0000000</td>
+<td style="text-align: right;">81.26353</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1011</td>
+<td style="text-align: right;">1016</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1319</td>
+<td style="text-align: right;">0.3273973</td>
+<td style="text-align: right;">0.0143112</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">1.686593</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Favourable risk</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">65.40</td>
+<td style="text-align: right;">0.2653061</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">90.98037</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">293</td>
+<td style="text-align: right;">294</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">114</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1319</td>
+<td style="text-align: right;">0.5596696</td>
+<td style="text-align: right;">0.0257486</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">1.686593</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">All</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">63.04</td>
+<td style="text-align: right;">0.2848101</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">83.38000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.4186000</td>
+<td style="text-align: right;">0.0179527</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">1.686593</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">All</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">62.62</td>
+<td style="text-align: right;">0.2850467</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">83.38000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.7288700</td>
+<td style="text-align: right;">0.0308596</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">1.686593</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">All</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">62.37</td>
+<td style="text-align: right;">0.2962963</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">83.38000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1.2498500</td>
+<td style="text-align: right;">0.0621386</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">1.686593</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>With our source of IPD (as from <code>i$dd_age_sex_source</code>), this code then created lists with the ages and genders of each person in the IPD.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>patient_sex_age_IPD <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(i<span class="sc">$</span>R_table_patientagesex)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>patient_sex_age_IPD<span class="sc">$</span>Gender <span class="ot">&lt;-</span> <span class="fu">replace</span>(patient_sex_age_IPD<span class="sc">$</span>Gender, patient_sex_age_IPD<span class="sc">$</span>Gender<span class="sc">==</span><span class="st">"M"</span>,<span class="st">"male"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>patient_sex_age_IPD<span class="sc">$</span>Gender <span class="ot">&lt;-</span> <span class="fu">replace</span>(patient_sex_age_IPD<span class="sc">$</span>Gender, patient_sex_age_IPD<span class="sc">$</span>Gender<span class="sc">==</span><span class="st">"F"</span>,<span class="st">"female"</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>bl_age <span class="ot">&lt;-</span> patient_sex_age_IPD[Line <span class="sc">==</span><span class="dv">1</span>]<span class="sc">$</span>Age </span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>bl_male <span class="ot">&lt;-</span> patient_sex_age_IPD[Line <span class="sc">==</span><span class="dv">1</span>]<span class="sc">$</span>Gender</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bl_age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 46.36414 74.09583 55.18070 69.14784 78.15880 79.32854</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bl_male)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "male"   "male"   "female" "male"   "male"   "male"  </code></pre>
+</div>
+</div>
+<p>The name of the population is created based on <code>npa_pop</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>pna_txt <span class="ot">&lt;-</span> <span class="fu">names</span>(res<span class="sc">$</span>wa_summarised)[npa_pop]</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>pna_txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "pop_1"</code></pre>
+</div>
+</div>
+<p>The economic model results for that population are identified for treatments except L1 treatment of molecule 1.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> res<span class="sc">$</span>wa_summarised[[pna_txt]][L1 <span class="sc">!=</span> <span class="dv">1</span>,]</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">L1</th>
+<th style="text-align: right;">costs</th>
+<th style="text-align: right;">qalys</th>
+<th style="text-align: right;">ly</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">80398.95</td>
+<td style="text-align: right;">1.712196</td>
+<td style="text-align: right;">2.836778</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">100004.76</td>
+<td style="text-align: right;">1.674692</td>
+<td style="text-align: right;">2.764879</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">77049.92</td>
+<td style="text-align: right;">1.684174</td>
+<td style="text-align: right;">2.780869</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>From that, the treatment with the maximum QALYs is identified, and the QALYs and treatment were extracted</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>met <span class="ot">&lt;-</span> tab[<span class="fu">which.max</span>(qalys),]</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>q_met <span class="ot">&lt;-</span> met<span class="sc">$</span>qalys</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>comp_no_met <span class="ot">&lt;-</span> met<span class="sc">$</span>L1</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(met)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">L1</th>
+<th style="text-align: right;">costs</th>
+<th style="text-align: right;">qalys</th>
+<th style="text-align: right;">ly</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">80398.95</td>
+<td style="text-align: right;">1.712196</td>
+<td style="text-align: right;">2.836778</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>These results were then used in the function <code>calc_severity_modifier()</code>. That function uses <code>get_severity_modifier()</code> to find the appropriate severity modifier according to the discounted QALYs for those with the condition and those without.</p>
+<p>This was repeated for the three populations, generating three results lists, which have been combined into the table below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The three lists of results, combined into a single table</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">bind_rows</span>(res<span class="sc">$</span>mk<span class="sc">$</span>qaly_shortfall_1_to_3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">qaly_soc</th>
+<th style="text-align: right;">qaly_gpop</th>
+<th style="text-align: right;">abs_sf</th>
+<th style="text-align: right;">prop_sf</th>
+<th style="text-align: right;">modifier</th>
+<th style="text-align: right;">SOC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1.712196</td>
+<td style="text-align: right;">10.38197</td>
+<td style="text-align: right;">8.669771</td>
+<td style="text-align: right;">0.8350798</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2.243521</td>
+<td style="text-align: right;">10.38197</td>
+<td style="text-align: right;">8.138445</td>
+<td style="text-align: right;">0.7839021</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2.013113</td>
+<td style="text-align: right;">10.38197</td>
+<td style="text-align: right;">8.368854</td>
+<td style="text-align: right;">0.8060952</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="save-the-results" class="level2">
+<h2 class="anchored" data-anchor-id="save-the-results">Save the results</h2>
+<p>This code chunks saves the <code>res</code> list as an <code>.rds</code> file, although that has been disabled for the purpose of this walkthrough.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.6.4 Saving the results ------------------------------------------------------</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the results are in list format so should be saved as an R list file (.rds)</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The naming of the file should reflect the model structure used. The file</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co"># produced has a time stamp to avoid overwriting previous results files.</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="cn">FALSE</span>){</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  Scenario_name <span class="ot">&lt;-</span> i<span class="sc">$</span>R_Scenario_name    <span class="co"># Use ST for state transition, PS for Partitioned survival, LP for list price, cPAS for cPAS</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  Scenario_number <span class="ot">&lt;-</span> i<span class="sc">$</span>R_Scenario_num</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  Run_date <span class="ot">&lt;-</span> <span class="fu">date</span>()</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (p<span class="sc">$</span>basic<span class="sc">$</span>structure <span class="sc">==</span> <span class="st">"State transition"</span>) {</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">saveRDS</span>(res, <span class="fu">file.path</span>(o_path, <span class="fu">paste0</span>(</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>      <span class="st">"ST_Scenario "</span>, Scenario_number,<span class="st">"_"</span>,i<span class="sc">$</span>dd_drug_price_options,<span class="fu">gsub</span>(<span class="st">":"</span>,<span class="st">"_"</span>,Run_date),<span class="st">".rds"</span>)))</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">saveRDS</span>(res, <span class="fu">file.path</span>(o_path, <span class="fu">paste0</span>(</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>      <span class="st">"PartSA_Scenario "</span>,Scenario_number,<span class="st">"_"</span>,i<span class="sc">$</span>dd_drug_price_options,<span class="fu">gsub</span>(<span class="st">":"</span>,<span class="st">"_"</span>,Run_date),<span class="st">".rds"</span>)))</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="creating-the-report" class="level2">
+<h2 class="anchored" data-anchor-id="creating-the-report">Creating the report</h2>
+<p>The function <code>f_res_ProduceWordDoc()</code> produces a word document report. Depending on <code>p$basic$structure</code>, will either use <code>f_res_ProduceWordDoc_ST()</code> (st - state transition) or <code>f_res_ProduceWordDoc_PS()</code> (ps - partitioned survival) to produce the report content. This applies results tables specific to the cabo+nivo population to the word document, in the format required by NICE.</p>
+<p>This report is explored in detail on the <a href="../../pages/report.html">Report</a> page.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.6.5 Outputting results to Word ------------------------------------------------------</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Outputting the results to word requires a series of functions to produce component</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># parts to go in the report, and then consolidating them all into the requested output.</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the functions to produce the word document output:</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Produce an automatically generated word document with required results tables</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="co"># and automatically name it using the variables that are already inside of </span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="co"># i and p (including structure, which is located in p$basic$structure. Note</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="co"># that this comes from i$dd_model_struct, i.e. named range dd_model_struct from excel.</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="co"># please ensure that this is updated for PS model scenarios):</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>Word_width_inches      <span class="ot">&lt;-</span>  <span class="fl">29.7</span><span class="sc">*</span><span class="fl">0.3937</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>Run_date <span class="ot">&lt;-</span> <span class="fu">date</span>()</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a><span class="fu">f_res_ProduceWordDoc</span>(</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">p                      =</span> p,</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">res                    =</span> res,</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">Scenario_name          =</span> i<span class="sc">$</span>R_Scenario_name,</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">Scenario_number        =</span> i<span class="sc">$</span>R_Scenario_num,</span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">price_options          =</span> i<span class="sc">$</span>dd_drug_price_options,</span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">Run_date               =</span> Run_date,</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">word_template_location =</span> <span class="fu">file.path</span>(f_path, <span class="st">"reporting/empty results doc.docx"</span>),</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">Word_width_inches      =</span> <span class="fl">29.7</span><span class="sc">*</span><span class="fl">0.3937</span>,</span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">auto_save              =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[0;32mWord output for Base case. (scen #0): [0m
+[0;31mWord output for Base case. (scen #0): LY breakdown[0m
+[0;33mWord output for Base case. (scen #0): QALY breakdown[0m
+[0;34mWord output for Base case. (scen #0): Cost breakdown[0m
+[0;35mWord output for Base case. (scen #0): Scenario tables[0m
+[0;36mWord output for Base case. (scen #0): Severity modifier[0m
+[0;37mWord output for Base case. (scen #0): Pairwise results[0m
+[0;40mWord output for Base case. (scen #0): Generating word document from results...[0m
+$L1_1</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+$L1_5</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+$L1_7</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+$L1_6</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+$L1_1</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+$L1_5</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+$L1_7</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+$L1_6</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+$L1_8</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+$L1_1</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+$L1_3</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+$L1_2</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+$L1_5</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+$L1_7</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+$L1_6</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>rdocx document with 147 element(s)
+
+* styles:
+                         Normal                       heading 1 
+                    "paragraph"                     "paragraph" 
+                      heading 2                       heading 3 
+                    "paragraph"                     "paragraph" 
+                      heading 4                       heading 5 
+                    "paragraph"                     "paragraph" 
+                      heading 6                       heading 7 
+                    "paragraph"                     "paragraph" 
+                      heading 8                       heading 9 
+                    "paragraph"                     "paragraph" 
+         Default Paragraph Font                    Normal Table 
+                    "character"                         "table" 
+                        No List            annotation reference 
+                    "numbering"                     "character" 
+                annotation text               Comment Text Char 
+                    "paragraph"                     "character" 
+             annotation subject            Comment Subject Char 
+                    "paragraph"                     "character" 
+                         Strong                    Normal (Web) 
+                    "character"                     "paragraph" 
+                 List Paragraph                      Table Text 
+                    "paragraph"                     "paragraph" 
+               Table Text Char1                NICEReport-table 
+                    "character"                         "table" 
+                 Heading 3 Char              Numbered heading 1 
+                    "character"                     "paragraph" 
+                Bullet indent 1            Bullet indent 1 Char 
+                    "paragraph"                     "character" 
+           Bullet indent 1 last              Numbered heading 2 
+                    "paragraph"                     "paragraph" 
+        Numbered heading 2 Char           Numbered level 3 text 
+                    "character"                     "paragraph" 
+                 Heading 1 Char                  Heading 2 Char 
+                    "character"                     "character" 
+                        Mention                   footnote text 
+                    "character"                     "paragraph" 
+             Footnote Text Char             ACIC-Clear-MainText 
+                    "character"                     "character" 
+           ACIC-Clear-TableText                             AIC 
+                    "character"                     "character" 
+                      app:head1                       app:head2 
+                    "paragraph"                     "paragraph" 
+                      app:head3                    Balloon Text 
+                    "paragraph"                     "paragraph" 
+              Balloon Text Char                       list:bull 
+                    "character"                     "paragraph" 
+                 list:bull Char                            blue 
+                    "character"                     "paragraph" 
+           Borderless (Relaxed)                   Bullet left 1 
+                        "table"                     "paragraph" 
+             Bullet left 1 Char              Bullet left 1 last 
+                    "character"                     "paragraph" 
+        Bullet left 1 last Char                   Bullet left 2 
+                    "character"                     "paragraph" 
+             Bullet left 2 last         Bullet left 2 last Char 
+                    "paragraph"                     "character" 
+                  Bullet left 3                Bullet list left 
+                    "paragraph"                     "numbering" 
+                        caption                    Caption Char 
+                    "paragraph"                     "character" 
+                     centhead12                            cf01 
+                    "paragraph"                     "character" 
+                            CIC             c-mrkdwn__highlight 
+                    "character"                     "character" 
+                        Default                    Document Map 
+                    "paragraph"                     "paragraph" 
+              Document Map Char            EndNote Bibliography 
+                    "character"                     "paragraph" 
+      EndNote Bibliography Char      EndNote Bibliography Title 
+                    "character"                     "paragraph" 
+EndNote Bibliography Title Char                             eop 
+                    "character"                     "character" 
+                        findhit               FollowedHyperlink 
+                    "character"                     "character" 
+                         footer                     Footer Char 
+                    "paragraph"                     "character" 
+             footnote reference              Grid Table 1 Light 
+                    "character"                         "table" 
+    Grid Table 1 Light Accent 3                    Grid Table 2 
+                        "table"                         "table" 
+                   Grid Table 3                    Grid Table 4 
+                        "table"                         "table" 
+                         header                     Header Char 
+                    "paragraph"                     "character" 
+                 Heading 4 Char                  Heading 5 Char 
+                    "character"                     "character" 
+                 Heading 6 Char                  Heading 7 Char 
+                    "character"                     "character" 
+                 Heading 8 Char                  Heading 9 Char 
+                    "character"                     "character" 
+                    Hidden Text                Hidden Text Char 
+                    "paragraph"                     "character" 
+                       HTAtable                       Hyperlink 
+                        "table"                     "character" 
+                      left head                      lefthead12 
+                    "paragraph"                     "paragraph" 
+                      lh:NonTOC                     lh:NonTOC12 
+                    "paragraph"                     "paragraph" 
+               lh:NonTOC12 Char                     list:indent 
+                    "character"                     "paragraph" 
+               list:indent Char                list:indent bull 
+                    "character"                     "paragraph" 
+          list:indent bull Char                        list:num 
+                    "character"                     "paragraph" 
+                  list:num Char                        Mention1 
+                    "character"                     "character" 
+            NICE figure caption        NICE figure caption Char 
+                    "paragraph"                     "character" 
+                    NICE normal                NICE normal Char 
+                    "paragraph"                     "character" 
+                    NoNum:Head1                     NoNum:Head2 
+                    "paragraph"                     "paragraph" 
+                    NoNum:Head3                NoNum:Head3 Char 
+                    "paragraph"                     "character" 
+                    NoNum:Head4                NoNum:Head4 Char 
+                    "paragraph"                     "character" 
+                    NoNum:Head5                   normaltextrun 
+                    "paragraph"                     "character" 
+                    page number                       paragraph 
+                    "character"                     "paragraph" 
+               Placeholder Text                  Plain Table 21 
+                    "character"                         "table" 
+                    quote:block                     quote:short 
+                    "paragraph"                     "character" 
+                       Subtitle                   Subtitle Char 
+                    "paragraph"                     "character" 
+                    superscript                      Table text 
+                    "character"                     "paragraph" 
+                Table text Char                  Table bullet 1 
+                    "character"                     "paragraph" 
+            Table bullet 1 Char                  Table bullet 2 
+                    "character"                     "paragraph" 
+            Table bullet 2 Char                  Table footnote 
+                    "character"                     "paragraph" 
+            Table footnote Char                      Table Grid 
+                    "character"                         "table" 
+           table of authorities                table of figures 
+                    "paragraph"                     "paragraph" 
+                     table:bull                           Title 
+                    "paragraph"                     "paragraph" 
+                     Title Char                           toc 1 
+                    "character"                     "paragraph" 
+                          toc 2                           toc 3 
+                    "paragraph"                     "paragraph" 
+                          toc 4                           toc 5 
+                    "paragraph"                     "paragraph" 
+                          toc 6                           toc 7 
+                    "paragraph"                     "paragraph" 
+                          toc 8                           toc 9 
+                    "paragraph"                     "paragraph" 
+                    TOC Heading                      TOC_Header 
+                    "paragraph"                     "paragraph" 
+                       TOC_Page              Unresolved Mention 
+                    "paragraph"                     "character" 
+            Unresolved Mention1             Unresolved Mention2 
+                    "character"                     "character" 
+            Unresolved Mention3             Unresolved Mention4 
+                    "character"                     "character" 
+            Unresolved Mention5  List Table 7 Colorful Accent 6 
+                    "character"                         "table" 
+                       Revision                    Style1lh:TOC 
+                    "paragraph"                     "paragraph" 
+                         lh:TOC                       msonormal 
+                    "paragraph"                     "paragraph" 
+                           xl65                            xl66 
+                    "paragraph"                     "paragraph" 
+                           xl67                            xl68 
+                    "paragraph"                     "paragraph" 
+                           xl69                            xl70 
+                    "paragraph"                     "paragraph" 
+                           xl71                            xl72 
+                    "paragraph"                     "paragraph" 
+                           xl73                            xl74 
+                    "paragraph"                     "paragraph" 
+                           xl75                            xl76 
+                    "paragraph"                     "paragraph" 
+                           xl77                     gnd-iwgdh3b 
+                    "paragraph"                     "character" 
+              HTML Preformatted          HTML Preformatted Char 
+                    "paragraph"                     "character" 
+
+* Content at cursor location:
+  level num_id text style_name content_type
+1    NA     NA              NA    paragraph</code></pre>
+</div>
+</div>
+</section>
+<section id="future-plans" class="level2">
+<h2 class="anchored" data-anchor-id="future-plans">Future plans</h2>
+<p>The final section of code outlines some of the future plans for this model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="re">END</span><span class="co"> OF CODE -------------------------------------------------------</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="do">#### Additional changes were originally planned during Phase 2 of this pilot following use for the initial decision problem including</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="co"># - Addition of Shiny user interface</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="co"># - Genericisation of the code to allow wider use</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="co"># - Programming and analysis of model outputs related specifically to sequencing, this may include value of information analyses</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Unfortunately funding for this has not been confirmed currently. </span></span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a><span class="co"># If you are interested in discussing or funding further development please contact the PenTAG team at pentag@exeter.ac.uk</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -739,4 +2202,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/walkthrough/code5_model.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/walkthrough/code5_model.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

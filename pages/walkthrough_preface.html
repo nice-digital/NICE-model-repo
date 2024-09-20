@@ -371,6 +371,13 @@ Full list of adjustments
 </ul></li>
 <li>Set <code>f_excel_extract()</code> from <code>verbose = TRUE</code> to <code>verbose = FALSE</code>, as it otherwise repeatedly prints “Extracting named range X from ../../1_Data/ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm” where X is the name of each parameter</li>
 <li>Add <code>library(knitr)</code> so can use <code>kable()</code></li>
+<li>Prevent <code>f_pf_computePF()</code> from running, and instead load some pre-run results</li>
+<li>Don’t need to keep saving copies of the data/report since running with the same dataset each time so:
+<ul>
+<li>Prevented from saving an <code>.rds</code> file with the results (3.6.4)</li>
+<li>Still set <code>Run_Date</code> to current date despite using old pre-run</li>
+<li>Set <code>autosave</code> to FALSE in <code>f_res_ProduceWordDoc()</code> as don’t need to keep saving copies of the report since running with the same data each time</li>
+</ul></li>
 </ul>
 </div>
 </div>
