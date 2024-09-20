@@ -38,5 +38,10 @@ Hence, it is advised that you use the original R script when running the model f
   * These folder paths are all set-up in a code chunk `paths` after we load the required packages.
 * Set `f_excel_extract()` from `verbose = TRUE` to `verbose = FALSE`, as it otherwise repeatedly prints "Extracting named range X from ../../1_Data/ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm" where X is the name of each parameter
 * Add `library(knitr)` so can use `kable()`
+* Prevent `f_pf_computePF()` from running, and instead load some pre-run results
+* Don't need to keep saving copies of the data/report since running with the same dataset each time so:
+  * Prevented from saving an `.rds` file with the results (3.6.4)
+  * Still set `Run_Date` to current date despite using old pre-run
+  * Set `autosave` to FALSE in `f_res_ProduceWordDoc()` as don't need to keep saving copies of the report since running with the same data each time
 
 :::

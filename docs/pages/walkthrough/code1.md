@@ -79,6 +79,7 @@ library(knitr, quiet = TRUE)
 ```{.r .cell-code}
 # Set path to folders
 d_path = "../../../1_Data"
+s_path = "../../../2_Scripts"
 f_path = "../../../3_Functions"
 o_path = "../../../4_Output"
 ```

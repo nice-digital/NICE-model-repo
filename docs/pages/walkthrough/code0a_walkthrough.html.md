@@ -5229,17 +5229,7 @@ The survival analysis run using `f_pf_computePF()`. This function can take a whi
 
 ## Further info about pre-run model results
 
-The model result file is very large and, as such, cannot be easily synced with GitHub. Therefore, in order to run this script on a new machine (as described in the walkthrough README), you will need to run `Model_Structure.R` (or the walkthrough `.qmd` file) to generate the file. It can be saved using the following code after `f_pf_computePF()`:
-
-
-::: {.cell}
-
-```{.r .cell-code}
-computepf_file = file.path(d_path, "computepf_example.rds")
-saveRDS(pf, file=computepf_file)
-```
-:::
-
+The model result file is very large and, as such, cannot be easily synced with GitHub. Therefore, in order to run this script on a new machine (as described in the walkthrough README), you will need to run `Model_Structure.R` (or the walkthrough `.qmd` file) to generate the file.
 
 :::
 
@@ -5266,81 +5256,31 @@ The purpose of this is to model how patients move through different health state
 ::: {.cell}
 
 ```{.r .cell-code}
-# CHANGE: Set to not run for walkthrough
-
 # Make this NA to run single core:
-#if(FALSE){
-tick <- Sys.time()
-pf <- f_pf_computePF(
-  p           = p,
-  struct      = p$basic$structure,
-  verbose     = FALSE,
-  plots       = FALSE,
-  just_pop    = p$basic$pops_to_run,
-  just_nlines = NULL,
-  just_seq    = NULL
-)
-```
-
-::: {.cell-output .cell-output-stdout}
-
-```
-[0;32mST model. Population 1	| Sequences: 'All risk and favourable risk no prior adjuvant'	 | 1L Risk: 'All risk', further lines assumed all population[0m
-M: pathways with 1 active treatment lines 
-M: pathways with 2 active treatment lines 
-M: pathways with 3 active treatment lines 
-M: pathways with 4 active treatment lines 
-[0;32mST model. Population 2	| Sequences: 'All risk and favourable risk no prior adjuvant'	 | 1L Risk: 'Favourable risk', further lines assumed all population[0m
-M: pathways with 1 active treatment lines 
-M: pathways with 2 active treatment lines 
-M: pathways with 3 active treatment lines 
-M: pathways with 4 active treatment lines 
-[0;32mST model. Population 3	| Sequences: 'Int / poor risk no prior adjuvant'	 | 1L Risk: 'Int/poor', further lines assumed all population[0m
-M: pathways with 1 active treatment lines 
-M: pathways with 2 active treatment lines 
-M: pathways with 3 active treatment lines 
-M: pathways with 4 active treatment lines 
-```
-
-
-:::
-
-```{.r .cell-code}
-print(Sys.time() - tick)
-```
-
-::: {.cell-output .cell-output-stdout}
-
-```
-Time difference of 35.13597 mins
-```
-
-
-:::
-
-```{.r .cell-code}
-#}
+if(FALSE){
+  tick <- Sys.time()
+  pf <- f_pf_computePF(
+    p           = p,
+    struct      = p$basic$structure,
+    verbose     = FALSE,
+    plots       = FALSE,
+    just_pop    = p$basic$pops_to_run,
+    just_nlines = NULL,
+    just_seq    = NULL
+  )
+  print(Sys.time() - tick)
+}
 
 # if (is.na(keep_free_cores)) {
 #   plan(sequential)
 # } else {
 #   plan(multisession(workers = max(availableCores()-keep_free_cores,1)))
 # }
-```
-:::
 
-::: {.cell}
-
-```{.r .cell-code}
-computepf_file = file.path(d_path, "computepf_example.rds")
-saveRDS(pf, file=computepf_file)
-```
-:::
-
-::: {.cell}
-
-```{.r .cell-code}
-# CHANGE: Set to load pre run results for walkthrough
+# Save result
+# computepf_file = file.path(d_path, "computepf_example.rds")
+# saveRDS(pf, file=computepf_file)
+# Load result
 computepf_file = file.path(d_path, "computepf_example.rds")
 pf <- readRDS(computepf_file)
 ```
@@ -5460,7 +5400,7 @@ res$weighted_trace_plots$pop_1$plots$L1_1
 ```
 
 ::: {.cell-output-display}
-![](code0a_walkthrough_files/figure-html/unnamed-chunk-112-1.png){width=672}
+![](code0a_walkthrough_files/figure-html/unnamed-chunk-109-1.png){width=672}
 :::
 
 ```{.r .cell-code}
@@ -5497,6 +5437,8 @@ res$pairwise_vs_mol$pop_1$qalys
 
 A severity modifier is implemented for the state transition model (and not for the partitioned survival model). These are used to weight QALYs for conditions with a high degree of severity.
 
+The result of this section is `res$mk$qaly_shortfall_1_to_3` which is a list of three lists, each containing the QALY adjustments for each population.
+
 
 ::: {.cell}
 
@@ -5516,82 +5458,126 @@ A severity modifier is implemented for the state transition model (and not for t
 if (p$basic$structure == "State transition") {
   population_numbers <- if(sum(p$basic$pops_to_run == 1:3)>0){1:3} else{1:6}
   res$mk$qaly_shortfall_1_to_3 <- lapply(population_numbers, function(npa_pop) {
-  
-  lu_pop <- p$basic$lookup$pop_map
-  lu_rpop <- p$basic$lookup$ipd$pop
-  
-  # npa_pop is overall population, we need to look up risk population from it:
-  
-  risk_pop_n <- lu_pop[match(npa_pop,lu_pop$Overall.population.number),]$Risk.population.number
-  risk_pop <- lu_rpop[match(risk_pop_n,lu_rpop$Number),]$Description  
-  
-  i$R_table_ptchar <- as.data.table(i$R_table_ptchar)
-  
-  if (i$dd_age_sex_source == "Mean") {
     
-    # So for this risk population, we need the baseline characteristics:
-    bl_chars <- i$R_table_ptchar[Population == risk_pop & Treatment.line == 1,]
-    bl_age  <- bl_chars$Starting.age..years..Mean
-    bl_male <- 1-bl_chars$Starting...female.Mean
+    lu_pop <- p$basic$lookup$pop_map
+    lu_rpop <- p$basic$lookup$ipd$pop
     
-  } else {
+    # npa_pop is overall population, we need to look up risk population from it:
     
-    patient_sex_age_IPD <- as.data.table(i$R_table_patientagesex)
-    patient_sex_age_IPD$Gender <- replace(patient_sex_age_IPD$Gender, patient_sex_age_IPD$Gender=="M","male")
-    patient_sex_age_IPD$Gender <- replace(patient_sex_age_IPD$Gender, patient_sex_age_IPD$Gender=="F","female")
+    risk_pop_n <- lu_pop[match(npa_pop,lu_pop$Overall.population.number),]$Risk.population.number
+    risk_pop <- lu_rpop[match(risk_pop_n,lu_rpop$Number),]$Description  
     
-    bl_age <- patient_sex_age_IPD[Line ==1]$Age 
-    bl_male <- patient_sex_age_IPD[Line ==1]$Gender
+    i$R_table_ptchar <- as.data.table(i$R_table_ptchar)
     
-  }
-  
-  pna_txt <- names(res$wa_summarised)[npa_pop]
-  
-  tab <- res$wa_summarised[[pna_txt]][L1 != 1,]
-  
-  met <- tab[which.max(qalys),]
-  
-  q_met <- met$qalys
-  comp_no_met <- met$L1
-  
-  out <-    calc_severity_modifier(
-    age = bl_age,
-    sex = bl_male,
-    .patient_level = if(i$dd_age_sex_source == "Mean") {FALSE} else {TRUE},  
-    qalys = q_met,
-    .i = i,
-    .p = p
-  )
-  
-  out <- cbind(out, SOC = comp_no_met)
-  
-  return(out)
-  
-})
+    if (i$dd_age_sex_source == "Mean") {
+      
+      # So for this risk population, we need the baseline characteristics:
+      bl_chars <- i$R_table_ptchar[Population == risk_pop & Treatment.line == 1,]
+      bl_age  <- bl_chars$Starting.age..years..Mean
+      bl_male <- 1-bl_chars$Starting...female.Mean
+      
+    } else {
+      
+      patient_sex_age_IPD <- as.data.table(i$R_table_patientagesex)
+      patient_sex_age_IPD$Gender <- replace(patient_sex_age_IPD$Gender, patient_sex_age_IPD$Gender=="M","male")
+      patient_sex_age_IPD$Gender <- replace(patient_sex_age_IPD$Gender, patient_sex_age_IPD$Gender=="F","female")
+      
+      bl_age <- patient_sex_age_IPD[Line ==1]$Age 
+      bl_male <- patient_sex_age_IPD[Line ==1]$Gender
+      
+    }
+    
+    pna_txt <- names(res$wa_summarised)[npa_pop]
+    
+    tab <- res$wa_summarised[[pna_txt]][L1 != 1,]
+    
+    met <- tab[which.max(qalys),]
+    
+    q_met <- met$qalys
+    comp_no_met <- met$L1
+    
+    out <-    calc_severity_modifier(
+      age = bl_age,
+      sex = bl_male,
+      .patient_level = if(i$dd_age_sex_source == "Mean") {FALSE} else {TRUE},  
+      qalys = q_met,
+      .i = i,
+      .p = p
+    )
+    
+    out <- cbind(out, SOC = comp_no_met)
+    
+    return(out)
+    
+  })
 }
 ```
 :::
 
+
+::: {.callout-note collapse="true"}
+
+## How is the severity modifier calculated?
+
+There are first a few processing steps before the function to calculate severity, `calc_severity_modifier()`. Looking at an example of `npa_pop=1`, we start with getting the look-up for the population and the population mappings.
+
+
 ::: {.cell}
 
 ```{.r .cell-code}
-res$mk$qaly_shortfall_1_to_3
+npa_pop = 1
+
+lu_pop <- p$basic$lookup$pop_map
+lu_rpop <- p$basic$lookup$ipd$pop
+
+lu_pop
+```
+
+::: {.cell-output-display}
+
+:::
+
+```{.r .cell-code}
+lu_rpop
+```
+
+::: {.cell-output-display}
+
+:::
+:::
+
+
+The risk population can then be identified - in this case "0" or "All risk".
+
+
+::: {.cell}
+
+```{.r .cell-code}
+# npa_pop is overall population, we need to look up risk population from it:
+
+risk_pop_n <- lu_pop[match(npa_pop,lu_pop$Overall.population.number),]$Risk.population.number
+risk_pop <- lu_rpop[match(risk_pop_n,lu_rpop$Number),]$Description  
+
+risk_pop_n
 ```
 
 ::: {.cell-output .cell-output-stdout}
 
 ```
-[[1]]
-  qaly_soc qaly_gpop   abs_sf   prop_sf modifier SOC
-1 1.712196  10.38197 8.669771 0.8350798        1   5
+[1] 0
+```
 
-[[2]]
-  qaly_soc qaly_gpop   abs_sf   prop_sf modifier SOC
-1 2.243521  10.38197 8.138445 0.7839021        1   5
 
-[[3]]
-  qaly_soc qaly_gpop   abs_sf   prop_sf modifier SOC
-1 2.013113  10.38197 8.368854 0.8060952        1   3
+:::
+
+```{.r .cell-code}
+risk_pop
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+[1] "All"
 ```
 
 
@@ -5599,9 +5585,173 @@ res$mk$qaly_shortfall_1_to_3
 :::
 
 
+The patient characteristics table from excel is converted into a data table (if not already).
+
+
+::: {.cell}
+
+```{.r .cell-code}
+i$R_table_ptchar <- as.data.table(i$R_table_ptchar)
+kable(head(i$R_table_ptchar))
+```
+
+::: {.cell-output-display}
+
+
+|Population               | Treatment.line| Starting.age..years..Mean| Starting...female.Mean| Starting...PorI.risk.Mean| Body.weight..kg..Mean| Prior.IO...in.12.months.Mean| Starting.age..years..n| Starting...female.n| Starting...PorI.risk.n| Body.weight..kg..n| Starting...PIR.n| Prior.IO...in.12.months.n| Starting.age..years..SE| Starting...female.SE| Starting...PorI.risk.SE| Body.weight..kg..SE| Prior.IO...in.12.months.SE|
+|:------------------------|--------------:|-------------------------:|----------------------:|-------------------------:|---------------------:|----------------------------:|----------------------:|-------------------:|----------------------:|------------------:|----------------:|-------------------------:|-----------------------:|--------------------:|-----------------------:|-------------------:|--------------------------:|
+|All                      |              1|                     64.40|              0.2903715|                 0.7755725|              83.38000|                            0|                   1311|                1319|                   1310|                114|             1310|                      1319|               0.2856284|            0.0124989|               0.0115269|            1.686593|                          0|
+|Poor / intermediate risk |              1|                     64.20|              0.2952756|                 1.0000000|              81.26353|                            0|                   1011|                1016|                      0|                114|                0|                      1319|               0.3273973|            0.0143112|               0.0000000|            1.686593|                          0|
+|Favourable risk          |              1|                     65.40|              0.2653061|                 0.0000000|              90.98037|                            0|                    293|                 294|                      0|                114|                0|                      1319|               0.5596696|            0.0257486|               0.0000000|            1.686593|                          0|
+|All                      |              2|                     63.04|              0.2848101|                 0.0000000|              83.38000|                            0|                     NA|                  NA|                     NA|                 NA|               NA|                        NA|               0.4186000|            0.0179527|               0.0000000|            1.686593|                          0|
+|All                      |              3|                     62.62|              0.2850467|                 0.0000000|              83.38000|                            0|                     NA|                  NA|                     NA|                 NA|               NA|                        NA|               0.7288700|            0.0308596|               0.0000000|            1.686593|                          0|
+|All                      |              4|                     62.37|              0.2962963|                 0.0000000|              83.38000|                            0|                     NA|                  NA|                     NA|                 NA|               NA|                        NA|               1.2498500|            0.0621386|               0.0000000|            1.686593|                          0|
+
+
+:::
+:::
+
+
+With our source of IPD (as from `i$dd_age_sex_source`), this code then created lists with the ages and genders of each person in the IPD.
+
+
+::: {.cell}
+
+```{.r .cell-code}
+patient_sex_age_IPD <- as.data.table(i$R_table_patientagesex)
+patient_sex_age_IPD$Gender <- replace(patient_sex_age_IPD$Gender, patient_sex_age_IPD$Gender=="M","male")
+patient_sex_age_IPD$Gender <- replace(patient_sex_age_IPD$Gender, patient_sex_age_IPD$Gender=="F","female")
+
+bl_age <- patient_sex_age_IPD[Line ==1]$Age 
+bl_male <- patient_sex_age_IPD[Line ==1]$Gender
+
+head(bl_age)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+[1] 46.36414 74.09583 55.18070 69.14784 78.15880 79.32854
+```
+
+
+:::
+
+```{.r .cell-code}
+head(bl_male)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+[1] "male"   "male"   "female" "male"   "male"   "male"  
+```
+
+
+:::
+:::
+
+
+The name of the population is created based on `npa_pop`.
+
+
+::: {.cell}
+
+```{.r .cell-code}
+pna_txt <- names(res$wa_summarised)[npa_pop]
+pna_txt
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+[1] "pop_1"
+```
+
+
+:::
+:::
+
+
+The economic model results for that population are identified for treatments except L1 treatment of molecule 1.
+
+
+::: {.cell}
+
+```{.r .cell-code}
+tab <- res$wa_summarised[[pna_txt]][L1 != 1,]
+kable(tab)
+```
+
+::: {.cell-output-display}
+
+
+| L1|     costs|    qalys|       ly|
+|--:|---------:|--------:|--------:|
+|  5|  80398.95| 1.712196| 2.836778|
+|  6| 100004.76| 1.674692| 2.764879|
+|  7|  77049.92| 1.684174| 2.780869|
+
+
+:::
+:::
+
+From that, the treatment with the maximum QALYs is identified, and the QALYs and treatment were extracted
+
+
+::: {.cell}
+
+```{.r .cell-code}
+met <- tab[which.max(qalys),]
+q_met <- met$qalys
+comp_no_met <- met$L1
+
+kable(met)
+```
+
+::: {.cell-output-display}
+
+
+| L1|    costs|    qalys|       ly|
+|--:|--------:|--------:|--------:|
+|  5| 80398.95| 1.712196| 2.836778|
+
+
+:::
+:::
+
+
+These results were then used in the function `calc_severity_modifier()`. That function uses `get_severity_modifier()` to find the appropriate severity modifier according to the discounted QALYs for those with the condition and those without.
+
+This was repeated for the three populations, generating three results lists, which have been combined into the table below:
+
+
+::: {.cell}
+
+```{.r .cell-code}
+# The three lists of results, combined into a single table
+kable(bind_rows(res$mk$qaly_shortfall_1_to_3))
+```
+
+::: {.cell-output-display}
+
+
+| qaly_soc| qaly_gpop|   abs_sf|   prop_sf| modifier| SOC|
+|--------:|---------:|--------:|---------:|--------:|---:|
+| 1.712196|  10.38197| 8.669771| 0.8350798|        1|   5|
+| 2.243521|  10.38197| 8.138445| 0.7839021|        1|   5|
+| 2.013113|  10.38197| 8.368854| 0.8060952|        1|   3|
+
+
+:::
+:::
+
+
+:::
+
 ## Save the results
 
-This code chunks saves the `res` list as an `.rds` file.
+This code chunks saves the `res` list as an `.rds` file, although that has been disabled for the purpose of this walkthrough.
 
 
 ::: {.cell}
@@ -5613,21 +5763,27 @@ This code chunks saves the `res` list as an `.rds` file.
 # The naming of the file should reflect the model structure used. The file
 # produced has a time stamp to avoid overwriting previous results files.
 
-Scenario_name <- i$R_Scenario_name    # Use ST for state transition, PS for Partitioned survival, LP for list price, cPAS for cPAS
-Scenario_number <- i$R_Scenario_num
-Run_date <- date()
-if (p$basic$structure == "State transition") {
-  saveRDS(res, file.path(o_path, paste0(
-    "ST_Scenario ", Scenario_number,"_",i$dd_drug_price_options,gsub(":","_",Run_date),".rds")))
-} else {
-  saveRDS(res, file.path(o_path, paste0(
-    "PartSA_Scenario ",Scenario_number,"_",i$dd_drug_price_options,gsub(":","_",Run_date),".rds")))
+if(FALSE){
+  Scenario_name <- i$R_Scenario_name    # Use ST for state transition, PS for Partitioned survival, LP for list price, cPAS for cPAS
+  Scenario_number <- i$R_Scenario_num
+  Run_date <- date()
+  if (p$basic$structure == "State transition") {
+    saveRDS(res, file.path(o_path, paste0(
+      "ST_Scenario ", Scenario_number,"_",i$dd_drug_price_options,gsub(":","_",Run_date),".rds")))
+  } else {
+    saveRDS(res, file.path(o_path, paste0(
+      "PartSA_Scenario ",Scenario_number,"_",i$dd_drug_price_options,gsub(":","_",Run_date),".rds")))
+  }
 }
 ```
 :::
 
 
 ## Creating the report
+
+The function `f_res_ProduceWordDoc()` produces a word document report. Depending on `p$basic$structure`, will either use `f_res_ProduceWordDoc_ST()` (st - state transition) or `f_res_ProduceWordDoc_PS()` (ps - partitioned survival) to produce the report content. This applies results tables specific to the cabo+nivo population to the word document, in the format required by NICE.
+
+This report is explored in detail on the [Report](../report.qmd) page.
 
 
 ::: {.cell}
@@ -5648,6 +5804,7 @@ if (p$basic$structure == "State transition") {
 
 Word_width_inches      <-  29.7*0.3937
 
+Run_date <- date()
 f_res_ProduceWordDoc(
   p                      = p,
   res                    = res,
@@ -6018,6 +6175,8 @@ EndNote Bibliography Title Char                             eop
 
 
 ## Future plans
+
+The final section of code outlines some of the future plans for this model.
 
 
 ::: {.cell}
