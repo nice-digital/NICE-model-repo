@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Dates formatted as YYYY-MM-DD as per [ISO standard](https://www.iso.org/iso-8601-date-and-time-format.html).
 
+## v1.2.0 - 2024-09-23
+
+Detailed model documentation via a quarto site hosted with GitHub pages.
+
+### Added
+
+* Quarto site with detailed documentation for the model including:
+  * Acronyms
+  * Context on the associated NICE appraisals, articles and reports
+  * A detailed summary of the analysis
+  * A plain english summary of the analysis
+  * Installation instructions
+  * A step-by-step walkthrough of the code in `Model_Structure.R`
+  * Descriptions of the probabilistic analysis and scenario analysis
+  * Details about the license, citation instructions and the changelog
+
+### Changed
+
+* Add `folder` input to `f_res_ProduceWordDoc()` to allow specification of the output folder to save the word document too (as previously hard coded `./4_Output`)
+* Add information about quarto website and run time to `README.md`
+* Moved images from `img/` to `docs/images/`
+
+### Removed
+
+* Removed unused template README and citation files from `1_Data/` `3_Functions/` and `4_Output/`. The paragraph that had been entered into the template README in the data folder was moved onto the probabilistic analysis page in the quarto documentation
+
 ## v1.1.1 - 2024-08-20
 
 Embellished README
