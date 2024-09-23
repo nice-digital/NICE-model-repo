@@ -1,7 +1,50 @@
 ---
 title: "Scenario analysis"
+bibliography: ../references.bib
+csl: ../elsvan.csl
 ---
 
-**TODO: Write this page**
+## What scenario analyses were conducted?
 
-There is also an exploratory analysis - 4.3.5.8 "Exploratory analysis looking at the impact of prior adjuvant therapy" in the Assessment Report. @lee_treatments_2023-1
+In the assessment report, @lee_treatments_2023-1 **Table 95** provides a very clear overview of the scenarios explored. It details how these differ from the base case, and justification for the scenario. Further description is also offered elsewhere in the report.
+
+As an example, one of the scenarios is:
+
+| Parameter | Base case | Scenario | Justification |
+| - | - | - | - |
+| Baseline risk | UK RWE | CheckMate 9ER | Testing impact of baseline risk |
+
+In this scenario, the reference surival curves providing baseline risk for the reference treatments are calculated using clinical trial data, rather than using the real-world evidence.
+
+In addition to the scenarios described in Table 95, there was also an exploratory analysis on the impact of prior adjuvant therapy. This is detailed in section **4.3.5.8** of the assessment report. @lee_treatments_2023-1
+
+## How can these scenarios be run?
+
+To run these scenarios, you'll need to alter the model script (for example, altering `Model_Structure.R`).
+
+A table of scenarios is provided in the excel input sheet and imported into `i` as `i$R_table_scenarios`. This outlines the inputs that will need to be changed in order to run the scenario analysis. Each row in this table has:
+
+* **Scenario category** (e.g. "Model structure")
+* **Scenario number** (e.g. 1)
+* **Scenario label** (e.g. "PartSA 4 lines" - i.e. using a partitioned survival model instead of state transition)
+* **Inputs.required** (i.e. number of inputs to be altered) (e.g. 2)
+* A set of columns for each input with:
+  * **Sheet** (i.e. source of input in excel) (e.g. "Model settings")
+  * **Range** (i.e. named range in excel that imports the input) (e.g. "dd_model_struct")
+  * **Value** (e.g. "Partitioned survival)
+  * In this example, the second input (as detailed in the subsequent columns) was sheet "Model settings", range "R_max_trt_lines" and value 4
+
+::: {.callout-note collapse="true"}
+
+## View `i$R_table_scenarios`
+
+```{r}
+#| output: FALSE
+library(knitr, quiet = TRUE)
+i <- readRDS("../../2_Scripts/standalone scripts/QC/i.rds")
+```
+```{r}
+kable(i$R_table_scenarios)
+```
+
+:::
