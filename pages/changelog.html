@@ -279,21 +279,27 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#changelog" id="toc-changelog" class="nav-link active" data-scroll-target="#changelog">CHANGELOG</a>
   <ul class="collapse">
-  <li><a href="#v1.1.1---2024-08-20" id="toc-v1.1.1---2024-08-20" class="nav-link" data-scroll-target="#v1.1.1---2024-08-20">v1.1.1 - 2024-08-20</a>
+  <li><a href="#v1.2.0---2024-09-23" id="toc-v1.2.0---2024-09-23" class="nav-link" data-scroll-target="#v1.2.0---2024-09-23">v1.2.0 - 2024-09-23</a>
   <ul class="collapse">
   <li><a href="#added" id="toc-added" class="nav-link" data-scroll-target="#added">Added</a></li>
   <li><a href="#changed" id="toc-changed" class="nav-link" data-scroll-target="#changed">Changed</a></li>
+  <li><a href="#removed" id="toc-removed" class="nav-link" data-scroll-target="#removed">Removed</a></li>
   </ul></li>
-  <li><a href="#v1.1.0---2024-08-16" id="toc-v1.1.0---2024-08-16" class="nav-link" data-scroll-target="#v1.1.0---2024-08-16">v1.1.0 - 2024-08-16</a>
+  <li><a href="#v1.1.1---2024-08-20" id="toc-v1.1.1---2024-08-20" class="nav-link" data-scroll-target="#v1.1.1---2024-08-20">v1.1.1 - 2024-08-20</a>
   <ul class="collapse">
   <li><a href="#added-1" id="toc-added-1" class="nav-link" data-scroll-target="#added-1">Added</a></li>
   <li><a href="#changed-1" id="toc-changed-1" class="nav-link" data-scroll-target="#changed-1">Changed</a></li>
+  </ul></li>
+  <li><a href="#v1.1.0---2024-08-16" id="toc-v1.1.0---2024-08-16" class="nav-link" data-scroll-target="#v1.1.0---2024-08-16">v1.1.0 - 2024-08-16</a>
+  <ul class="collapse">
+  <li><a href="#added-2" id="toc-added-2" class="nav-link" data-scroll-target="#added-2">Added</a></li>
+  <li><a href="#changed-2" id="toc-changed-2" class="nav-link" data-scroll-target="#changed-2">Changed</a></li>
   <li><a href="#fixed" id="toc-fixed" class="nav-link" data-scroll-target="#fixed">Fixed</a></li>
   </ul></li>
   <li><a href="#v1.0.0---2024-08-16" id="toc-v1.0.0---2024-08-16" class="nav-link" data-scroll-target="#v1.0.0---2024-08-16">v1.0.0 - 2024-08-16</a>
   <ul class="collapse">
-  <li><a href="#added-2" id="toc-added-2" class="nav-link" data-scroll-target="#added-2">Added</a></li>
-  <li><a href="#changed-2" id="toc-changed-2" class="nav-link" data-scroll-target="#changed-2">Changed</a></li>
+  <li><a href="#added-3" id="toc-added-3" class="nav-link" data-scroll-target="#added-3">Added</a></li>
+  <li><a href="#changed-3" id="toc-changed-3" class="nav-link" data-scroll-target="#changed-3">Changed</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -309,17 +315,51 @@ ul.task-list li input[type="checkbox"] {
 <h1>CHANGELOG</h1>
 <p>All notable changes to this project will be documented in this file.</p>
 <p>The format is based on <a href="https://keepachangelog.com/en/1.1.0/">Keep a Changelog</a>, and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>. Dates formatted as YYYY-MM-DD as per <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO standard</a>.</p>
-<section id="v1.1.1---2024-08-20" class="level2">
-<h2 class="anchored" data-anchor-id="v1.1.1---2024-08-20">v1.1.1 - 2024-08-20</h2>
-<p>Embellished README</p>
+<section id="v1.2.0---2024-09-23" class="level2">
+<h2 class="anchored" data-anchor-id="v1.2.0---2024-09-23">v1.2.0 - 2024-09-23</h2>
+<p>Detailed model documentation via a quarto site hosted with GitHub pages.</p>
 <section id="added" class="level3">
 <h3 class="anchored" data-anchor-id="added">Added</h3>
 <ul>
-<li>Add files produced by model run to <code>.gitignore</code></li>
+<li>Quarto site with detailed documentation for the model including:
+<ul>
+<li>Acronyms</li>
+<li>Context on the associated NICE appraisals, articles and reports</li>
+<li>A detailed summary of the analysis</li>
+<li>A plain english summary of the analysis</li>
+<li>Installation instructions</li>
+<li>A step-by-step walkthrough of the code in <code>Model_Structure.R</code></li>
+<li>Descriptions of the probabilistic analysis and scenario analysis</li>
+<li>Details about the license, citation instructions and the changelog</li>
+</ul></li>
 </ul>
 </section>
 <section id="changed" class="level3">
 <h3 class="anchored" data-anchor-id="changed">Changed</h3>
+<ul>
+<li>Add <code>folder</code> input to <code>f_res_ProduceWordDoc()</code> to allow specification of the output folder to save the word document too (as previously hard coded <code>./4_Output</code>)</li>
+<li>Add information about quarto website and run time to <code>README.md</code></li>
+<li>Moved images from <code>img/</code> to <code>docs/images/</code></li>
+</ul>
+</section>
+<section id="removed" class="level3">
+<h3 class="anchored" data-anchor-id="removed">Removed</h3>
+<ul>
+<li>Removed unused template README and citation files from <code>1_Data/</code> <code>3_Functions/</code> and <code>4_Output/</code>. The paragraph that had been entered into the template README in the data folder was moved onto the probabilistic analysis page in the quarto documentation</li>
+</ul>
+</section>
+</section>
+<section id="v1.1.1---2024-08-20" class="level2">
+<h2 class="anchored" data-anchor-id="v1.1.1---2024-08-20">v1.1.1 - 2024-08-20</h2>
+<p>Embellished README</p>
+<section id="added-1" class="level3">
+<h3 class="anchored" data-anchor-id="added-1">Added</h3>
+<ul>
+<li>Add files produced by model run to <code>.gitignore</code></li>
+</ul>
+</section>
+<section id="changed-1" class="level3">
+<h3 class="anchored" data-anchor-id="changed-1">Changed</h3>
 <ul>
 <li>Extended <code>README.md</code> to include banner image with logos, extra badges, table of contents, all the information from <code>ID6184 Using the R decision model..</code> (e.g.&nbsp;installation guide with images, overview of input files, future versions)</li>
 </ul>
@@ -328,14 +368,14 @@ ul.task-list li input[type="checkbox"] {
 <section id="v1.1.0---2024-08-16" class="level2">
 <h2 class="anchored" data-anchor-id="v1.1.0---2024-08-16">v1.1.0 - 2024-08-16</h2>
 <p>Implemented the essential components of the STARS framework (exc. open science archive).</p>
-<section id="added-1" class="level3">
-<h3 class="anchored" data-anchor-id="added-1">Added</h3>
+<section id="added-2" class="level3">
+<h3 class="anchored" data-anchor-id="added-2">Added</h3>
 <ul>
 <li><code>CITATION.cff</code> and GitHub action to check validity (<code>cff_validation.yaml</code>)</li>
 </ul>
 </section>
-<section id="changed-1" class="level3">
-<h3 class="anchored" data-anchor-id="changed-1">Changed</h3>
+<section id="changed-2" class="level3">
+<h3 class="anchored" data-anchor-id="changed-2">Changed</h3>
 <ul>
 <li>Extended <code>README.md</code> to include some instructions for installing and running the model, more detailed repositoriy overview, citation information, ORCID IDs, acknowledgements, license and funding information</li>
 </ul>
@@ -350,15 +390,15 @@ ul.task-list li input[type="checkbox"] {
 <section id="v1.0.0---2024-08-16" class="level2">
 <h2 class="anchored" data-anchor-id="v1.0.0---2024-08-16">v1.0.0 - 2024-08-16</h2>
 <p>🌱 First release. EOM-RCC model as shared by the PenTAG team, with minor changes that enabled us to run the model.</p>
-<section id="added-2" class="level3">
-<h3 class="anchored" data-anchor-id="added-2">Added</h3>
+<section id="added-3" class="level3">
+<h3 class="anchored" data-anchor-id="added-3">Added</h3>
 <ul>
 <li>Code from the original repository - <a href="https://github.com/nice-digital/NICE-model-repo" class="uri">https://github.com/nice-digital/NICE-model-repo</a></li>
 <li>R environment for dependency management (<code>renv</code>)</li>
 </ul>
 </section>
-<section id="changed-2" class="level3">
-<h3 class="anchored" data-anchor-id="changed-2">Changed</h3>
+<section id="changed-3" class="level3">
+<h3 class="anchored" data-anchor-id="changed-3">Changed</h3>
 <ul>
 <li>Set model to run sequentially (in <code>2_Scripts/Model_Structure.R</code>)</li>
 </ul>
