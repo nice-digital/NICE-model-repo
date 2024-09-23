@@ -2,13 +2,20 @@
 
 The walkthrough pages in this folder are all created based on `code0a_walkthrough.qmd`.
 
-To reduce the run time of this walkthrough, it loads **pre-run results for the economic model**. However, these results are a **large file size**, meaning they **cannot be easily synced on GitHub**, and so this walkthrough needs to be **run offline* rather than through GitHub actions.
+To reduce the run time of this walkthrough, it loads **pre-run results for the economic model**. However, these results are a **large file size**, meaning they **cannot be easily synced on GitHub**, and so this walkthrough needs to be **run offline** rather than through GitHub actions.
 
 ## How to generate the pre-run results
 
-As the results are not upload to GitHub, if you are trying to re-run these `.qmd` files, you will need to produce your own version of this file.
+The economic model results (`computepf_example.rds`) are not upload to GitHub. Hence, if you are trying to re-run these `.qmd` files locally, you will need to produce your own version of this file.
 
-**TODO: Add instructions on how**
+To do so, you should run the model using the `.qmd` files or `Model_Structure.R`, but include the following code after `f_pf_computePF()`:
+
+```
+computepf_file = file.path(d_path, "computepf_example.rds")
+saveRDS(pf, file=computepf_file)
+```
+
+Where `d_path` is the path to the data folder, e.g. `"../../../1_Data"`.
 
 ## How to update the walkthrough pages
 

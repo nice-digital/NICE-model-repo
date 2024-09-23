@@ -8,7 +8,8 @@ To view this quarto site locally you will need to:
 
 1. **Ensure Quarto and R are installed**
 2. **Restore the renv** - if you have not used renv previously, you will first need to install it using `install.packages("renv")`. You can then run `renv::restore()`, which will create an R environment based on the instructions provided in the `renv.lock` file. You will need to run this from the parent folder, which contains the renv.
-3. **Build the quarto site** - you can then use `quarto::render()` to build the quarto site
+3. **Run the model and save the results** - this is required by the quarto site, as the documentation uses pre-run results, but the result file is too large to be synced with GitHub. For further instructions, see `pages/walkthrough/README.md`.
+4. **Build the quarto site** - you can then use `quarto::render()` to build the quarto site
 
 ## Repository overview
 
