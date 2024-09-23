@@ -39,9 +39,24 @@ A table of scenarios is provided in the excel input sheet and imported into `i` 
 ## View `i$R_table_scenarios`
 
 ```{r}
+#| echo: FALSE
 #| output: FALSE
-library(knitr, quiet = TRUE)
-i <- readRDS("../../2_Scripts/standalone scripts/QC/i.rds")
+# This section reuses code from Model_Structure.R to import i from excel
+# It cannot use `i <- readRDS("../../2_Scripts/standalone scripts/QC/i.rds")`
+# This is because that file does not get uploaded to GitHub
+
+library(openxlsx, quiet = TRUE)
+
+d_path = "../../1_Data"
+f_path = "../../3_Functions"
+
+source(file.path(f_path, "excel/extract.R"))
+
+excel_path <- file.path(d_path, "ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm")
+
+i <- f_excel_extract(excel_path, verbose = FALSE)
+
+i <- c(i, f_excel_cleanParams(i$R_table_param))
 ```
 ```{r}
 kable(i$R_table_scenarios)
