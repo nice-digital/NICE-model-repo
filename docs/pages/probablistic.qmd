@@ -1,9 +1,0 @@
----
-title: "Probablistic analysis"
----
-
-**TODO: Write this page**
-
-## Note about utility values in probablistic model
-
-It was not possible to adjust utilities values in the probablistic models, as the interactions between age and sex would need to be accounted for, but Ara and Brazier et al. 2011 @ara_using_2011 do not report the variance-covariance matrix that would have described how the variations correlate with each other. Varying age and sex separately could lead to spurious results or inference due to non-linear interactions between the parameters (some of which are transformed).

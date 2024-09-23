@@ -44,13 +44,10 @@ website:
           - pages/walkthrough/code4_prep.qmd
           - pages/walkthrough/code5_model.qmd
           - pages/report.qmd
-      - section: "Annotated reporting guidelines"
-      - section: "Model validation"
+      - pages/probabilistic.qmd
       - pages/scenarios.qmd
-      - pages/probablistic.qmd
       - pages/license.qmd
       - pages/citation.qmd
-      - section: "Contributing"
       - text: "Changelog"
         href: pages/changelog.qmd
 
