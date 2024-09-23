@@ -14,51 +14,83 @@ The model produces a `.docx` report, which has been converted to a PDF and displ
 
 ## Walkthrough of report sections
 
-<mark>TODO: Walk through and explain each section</mark>
-
 ### Table 1
+
+For each **1L treatment** in each **risk population**, the associated costs and impact on quality of life are described. These are:
+
+* Costs
+* Life-years gained (LYG)
+* Quality-adjusted life-years (QALYs)
+* Incremental cots, LYG and QALYs - all from comparison against the **reference treatment** (sunitinib)
+* Incremental cost-effectiveness ratio (calculated from incremental costs and QALYs), either from comparison against the **treatment under investigation** (cabozantinib plus nivolumab) or the **reference treatment** (sunitinib)
+
+The treatments are ordered by cost (ascending). These are results from the base case (i.e. not the scenario analysis).
 
 ![Table 1: Base-case results (ordered in increasing costs)](../images/example_tab1.png){.lightbox}
 
 ### Table 2
 
+As mentioned on the [detailed summary](model_overview.qmd) page, a "severity modifier" refers to applying weights to QALYs for conditions that are more severe.
+
+"Severity is measured in terms of absolute and proportional shortfall". Absolute and proportional shortfall "both measure the difference between the number of QALYs patients would be expected to experience over the remainder of their lives under current care compared to the general population of the same age and sex". @nice_decision_support_unit_calculating_nodate
+
+Hence, this table presents the severity (described in terms of absolute and proportional shortfall) by different risk groups and choices of current care, and therefore the proposed modifier, depending on severity.
+
 ![Table 2: Application of the severity modifier to the base case](../images/example_tab2.png){.lightbox}
 
 ### Table 3 to 5
 
-These tables present the life years (LY) gained by health state. They compare two treatment strategies marked X and Y.
+These tables present the **life years (LY) gained by health state**, with results for each line of treatment (on or off), plus best supportive care (BSC) and death. They compare two treatment strategies marked X and Y.
 
-Table 3 compares Cabozantinib plus nivolumab against Pazopanib for the all risk group.
-
-Table 4 is for the favourable risk group and also compares against Pazopanib, whilst Table 5 is for the intermediate/poor risk group and the comparator is Lenvatinib plus pembrolizumab.
+* Table 3 is for the all risk group and compares cabozantinib plus nivolumab against pazopanib
+* Table 4 is for the favourable risk group and also compares against pazopanib
+* Table 5 is for the intermediate/poor risk group and the comparator is lenvatinib plus pembrolizumab.
 
 ![Table 3: Summary of LY gain by health state (all risk, cabo+nivo vs next best non- dominated comparator: Pazopanib)](../images/example_tab3.png){.lightbox}
 
 ### Tables 6 to 8
 
+These tables present the **QALYs gained by health state**. They likewise compare two treatment strategies, with tables for each of the risk groups, with comparators as in Tables 3 to 5.
+
 ![Table 6: Summary of QALY gain by health state (all risk, cabo+nivo vs next best non-dominated comparator: Pazopanib)](../images/example_tab6.png){.lightbox}
 
 ### Table 9
+
+Table 9 describes the **costs and medical resource use** for each risk population according to each 1L therapy received. It describes the:
+
+* Costs and resource use for the 1L treatment
+* Costs and resource use for the subsequent treatments
+* Costs for end of life care
+
+Costs for the 1L and subsequent treatment and broken down into drug costs, administration costs and adverse event costs.
 
 ![Table 9: Summary of costs by health state](../images/example_tab9.png){.lightbox}
 
 ### Tables 10 to 12
 
+Tables 10 to 12 breakdown the costs and medical resource use, focusing on **cabozantinib plus nivolumab against a reference treatment**. It provides the costs and **incremental** costs.
+
+There are tables for each risk group, with comparators as in Tables 3 to 5.
+
 ![Table 10 : Summary of predicted resource use by category of cost (all risk, cabo+nivo vs next best non-dominated comparator: Pazopanib)](../images/example_tab10.png){.lightbox}
 
 ### Figures 1 to 15
+
+Markov traces are provided according to each of the 1L treatments in each risk population. These describe the **proportion of patients simulated to be in each health state over time**.
 
 ![Figure 1: Markov trace: All risk, Cabozantinib plus nivolumab. Abbreviations: L1, 1st line; L2, 2nd line; L3, 3rd line; L4, 4th line; L5, 5th line.](../images/example_fig1.png){.lightbox}
 
 ### Figures 16 to 18
 
+Figures 16 to 18 are the cost-effectiveness acceptability frontier (CEAF) for each of the risk populations. These are constructed by identifying the treatment with the lowest ICER, and then ruling out treatments that were less effective yet with a higher ICER (i.e. "dominated" treatments), and continuing until no treatments remain. What remains are the "non-dominated" treatments.
+
 ![Figure 16: Cost-effectiveness acceptability frontier – all risk](../images/example_fig16.png){.lightbox}
 
-### Tables 13 to 15
+### Tables 13 to 16
+
+These tables would present the results of a scenario analysis if run but, in this example, only the base case was run. Hence, Tables 13 to 15 just have a single row with base case results, whilst Table 16 just presents base case results as in Table 1.
 
 ![Table 13: Scenario analysis - all risk](../images/example_tab13.png){.lightbox}
-
-### Table 16
 
 ![Table 16: Scenario analysis pairwise comparison table](../images/example_tab16.png){.lightbox}
 
