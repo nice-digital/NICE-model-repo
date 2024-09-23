@@ -46,6 +46,7 @@ A table of scenarios is provided in the excel input sheet and imported into `i` 
 # This is because that file does not get uploaded to GitHub
 
 library(openxlsx, quiet = TRUE)
+library(knitr, quiet = TRUE)
 
 d_path = "../../1_Data"
 f_path = "../../3_Functions"
