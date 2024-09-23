@@ -39,13 +39,13 @@ TODO: If you use the badges, update to your repository URL where relevant-->
 * [💰 Funding](#-funding)
 * [🔜 Future versions](#-future-versions)
 
-**Note:** If you would prefer to read a word document for instructions on using the model, please refer to `ID6184 Using the R decision model (EAG instructions) noACIC 30.07.2024.docx`.
-
 <br><br>
 
 ## 💻 Documentation
 
-This **README** provides an introduction to the model and how to run the code in this repository. However, detailed documentation is available at:
+This **README** provides an introduction to the model and how to run the code in this repository. If you would prefer to read a **word document** for instructions on using the model, please refer to `ID6184 Using the R decision model (EAG instructions) noACIC 30.07.2024.docx`.
+
+It is recommended that you also referred to the more **detailed documentation** available at:
 
 **<https://pythonhealthdatascience.github.io/stars-eom-rcc/>**
 
@@ -54,7 +54,7 @@ This website provides:
 * Acronyms
 * Context on the associated NICE appraisals, articles and reports
 * A detailed summary of the analysis
-* A plain english summary
+* A plain english summary of the analysis
 * Installation instructions
 * A step-by-step walkthrough of the code in `Model_Structure.R`
 * Descriptions of the probabilistic analysis and scenario analysis
