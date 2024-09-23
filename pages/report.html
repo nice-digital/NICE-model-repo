@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -303,8 +323,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#tables-10-to-12" id="toc-tables-10-to-12" class="nav-link" data-scroll-target="#tables-10-to-12">Tables 10 to 12</a></li>
   <li><a href="#figures-1-to-15" id="toc-figures-1-to-15" class="nav-link" data-scroll-target="#figures-1-to-15">Figures 1 to 15</a></li>
   <li><a href="#figures-16-to-18" id="toc-figures-16-to-18" class="nav-link" data-scroll-target="#figures-16-to-18">Figures 16 to 18</a></li>
-  <li><a href="#tables-13-to-15" id="toc-tables-13-to-15" class="nav-link" data-scroll-target="#tables-13-to-15">Tables 13 to 15</a></li>
-  <li><a href="#table-16" id="toc-table-16" class="nav-link" data-scroll-target="#table-16">Table 16</a></li>
+  <li><a href="#tables-13-to-16" id="toc-tables-13-to-16" class="nav-link" data-scroll-target="#tables-13-to-16">Tables 13 to 16</a></li>
   </ul></li>
   <li><a href="#viewing-the-report" id="toc-viewing-the-report" class="nav-link" data-scroll-target="#viewing-the-report">Viewing the report</a></li>
   </ul>
@@ -341,9 +360,17 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="walkthrough-of-report-sections" class="level2">
 <h2 class="anchored" data-anchor-id="walkthrough-of-report-sections">Walkthrough of report sections</h2>
-<p><mark>TODO: Walk through and explain each section</mark></p>
 <section id="table-1" class="level3">
 <h3 class="anchored" data-anchor-id="table-1">Table 1</h3>
+<p>For each <strong>1L treatment</strong> in each <strong>risk population</strong>, the associated costs and impact on quality of life are described. These are:</p>
+<ul>
+<li>Costs</li>
+<li>Life-years gained (LYG)</li>
+<li>Quality-adjusted life-years (QALYs)</li>
+<li>Incremental cots, LYG and QALYs - all from comparison against the <strong>reference treatment</strong> (sunitinib)</li>
+<li>Incremental cost-effectiveness ratio (calculated from incremental costs and QALYs), either from comparison against the <strong>treatment under investigation</strong> (cabozantinib plus nivolumab) or the <strong>reference treatment</strong> (sunitinib)</li>
+</ul>
+<p>The treatments are ordered by cost (ascending). These are results from the base case (i.e.&nbsp;not the scenario analysis).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="../images/example_tab1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Table 1: Base-case results (ordered in increasing costs)"><img src="../images/example_tab1.png" class="img-fluid figure-img" alt="Table 1: Base-case results (ordered in increasing costs)"></a></p>
@@ -353,6 +380,9 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="table-2" class="level3">
 <h3 class="anchored" data-anchor-id="table-2">Table 2</h3>
+<p>As mentioned on the <a href="../pages/model_overview.html">detailed summary</a> page, a “severity modifier” refers to applying weights to QALYs for conditions that are more severe.</p>
+<p>“Severity is measured in terms of absolute and proportional shortfall”. Absolute and proportional shortfall “both measure the difference between the number of QALYs patients would be expected to experience over the remainder of their lives under current care compared to the general population of the same age and sex”. <span class="citation" data-cites="nice_decision_support_unit_calculating_nodate">[<a href="#ref-nice_decision_support_unit_calculating_nodate" role="doc-biblioref">1</a>]</span></p>
+<p>Hence, this table presents the severity (described in terms of absolute and proportional shortfall) by different risk groups and choices of current care, and therefore the proposed modifier, depending on severity.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="../images/example_tab2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Table 2: Application of the severity modifier to the base case"><img src="../images/example_tab2.png" class="img-fluid figure-img" alt="Table 2: Application of the severity modifier to the base case"></a></p>
@@ -362,9 +392,12 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="table-3-to-5" class="level3">
 <h3 class="anchored" data-anchor-id="table-3-to-5">Table 3 to 5</h3>
-<p>These tables present the life years (LY) gained by health state. They compare two treatment strategies marked X and Y.</p>
-<p>Table 3 compares Cabozantinib plus nivolumab against Pazopanib for the all risk group.</p>
-<p>Table 4 is for the favourable risk group and also compares against Pazopanib, whilst Table 5 is for the intermediate/poor risk group and the comparator is Lenvatinib plus pembrolizumab.</p>
+<p>These tables present the <strong>life years (LY) gained by health state</strong>, with results for each line of treatment (on or off), plus best supportive care (BSC) and death. They compare two treatment strategies marked X and Y.</p>
+<ul>
+<li>Table 3 is for the all risk group and compares cabozantinib plus nivolumab against pazopanib</li>
+<li>Table 4 is for the favourable risk group and also compares against pazopanib</li>
+<li>Table 5 is for the intermediate/poor risk group and the comparator is lenvatinib plus pembrolizumab.</li>
+</ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="../images/example_tab3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Table 3: Summary of LY gain by health state (all risk, cabo+nivo vs next best non- dominated comparator: Pazopanib)"><img src="../images/example_tab3.png" class="img-fluid figure-img" alt="Table 3: Summary of LY gain by health state (all risk, cabo+nivo vs next best non- dominated comparator: Pazopanib)"></a></p>
@@ -374,6 +407,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="tables-6-to-8" class="level3">
 <h3 class="anchored" data-anchor-id="tables-6-to-8">Tables 6 to 8</h3>
+<p>These tables present the <strong>QALYs gained by health state</strong>. They likewise compare two treatment strategies, with tables for each of the risk groups, with comparators as in Tables 3 to 5.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="../images/example_tab6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Table 6: Summary of QALY gain by health state (all risk, cabo+nivo vs next best non-dominated comparator: Pazopanib)"><img src="../images/example_tab6.png" class="img-fluid figure-img" alt="Table 6: Summary of QALY gain by health state (all risk, cabo+nivo vs next best non-dominated comparator: Pazopanib)"></a></p>
@@ -383,6 +417,13 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="table-9" class="level3">
 <h3 class="anchored" data-anchor-id="table-9">Table 9</h3>
+<p>Table 9 describes the <strong>costs and medical resource use</strong> for each risk population according to each 1L therapy received. It describes the:</p>
+<ul>
+<li>Costs and resource use for the 1L treatment</li>
+<li>Costs and resource use for the subsequent treatments</li>
+<li>Costs for end of life care</li>
+</ul>
+<p>Costs for the 1L and subsequent treatment and broken down into drug costs, administration costs and adverse event costs.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="../images/example_tab9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Table 9: Summary of costs by health state"><img src="../images/example_tab9.png" class="img-fluid figure-img" alt="Table 9: Summary of costs by health state"></a></p>
@@ -392,6 +433,8 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="tables-10-to-12" class="level3">
 <h3 class="anchored" data-anchor-id="tables-10-to-12">Tables 10 to 12</h3>
+<p>Tables 10 to 12 breakdown the costs and medical resource use, focusing on <strong>cabozantinib plus nivolumab against a reference treatment</strong>. It provides the costs and <strong>incremental</strong> costs.</p>
+<p>There are tables for each risk group, with comparators as in Tables 3 to 5.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="../images/example_tab10.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Table 10 : Summary of predicted resource use by category of cost (all risk, cabo+nivo vs next best non-dominated comparator: Pazopanib)"><img src="../images/example_tab10.png" class="img-fluid figure-img" alt="Table 10 : Summary of predicted resource use by category of cost (all risk, cabo+nivo vs next best non-dominated comparator: Pazopanib)"></a></p>
@@ -401,6 +444,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="figures-1-to-15" class="level3">
 <h3 class="anchored" data-anchor-id="figures-1-to-15">Figures 1 to 15</h3>
+<p>Markov traces are provided according to each of the 1L treatments in each risk population. These describe the <strong>proportion of patients simulated to be in each health state over time</strong>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="../images/example_fig1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure 1: Markov trace: All risk, Cabozantinib plus nivolumab. Abbreviations: L1, 1st line; L2, 2nd line; L3, 3rd line; L4, 4th line; L5, 5th line."><img src="../images/example_fig1.png" class="img-fluid figure-img" alt="Figure 1: Markov trace: All risk, Cabozantinib plus nivolumab. Abbreviations: L1, 1st line; L2, 2nd line; L3, 3rd line; L4, 4th line; L5, 5th line."></a></p>
@@ -410,6 +454,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="figures-16-to-18" class="level3">
 <h3 class="anchored" data-anchor-id="figures-16-to-18">Figures 16 to 18</h3>
+<p>Figures 16 to 18 are the cost-effectiveness acceptability frontier (CEAF) for each of the risk populations. These are constructed by identifying the treatment with the lowest ICER, and then ruling out treatments that were less effective yet with a higher ICER (i.e.&nbsp;“dominated” treatments), and continuing until no treatments remain. What remains are the “non-dominated” treatments.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="../images/example_fig16.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure 16: Cost-effectiveness acceptability frontier – all risk"><img src="../images/example_fig16.png" class="img-fluid figure-img" alt="Figure 16: Cost-effectiveness acceptability frontier – all risk"></a></p>
@@ -417,17 +462,15 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </section>
-<section id="tables-13-to-15" class="level3">
-<h3 class="anchored" data-anchor-id="tables-13-to-15">Tables 13 to 15</h3>
+<section id="tables-13-to-16" class="level3">
+<h3 class="anchored" data-anchor-id="tables-13-to-16">Tables 13 to 16</h3>
+<p>These tables would present the results of a scenario analysis if run but, in this example, only the base case was run. Hence, Tables 13 to 15 just have a single row with base case results, whilst Table 16 just presents base case results as in Table 1.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="../images/example_tab13.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Table 13: Scenario analysis - all risk"><img src="../images/example_tab13.png" class="img-fluid figure-img" alt="Table 13: Scenario analysis - all risk"></a></p>
 <figcaption>Table 13: Scenario analysis - all risk</figcaption>
 </figure>
 </div>
-</section>
-<section id="table-16" class="level3">
-<h3 class="anchored" data-anchor-id="table-16">Table 16</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="../images/example_tab16.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Table 16: Scenario analysis pairwise comparison table"><img src="../images/example_tab16.png" class="img-fluid figure-img" alt="Table 16: Scenario analysis pairwise comparison table"></a></p>
@@ -441,9 +484,14 @@ ul.task-list li input[type="checkbox"] {
 <p>The output report will be in <code>.docx</code> format, so this is best viewed within Microsoft Word. If viewed in LibreOffice, you may find the tables are misformatted (going outside the page margins so not visible). If viewed in Google Docs, you may find the figures are not visible/fail to correctly load.</p>
 
 
+
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-nice_decision_support_unit_calculating_nodate" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">NICE Decision Support Unit. <a href="https://www.sheffield.ac.uk/nice-dsu/tsds/severity-shortfall-tsd">Calculating severity shortfall for nice evaluations</a>. The University of Sheffield n.d.</div>
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -865,7 +913,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/report.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","openEffect":"zoom","descPosition":"bottom","loop":false});
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/report.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom","loop":false});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
