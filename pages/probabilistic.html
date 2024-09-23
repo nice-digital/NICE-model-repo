@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Probablistic analysis – &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exeter Oncology Model: Renal Cell Carcinoma edition</title>
+<title>Probabilistic analysis – &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exeter Oncology Model: Renal Cell Carcinoma edition</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -102,7 +122,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/probablistic.html">Probablistic analysis</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/probabilistic.html">Probabilistic analysis</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -237,24 +257,16 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Annotated reporting guidelines</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Model validation</span></span>
-  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/scenarios.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Scenario analysis</span></a>
+  <a href="../pages/probabilistic.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Probabilistic analysis</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/probablistic.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Probablistic analysis</span></a>
+  <a href="../pages/scenarios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scenario analysis</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -269,10 +281,6 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Citation</span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Contributing</span></span>
-  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/changelog.html" class="sidebar-item-text sidebar-link">
@@ -289,16 +297,19 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#note-about-utility-values-in-probablistic-model" id="toc-note-about-utility-values-in-probablistic-model" class="nav-link active" data-scroll-target="#note-about-utility-values-in-probablistic-model">Note about utility values in probablistic model</a></li>
+  <li><a href="#what-is-the-difference-between-deterministic-and-probabilistic-analysis" id="toc-what-is-the-difference-between-deterministic-and-probabilistic-analysis" class="nav-link active" data-scroll-target="#what-is-the-difference-between-deterministic-and-probabilistic-analysis">What is the difference between deterministic and probabilistic analysis?</a></li>
+  <li><a href="#how-can-you-run-the-probabilistic-analysis" id="toc-how-can-you-run-the-probabilistic-analysis" class="nav-link" data-scroll-target="#how-can-you-run-the-probabilistic-analysis">How can you run the probabilistic analysis?</a></li>
+  <li><a href="#note-about-run-time" id="toc-note-about-run-time" class="nav-link" data-scroll-target="#note-about-run-time">Note about run time</a></li>
+  <li><a href="#note-about-utility-values-in-probablistic-model" id="toc-note-about-utility-values-in-probablistic-model" class="nav-link" data-scroll-target="#note-about-utility-values-in-probablistic-model">Note about utility values in probablistic model</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/probablistic.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/probabilistic.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Probablistic analysis</h1>
+<h1 class="title">Probabilistic analysis</h1>
 </div>
 
 
@@ -315,15 +326,74 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><strong>TODO: Write this page</strong></p>
+<p>So far, this documentation has described <code>Model_Structure.R</code>, which is a deterministic analysis. However, a probabilistic sensitivity analysis (PSA) is run using <code>probabilistic_model.R</code> - and, as described in the NICE documentation related to this model <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span> <span class="citation" data-cites="lee_treatments_2023">[<a href="#ref-lee_treatments_2023" role="doc-biblioref">2</a>]</span>, the base case analysis for the technology appraisal was <strong>probabilistic</strong> (as recommended in the NICE manual <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_nice_2022">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_nice_2022" role="doc-biblioref">3</a>]</span>).</p>
+<section id="what-is-the-difference-between-deterministic-and-probabilistic-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-the-difference-between-deterministic-and-probabilistic-analysis">What is the difference between deterministic and probabilistic analysis?</h2>
+<p>In a <strong>deterministic analysis</strong>, the model inputs are fixed values, with the output being the same given the same inputs.</p>
+<p>In a <strong>probabilistic analysis</strong>, the model inputs are random values (repeatedly drawn from distributions). This incorporates uncertainty into the model, reflecting the variability and uncertainty in real-world scenarios.</p>
+<p>In other words, as described in <code>probabilistic_model.R</code>:</p>
+<blockquote class="blockquote">
+<p>“The primary difference with the probabilistic model is that the survival analysis (along with several of the other input parameters) are drawn probabilistically repeatedly and those randomly drawn numbers are fed through the SAME functions that have been used in Model_structure.R to ensure consistency.</p>
+<p>This is analogous to generating values in an excel model and passing it throughthe same calculation chain as the deterministic model via the patient flow sheet.”</p>
+</blockquote>
+</section>
+<section id="how-can-you-run-the-probabilistic-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="how-can-you-run-the-probabilistic-analysis">How can you run the probabilistic analysis?</h2>
+<p>To run the probabilistic analysis, use the file <code>probabilistic_model.R</code>.</p>
+<p>This script uses <code>2_Scripts/standalone scripts/QC/p.rds</code> and <code>2_Scripts/standalone scripts/QC/i.rds</code>. These are each output by <code>Model_Structure.R</code>, just before it runs the economic model by calling <code>f_pf_computePF()</code>.</p>
+<p>It first replaces many of the values in <code>p</code> with probabilistic versions. The list <code>p</code> is generated repeatedly, with the same structure each time, but with random numbers used as inputs.</p>
+<p>Then, in a section titled “PSA trace process”, it runs through a similar process as in <code>Model_Structure.R</code> with similar functions - e.g.</p>
+<ul>
+<li><code>f_NMA_linkPHNMA()</code></li>
+<li><code>f_NMA_linkFPNMA()</code></li>
+<li><code>f_NMA_AddAssumptionsToNetwork()</code></li>
+<li><code>f_releff_PropNetwork()</code></li>
+<li><code>f_surv_twaning_apply()</code></li>
+<li><code>f_surv_gpopadjust()</code></li>
+<li><code>f_surv_PFSxOS()</code>, <code>f_surv_TTDxOS()</code>, <code>f_surv_PFSxTTP()</code></li>
+</ul>
+<p>There are also some additional functions, such as <code>f_psa_collapse_st_lambda2lplus()</code>, which is used to help reduce the size of the <code>st</code> object. Alternative functions are then used for patient flow and analysis, such as:</p>
+<ul>
+<li><code>f_psa_pf_computePF_mkLambda()</code></li>
+<li><code>f_pf_mk_summary()</code></li>
+<li><code>f_psa_computeWAModelRes()</code></li>
+</ul>
+<p>Patient flow in calculated in the same way as in the deterministic analysis, just instead using lambda approximation to simplify the computation of the Markov trace, removing all tunnel states from the model and removing the need for sparse matrix multiplications.</p>
+<p>There is then a follow-up script <code>process PSA output.R</code> which runs some analysis on the outputs of the probabilistic analysis.</p>
+</section>
+<section id="note-about-run-time" class="level2">
+<h2 class="anchored" data-anchor-id="note-about-run-time">Note about run time</h2>
+<p>As described in <code>probabilistic_model.R</code>, the probabilistic analysis is very computationally intensive. For example, to run the model for the “all risk” population for the 4 active treatment lines, computing only the Markov trace, it would take approximately 37.5 hours and require 24GB RAM running on 8 cores.</p>
+<p>There are therefore three options for generating probabilistic results:</p>
+<ol type="1">
+<li><p>“Use a supercomputer or high-performance computing cluster (HPC). This would reduce runtime to a few hours but requires outsourcing of the computations. There are many options available including commercial (Microsoft Azure, Amazon AWS), academic (Exeter university, Sheffield university, UEA, others) to satisfy this. This would produce the most accurate results and would ensure the use of identical code for determinstic and iterative analyses.”</p></li>
+<li><p>Calculate “approximate time in state using exponentional approximation for the current decision problem. In this specific case, there are no stopping rules or complicated cost dynamics in any 2L+ state. Consequently, the tunnels are not actually required in this specific simple case. We therefore define a non-tunnel trace calculator which operates with vastly reduced computation”.</p></li>
+<li><p>Forego a probabilistic analysis - although preference is to avoid this option.</p></li>
+</ol>
+<p>The provided script <code>probabilistic_model.R</code> implements option 2 and was run by the PenTAG team on the University of Exeter HPC.</p>
+</section>
 <section id="note-about-utility-values-in-probablistic-model" class="level2">
 <h2 class="anchored" data-anchor-id="note-about-utility-values-in-probablistic-model">Note about utility values in probablistic model</h2>
-<p>It was not possible to adjust utilities values in the probablistic models, as the interactions between age and sex would need to be accounted for, but Ara and Brazier et al.&nbsp;2011 <span class="citation" data-cites="ara_using_2011">@ara_using_2011</span> do not report the variance-covariance matrix that would have described how the variations correlate with each other. Varying age and sex separately could lead to spurious results or inference due to non-linear interactions between the parameters (some of which are transformed).</p>
+<p>It was not possible to adjust utilities values in the probablistic models, as the interactions between age and sex would need to be accounted for, but Ara and Brazier et al.&nbsp;2011 <span class="citation" data-cites="ara_using_2011">[<a href="#ref-ara_using_2011" role="doc-biblioref">4</a>]</span> do not report the variance-covariance matrix that would have described how the variations correlate with each other. Varying age and sex separately could lead to spurious results or inference due to non-linear interactions between the parameters (some of which are transformed).</p>
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-lee_treatments_2023-1" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Lee D, Muthukumar M, Lovell A, Farmer C, Burns D, Matthews J, et al. <a href="https://www.nice.org.uk/guidance/ta964/documents/assessment-report">Treatments for renal cell carcinoma [<span>ID6186</span>]: <span>A</span> <span>Pathways</span> <span>Pilot</span> <span>Appraisal</span> <span>Assessment</span> <span>Report</span></a>. Peninsula Technology Assessment Group (PenTAG) 2023.</div>
+</div>
+<div id="ref-lee_treatments_2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">Lee D, Muthukumar M, Robinson S, Lovell A, Coelho H, Matthews J, et al. <a href="https://www.nice.org.uk/guidance/gid-ta11186/documents/assessment-report-3">Treatments for renal cell carcinoma [<span>ID6186</span>]. <span>Final</span> <span>Analysis</span> <span>Plan</span>.</a> 2023.</div>
+</div>
+<div id="ref-national_institute_for_health_and_care_excellence_nice_nice_2022" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">National Institute for Health and Care Excellence (NICE). <a href="https://www.nice.org.uk/process/pmg36"><span>NICE</span> health technology evaluations: The manual. <span>Porcess</span> and methods [<span>PMG36</span>]</a>. NICE 2022.</div>
+</div>
+<div id="ref-ara_using_2011" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">Ara R, Brazier JE. Using health state utility values from the general population to approximate baselines in decision analytic models when condition-specific data are not available. Value in Health: The Journal of the International Society for Pharmacoeconomics and Outcomes Research 2011;14:539–45. <a href="https://doi.org/10.1016/j.jval.2010.10.029">https://doi.org/10.1016/j.jval.2010.10.029</a>.</div>
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -749,4 +819,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/probablistic.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/probabilistic.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

@@ -318,23 +318,53 @@
     ]
   },
   {
-    "objectID": "pages/probablistic.html",
-    "href": "pages/probablistic.html",
-    "title": "Probablistic analysis",
+    "objectID": "pages/probabilistic.html",
+    "href": "pages/probabilistic.html",
+    "title": "Probabilistic analysis",
     "section": "",
-    "text": "TODO: Write this page",
+    "text": "So far, this documentation has described Model_Structure.R, which is a deterministic analysis. However, a probabilistic sensitivity analysis (PSA) is run using probabilistic_model.R - and, as described in the NICE documentation related to this model [1] [2], the base case analysis for the technology appraisal was probabilistic (as recommended in the NICE manual [3]).",
     "crumbs": [
-      "Probablistic analysis"
+      "Probabilistic analysis"
     ]
   },
   {
-    "objectID": "pages/probablistic.html#note-about-utility-values-in-probablistic-model",
-    "href": "pages/probablistic.html#note-about-utility-values-in-probablistic-model",
-    "title": "Probablistic analysis",
-    "section": "Note about utility values in probablistic model",
-    "text": "Note about utility values in probablistic model\nIt was not possible to adjust utilities values in the probablistic models, as the interactions between age and sex would need to be accounted for, but Ara and Brazier et al. 2011 @ara_using_2011 do not report the variance-covariance matrix that would have described how the variations correlate with each other. Varying age and sex separately could lead to spurious results or inference due to non-linear interactions between the parameters (some of which are transformed).",
+    "objectID": "pages/probabilistic.html#what-is-the-difference-between-deterministic-and-probabilistic-analysis",
+    "href": "pages/probabilistic.html#what-is-the-difference-between-deterministic-and-probabilistic-analysis",
+    "title": "Probabilistic analysis",
+    "section": "What is the difference between deterministic and probabilistic analysis?",
+    "text": "What is the difference between deterministic and probabilistic analysis?\nIn a deterministic analysis, the model inputs are fixed values, with the output being the same given the same inputs.\nIn a probabilistic analysis, the model inputs are random values (repeatedly drawn from distributions). This incorporates uncertainty into the model, reflecting the variability and uncertainty in real-world scenarios.\nIn other words, as described in probabilistic_model.R:\n\n“The primary difference with the probabilistic model is that the survival analysis (along with several of the other input parameters) are drawn probabilistically repeatedly and those randomly drawn numbers are fed through the SAME functions that have been used in Model_structure.R to ensure consistency.\nThis is analogous to generating values in an excel model and passing it throughthe same calculation chain as the deterministic model via the patient flow sheet.”",
     "crumbs": [
-      "Probablistic analysis"
+      "Probabilistic analysis"
+    ]
+  },
+  {
+    "objectID": "pages/probabilistic.html#how-can-you-run-the-probabilistic-analysis",
+    "href": "pages/probabilistic.html#how-can-you-run-the-probabilistic-analysis",
+    "title": "Probabilistic analysis",
+    "section": "How can you run the probabilistic analysis?",
+    "text": "How can you run the probabilistic analysis?\nTo run the probabilistic analysis, use the file probabilistic_model.R.\nThis script uses 2_Scripts/standalone scripts/QC/p.rds and 2_Scripts/standalone scripts/QC/i.rds. These are each output by Model_Structure.R, just before it runs the economic model by calling f_pf_computePF().\nIt first replaces many of the values in p with probabilistic versions. The list p is generated repeatedly, with the same structure each time, but with random numbers used as inputs.\nThen, in a section titled “PSA trace process”, it runs through a similar process as in Model_Structure.R with similar functions - e.g.\n\nf_NMA_linkPHNMA()\nf_NMA_linkFPNMA()\nf_NMA_AddAssumptionsToNetwork()\nf_releff_PropNetwork()\nf_surv_twaning_apply()\nf_surv_gpopadjust()\nf_surv_PFSxOS(), f_surv_TTDxOS(), f_surv_PFSxTTP()\n\nThere are also some additional functions, such as f_psa_collapse_st_lambda2lplus(), which is used to help reduce the size of the st object. Alternative functions are then used for patient flow and analysis, such as:\n\nf_psa_pf_computePF_mkLambda()\nf_pf_mk_summary()\nf_psa_computeWAModelRes()\n\nPatient flow in calculated in the same way as in the deterministic analysis, just instead using lambda approximation to simplify the computation of the Markov trace, removing all tunnel states from the model and removing the need for sparse matrix multiplications.\nThere is then a follow-up script process PSA output.R which runs some analysis on the outputs of the probabilistic analysis.",
+    "crumbs": [
+      "Probabilistic analysis"
+    ]
+  },
+  {
+    "objectID": "pages/probabilistic.html#note-about-run-time",
+    "href": "pages/probabilistic.html#note-about-run-time",
+    "title": "Probabilistic analysis",
+    "section": "Note about run time",
+    "text": "Note about run time\nAs described in probabilistic_model.R, the probabilistic analysis is very computationally intensive. For example, to run the model for the “all risk” population for the 4 active treatment lines, computing only the Markov trace, it would take approximately 37.5 hours and require 24GB RAM running on 8 cores.\nThere are therefore three options for generating probabilistic results:\n\n“Use a supercomputer or high-performance computing cluster (HPC). This would reduce runtime to a few hours but requires outsourcing of the computations. There are many options available including commercial (Microsoft Azure, Amazon AWS), academic (Exeter university, Sheffield university, UEA, others) to satisfy this. This would produce the most accurate results and would ensure the use of identical code for determinstic and iterative analyses.”\nCalculate “approximate time in state using exponentional approximation for the current decision problem. In this specific case, there are no stopping rules or complicated cost dynamics in any 2L+ state. Consequently, the tunnels are not actually required in this specific simple case. We therefore define a non-tunnel trace calculator which operates with vastly reduced computation”.\nForego a probabilistic analysis - although preference is to avoid this option.\n\nThe provided script probabilistic_model.R implements option 2 and was run by the PenTAG team on the University of Exeter HPC.",
+    "crumbs": [
+      "Probabilistic analysis"
+    ]
+  },
+  {
+    "objectID": "pages/probabilistic.html#note-about-utility-values-in-probablistic-model",
+    "href": "pages/probabilistic.html#note-about-utility-values-in-probablistic-model",
+    "title": "Probabilistic analysis",
+    "section": "Note about utility values in probablistic model",
+    "text": "Note about utility values in probablistic model\nIt was not possible to adjust utilities values in the probablistic models, as the interactions between age and sex would need to be accounted for, but Ara and Brazier et al. 2011 [4] do not report the variance-covariance matrix that would have described how the variations correlate with each other. Varying age and sex separately could lead to spurious results or inference due to non-linear interactions between the parameters (some of which are transformed).",
+    "crumbs": [
+      "Probabilistic analysis"
     ]
   },
   {
