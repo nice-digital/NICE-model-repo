@@ -51,9 +51,11 @@ ui <- fluidPage(
     # Sidebar panel for inputs
     sidebarPanel(
       
+      h1("Inputs"),
+  
       actionButton("reset", "Reset"),
-      #selectInput("i_nr_population", "Number of populations",
-      #            c(1, 2, 3, 4), selected = 4),
+      selectInput("i_nr_population", "Number of populations",
+                  c(1, 2, 3, 4), selected = 4),
       selectInput("R_maxlines", "Max lines within the R model",
                   c(1, 2, 3, 4), selected = 4),
       selectizeInput("List_comparators", "Comparator list",
@@ -72,7 +74,6 @@ ui <- fluidPage(
     # Main panel for displaying outputs
     mainPanel(
       h1("Results"),
-      p("These are the risk populations:"),
       verbatimTextOutput("list_pop"),
       tableOutput("sequences"),
       
@@ -83,18 +84,29 @@ ui <- fluidPage(
 # Instructions for building the app
 server <- function(input, output) {
 
-  # Render list_pop
-  output$list_pop <- renderPrint({i$List_pop})
+  # Reactive expression to produce data table of valid sequences for each population
+  valid_seq <- reactive({
 
-  # Table of all possible sequences
-  # Only render when click button
-  output$sequences <- renderTable(
-    head(f_generate_sequences(
+    # All possible treatment combinations
+    all_seq <- f_generate_sequences(
       comparators = input$List_comparators,
-      maxlines = as.numeric(input$R_maxlines))),
-    striped=TRUE) |>
-    bindEvent(input$seq_button)
+      maxlines = as.numeric(input$R_maxlines))
   
+    seqs <- NULL
+    # Loop through each population
+    for (population in 1:input$i_nr_population) {
+      s <- all_seq[1:2,]
+      s <- cbind(rep(paste0("pop", population),nrow(s)), s)
+      colnames(s) <- paste0('V', seq_len(ncol(s)))
+      seqs <- rbind(seqs, s)
+    }
+    return(seqs)
+  }) |>
+    bindEvent(input$seq_button)
+
+  # Render table
+  output$sequences <- renderTable({valid_seq()})
+
   # If click button, reset inputs
   observeEvent(input$reset, {
     reset("R_maxlines")
@@ -108,6 +120,9 @@ server <- function(input, output) {
   })
   
   # If change inputs, hide main panel outputs
+  observeEvent(input$i_nr_population, {
+    hide("sequences")
+  })
   observeEvent(input$R_maxlines, {
     hide("sequences")
   })
