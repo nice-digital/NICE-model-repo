@@ -3,6 +3,7 @@ library(shinythemes)
 library(shinyjs)
 library(data.table)
 library(gtools)
+library(DT)
 
 # Define list of comparators (labels and values)
 comparators = c(
@@ -71,7 +72,7 @@ ui <- fluidPage(
     mainPanel(
       h1("Results"),
       verbatimTextOutput("describe"),
-      tableOutput("sequences"),
+      DT::DTOutput("sequences"),
       
     )
   )
@@ -117,7 +118,11 @@ server <- function(input, output) {
   # Render table
   output$describe <- renderText(paste0(
     "There are ", nrow(valid_seq()), " possible treatment sequences."))
-  output$sequences <- renderTable({valid_seq()})
+  output$sequences <- DT::renderDT(
+    {valid_seq()},
+    rownames = FALSE,
+    options = list(autoWidth = TRUE)) #, stringsAsFactors = TRUE),
+    #filter = list(position = "top"))
 
   # If click button, reset inputs
   observeEvent(input$reset, {
