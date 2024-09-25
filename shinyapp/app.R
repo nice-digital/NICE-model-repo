@@ -57,14 +57,10 @@ ui <- fluidPage(
       selectInput("i_nr_population", "Number of populations",
                   c(1, 2, 3, 4), selected = 4),
       selectInput("R_maxlines", "Max lines within the R model",
-                  c(1, 2, 3, 4), selected = 4),
+                  c(3, 4), selected = 4),
       selectizeInput("List_comparators", "Comparator list",
                      choices = comparators,
-                     selected = c("nivolumab_monotherapy",
-                                  "cabozantinib_plus_nivolumab",
-                                  "nivolumab_plus_ipilimumab",
-                                  "lenvatinib_plus_pembrolizumab",
-                                  "avelumab_plus_axitinib"),
+                     selected = comparators,
                      multiple = TRUE,
                      options = list(plugins = list("remove_button"))),
       actionButton("seq_button", "Find possible treatment sequences")
@@ -74,7 +70,7 @@ ui <- fluidPage(
     # Main panel for displaying outputs
     mainPanel(
       h1("Results"),
-      verbatimTextOutput("list_pop"),
+      verbatimTextOutput("describe"),
       tableOutput("sequences"),
       
     )
@@ -88,14 +84,28 @@ server <- function(input, output) {
   valid_seq <- reactive({
 
     # All possible treatment combinations
-    all_seq <- f_generate_sequences(
+    all_seq <- as.data.frame(f_generate_sequences(
       comparators = input$List_comparators,
-      maxlines = as.numeric(input$R_maxlines))
+      maxlines = as.numeric(input$R_maxlines)))
   
     seqs <- NULL
     # Loop through each population
     for (population in 1:input$i_nr_population) {
-      s <- all_seq[1:2,]
+      s <- f_path_tx_restrict(
+        sequences                = all_seq,
+        allowed                  = f_get_allowed_lists(i, population), #overall list of allowed drugs in this popn
+        L1                       = f_get_L1_lists(i, population), # 1L drugs allowed in this popn
+        L2                       = f_get_L2_lists(i, population), # 2L drugs allowed in this popn
+        L3                       = f_get_L3_lists(i, population), # 3L drugs allowed in this popn
+        L4                       = f_get_L4_lists(i, population), # 4L drugs allowed in this popn
+        only_after               = f_get_only_after_lists(i, population), #list of restrictions where tx can be only after the listed txs
+        not_immediate_after      = f_get_not_immediate_after_lists(i, population), #list of restrictions where tx can be only immediately before the listed txs
+        one_in_list              = f_get_one_in_list_lists(i, population), #list of restrictions where only one of the tx in each list is allowed 
+        only_after_one           = f_get_only_after_one_lists(i, population), #list of restrictions where only one of the listed treatments is allowed prior to current therapy 
+        L2_only_after            = f_get_2L_only_after_lists(i, population), #list of 2L+ restrictions: if drug is used 2L, 3L or 4L, can only be after drug x
+        L2_only_immediate_after  = f_get_2L_only_immediate_after_lists(i, population), #list of 2L+ restrictions: if drug is used 2L, 3L or 4L, can only be immediately after drug x
+        L2_only_one              = f_get_2L_only_one_lists(i, population) #list of 2L+ drugs where only one of them allowed in a given sequence
+      )
       s <- cbind(rep(paste0("pop", population),nrow(s)), s)
       colnames(s) <- paste0('V', seq_len(ncol(s)))
       seqs <- rbind(seqs, s)
@@ -105,6 +115,8 @@ server <- function(input, output) {
     bindEvent(input$seq_button)
 
   # Render table
+  output$describe <- renderText(paste0(
+    "There are ", nrow(valid_seq()), " possible treatment sequences."))
   output$sequences <- renderTable({valid_seq()})
 
   # If click button, reset inputs
@@ -112,22 +124,27 @@ server <- function(input, output) {
     reset("R_maxlines")
     reset("List_comparators")
     hide("sequences")
+    hide("describe")
   })
   
   # If click button, show main panel outputs
   observeEvent(input$seq_button, {
     show("sequences")
+    show("describe")
   })
   
   # If change inputs, hide main panel outputs
   observeEvent(input$i_nr_population, {
     hide("sequences")
+    hide("describe")
   })
   observeEvent(input$R_maxlines, {
     hide("sequences")
+    hide("describe")
   })
   observeEvent(input$List_comparators, {
     hide("sequences")
+    hide("describe")
   })
 }
 
