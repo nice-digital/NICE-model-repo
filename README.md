@@ -27,6 +27,7 @@ TODO: If you use the badges, update to your repository URL where relevant-->
 ## Table of contents
 
 * [💻 Documentation](#-documentation)
+* [🌐 Web Application](#-web-application)
 * [📊 About the model](#-about-the-model)
 * [🔨 Installation](#-installation)
 * [🚀 Running the model](#-running-the-model)
@@ -63,6 +64,14 @@ This website provides:
 <br>
 
 <a href="https://pythonhealthdatascience.github.io/stars-eom-rcc/"><img src="https://raw.githubusercontent.com/pythonhealthdatascience/stars-eom-rcc/main/docs/images/website_preview.png" alt="University of Exeter Medical School. PenTAG."></a>
+
+<br><br>
+
+## 🌐 Web Application
+
+The ambition for EOM:RCC is to create a shiny interface that allows users to interact and run the full economic model from a web application. A **pilot example** web app has been created which allows users to run one part of the analysis: creating a table of possible treatment sequences. The code for this is in `shinyapp/`, and the app can be viewed online at:
+
+**<https://amyheather.shinyapps.io/shinyapp/>**
 
 <br><br>
 
