@@ -31,6 +31,13 @@ comparators = c(
   "Sorafenib" = "sorafenib",
   "Best supportive care" = "placebo_BSC")
 
+# Define list of populations (labels and values)
+populations = c(
+  "Population 1" = 1,
+  "Population 2" = 2,
+  "Population 3" = 3,
+  "Population 4" = 4)
+
 # Import the sequencing functions
 source("sequences.R")
 
@@ -51,38 +58,67 @@ ui <- fluidPage(
   # Allows some JavaScript operations           
   useShinyjs(),
   
-  # App title
+  # App title with logo
   titlePanel(
     title = span(img(src="exeter_pentag_small.png", height=60, style = "margin-right: 20px;"),
                  "Exeter Oncology Model: Renal Cell Carcinoma edition"),
     windowTitle = "EOM:RCC"),
   
+  # Introductory paragraph
+  includeMarkdown("txt/intro.md"),
+  
+  # Header
+  h2("Find valid treatment sequences"),
+
   # Sidebar layout with input and output definitions
   sidebarLayout(
     
     # Sidebar panel for inputs
     sidebarPanel(
       
-      h1("Inputs"),
+      h3("Inputs"),
+
+      # Blank space before button
       headerPanel(""),
-      actionButton("reset", "Reset inputs"),
+
+      # Button to reset inputs to default ("selected")
+      actionButton(inputId = "reset",
+                   label = "Reset inputs"),
+
+      # Blank space after button
       headerPanel(""),
-      selectInput("i_nr_population", "Number of populations",
-                  c(1, 2, 3, 4), selected = 4),
-      selectInput("R_maxlines", "Max lines within the R model",
-                  c(3, 4), selected = 4),
-      selectizeInput("List_comparators", "Comparator list",
+
+      # Number of populations (pop1-pop4)
+      selectizeInput(inputId = "populations",
+                     label = "Patient populations",
+                     choices = populations,
+                     selected = populations,
+                     multiple = TRUE,
+                     options = list(plugins = list("remove_button"))),
+  
+      # Number of treatment lines
+      selectInput(inputId = "R_maxlines",
+                  label = "Max lines within the R model",
+                  choices = c(3, 4),
+                  selected = 4),
+
+      # Treatments
+      selectizeInput(inputId = "List_comparators",
+                     label = "Comparator list",
                      choices = comparators,
                      selected = comparators,
                      multiple = TRUE,
                      options = list(plugins = list("remove_button"))),
-      actionButton("seq_button", "Find possible treatment sequences")
+  
+      # Button to trigger creation of table of valid sequences
+      actionButton(inputId = "seq_button",
+                   label = "Find possible treatment sequences")
       
     ),
     
     # Main panel for displaying outputs
     mainPanel(
-      h1("Results"),
+      h3("Results"),
       verbatimTextOutput("describe"),
       DT::DTOutput("sequences"),
       
@@ -106,7 +142,7 @@ server <- function(input, output) {
   
     seqs <- NULL
     # Loop through each population
-    for (population in 1:input$i_nr_population) {
+    for (population in input$populations) {
       s <- f_path_tx_restrict(
         sequences                = all_seq,
         allowed                  = f_get_allowed_lists(i, population), #overall list of allowed drugs in this popn
