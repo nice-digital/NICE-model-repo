@@ -9,6 +9,7 @@ library(shinyjs)
 library(data.table)
 library(gtools)
 library(DT)
+library(markdown)
 
 # ======
 # Inputs
