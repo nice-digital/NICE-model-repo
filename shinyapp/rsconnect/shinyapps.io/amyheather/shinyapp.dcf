@@ -1,0 +1,10 @@
+name: shinyapp
+title:
+username: amyheather
+account: amyheather
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12825742
+bundleId: 9148979
+url: https://amyheather.shinyapps.io/shinyapp/
+version: 1
