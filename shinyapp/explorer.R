@@ -61,10 +61,12 @@ ui <- fluidPage(
                 choices = c(3, 4),
                 selected = 4),
 
-    # First line treatment
+    # Lines of treatment
     uiOutput("line1"),
-
-    DT::DTOutput("sequences")
+    uiOutput("line2"),
+    uiOutput("line3"),
+    uiOutput("line4"),
+    uiOutput("line5")
   )
 )
 
@@ -74,8 +76,8 @@ ui <- fluidPage(
 
 server <- function(input, output) {
 
-  # Reactive expression to produce data table of valid sequences for each population
-  seq <- reactive({
+  # Reactive expression to filter data table to chosen population and lines
+  seq_start <- reactive({
     # Filter to chosen population
     seq <- all_seq[all_seq$V1 == input$population,]
     # If max lines is 3, remove rows with BSC in V6 (as with four max lines,
@@ -87,28 +89,40 @@ server <- function(input, output) {
     return(seq)
   })
 
-  # Reactive generation of options for first line
+  # Reactive filtering of dataframe based on chosen treatments
+  seq_line1 <- reactive({
+    seq <- seq_start()
+    seq <- seq[seq$V2 == input$l1_chosen,]
+    return(seq)
+  })
+  seq_line2 <- reactive({
+    seq <- seq_line1()
+    seq <- seq[seq$V3 == input$l2_chosen,]
+    return(seq)
+  })
+
+  # Reactive display of possible treatments for each line
   output$line1 <- renderUI({
-    l1_values <- unique(seq()$V2)
+    l1_values <- unique(seq_start()$V2)
     radioButtons(inputId = "l1_chosen",
                  label = "First line treatment",
                  choices = comparators[comparators %in% l1_values],
                  inline=TRUE)
   })
-
-  # Reactive expression to filter seq based on first line choice
-  seq2 <- reactive({
-    # Get current sequences
-    seq2 <- seq()
-    # Filter to chosen first line treatment
-    seq2 <- seq2[seq2$V2 == input$l1_chosen,]
-    return(seq2)
+  output$line2 <- renderUI({
+    l2_values <- unique(seq_line1()$V3)
+    radioButtons(inputId = "l2_chosen",
+                 label = "Second line treatment",
+                 choices = comparators[comparators %in% l2_values],
+                 inline=TRUE)
   })
-
-  # Render table of sequences
-  output$sequences <-  DT::renderDT(
-    {seq2()},
-    rownames = FALSE)
+  output$line3 <- renderUI({
+    l3_values <- unique(seq_line2()$V4)
+    radioButtons(inputId = "l3_chosen",
+                 label = "Third line treatment",
+                 choices = comparators[comparators %in% l3_values],
+                 inline=TRUE)
+  })
 }
 
 # ====================
