@@ -17,7 +17,7 @@ library(openxlsx)
 # ======
 
 # Define list of comparators (labels and values)
-comparators = c(
+comparators_choice = c(
   "Nivolumab" = "nivolumab_monotherapy",
   "Cabozantinib plus nivolumab" = "cabozantinib_plus_nivolumab",
   "Nivolumab plus ipilimumab" = "nivolumab_plus_ipilimumab",
@@ -29,9 +29,9 @@ comparators = c(
   "Cabozantinib" = "cabozantinib",
   "Lenvatinib plus everolimus" = "lenvatinib_plus_everolimus",
   "Everolimus" = "everolimus",
-  "Axitinib" = "axitinib",
-  "Sorafenib" = "sorafenib",
-  "Best supportive care" = "placebo_BSC")
+  "Axitinib" = "axitinib")
+# Sorafenib and best supportive care are included by default
+comparators_default = c("sorafenib", "placebo_BSC")
 
 # Define list of populations (labels and values)
 populations = c(
@@ -105,10 +105,10 @@ ui <- fluidPage(
                   selected = 4),
 
       # Treatments
-      selectizeInput(inputId = "List_comparators",
-                     label = "Comparator list",
-                     choices = comparators,
-                     selected = comparators,
+      selectizeInput(inputId = "chosen_comparators",
+                     label = "Comparator list (includes sorafenib and best supportive care by default)",
+                     choices = comparators_choice,
+                     selected = comparators_choice,
                      multiple = TRUE,
                      options = list(plugins = list("remove_button"))),
   
@@ -139,9 +139,10 @@ server <- function(input, output) {
   # Reactive expression to produce data table of valid sequences for each population
   valid_seq <- reactive({
 
-    # All possible treatment combinations
+    # Find all possible treatment combinations, including sorafeinb and
+    # best supportive care alongside the list of chosen comparators
     all_seq <- as.data.frame(f_generate_sequences(
-      comparators = input$List_comparators,
+      comparators = append(input$chosen_comparators, comparators_default),
       maxlines = as.numeric(input$R_maxlines)))
   
     seqs <- NULL
@@ -183,7 +184,7 @@ server <- function(input, output) {
   observeEvent(input$reset, {
     reset("populations")
     reset("R_maxlines")
-    reset("List_comparators")
+    reset("chosen_comparators")
     hide("sequences")
     hide("describe")
     hide("download_table")
@@ -207,7 +208,7 @@ server <- function(input, output) {
     hide("describe")
     hide("download_table")
   })
-  observeEvent(input$List_comparators, {
+  observeEvent(input$chosen_comparators, {
     hide("sequences")
     hide("describe")
     hide("download_table")
