@@ -5,6 +5,7 @@
 # Load required packages
 library(shiny)
 library(DT)
+library(dplyr)
 
 # ======
 # Inputs
@@ -62,11 +63,9 @@ ui <- fluidPage(
                 selected = 4),
 
     # Lines of treatment
-    uiOutput("line1"),
-    uiOutput("line2"),
-    uiOutput("line3"),
-    uiOutput("line4"),
-    uiOutput("line5")
+    uiOutput("line1_ui"),
+    uiOutput("line2_ui"),
+    uiOutput("line3_ui")
   )
 )
 
@@ -76,8 +75,8 @@ ui <- fluidPage(
 
 server <- function(input, output) {
 
-  # Reactive expression to filter data table to chosen population and lines
-  seq_start <- reactive({
+  # Filter all possible sequences to the chosen population and lines
+  seq <- reactive({
     # Filter to chosen population
     seq <- all_seq[all_seq$V1 == input$population,]
     # If max lines is 3, remove rows with BSC in V6 (as with four max lines,
@@ -88,66 +87,22 @@ server <- function(input, output) {
     }
     return(seq)
   })
-
-  # Reactive filtering of dataframe based on chosen treatments
-  seq_line1 <- reactive({
-    seq <- seq_start()
-    seq <- seq[seq$V2 == input$l1_chosen,]
-    return(seq)
-  })
-  seq_line2 <- reactive({
-    seq <- seq_line1()
-    seq <- seq[seq$V3 == input$l2_chosen,]
-    return(seq)
-  })
-  seq_line3 <- reactive({
-    seq <- seq_line2()
-    seq <- seq[seq$V4 == input$l3_chosen,]
-    return(seq)
-  })
-  seq_line4 <- reactive({
-    seq <- seq_line3()
-    seq <- seq[seq$V5 == input$l4_chosen,]
-    return(seq)
-  })
-
-  # Reactive display of possible treatments for each line
-  output$line1 <- renderUI({
-    l1_values <- unique(seq_start()$V2)
-    radioButtons(inputId = "l1_chosen",
-                 label = "First line treatment",
-                 choices = comparators[comparators %in% l1_values],
-                 inline=TRUE)
-  })
-  output$line2 <- renderUI({
-    l2_values <- unique(seq_line1()$V3)
-    radioButtons(inputId = "l2_chosen",
-                 label = "Second line treatment",
-                 choices = comparators[comparators %in% l2_values],
-                 inline=TRUE)
-  })
   
-  output$line3 <- renderUI({
-    l3_values <- unique(seq_line2()$V4)
-    radioButtons(inputId = "l3_chosen",
-                 label = "Third line treatment",
-                 choices = comparators[comparators %in% l3_values],
-                 inline=TRUE)
+  output$line1_ui <- renderUI({
+    choices <- unique(seq()$V2)
+    radioButtons("line1_chosen", "line1", choices)
   })
-    
-  output$line4 <- renderUI({
-    l4_values <- unique(seq_line3()$V5)
-    radioButtons(inputId = "l4_chosen",
-                 label = "Fourth line treatment",
-                 choices = comparators[comparators %in% l4_values],
-                 inline=TRUE)
+
+  output$line2_ui <- renderUI({
+    req(input$line1_chosen)
+    choices <- unique(seq()[seq()$V2 == input$line1_chosen, "V3"])
+    radioButtons("line2_chosen", "line2", choices)
   })
-  output$line5 <- renderUI({
-    l5_values <- unique(seq_line4()$V6)
-    radioButtons(inputId = "l5_chosen",
-                 label = "Fifth line treatment",
-                 choices = comparators[comparators %in% l5_values],
-                 inline=TRUE)
+
+  output$line3_ui <- renderUI({
+    req(input$line2_chosen)
+    choices <- unique(seq()[seq()$V2 == input$line1_chosen & seq()$V3 == input$line2_chosen, "V4"])
+    radioButtons("line3_chosen", "line3", choices)
   })
 }
 
