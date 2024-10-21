@@ -10,6 +10,7 @@ library(data.table)
 library(gtools)
 library(DT)
 library(markdown)
+library(openxlsx)
 
 # ======
 # Inputs
@@ -122,6 +123,8 @@ ui <- fluidPage(
       h3("Results"),
       verbatimTextOutput("describe"),
       DT::DTOutput("sequences"),
+      downloadButton(outputId = "download_table",
+                     label = "Download table as an excel file")
       
     )
   )
@@ -178,31 +181,46 @@ server <- function(input, output) {
 
   # If click button, reset inputs
   observeEvent(input$reset, {
+    reset("populations")
     reset("R_maxlines")
     reset("List_comparators")
     hide("sequences")
     hide("describe")
+    hide("download_table")
   })
   
   # If click button, show main panel outputs
   observeEvent(input$seq_button, {
     show("sequences")
     show("describe")
+    show("download_table")
   })
   
   # If change inputs, hide main panel outputs
-  observeEvent(input$i_nr_population, {
+  observeEvent(input$populations, {
     hide("sequences")
     hide("describe")
+    hide("download_table")
   })
   observeEvent(input$R_maxlines, {
     hide("sequences")
     hide("describe")
+    hide("download_table")
   })
   observeEvent(input$List_comparators, {
     hide("sequences")
     hide("describe")
+    hide("download_table")
   })
+
+  # If click download button, download .xlsx file with table
+  output$download_table <- downloadHandler(
+    filename = "valid_sequences.xlsx",
+    content = function(file) {
+      # Write the dataset to the file that will be download
+      write.xlsx(valid_seq(), file)
+    }
+  )
 }
 
 # ====================
