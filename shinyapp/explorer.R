@@ -25,7 +25,7 @@ comparators = c(
   "Everolimus" = "everolimus",
   "Axitinib" = "axitinib",
   "Sorafenib" = "sorafenib",
-  "Best supportive care" = "placebo_BSC")
+  "Best supportive care" = "BSC")
 
 # Define list of populations (labels and values)
 populations = c(
@@ -100,6 +100,16 @@ server <- function(input, output) {
     seq <- seq[seq$V3 == input$l2_chosen,]
     return(seq)
   })
+  seq_line3 <- reactive({
+    seq <- seq_line2()
+    seq <- seq[seq$V4 == input$l3_chosen,]
+    return(seq)
+  })
+  seq_line4 <- reactive({
+    seq <- seq_line3()
+    seq <- seq[seq$V5 == input$l4_chosen,]
+    return(seq)
+  })
 
   # Reactive display of possible treatments for each line
   output$line1 <- renderUI({
@@ -116,11 +126,27 @@ server <- function(input, output) {
                  choices = comparators[comparators %in% l2_values],
                  inline=TRUE)
   })
+  
   output$line3 <- renderUI({
     l3_values <- unique(seq_line2()$V4)
     radioButtons(inputId = "l3_chosen",
                  label = "Third line treatment",
                  choices = comparators[comparators %in% l3_values],
+                 inline=TRUE)
+  })
+    
+  output$line4 <- renderUI({
+    l4_values <- unique(seq_line3()$V5)
+    radioButtons(inputId = "l4_chosen",
+                 label = "Fourth line treatment",
+                 choices = comparators[comparators %in% l4_values],
+                 inline=TRUE)
+  })
+  output$line5 <- renderUI({
+    l5_values <- unique(seq_line4()$V6)
+    radioButtons(inputId = "l5_chosen",
+                 label = "Fifth line treatment",
+                 choices = comparators[comparators %in% l5_values],
                  inline=TRUE)
   })
 }
