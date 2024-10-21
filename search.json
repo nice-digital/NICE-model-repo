@@ -616,7 +616,27 @@
     "href": "index.html",
     "title": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exeter Oncology Model: Renal Cell Carcinoma edition",
     "section": "",
-    "text": "The Exeter Oncology Model: Renal Cell Carcinoma edition (EOM-RCC) is a platform cost-effectiveness model encompassing each decision node in the disease area for advanced renal cell carcinoma.\nIt has been constructed as part of the National Institute for Health and Care Excellence (NICE) Pathways Pilot appraisal (ID6186, GID-TA11186) [1] and the appraisal of cabozantinib plus nivolumab (TA964) [2] (formerly ID6184, whilst in development). The development of this model is described in Lee et al. 2024. [3]\nThis website was created by Amy Heather . It shares model documentation to support understanding of how the model works, and how you can use it. Please use the sidebar to navigate through the site pages.\nIf you are interested in discussing or funding further development of this model, please contact the PenTAG team at pentag@exeter.ac.uk.\n\n\n\n\nReferences\n\n[1] National Institute for Health and Care Excellence (NICE). Renal cell carcinoma Pathways Pilot [ID6186]. In development [GID-TA11186] n.d.\n\n\n[2] National Institute for Health and Care Excellence (NICE). Cabozantinib with nivolumab for untreated advanced renal cell carcinoma. Technology appraisal guidance [TA964] 2024.\n\n\n[3] Lee D, Burns D, Wilson E. NICE’s Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances. PharmacoEconomics - Open 2024. https://doi.org/10.1007/s41669-024-00490-x.",
+    "text": "This website was created by Amy Heather . It shares model documentation to support understanding of how the model works, and how you can use it. Please use the sidebar to navigate through the site pages.\nThe Exeter Oncology Model: Renal Cell Carcinoma edition (EOM-RCC) is a platform cost-effectiveness model encompassing each decision node in the disease area for advanced renal cell carcinoma. It has been constructed as part of the National Institute for Health and Care Excellence (NICE) Pathways Pilot appraisal (ID6186, GID-TA11186) [1] and the appraisal of cabozantinib plus nivolumab (TA964) [2] (formerly ID6184, whilst in development). The development of this model is described in Lee et al. 2024. [3]\nIf you are interested in discussing or funding further development of this model, please contact the PenTAG team at pentag@exeter.ac.uk.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#model-documentation",
+    "href": "index.html#model-documentation",
+    "title": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exeter Oncology Model: Renal Cell Carcinoma edition",
+    "section": "",
+    "text": "This website was created by Amy Heather . It shares model documentation to support understanding of how the model works, and how you can use it. Please use the sidebar to navigate through the site pages.\nThe Exeter Oncology Model: Renal Cell Carcinoma edition (EOM-RCC) is a platform cost-effectiveness model encompassing each decision node in the disease area for advanced renal cell carcinoma. It has been constructed as part of the National Institute for Health and Care Excellence (NICE) Pathways Pilot appraisal (ID6186, GID-TA11186) [1] and the appraisal of cabozantinib plus nivolumab (TA964) [2] (formerly ID6184, whilst in development). The development of this model is described in Lee et al. 2024. [3]\nIf you are interested in discussing or funding further development of this model, please contact the PenTAG team at pentag@exeter.ac.uk.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#additional-links",
+    "href": "index.html#additional-links",
+    "title": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exeter Oncology Model: Renal Cell Carcinoma edition",
+    "section": "Additional links",
+    "text": "Additional links\nOther resources related to this model include:\n\nWeb application: The ambition for EOM:RCC is to create a shiny interface that allows users to interact and run the full economic model from a web application. A pilot example web app has been created which allows users to run one part of the analysis: creating a table of possible treatment sequences.\nGitHub repository: All code for the model, documentation and app are contained in this repository. The README.md file (which is displayed when you open the repository on GitHub) provides key information about the model and repository.",
     "crumbs": [
       "Home"
     ]
