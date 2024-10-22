@@ -156,19 +156,23 @@ For more information, see section 4.3.5.2 "Calculation of relative treatment eff
 
 ### Treatment effect waning
 
-Treatment effect waning is when the hazard/survival for a treatment converges to the hazard/survival of the comparator. This was implemented at 5 years for 1L combination therapies that included an immuno-oncology (IO) treatment and tyrosine kinase inhibitor (TKI) (for example, axitinib and avelumab). It was set at 5 years as that is when people stop having that therapy in clinical practice.
+Treatment effect waning is when the hazard/survival for a treatment converges to the hazard/survival of the comparator. This was implemented in the base case by assuming that the hazards converge at 5 years for 1L combination therapies that included an immuno-oncology (IO) treatment and tyrosine kinase inhibitor (TKI) (for example, axitinib and avelumab). It was set at 5 years as that is when people stop having that therapy in clinical practice.
 
 For more information, see section 1.22 "Treatment effect waning" in the Pathway Model Report @national_institute_for_health_and_care_excellence_nice_renal_2024 and 4.3.5.3 "Treatment effectiveness waning" in the Assessment Report. @lee_treatments_2023-1
 
 ### General population mortality
 
-If aRCC patients were projected to live longer than the general population, this was corrected (hence, ensuring the aRCC OS never exceeds the general population). General population mortality was based on an age and sex matched-profile (against the 1L all risk population) using data from the Office for National Statistics (ONS).
+If aRCC patients were projected to live longer than the general population, this was corrected (hence, ensuring the aRCC OS never exceeds the general population). General population mortality was based on an age and sex matched-profile (against the 1L all risk population) using data from the Office for National Statistics (ONS). The approach used to derive the general population mortality estimates was to model the empirical age and sex distribution, as described in Lee et al. 2024. @lee_impact_2024
 
 For more information, see section 4.3.5.4 "Accounting for general population mortality" in the Assessment Report. @lee_treatments_2023-1
 
 ### Overlapping curves
 
-A known limitation of partitioned survival analysis (which was used to extrapolate the RWE) is that it can produce curves where PFS lies above OS (which is impossible in real-life). Hence, in cases where this occurs, it was adjusted so that PFS <= OS (and also, PFS <= TTP).
+A known limitation of partitioned survival analysis (which was used to extrapolate the RWE) is that it can produce curves where PFS lies above OS (which is impossible in real-life). Hence, in cases where this occurs, it was adjusted so that:
+
+* PFS <= OS
+* PFS <= TTP
+* TTD <= OS
 
 For more information, see section 4.3.5.5 "Adjustment for curves crossing" in the Assessment Report. @lee_treatments_2023-1
 
@@ -195,7 +199,7 @@ For **each line of treatment**, there was a:
 * Utility value for patients with **progressed disease**
 * Utility value for **BSC**
 
-The values were sourced from prior NICE technology appraisals - TA645 for 1L and then adjustment to that based on TA498 for 2L to 4L. These were identified through a systematic search for published cost-effectiveness studies.
+The values were sourced from prior NICE technology appraisals - TA645 for 1L progression free and progressed and then for 2L to 4L from TA498 adjusting for the different starting utility in 1L progressed disease. These were identified through a systematic search for published cost-effectiveness studies.
 
 Utility values were adjusted for age and sex using Ara and Brazier et al. 2010 @ara_populating_2010 / 2011 @ara_using_2011 and the Health Survey England (HSE) 2014 dataset.
 
@@ -218,8 +222,8 @@ For more information, see section 4.3.8 "Resource use and costs" in the Assessme
 A list of possible treatment sequences was defined based on rules which were established based on clinical advice and routine commissioning rules. These rules are listed in section 4.3.5.6 "Calculation of final outcomes by first line treatment" in the Assessment Report. @lee_treatments_2023-1 Some examples include:
 
 * Nivolumab plus ipilimumab 1L is only available to intermediate/poor risk patients
-* Some therapies can't be used if an immuno-oncology treatment was used in the past year
-* Lenvatinib plus everolimus can only be used after a prior anti-vascular endothelial growth factor (anti-VEGF) treatment
+* Immuno-oncology treatments can’t be repeated if an immuno-oncology treatment was used in the past year in the adjuvant setting or in an earlier line as a systemic treatment
+* Lenvatinib plus everolimus can only be used after one prior anti-vascular endothelial growth factor (anti-VEGF) treatment
 
 ### Proportion of people receiving each treatment in practice
 
@@ -255,7 +259,7 @@ Two modelling approaches were explored, with the creation of:
 * A **state transition model** (i.e. a **Markov model**)
 * A **partitioned survival model** (i.e. partitioned surival analysis)
 
-The models aimed to estimate the costs and benefits of cabolizumab plus nivolumab, compared against other 1L treatments, whilst also incorporating information on the subsequent treatment pathways. People in the models started on 1L treatment. The models ran with weekly cycles over a 40 year time horizon. Costs and outcomes were **discounted** at a rate of 3.5% per year.
+The models were used within the NICE appraisal to estimate the costs and benefits of cabozantinib plus nivolumab, compared against other 1L treatments, whilst also incorporating information on the subsequent treatment pathways. People in the models started on 1L treatment. The models ran with weekly cycles over a 40 year time horizon. Costs and outcomes were **discounted** at a rate of 3.5% per year.
 
 The committee preferred the state transition model as it allowed multiple treatment lines to be modelled in as much detail as possible (with a state transition model being more flexible and able to explore more uncertainties and alternative assumptions).
 
