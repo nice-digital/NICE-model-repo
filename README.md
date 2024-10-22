@@ -17,6 +17,7 @@
 TODO: If you use the badges, update to your repository URL where relevant-->
 
 <p align="center">
+    <a target="_blank" href="https://doi.org/10.5281/zenodo.13969124"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.13969124.svg" alt="DOI 10.5281/zenodo.13969124"/></a>
     <a target="_blank" href="https://www.r-project.org/"><img src="https://img.shields.io/badge/language-R-239120" alt="Language"/></a>
     <a href="#"><img src="https://img.shields.io/github/v/release/pythonhealthdatascience/stars-eom-rcc" alt="GitHub release" /></a>
     <a href="#"><img src="https://img.shields.io/github/release-date/pythonhealthdatascience/stars-eom-rcc" alt="GitHub release date" /></a>
@@ -361,9 +362,13 @@ This project uses GitHub actions to automate a few tasks. The workflows are desc
 
 ## 📝 Citation
 
-If you re-use this model please appropriately credit PenTAG for the work and refer to it as the Exeter Oncology Model: RCC edition:
+If you re-use this model please appropriately credit PenTAG and collaborators for the work and refer to it as the Exeter Oncology Model: RCC edition:
 
-> Lee D., Muthukumar M., Lovell A., Farmer C., Burns D., Matthews J., Coelho H., O'Toole B., Trigg L., Snowsill T., Barnish M., Nikoglou T., Brand A., Ahmad Z., Abdelsabour A., Robinson S., Wilson E., Melendez-Torres G. Exeter Oncology Model: RCC edition URL: https://github.com/nice-digital/NICE-model-repo
+> Lee D., Muthukumar M., Lovell A., Farmer C., Burns D., Matthews J., Coelho H., O'Toole B., Trigg L., Snowsill T., Barnish M., Nikoglou T., Brand A., Ahmad Z., Abdelsabour A., Robinson S., Heather A., Wilson E., Melendez-Torres G. Exeter Oncology Model: RCC edition URL: https://github.com/pythonhealthdatascience/stars-eom-rcc
+
+This repository has been archived on **Zenodo** and that can be cited as:
+
+> Lee, D., Muthukumar, M., Lovell, A., Farmer, C., Burns, D., Matthews, J., Coelho, H., O'Toole, B., Trigg, L., Snowsill, T., Barnish, M., Nikoglou, T., Brand, A., Ahmad, Z., Abdelsabour, A., Robinson, S., Heather, A., Wilson, E., & Melendez-Torres, G. J. (2024). Exeter Oncology Model: RCC edition. Zenodo. https://doi.org/10.5281/zenodo.13969124
 
 The author ORCID IDs (where available) are:
 
@@ -375,6 +380,7 @@ The author ORCID IDs (where available) are:
 [![ORCID: Barnish](https://img.shields.io/badge/Maxwell_Barnish-0000--0003--0139--6548-brightgreen)](https://orcid.org/0000-0003-0139-6548)
 [![ORCID: Abdelsabour](https://img.shields.io/badge/Ahmed_Abdelsabour-0009--0007--2532--4676-brightgreen)](https://orcid.org/0009-0007-2532-4676)
 [![ORCID: Robinson](https://img.shields.io/badge/Sophie_Robinson-0000--0003--0463--875X-brightgreen)](https://orcid.org/0000-0003-0463-875X)
+[![ORCID: Heather](https://img.shields.io/badge/Amy_Heather-0000--0002--6596--3479-brightgreen)](https://orcid.org/0000-0002-6596-3479)
 [![ORCID: Wilson](https://img.shields.io/badge/Edward_Wilson-0000--0002--8369--1577-brightgreen)](https://orcid.org/0000-0002-8369-1577)
 [![ORCID: Melendez-Torres](https://img.shields.io/badge/GJ_Melendez--Torres-0000--0002--9823--4790-brightgreen)](https://orcid.org/0000-0002-9823-4790)
 
