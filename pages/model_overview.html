@@ -546,17 +546,22 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="stage-4.-modifications-to-the-extrapolations">Stage 4. Modifications to the extrapolations</h2>
 <section id="treatment-effect-waning" class="level3">
 <h3 class="anchored" data-anchor-id="treatment-effect-waning">Treatment effect waning</h3>
-<p>Treatment effect waning is when the hazard/survival for a treatment converges to the hazard/survival of the comparator. This was implemented at 5 years for 1L combination therapies that included an immuno-oncology (IO) treatment and tyrosine kinase inhibitor (TKI) (for example, axitinib and avelumab). It was set at 5 years as that is when people stop having that therapy in clinical practice.</p>
+<p>Treatment effect waning is when the hazard/survival for a treatment converges to the hazard/survival of the comparator. This was implemented in the base case by assuming that the hazards converge at 5 years for 1L combination therapies that included an immuno-oncology (IO) treatment and tyrosine kinase inhibitor (TKI) (for example, axitinib and avelumab). It was set at 5 years as that is when people stop having that therapy in clinical practice.</p>
 <p>For more information, see section 1.22 “Treatment effect waning” in the Pathway Model Report <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span> and 4.3.5.3 “Treatment effectiveness waning” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
 <section id="general-population-mortality" class="level3">
 <h3 class="anchored" data-anchor-id="general-population-mortality">General population mortality</h3>
-<p>If aRCC patients were projected to live longer than the general population, this was corrected (hence, ensuring the aRCC OS never exceeds the general population). General population mortality was based on an age and sex matched-profile (against the 1L all risk population) using data from the Office for National Statistics (ONS).</p>
+<p>If aRCC patients were projected to live longer than the general population, this was corrected (hence, ensuring the aRCC OS never exceeds the general population). General population mortality was based on an age and sex matched-profile (against the 1L all risk population) using data from the Office for National Statistics (ONS). The approach used to derive the general population mortality estimates was to model the empirical age and sex distribution, as described in Lee et al.&nbsp;2024. <span class="citation" data-cites="lee_impact_2024">[<a href="#ref-lee_impact_2024" role="doc-biblioref">8</a>]</span></p>
 <p>For more information, see section 4.3.5.4 “Accounting for general population mortality” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
 <section id="overlapping-curves" class="level3">
 <h3 class="anchored" data-anchor-id="overlapping-curves">Overlapping curves</h3>
-<p>A known limitation of partitioned survival analysis (which was used to extrapolate the RWE) is that it can produce curves where PFS lies above OS (which is impossible in real-life). Hence, in cases where this occurs, it was adjusted so that PFS &lt;= OS (and also, PFS &lt;= TTP).</p>
+<p>A known limitation of partitioned survival analysis (which was used to extrapolate the RWE) is that it can produce curves where PFS lies above OS (which is impossible in real-life). Hence, in cases where this occurs, it was adjusted so that:</p>
+<ul>
+<li>PFS &lt;= OS</li>
+<li>PFS &lt;= TTP</li>
+<li>TTD &lt;= OS</li>
+</ul>
 <p>For more information, see section 4.3.5.5 “Adjustment for curves crossing” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
 </section>
@@ -586,8 +591,8 @@ div.csl-indent {
 <li>Utility value for patients with <strong>progressed disease</strong></li>
 <li>Utility value for <strong>BSC</strong></li>
 </ul>
-<p>The values were sourced from prior NICE technology appraisals - TA645 for 1L and then adjustment to that based on TA498 for 2L to 4L. These were identified through a systematic search for published cost-effectiveness studies.</p>
-<p>Utility values were adjusted for age and sex using Ara and Brazier et al.&nbsp;2010 <span class="citation" data-cites="ara_populating_2010">[<a href="#ref-ara_populating_2010" role="doc-biblioref">8</a>]</span> / 2011 <span class="citation" data-cites="ara_using_2011">[<a href="#ref-ara_using_2011" role="doc-biblioref">9</a>]</span> and the Health Survey England (HSE) 2014 dataset.</p>
+<p>The values were sourced from prior NICE technology appraisals - TA645 for 1L progression free and progressed and then for 2L to 4L from TA498 adjusting for the different starting utility in 1L progressed disease. These were identified through a systematic search for published cost-effectiveness studies.</p>
+<p>Utility values were adjusted for age and sex using Ara and Brazier et al.&nbsp;2010 <span class="citation" data-cites="ara_populating_2010">[<a href="#ref-ara_populating_2010" role="doc-biblioref">9</a>]</span> / 2011 <span class="citation" data-cites="ara_using_2011">[<a href="#ref-ara_using_2011" role="doc-biblioref">10</a>]</span> and the Health Survey England (HSE) 2014 dataset.</p>
 <p>For more information, see sections 1.25 “Health-related quality of life” and 1.26 “Source of utility values” in the Pathway Model Report <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span> and sections 4.1 “Published cost-effectiveness studies” and 4.3.7 “Utility values” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
 <section id="resource-use-and-costs" class="level3">
@@ -607,8 +612,8 @@ div.csl-indent {
 <p>A list of possible treatment sequences was defined based on rules which were established based on clinical advice and routine commissioning rules. These rules are listed in section 4.3.5.6 “Calculation of final outcomes by first line treatment” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span> Some examples include:</p>
 <ul>
 <li>Nivolumab plus ipilimumab 1L is only available to intermediate/poor risk patients</li>
-<li>Some therapies can’t be used if an immuno-oncology treatment was used in the past year</li>
-<li>Lenvatinib plus everolimus can only be used after a prior anti-vascular endothelial growth factor (anti-VEGF) treatment</li>
+<li>Immuno-oncology treatments can’t be repeated if an immuno-oncology treatment was used in the past year in the adjuvant setting or in an earlier line as a systemic treatment</li>
+<li>Lenvatinib plus everolimus can only be used after one prior anti-vascular endothelial growth factor (anti-VEGF) treatment</li>
 </ul>
 </section>
 <section id="proportion-of-people-receiving-each-treatment-in-practice" class="level3">
@@ -647,7 +652,7 @@ div.csl-indent {
 <li>A <strong>state transition model</strong> (i.e.&nbsp;a <strong>Markov model</strong>)</li>
 <li>A <strong>partitioned survival model</strong> (i.e.&nbsp;partitioned surival analysis)</li>
 </ul>
-<p>The models aimed to estimate the costs and benefits of cabolizumab plus nivolumab, compared against other 1L treatments, whilst also incorporating information on the subsequent treatment pathways. People in the models started on 1L treatment. The models ran with weekly cycles over a 40 year time horizon. Costs and outcomes were <strong>discounted</strong> at a rate of 3.5% per year.</p>
+<p>The models were used within the NICE appraisal to estimate the costs and benefits of cabozantinib plus nivolumab, compared against other 1L treatments, whilst also incorporating information on the subsequent treatment pathways. People in the models started on 1L treatment. The models ran with weekly cycles over a 40 year time horizon. Costs and outcomes were <strong>discounted</strong> at a rate of 3.5% per year.</p>
 <p>The committee preferred the state transition model as it allowed multiple treatment lines to be modelled in as much detail as possible (with a state transition model being more flexible and able to explore more uncertainties and alternative assumptions).</p>
 <p>For more information, see section 1.6 “Economic model structure” in the Pathway Model Report <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span> and 4.3 “EAG economic analysis” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
@@ -692,11 +697,14 @@ div.csl-indent {
 <div id="ref-challapalli_1463p_2022" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[7] </div><div class="csl-right-inline">Challapalli A, Ratnayake G, McGrane J, Frazer R, Gupta S, Parslow DS, et al. <span>1463P</span> <span>Patterns</span> of care and outcomes of metastatic renal cell carcinoma (<span class="nocase">mRCC</span>) patients (pts) with bone metastases (<span>BM</span>): <span>A</span> <span>UK</span> multicenter review. Annals of Oncology 2022;33:S1215. <a href="https://doi.org/10.1016/j.annonc.2022.07.1566">https://doi.org/10.1016/j.annonc.2022.07.1566</a>.</div>
 </div>
+<div id="ref-lee_impact_2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">Lee D, Hart R, Burns D, McCarthy G. The <span>Impact</span> of the <span>Approach</span> to <span>Accounting</span> for <span>Age</span> and <span>Sex</span> in <span>Economic</span> <span>Models</span> on <span>Predicted</span> <span>Quality</span>-<span>Adjusted</span> <span>Life</span>-<span>Years</span>. Applied Health Economics and Health Policy 2024. <a href="https://doi.org/10.1007/s40258-024-00918-9">https://doi.org/10.1007/s40258-024-00918-9</a>.</div>
+</div>
 <div id="ref-ara_populating_2010" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[8] </div><div class="csl-right-inline">Ara R, Brazier JE. Populating an <span>Economic</span> <span>Model</span> with <span>Health</span> <span>State</span> <span>Utility</span> <span>Values</span>: <span>Moving</span> toward <span>Better</span> <span>Practice</span>. Value in Health 2010;13:509–18. <a href="https://doi.org/10.1111/j.1524-4733.2010.00700.x">https://doi.org/10.1111/j.1524-4733.2010.00700.x</a>.</div>
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">Ara R, Brazier JE. Populating an <span>Economic</span> <span>Model</span> with <span>Health</span> <span>State</span> <span>Utility</span> <span>Values</span>: <span>Moving</span> toward <span>Better</span> <span>Practice</span>. Value in Health 2010;13:509–18. <a href="https://doi.org/10.1111/j.1524-4733.2010.00700.x">https://doi.org/10.1111/j.1524-4733.2010.00700.x</a>.</div>
 </div>
 <div id="ref-ara_using_2011" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[9] </div><div class="csl-right-inline">Ara R, Brazier JE. Using health state utility values from the general population to approximate baselines in decision analytic models when condition-specific data are not available. Value in Health: The Journal of the International Society for Pharmacoeconomics and Outcomes Research 2011;14:539–45. <a href="https://doi.org/10.1016/j.jval.2010.10.029">https://doi.org/10.1016/j.jval.2010.10.029</a>.</div>
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">Ara R, Brazier JE. Using health state utility values from the general population to approximate baselines in decision analytic models when condition-specific data are not available. Value in Health: The Journal of the International Society for Pharmacoeconomics and Outcomes Research 2011;14:539–45. <a href="https://doi.org/10.1016/j.jval.2010.10.029">https://doi.org/10.1016/j.jval.2010.10.029</a>.</div>
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1120,7 +1128,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/model_overview.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","openEffect":"zoom","descPosition":"bottom","loop":false});
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/model_overview.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","closeEffect":"zoom","loop":false,"descPosition":"bottom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
