@@ -5,6 +5,7 @@
 # Load required packages
 library(shiny)
 library(shinythemes)
+library(shinyWidgets)
 library(shinyjs)
 library(data.table)
 library(gtools)
@@ -32,6 +33,11 @@ comparators_choice = c(
   "Axitinib" = "axitinib")
 # Sorafenib and best supportive care are included by default
 comparators_default = c("sorafenib", "placebo_BSC")
+# Adapt to make list for use in sequence explorer
+exp_comparators = append(comparators_choice, c(
+  "Sorafenib" = "sorafenib",
+  "Best supportive care" = "BSC"
+))
 
 # Define list of populations (labels and values)
 populations = c(
@@ -39,6 +45,9 @@ populations = c(
   "Population 2" = 2,
   "Population 3" = 3,
   "Population 4" = 4)
+# Adjust for use in sequence explorer
+exp_populations <- sprintf("pop%s", populations)
+names(exp_populations) <- names(populations)
 
 # Import the sequencing functions
 source("sequences.R")
@@ -49,13 +58,16 @@ lists_df <- read.csv("data/lists.csv")
 i <- lapply(lists_df, function(x) unlist(x)[!is.na(unlist(x))])
 names(i) <- names(lists_df)
 
+# Import table with all possible valid sequences (used by explorer)
+exp_all_seq <- read.csv("data/valid_sequences.csv")
+
 # =============================================
 # User interface (layout and appearance of app)
 # =============================================
 
 ui <- fluidPage(
   # Website theme
-  theme = shinytheme("simplex"),
+  # theme = shinytheme("simplex"),
 
   # Allows some JavaScript operations           
   useShinyjs(),
@@ -68,64 +80,106 @@ ui <- fluidPage(
   
   # Introductory paragraph
   includeMarkdown("txt/intro.md"),
-  
-  # Header
-  h2("Find valid treatment sequences"),
 
-  # Sidebar layout with input and output definitions
-  sidebarLayout(
-    
-    # Sidebar panel for inputs
-    sidebarPanel(
-      
-      h3("Inputs"),
-
-      # Blank space before button
-      headerPanel(""),
-
-      # Button to reset inputs to default ("selected")
-      actionButton(inputId = "reset",
-                   label = "Reset inputs"),
-
-      # Blank space after button
-      headerPanel(""),
-
-      # Number of populations (pop1-pop4)
-      selectizeInput(inputId = "populations",
-                     label = "Patient populations",
-                     choices = populations,
-                     selected = populations,
-                     multiple = TRUE,
-                     options = list(plugins = list("remove_button"))),
-  
-      # Number of treatment lines
-      selectInput(inputId = "R_maxlines",
-                  label = "Max lines within the R model",
-                  choices = c(3, 4),
-                  selected = 4),
-
-      # Treatments
-      selectizeInput(inputId = "chosen_comparators",
-                     label = "Comparator list (includes sorafenib and best supportive care by default)",
-                     choices = comparators_choice,
-                     selected = comparators_choice,
-                     multiple = TRUE,
-                     options = list(plugins = list("remove_button"))),
-  
-      # Button to trigger creation of table of valid sequences
-      actionButton(inputId = "seq_button",
-                   label = "Find possible treatment sequences")
-      
+  tabsetPanel(
+    id = "tabset",
+    # ====================
+    # UI: Run analysis
+    # ====================
+    tabPanel(
+      # Title for tab
+      title = "Run analysis",
+      # Header for panel
+      h2("Find valid treatment sequences"),
+      # Sidebar layout with input and output definitions
+      sidebarLayout(
+        
+        # Sidebar panel for inputs
+        sidebarPanel(
+          
+          h3("Inputs"),
+          
+          # Blank space before button
+          headerPanel(""),
+          
+          # Button to reset inputs to default ("selected")
+          actionButton(inputId = "reset",
+                       label = "Reset inputs"),
+          
+          # Blank space after button
+          headerPanel(""),
+          
+          # Number of populations (pop1-pop4)
+          selectizeInput(inputId = "populations",
+                         label = "Patient populations",
+                         choices = populations,
+                         selected = populations,
+                         multiple = TRUE,
+                         options = list(plugins = list("remove_button"))),
+          
+          # Number of treatment lines
+          selectInput(inputId = "R_maxlines",
+                      label = "Max lines within the R model",
+                      choices = c(3, 4),
+                      selected = 4),
+          
+          # Treatments
+          selectizeInput(inputId = "chosen_comparators",
+                         label = "Comparator list (includes sorafenib and best supportive care by default)",
+                         choices = comparators_choice,
+                         selected = comparators_choice,
+                         multiple = TRUE,
+                         options = list(plugins = list("remove_button"))),
+          
+          # Button to trigger creation of table of valid sequences
+          actionButton(inputId = "seq_button",
+                       label = "Find possible treatment sequences")
+          
+        ),
+        
+        # Main panel for displaying outputs
+        mainPanel(
+          h3("Results"),
+          verbatimTextOutput("describe"),
+          DT::DTOutput("sequences"),
+          downloadButton(outputId = "download_table",
+                         label = "Download table as an excel file")
+        )
+      )
     ),
-    
-    # Main panel for displaying outputs
-    mainPanel(
-      h3("Results"),
-      verbatimTextOutput("describe"),
-      DT::DTOutput("sequences"),
-      downloadButton(outputId = "download_table",
-                     label = "Download table as an excel file")
-      
+    # =====================
+    # UI: Sequence explorer
+    # =====================
+    tabPanel(
+      # Title for tab
+      title = "Sequence explorer",
+      # Header for panel
+      h2("Interactive sequence explorer"),
+      # Sidebar layout with input and output definitions
+      sidebarLayout(
+        
+        # Sidebar panel for inputs
+        sidebarPanel(
+          # Chosen population (pop1-pop4)
+          selectInput(inputId = "exp_population",
+                      label = "Patient population",
+                      choices = exp_populations),
+          
+          # Number of treatment lines
+          selectInput(inputId = "exp_R_maxlines",
+                      label = "Max lines within the R model",
+                      choices = c(3, 4),
+                      selected = 4)
+        ),
+        mainPanel(
+          # Lines of treatment
+          uiOutput("exp_line1"),
+          uiOutput("exp_line2"),
+          uiOutput("exp_line3"),
+          uiOutput("exp_line4"),
+          uiOutput("exp_line5")
+        )
+      )
     )
   )
 )
@@ -136,6 +190,9 @@ ui <- fluidPage(
 
 server <- function(input, output) {
 
+  # ====================
+  # Server: Run analysis
+  # ====================
   # Reactive expression to produce data table of valid sequences for each population
   valid_seq <- reactive({
 
@@ -222,6 +279,104 @@ server <- function(input, output) {
       write.xlsx(valid_seq(), file)
     }
   )
+  
+  # ========================
+  # Server: Sequence explorer
+  # =========================
+
+  # Reactive expression to filter data table to chosen population and lines
+  seq_start <- reactive({
+    # Filter to chosen population
+    seq <- exp_all_seq[exp_all_seq$V1 == input$exp_population,]
+    # If max lines is 3, remove rows with BSC in V6 (as with four max lines,
+    # any combination with 4 treatments will then have BSC as the final
+    # treatment, but those with less will have an empty final column)
+    if (input$exp_R_maxlines == 3) {
+      seq <- seq[seq$V6 != "BSC",]
+    }
+    return(seq)
+  })
+
+  # Reactive filtering of dataframe based on chosen treatments
+  seq_line1 <- reactive({
+    seq <- seq_start()
+    seq <- seq[seq$V2 == input$exp_l1_chosen,]
+    return(seq)
+  })
+  seq_line2 <- reactive({
+    seq <- seq_line1()
+    seq <- seq[seq$V3 == input$exp_l2_chosen,]
+    return(seq)
+  })
+  seq_line3 <- reactive({
+    seq <- seq_line2()
+    seq <- seq[seq$V4 == input$exp_l3_chosen,]
+    return(seq)
+  })
+  seq_line4 <- reactive({
+    seq <- seq_line3()
+    seq <- seq[seq$V5 == input$exp_l4_chosen,]
+    return(seq)
+  })
+
+  # Reactive display of possible treatments for each line
+  output$exp_line1 <- renderUI({
+    l1_values <- unique(seq_start()$V2)
+    radioGroupButtons(inputId = "exp_l1_chosen",
+                      label = "First line treatment",
+                      choices = exp_comparators[exp_comparators %in% l1_values],
+                      individual = TRUE,
+                      checkIcon = list(
+                        yes = icon("ok", lib = "glyphicon")))
+  })
+  output$exp_line2 <- renderUI({
+    l2_values <- unique(seq_line1()$V3)
+    radioGroupButtons(inputId = "exp_l2_chosen",
+                      label = "Second line treatment",
+                      choices = exp_comparators[exp_comparators %in% l2_values],
+                      individual = TRUE,
+                      checkIcon = list(
+                        yes = icon("ok", lib = "glyphicon")))
+  })
+  output$exp_line3 <- renderUI({
+    if (nrow(seq_line2()) > 1) {
+      l3_values <- unique(seq_line2()$V4)
+      radioGroupButtons(inputId = "exp_l3_chosen",
+                        label = "Third line treatment",
+                        choices = exp_comparators[exp_comparators %in% l3_values],
+                        individual = TRUE,
+                        checkIcon = list(
+                          yes = icon("ok", lib = "glyphicon")))
+    }
+  })
+
+  output$exp_line4 <- renderUI({
+    if (nrow(seq_line3()) > 1) {
+      l4_values <- unique(seq_line3()$V5)
+      radioGroupButtons(inputId = "exp_l4_chosen",
+                        label = "Fourth line treatment",
+                        choices = exp_comparators[exp_comparators %in% l4_values],
+                        individual = TRUE,
+                        checkIcon = list(
+                          yes = icon("ok", lib = "glyphicon")))
+    }
+  })
+
+  output$exp_line5 <- renderUI({
+    # Different if statement, as the one used above won't work here
+    # Instead, we just check if the final column is blank or not
+    if (nrow(seq_line4()) >= 1) {
+      if (seq_line4()$V6 != "") {
+        l5_values <- unique(seq_line4()$V6)
+        radioGroupButtons(inputId = "exp_l5_chosen",
+                          label = "Fifth line treatment",
+                          choices = exp_comparators[exp_comparators %in% l5_values],
+                          individual = TRUE,
+                          checkIcon = list(
+                            yes = icon("ok", lib = "glyphicon")))
+      }
+    }
+  })
 }
 
 # ====================

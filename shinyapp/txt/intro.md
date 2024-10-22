@@ -7,7 +7,12 @@ This is a **pilot example** of just one part of the analysis, which is to create
 * **Population 3:** Favourable risk and less than 1 year since IO
 * **Population 4:** Intermediate/poor risk and less than 1 year since IO
 
-The "favourable" and "intermediate/poor" risk statues are as defined by the International Metastatic Renal Cell Carcinoma Database Consortium (IMDC).
+The "favourable" and "intermediate/poor" risk statuses are as defined by the International Metastatic Renal Cell Carcinoma Database Consortium (IMDC).
+
+The app has two tabs:
+
+* **Run analysis:** To create a table of possible treatment sequences, as described above.
+* **Sequence explorer:** Select first, second, third and fourth line treatments, and see how the treatments available at each line vary depending on your choices.
 
 This app has been developed by [Amy Heather](https://github.com/amyheather) [![ORCID 0000-0002-6596-347](../www/ORCIDiD_icon16x16.png)](https://orcid.org/0000-0002-6596-3479) as part of the project STARS (Sharing Tools and Artifacts for Reusable Simulations in healthcare). The app code can be viewed at <https://github.com/pythonhealthdatascience/stars-eom-rcc/tree/main/shinyapp>.
 
