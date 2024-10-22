@@ -152,16 +152,20 @@ server <- function(input, output) {
                           yes = icon("ok", lib = "glyphicon")))
     }
   })
-  
+
   output$line5 <- renderUI({
-    if (nrow(seq_line4()) > 1) {
-      l5_values <- unique(seq_line4()$V6)
-      radioGroupButtons(inputId = "l5_chosen",
-                        label = "Fifth line treatment",
-                        choices = comparators[comparators %in% l5_values],
-                        individual = TRUE,
-                        checkIcon = list(
-                          yes = icon("ok", lib = "glyphicon")))
+    # Different if statement, as the one used above won't work here
+    # Instead, we just check if the final column is blank or not
+    if (nrow(seq_line4()) >= 1) {
+      if (seq_line4()$V6 != "") {
+        l5_values <- unique(seq_line4()$V6)
+        radioGroupButtons(inputId = "l5_chosen",
+                          label = "Fifth line treatment",
+                          choices = comparators[comparators %in% l5_values],
+                          individual = TRUE,
+                          checkIcon = list(
+                            yes = icon("ok", lib = "glyphicon")))
+      }
     }
   })
 }
