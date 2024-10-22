@@ -67,7 +67,7 @@ exp_all_seq <- read.csv("data/valid_sequences.csv")
 
 ui <- fluidPage(
   # Website theme
-  # theme = shinytheme("simplex"),
+  theme = shinytheme("flatly"),
 
   # Allows some JavaScript operations           
   useShinyjs(),
