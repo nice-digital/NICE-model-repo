@@ -104,6 +104,13 @@ authors:
     affiliation: >-
       Peninsula Technology Assessment Group (PenTAG),
       University of Exeter Medical School
+  - given-names: Amy
+    family-names: Heather
+    orcid: 'https://orcid.org/0000-0002-6596-3479'
+    affiliation: >-
+      Peninsula Collaboration for Health Operational Research and Data Science (PenCHORD),
+      University of Exeter Medical School
+    email: a.heather2@exeter.ac.uk
   - given-names: Edward
     family-names: Wilson
     orcid: 'https://orcid.org/0000-0002-8369-1577'
