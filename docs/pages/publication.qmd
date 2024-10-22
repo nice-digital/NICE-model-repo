@@ -26,12 +26,69 @@ And others from the appraisal history like:
 
 ## Publications
 
-There has been one related publication: the article **NICE's Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances** @lee_nices_2024, with a later correction published. @lee_correction_2024 These are licensed under a CC-BY-NC-4.0 license, which enables us to share them below.
+There are several publications related to this analysis. When they are available under a permissive license, they have been embedded below.
 
-Article @lee_nices_2024:
+An **article describing the pathways pilot** was published (along with a later correction):
+
+* NICE's Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances - Lee et al. 2024 @lee_nices_2024
+* Correction: NICE’s Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances - Lee et al. 2024 @lee_correction_2024
+
+::: {.callout-note collapse="true"}
+
+## View Lee et al. 2024 (article) @lee_nices_2024
+
+Licensed under a CC-BY-NC-4.0 license.
 
 <iframe width="100%" height="800" src="../pdf/lee_2024_nice_pathways_pilot.pdf"></iframe>
 
-Correction @lee_correction_2024:
+:::
+
+::: {.callout-note collapse="true"}
+
+## View Lee et al. 2024 (crrection) @lee_correction_2024:
+
+Licensed under a CC-BY-NC-4.0 license.
 
 <iframe width="100%" height="800" src="../pdf/lee_2024_correction.pdf"></iframe>
+
+:::
+
+A number of **publications related to the UK Renal Oncology Collaborative (UK ROC) dataset** used to inform baseline risk in the pathways model have also now been produced:
+
+* Real world, multicentre patterns of treatment and survival in metastatic renal cell carcinoma with the UK Renal Oncology Collaborative (UK ROC): Is it time to look favourably on first-line immunotherapy containing combinations in all IMDC groups? - McGrane et al. 2024 @mcgrane_real_2024
+* Real-world patterns of treatment and response in metastatic renal cell carcinoma: a multicentre UK-wide review with UK Renal Oncology Collaborative (UK ROC) - Frazer et al. 2024 @frazer_real-world_2024
+* Efficacy of cabozantinib and sunitinib for the treatment of intermediate/poor risk renal cell carcinoma based upon UK real-world data - Lee et al. 2024 @lee_efficacy_2024
+
+::: {.callout-note collapse="true"}
+
+## View McGrane et al. 2024 @mcgrane_real_2024
+
+Licensed under a CC BY 4.0 license.
+
+<iframe width="100%" height="800" src="../pdf/mcgrane_2024_realworld.pdf"></iframe>
+
+:::
+
+::: {.callout-note collapse="true"}
+
+## View Frazer et al. 2024 @frazer_real-world_2024
+
+Licensed under a CC BY-NC-ND 4.0 license.
+
+<iframe width="100%" height="800" src="../pdf/frazer_2024_realworld.pdf"></iframe>
+
+:::
+
+::: {.callout-note collapse="true"}
+
+## View Lee et al. 2024 @lee_efficacy_2024
+
+Licensed under a CC BY 4.0 license.
+
+<iframe width="100%" height="800" src="../pdf/lee_2024_efficacy.pdf"></iframe>
+
+:::
+
+In addition, a **publication investigating the issue of slippage in hazard ratios** (tending towards the null over subsequent datacuts) for immune-oncology and TKI treatment combination treatment in first-line RCC has been produced:
+
+* Slipping Away: Slippage in hazard ratios over datacuts and its impact on immuno-oncology combination economic evaluations - Lee et al. 2024 @lee_slipping_2024
