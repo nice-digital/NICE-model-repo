@@ -1,6 +1,13 @@
 # ==========================================================
 # Simple shiny web app to identify valid treatment sequences
 # ==========================================================
+# Note: Implementation of sequence explorer is not perfect - it works, but
+# there are error messages that will appear for a microsecond and then vanish
+# again (and remain in console), related to the circular logic used. I
+# struggled to find another way of programming this, but if you can think of 
+# one that would avoid this error, that would be ideal. Despite the error 
+# though, the current implementation does work.
+# ==========================================================
 
 # Load required packages
 library(shiny)
@@ -351,7 +358,17 @@ server <- function(input, output) {
   })
 
   output$exp_line4 <- renderUI({
-    if (nrow(seq_line3()) > 1) {
+    if (nrow(seq_line3()) == 1) {
+      if (seq_line3()$V5 != "") {
+        l4_values <- unique(seq_line3()$V5)
+        radioGroupButtons(inputId = "exp_l4_chosen",
+                          label = "Fourth line treatment",
+                          choices = exp_comparators[exp_comparators %in% l4_values],
+                          individual = TRUE,
+                          checkIcon = list(
+                            yes = icon("ok", lib = "glyphicon")))
+      }
+    } else if (nrow(seq_line3()) >= 1) {
       l4_values <- unique(seq_line3()$V5)
       radioGroupButtons(inputId = "exp_l4_chosen",
                         label = "Fourth line treatment",
@@ -359,12 +376,10 @@ server <- function(input, output) {
                         individual = TRUE,
                         checkIcon = list(
                           yes = icon("ok", lib = "glyphicon")))
-    }
+    }  
   })
 
   output$exp_line5 <- renderUI({
-    # Different if statement, as the one used above won't work here
-    # Instead, we just check if the final column is blank or not
     if (nrow(seq_line4()) >= 1) {
       if (seq_line4()$V6 != "") {
         l5_values <- unique(seq_line4()$V6)
