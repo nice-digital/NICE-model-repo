@@ -408,7 +408,7 @@ div.csl-indent {
 <li>Nivolumab - intravenous, 240mg every 2 weeks or 480mg every 4 weeks</li>
 </ul>
 <p>It is a first-line (1L) systemic therapy, meaning it is for previously untreated patients. They may then have up to 3 more treatments (referred to as second-line (2L), third-line (3L) and fourth-line (4L) therapies), or at any point, may instead transition to receiving best-supportive care (BSC).</p>
-<p>The appraisal compares this treatment <strong>against other 1L treatments</strong>. When modelling this, it includes a simulation of the subsequent treatments that people might receive after each.</p>
+<p>The appraisal compares this treatment <strong>against other 1L treatments</strong>. When modelling this, it includes an assumption of the subsequent treatments that people might receive after each.</p>
 <p>For more information, see section 3.2 “Interventions” and 3.3 “The RCC treatment pathway” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
 </section>
@@ -492,7 +492,7 @@ div.csl-indent {
 <li>Natural history of disease</li>
 <li>Patient characteristics</li>
 </ul>
-<p>Of the 12 real-world datasets identified, only one was considered to be robust and relevant to the UK. This was Challapalli et al.&nbsp;2022. <span class="citation" data-cites="challapalli_1463p_2022">[<a href="#ref-challapalli_1463p_2022" role="doc-biblioref">7</a>]</span> The owners of this dataset provided access to patient-level data.</p>
+<p>Of the 12 real-world datasets identified, only one was considered to be robust, relevant to the UK and suitable for use in the economic model. This was Challapalli et al.&nbsp;2022. <span class="citation" data-cites="challapalli_1463p_2022">[<a href="#ref-challapalli_1463p_2022" role="doc-biblioref">7</a>]</span> The owners of this dataset provided access to patient-level data.</p>
 <p>For more information, see section 1.12 “Real-world evidence” in the Pathway Model Report <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span> and 3.1.2 “Identification of real-world evidence” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
 <section id="extrapolation-of-rwe" class="level3">
@@ -511,11 +511,11 @@ div.csl-indent {
 </div>
 <section id="reference-curves" class="level3">
 <h3 class="anchored" data-anchor-id="reference-curves">Reference curves</h3>
-<p>For 1L, the reference treatment used was <strong>sunitinib</strong> as it:</p>
+<p>For 1L, the reference treatment used was <strong>sunitinib</strong> as:</p>
 <ul>
 <li>It is used in UK practice for all risk groups</li>
 <li>It was the most common 1L treatment in the RWE</li>
-<li>Was the comparator for the most of the RCTs (see the network diagram above)</li>
+<li>It was the comparator for the most of the RCTs (see the network diagram above)</li>
 </ul>
 <p>For 2L and 3L, the reference treatment used was <strong>cabozantinib</strong> as:</p>
 <ul>
@@ -523,11 +523,12 @@ div.csl-indent {
 <li>“Data were mature compared to other treatments” <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></li>
 </ul>
 <p>The reference treatment was based on RWE as per recommendations from the NICE manual and other recent appraisals.</p>
+<p>For <strong>BSC</strong>, data was pooled for all 4L patients post-progression survival.</p>
 <p>For more information, see section 4.3.5 “Treatment effectiveness and extrapolation” in the Assessment Report <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span> and sections 1.13 “Baseline risk” and 1.14 “Appropriateness” in the Pathway Model Report. <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span></p>
 </section>
 <section id="applying-the-hazard-ratios-to-the-reference-curves" class="level3">
 <h3 class="anchored" data-anchor-id="applying-the-hazard-ratios-to-the-reference-curves">Applying the hazard ratios to the reference curves</h3>
-<p>The effectiveness of 1L sunitinib and 2L cabozantinib is provided by the RWE reference curves. For all other treatments, the effectiveness is calculated by applying the NMA HRs to the reference curves.</p>
+<p>The effectiveness of 1L sunitinib, 2L and 3L cabozantinib and BSC is provided by the RWE reference curves. For all other treatments, the effectiveness is calculated by applying the NMA HRs to the reference curves.</p>
 <p>The source of the HRs for each treatment, line and outcome were as follows:</p>
 <ul>
 <li><strong>PFS and OS from the NMA</strong> - FP NMA for 1L (with exception of pembrolizumab plus lenvatinib) and PH NMA for 2L and 3L</li>
@@ -620,13 +621,13 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="stage-6.-economic-models">Stage 6. Economic models</h2>
 <section id="model-diagram" class="level3">
 <h3 class="anchored" data-anchor-id="model-diagram">Model diagram</h3>
-<p>The economic model is designed to model up to four lines of treatment before best supportive care. A diagram of the model is provided below. There are ten possible health states:</p>
+<p>The economic model is designed to model up to four lines of treatment before BSC. A diagram of the model is provided below. There are ten possible health states:</p>
 <ul>
-<li>First line (1L) off or on treatment</li>
-<li>Second line (2L) off or on treatment</li>
-<li>Third line (3L) off or on treatment</li>
-<li>Fourth line (4L) off or on treatment</li>
-<li>Best supportive case (BSC)</li>
+<li>1L off or on treatment</li>
+<li>2L off or on treatment</li>
+<li>3L off or on treatment</li>
+<li>4L off or on treatment</li>
+<li>BSC</li>
 <li>Death</li>
 </ul>
 <p>Transition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT).</p>
@@ -1119,7 +1120,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/model_overview.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"openEffect":"zoom","loop":false,"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom"});
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/model_overview.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","openEffect":"zoom","descPosition":"bottom","loop":false});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
