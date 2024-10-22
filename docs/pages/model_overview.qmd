@@ -31,7 +31,7 @@ This treatment is a combination of:
 
 It is a first-line (1L) systemic therapy, meaning it is for previously untreated patients. They may then have up to 3 more treatments (referred to as second-line (2L), third-line (3L) and fourth-line (4L) therapies), or at any point, may instead transition to receiving best-supportive care (BSC).
 
-The appraisal compares this treatment **against other 1L treatments**. When modelling this, it includes a simulation of the subsequent treatments that people might receive after each.
+The appraisal compares this treatment **against other 1L treatments**. When modelling this, it includes an assumption of the subsequent treatments that people might receive after each.
 
 For more information, see section 3.2 "Interventions" and 3.3 "The RCC treatment pathway" in the Assessment Report. @lee_treatments_2023-1
 
@@ -102,7 +102,7 @@ A targeted search was conducted to identify RWE (i.e. observational studies desc
 * Natural history of disease
 * Patient characteristics
 
-Of the 12 real-world datasets identified, only one was considered to be robust and relevant to the UK. This was Challapalli et al. 2022. @challapalli_1463p_2022 The owners of this dataset provided access to patient-level data.
+Of the 12 real-world datasets identified, only one was considered to be robust, relevant to the UK and suitable for use in the economic model. This was Challapalli et al. 2022. @challapalli_1463p_2022 The owners of this dataset provided access to patient-level data.
 
 For more information, see section 1.12 "Real-world evidence" in the Pathway Model Report @national_institute_for_health_and_care_excellence_nice_renal_2024 and 3.1.2 "Identification of real-world evidence" in the Assessment Report. @lee_treatments_2023-1
 
@@ -118,11 +118,11 @@ For more information, see section 4.3.5.1 "Extrapolation of survival curves" in 
 
 ### Reference curves
 
-For 1L, the reference treatment used was **sunitinib** as it:
+For 1L, the reference treatment used was **sunitinib** as:
 
 * It is used in UK practice for all risk groups
 * It was the most common 1L treatment in the RWE
-* Was the comparator for the most of the RCTs (see the network diagram above)
+* It was the comparator for the most of the RCTs (see the network diagram above)
 
 For 2L and 3L, the reference treatment used was **cabozantinib** as:
 
@@ -131,11 +131,13 @@ For 2L and 3L, the reference treatment used was **cabozantinib** as:
 
 The reference treatment was based on RWE as per recommendations from the NICE manual and other recent appraisals.
 
+For **BSC**, data was pooled for all 4L patients post-progression survival.
+
 For more information, see section 4.3.5 "Treatment effectiveness and extrapolation" in the Assessment Report @lee_treatments_2023-1 and sections 1.13 "Baseline risk" and 1.14 "Appropriateness" in the Pathway Model Report. @national_institute_for_health_and_care_excellence_nice_renal_2024 
 
 ### Applying the hazard ratios to the reference curves
 
-The effectiveness of 1L sunitinib and 2L cabozantinib is provided by the RWE reference curves. For all other treatments, the effectiveness is calculated by applying the NMA HRs to the reference curves.
+The effectiveness of 1L sunitinib, 2L and 3L cabozantinib and BSC is provided by the RWE reference curves. For all other treatments, the effectiveness is calculated by applying the NMA HRs to the reference curves.
 
 The source of the HRs for each treatment, line and outcome were as follows:
 
@@ -229,13 +231,13 @@ For more information, see section 4.3.1.8 "EAG model structure" in the Assessmen
 
 ### Model diagram
 
-The economic model is designed to model up to four lines of treatment before best supportive care. A diagram of the model is provided below. There are ten possible health states:
+The economic model is designed to model up to four lines of treatment before BSC. A diagram of the model is provided below. There are ten possible health states:
 
-* First line (1L) off or on treatment
-* Second line (2L) off or on treatment
-* Third line (3L) off or on treatment
-* Fourth line (4L) off or on treatment
-* Best supportive case (BSC)
+* 1L off or on treatment
+* 2L off or on treatment
+* 3L off or on treatment
+* 4L off or on treatment
+* BSC
 * Death
 
 Transition between lines of treatment can be defined by either progression-free survival (PFS) or time to next treatment (TTNT).
