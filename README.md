@@ -76,7 +76,9 @@ The ambition for EOM:RCC is to create a shiny interface that allows users to int
 
 <br>
 
-<a href="https://amyheather.shinyapps.io/shinyapp/"><img src="https://raw.githubusercontent.com/pythonhealthdatascience/stars-eom-rcc/main/docs/images/webapp_preview.png" alt="Web application preview."></a>
+<a href="https://amyheather.shinyapps.io/shinyapp/"><img src="https://raw.githubusercontent.com/pythonhealthdatascience/stars-eom-rcc/main/docs/images/webapp_preview.png" alt="Web application preview - main tab."></a>
+
+<a href="https://amyheather.shinyapps.io/shinyapp/"><img src="https://raw.githubusercontent.com/pythonhealthdatascience/stars-eom-rcc/main/docs/images/webapp_preview2.png" alt="Web application preview - explorer tab."></a>
 
 <br><br>
 
@@ -256,7 +258,7 @@ Time difference of X mins
 
 The run time for this was 40 minutes on an Intel Core i7-12700H with 32GB RAM running Ubuntu 22.04.4 Linux.
 
-From NICE-model-repo (not sure of specs), the "runtime for the full state transition model is around 90 processor-minutes. This simulates hundreds of treatment pathways for tens of thousands of health states for thousands of time cycles for each pathway. By contrast, the PartSA version of the model takes less than 5 minutes, though without addressing any of the issues of that approach".
+From `nice-digital/NICE-model-repo`, the "runtime for the full state transition model is around 90 processor-minutes. This simulates hundreds of treatment pathways for tens of thousands of health states for thousands of time cycles for each pathway. By contrast, the PartSA version of the model takes less than 5 minutes, though without addressing any of the issues of that approach". These times were from model runs on Intel Core u7-1165G7 with 32GB RAM running Windows.
 
 </details>
 
@@ -268,14 +270,14 @@ If you would like to amend inputs you should do this in the Excel front end file
 
 The way the model works is that inputs / tables which are named with “R_” are extracted by the R code and used to populate the R model. We would recommend the user avoid adding columns or rows to the Excel file as this may change the format of the tables being pulled into R in ways that break the code. Instead, please use the input cells provided.
 
-By default, R will use inputs from `1_Data/ID6184_RCC_model inputs FAD version [ACIC redacted, cPAS redacted and CIC redacted].xlsm`. If this file does not exist, it will ask you to select the file to use for inputs.
+By default, R will use inputs from `1_Data/ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm`. If this file does not exist, it will ask you to select the file to use for inputs.
 
 <details markdown="1">
 <summary><b>Overview of input files</b></summary>
 
 There are a number of files which contain raw or intermediate inputs, which are stored in `1_Data/`:
 
-1. **Excel user interface** (`ID6184_RCC_model inputs FAD version [ACIC redacted, cPAS redacted and CIC redacted].xlsm`): Contains user input sheets with different model inputs which feeds into R tables (named in excel as R_table…) and subsequently being read by the R program. The version available to the public does not contain confidential company data, confidential price discounts or company individual patient data and treatment sequence data. The model does now contain UK real-world evidence (RWE) data which was redacted at the time of the appraisal at the request of the UK real-world evidence (RWE) data holders.
+1. **Excel user interface** (`ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm`): Contains user input sheets with different model inputs which feeds into R tables (named in excel as R_table…) and subsequently being read by the R program. The version available to the public does not contain confidential company data, confidential price discounts or company individual patient data and treatment sequence data. The model does now contain UK real-world evidence (RWE) data which was redacted at the time of the appraisal at the request of the UK real-world evidence (RWE) data holders.
 
 2. **Proportional hazards NMA CODA RDS file** (`PH_NMA_CODA.rds`): Note the version of this using time to next treatment as a surrogate for nivolumab plus ipilimumab is not available to the public as this data was marked as confidential by the data holders. 
 
