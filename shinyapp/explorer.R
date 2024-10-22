@@ -4,6 +4,8 @@
 
 # Load required packages
 library(shiny)
+library(shinythemes)
+library(shinyWidgets)
 library(DT)
 
 # ======
@@ -43,10 +45,7 @@ all_seq <- read.csv("data/valid_sequences.csv")
 
 ui <- fluidPage(
   # Website theme
-  theme = shinytheme("simplex"),
-  
-  # Allows some JavaScript operations           
-  useShinyjs(),
+  # theme = shinytheme("simplex"),
   
   titlePanel("Interactive sequence explorer"),
   mainPanel(
@@ -114,47 +113,55 @@ server <- function(input, output) {
   # Reactive display of possible treatments for each line
   output$line1 <- renderUI({
     l1_values <- unique(seq_start()$V2)
-    radioButtons(inputId = "l1_chosen",
-                 label = "First line treatment",
-                 choices = comparators[comparators %in% l1_values],
-                 inline=TRUE)
+    radioGroupButtons(inputId = "l1_chosen",
+                      label = "First line treatment",
+                      choices = comparators[comparators %in% l1_values],
+                      individual = TRUE,
+                      checkIcon = list(
+                        yes = icon("ok", lib = "glyphicon")))
   })
   output$line2 <- renderUI({
     l2_values <- unique(seq_line1()$V3)
-    radioButtons(inputId = "l2_chosen",
-                 label = "Second line treatment",
-                 choices = comparators[comparators %in% l2_values],
-                 inline=TRUE)
+    radioGroupButtons(inputId = "l2_chosen",
+                      label = "Second line treatment",
+                      choices = comparators[comparators %in% l2_values],
+                      individual = TRUE,
+                      checkIcon = list(
+                        yes = icon("ok", lib = "glyphicon")))
   })
-  
-  
   output$line3 <- renderUI({
     if (nrow(seq_line2()) > 1) {
       l3_values <- unique(seq_line2()$V4)
-      radioButtons(inputId = "l3_chosen",
-                   label = "Third line treatment",
-                   choices = comparators[comparators %in% l3_values],
-                   inline=TRUE)
+      radioGroupButtons(inputId = "l3_chosen",
+                        label = "Third line treatment",
+                        choices = comparators[comparators %in% l3_values],
+                        individual = TRUE,
+                        checkIcon = list(
+                          yes = icon("ok", lib = "glyphicon")))
     }
   })
   
   output$line4 <- renderUI({
     if (nrow(seq_line3()) > 1) {
       l4_values <- unique(seq_line3()$V5)
-      radioButtons(inputId = "l4_chosen",
-                   label = "Fourth line treatment",
-                   choices = comparators[comparators %in% l4_values],
-                   inline=TRUE)
+      radioGroupButtons(inputId = "l4_chosen",
+                        label = "Fourth line treatment",
+                        choices = comparators[comparators %in% l4_values],
+                        individual = TRUE,
+                        checkIcon = list(
+                          yes = icon("ok", lib = "glyphicon")))
     }
   })
   
   output$line5 <- renderUI({
     if (nrow(seq_line4()) > 1) {
-    l5_values <- unique(seq_line4()$V6)
-      radioButtons(inputId = "l5_chosen",
-                   label = "Fifth line treatment",
-                   choices = comparators[comparators %in% l5_values],
-                   inline=TRUE)
+      l5_values <- unique(seq_line4()$V6)
+      radioGroupButtons(inputId = "l5_chosen",
+                        label = "Fifth line treatment",
+                        choices = comparators[comparators %in% l5_values],
+                        individual = TRUE,
+                        checkIcon = list(
+                          yes = icon("ok", lib = "glyphicon")))
     }
   })
 }
