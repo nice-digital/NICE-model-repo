@@ -1,5 +1,5 @@
 
-This page performs a **partitioned survival analysis** on the patient-level data, which is **real-world evidence (RWE)**. The analysis is performed in order to **extrapolate the survival curves** so they cover the full time horizon of the economic model (40 years).
+This page performs a **survival analysis** on the patient-level data, which uses **real-world evidence (RWE)** in the **base case**. The analysis is performed in order to **extrapolate the survival curves** so they cover the full time horizon of the economic model (40 years).
 
 ## Import patient-level data
 

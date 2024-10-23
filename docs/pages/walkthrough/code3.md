@@ -1211,7 +1211,7 @@ p$surv$st <- f_surv_gpopadjust(st      = p$surv$st,
 
 ### Curve overlap
 
-A known limitation of partitioned survival analysis (which was used to extrapolate the RWE) is that it can produce curves where PFS lies above OS (which is impossible in real-life). Hence, in cases where this occurs, it was adjusted so that PFS <= OS (and also, TTD <= OS, and PFS <= TTP). This was implemented using the functions `f_surv_PFSxOS()`, `f_surv_TTDxOS()`, and `f_surv_PFSxTTP()`.
+A known limitation of extrapolating curves individually within survival analysis is that it can produce curves where PFS lies above OS (which is impossible in real-life). Hence, in cases where this occurs, it was adjusted so that PFS <= OS (and also, TTD <= OS, and PFS <= TTP). This was implemented using the functions `f_surv_PFSxOS()`, `f_surv_TTDxOS()`, and `f_surv_PFSxTTP()`.
 
 
 ::: {.cell}
@@ -1375,10 +1375,14 @@ if (qc_mode) {
 
 Although `qc_mode` is set to FALSE, we can still use the functions to view an example of a survival and hazard curves.
 
+<!-- We use the .md file produced from this .qmd to then create the seperate walkthrough pages, and I've found these images then don't display correctly, hence below we have hidden sections that create, save and display the plots, as well as some repeat sections of code that do not attempt to output figures -->
+
 
 ::: {.cell}
 
-```{.r .cell-code}
+:::
+
+```{{r}}
 f_qc_surv_ExtrapPlot(
   st   = p$surv$st,
   popu = "pop_0",
@@ -1390,11 +1394,9 @@ f_qc_surv_ExtrapPlot(
 )
 ```
 
-::: {.cell-output-display}
-![](code0a_walkthrough_files/figure-html/unnamed-chunk-75-1.png){width=672}
-:::
+![](example_extrap.png)
 
-```{.r .cell-code}
+```{{r}}
 f_qc_surv_EstHazPlot(
   st   = p$surv$st,
   gpop = p$surv$gpop,
@@ -1407,11 +1409,7 @@ f_qc_surv_EstHazPlot(
 )
 ```
 
-::: {.cell-output-display}
-![](code0a_walkthrough_files/figure-html/unnamed-chunk-75-2.png){width=672}
-:::
-:::
-
+![](example_esthaz.png)
 
 :::
 

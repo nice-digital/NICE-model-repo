@@ -136,7 +136,6 @@ if (any(is.na(keep_free_cores), keep_free_cores<0)) {
 The three settings in this code block:
 
 * `progressr::handlers("progress")` - one of the settings for how progress is reported whilst code is running
-* `crosstable::options(crosstable_units="cm")` - the `crosstable` package generates descriptive statistics with function `crosstable()`, and this sets the unit for it, although it should be noted that this appears to be legacy code as it doesn't appear that `crosstable()` is used anywhere in the repository
 * `qc_mode` - the input for `verbose` in `f_NMA_AddAssumptionsToNetwork()` which, if true, will mean that extra outputs are printed to the console
 
 
@@ -145,7 +144,6 @@ The three settings in this code block:
 ```{.r .cell-code}
 # Other generic settings for the progress bar and units for table widths
 handlers("progress")
-options(crosstable_units="cm")
 
 #### 2. Loading functions ###########
 
@@ -272,8 +270,6 @@ This section of the code is mostly comments that describe:
 * That survival analysis will be conducted using state transition (markov) models and partitioned survival analysis (partSA)
 * The five input files, which are detailed within the documentation on the page [Input data](../input_data.qmd)
 
-There is a line of code to define `User_types`, but this appears to be legacy as it is not used anywhere.
-
 
 ::: {.cell}
 
@@ -313,14 +309,7 @@ There is a line of code to define `User_types`, but this appears to be legacy as
 # (cabo+nivo, defined as molecule 1) starting at 1st line
 # During Phase 2 we will adapt this code to evaluate the cost-effectiveness of sequences starting at a user-defined line
 
-# Inputs to this model need to be downloaded from NICEdocs 
-
-User_types <- c("Submitting company", "NICE", "EAG", "Committee", "NHSE", "Clinical expert", "Patient expert", "Non-intervention stakeholder", "Public")
-
-# The submitting company are able to see their own CIC and AIC data (marked up blue / yellow in reporting but not anything else: green marking
-# green marked data has been either be replaced with 0 [PAS discounts, RWE IPD] or dummy data)
-# NICE users will be able to see everything
-# Other users will not be able to see any marked data, this is replaced with dummy data
+# Users can either use the files provided in the repository in which confidential data is redacted by replacing the original numbers with dummy values or, upload their own files using the same format
 
 # The way raw data is fed into the model currently works as follows
 # Define the path to where the data file lives using the select file functionality
@@ -344,6 +333,8 @@ User_types <- c("Submitting company", "NICE", "EAG", "Committee", "NHSE", "Clini
 Import the file at `excel_path` using `f_excel_extract()`, and then tidy `i$R_table_param` using `f_excel_cleanParams()`.
 
 If the file doesn't exist, assuming the user is in RStudio, a dialog box will appear with the system files, and the user should then select a file from their directory. The dialog will open in `1_Data/`, show only `.xlsm` files, and the accept/ok button has the text `ID6184_RCC_model inputs....xlsm`.
+
+**Note:** The typical naming convention used for this was that variables starting with `R_`, `List_`, `i_`, `ui_` or `dd_` are likely used within the R scripts. Some of the variables imported from excel are intermediate for calculations within excels, and so - though imported - not necessarily used in the scripts.
 
 
 ::: {.cell}
@@ -413,20 +404,20 @@ The exception is the first element which is a copy of the named ranges sheet:
 ::: {.cell}
 
 ```{.r .cell-code}
-kable(head(i[[1]]))
+print(head(i[[1]]))
 ```
 
-::: {.cell-output-display}
+::: {.cell-output .cell-output-stdout}
 
-
-|Name                   |Cell.Range              |
-|:----------------------|:-----------------------|
-|apply_waning_to        |=Lists!$Y$10:$Y$11      |
-|bc_settings_rng        |=Lists!$B$99:$B$174     |
-|cabo_nivo_outcome_from |=Lists!$W$10            |
-|cabo_nivo_outcomes     |=Lists!$X$10:$X$12      |
-|count_bc_settings      |=Lists!$B$97            |
-|dd_2ndline_NMA         |='Model settings'!$G$40 |
+```
+                    Name              Cell.Range
+1        apply_waning_to      =Lists!$Y$10:$Y$11
+2        bc_settings_rng     =Lists!$B$99:$B$174
+3 cabo_nivo_outcome_from            =Lists!$W$10
+4     cabo_nivo_outcomes      =Lists!$X$10:$X$12
+5      count_bc_settings            =Lists!$B$97
+6         dd_2ndline_NMA ='Model settings'!$G$40
+```
 
 
 :::
