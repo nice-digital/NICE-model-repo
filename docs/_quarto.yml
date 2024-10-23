@@ -10,6 +10,8 @@ website:
   # Adds edit and issue buttons to footer
   repo-url: https://github.com/pythonhealthdatascience/stars-eom-rcc/
   repo-actions: [edit, issue]
+  # Toggle to enable readers to hide the sidebar and table of contents
+  reader-mode: true
   # Create navbar across top of page
   navbar:
     collapse: false
