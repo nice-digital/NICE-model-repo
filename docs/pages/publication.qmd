@@ -47,7 +47,7 @@ Licensed under a CC-BY-NC-4.0 license.
 
 ::: {.callout-note collapse="true"}
 
-## View Lee et al. 2024 (crrection) @lee_correction_2024:
+## View Lee et al. 2024 (correction) @lee_correction_2024:
 
 Licensed under a CC-BY-NC-4.0 license.
 
