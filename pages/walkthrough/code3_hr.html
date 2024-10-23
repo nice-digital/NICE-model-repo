@@ -127,6 +127,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
 </ul>
           <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
             <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
@@ -242,7 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../pages/walkthrough/code2_extrapolate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Extrapolate real-world evidence</span></a>
+ <span class="menu-text">Extrapolate reference curves</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -286,7 +291,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../pages/license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">License</span></a>
+ <span class="menu-text">Licence</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -1879,7 +1884,7 @@ View <code>p$surv$gpop</code>
 </section>
 <section id="curve-overlap" class="level3">
 <h3 class="anchored" data-anchor-id="curve-overlap">Curve overlap</h3>
-<p>A known limitation of partitioned survival analysis (which was used to extrapolate the RWE) is that it can produce curves where PFS lies above OS (which is impossible in real-life). Hence, in cases where this occurs, it was adjusted so that PFS &lt;= OS (and also, TTD &lt;= OS, and PFS &lt;= TTP). This was implemented using the functions <code>f_surv_PFSxOS()</code>, <code>f_surv_TTDxOS()</code>, and <code>f_surv_PFSxTTP()</code>.</p>
+<p>A known limitation of extrapolating curves individually within survival analysis is that it can produce curves where PFS lies above OS (which is impossible in real-life). Hence, in cases where this occurs, it was adjusted so that PFS &lt;= OS (and also, TTD &lt;= OS, and PFS &lt;= TTP). This was implemented using the functions <code>f_surv_PFSxOS()</code>, <code>f_surv_TTDxOS()</code>, and <code>f_surv_PFSxTTP()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust PFS and TTD for OS - PFS and TTD cannot exceed OS</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>surv<span class="sc">$</span>st <span class="ot">&lt;-</span> <span class="fu">f_surv_PFSxOS</span>(p<span class="sc">$</span>surv<span class="sc">$</span>st, <span class="cf">if</span>(i<span class="sc">$</span>dd_adj_cross_curves <span class="sc">==</span> <span class="st">"Use hazards"</span>){<span class="st">"hazardmax"</span>} <span class="cf">else</span>{<span class="st">"abs"</span>})</span>
@@ -2032,41 +2037,32 @@ View some example plots
 <div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Although <code>qc_mode</code> is set to FALSE, we can still use the functions to view an example of a survival and hazard curves.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_qc_surv_ExtrapPlot</span>(</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">st   =</span> p<span class="sc">$</span>surv<span class="sc">$</span>st,</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">popu =</span> <span class="st">"pop_0"</span>,</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">li   =</span> <span class="st">"line_1"</span>,</span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mo   =</span> <span class="st">"mol_1"</span>,</span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">tr   =</span> <span class="st">"trial_2"</span>,</span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">t_yr =</span> p<span class="sc">$</span>basic<span class="sc">$</span>t_yr,</span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">th =</span> p<span class="sc">$</span>basic<span class="sc">$</span>th</span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="code0a_walkthrough_files/figure-html/unnamed-chunk-75-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_qc_surv_EstHazPlot</span>(</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">st   =</span> p<span class="sc">$</span>surv<span class="sc">$</span>st,</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">gpop =</span> p<span class="sc">$</span>surv<span class="sc">$</span>gpop,</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">popu =</span> <span class="st">"pop_0"</span>,</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">li   =</span> <span class="st">"line_1"</span>,</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">mo   =</span> <span class="st">"mol_1"</span>,</span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">tr   =</span> <span class="st">"trial_2"</span>,</span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">t_yr =</span> p<span class="sc">$</span>basic<span class="sc">$</span>t_yr,</span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">th   =</span> p<span class="sc">$</span>basic<span class="sc">$</span>th</span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="code0a_walkthrough_files/figure-html/unnamed-chunk-75-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<!-- We use the .md file produced from this .qmd to then create the seperate walkthrough pages, and I've found these images then don't display correctly, hence below we have hidden sections that create, save and display the plots, as well as some repeat sections of code that do not attempt to output figures -->
+<div class="sourceCode" id="cb46"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="in">f_qc_surv_ExtrapPlot(</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="in">  st   = p$surv$st,</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="in">  popu = "pop_0",</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="in">  li   = "line_1",</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="in">  mo   = "mol_1",</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="in">  tr   = "trial_2",</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="in">  t_yr = p$basic$t_yr,</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="in">  th = p$basic$th</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="example_extrap.png" class="img-fluid"></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="in">f_qc_surv_EstHazPlot(</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="in">  st   = p$surv$st,</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="in">  gpop = p$surv$gpop,</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="in">  popu = "pop_0",</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="in">  li   = "line_1",</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="in">  mo   = "mol_1",</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="in">  tr   = "trial_2",</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="in">  t_yr = p$basic$t_yr,</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="in">  th   = p$basic$th</span></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="example_esthaz.png" class="img-fluid"></p>
 </div>
 </div>
 </div>

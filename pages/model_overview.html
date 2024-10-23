@@ -116,6 +116,11 @@ div.csl-indent {
   </li>  
 </ul>
           <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
             <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
@@ -231,7 +236,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/walkthrough/code2_extrapolate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Extrapolate real-world evidence</span></a>
+ <span class="menu-text">Extrapolate reference curves</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -275,7 +280,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">License</span></a>
+ <span class="menu-text">Licence</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -462,17 +467,14 @@ div.csl-indent {
 <li><strong>Fractional polynomial NMA (FP NMA)</strong> which returns a list of time-varying hazard ratios for each comparison, as it “allows the relative effects to change over time” <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span></li>
 </ul>
 <p>For each RCT, requests were made to the company that owned each trial’s data, asking for grouped survival data (in time intervals of 1 or 4 weeks), for used in the NMAs. If this was not received, then the published curves were digitised to estimate the grouped survival data.</p>
-<p>NMA were performed for:</p>
-<ul>
-<li><strong>OS and PFS</strong> in the all-risk group, favourable-risk and intermediate- and poor-risk subgroups</li>
-<li><strong>Safety</strong> for the all-risk group</li>
-</ul>
+<p>NMA were performed for <strong>OS and PFS</strong> in the all-risk group, favourable-risk and intermediate- and poor-risk subgroups.</p>
 <p>PH NMA and FP NMA were both conducted, but the chosen models used were:</p>
 <ul>
 <li><strong>FP NMA</strong> for 1L efficacy - as the “flexible time-varying hazard ratios… provided a better, more plausible fit to observed short-term data” <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span> and as the proportional hazards was violated for some 1L treatments. However, PH NMA was used for pembrolizumab plus lenvatinib, as FP NMA produced implausible results.</li>
 <li><strong>PH NMA</strong> was used for 2L and 3L efficacy due to the “sparsity of the available network and extreme results within the fitted models” <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></li>
 <li>4L efficacy was based on 3L outcomes, applying the hazard ratio for the difference between pooled 3L and 4L outcomes</li>
 </ul>
+<p>The description of NMA above pertains to the treatment effectiveness NMA, but NMA were also performed for <strong>safety</strong> data (adverse events). This is discussed in more detail below, but is referred to as using a <strong>time invariant NMA</strong> since adverse events were not available as time-to-event data, and so odds ratios were estimated.</p>
 <p>For more information, see section 1.16 “Relative effectiveness” in the Pathway Model Report <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span> and 4.3.5.2 “Calculation of relative treatment effectiveness” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
 </section>
@@ -575,12 +577,14 @@ div.csl-indent {
 </div>
 <section id="adverse-events" class="level3">
 <h3 class="anchored" data-anchor-id="adverse-events">Adverse events</h3>
-<p>As for the effectiveness outcomes from the NMA, the hazard ratios for grade 3+ adverse events calculated in the NMA were applied to reference curves. For all grade adverse events, hazard ratios from an NMA in a cochrane review were used. The reference curves (i.e.&nbsp;the baseline adverse event risk in the model) were:</p>
+<p>As for the effectiveness outcomes from the NMA, the odds ratios for grade 3+ adverse events calculated in the NMA were applied to reference curves. For all grade adverse events, odds ratios from an NMA in a cochrane review were used. The reference curves (i.e.&nbsp;the baseline adverse event risk in the model) were:</p>
 <ul>
 <li>1L - sunitib from Checkmate 9ER RCT</li>
 <li>2L and 3L - everolimus from CheckMate 025 RCT</li>
 </ul>
 <p>This is with the exception of cabozantinib plus nivolumab, whose rates were based directly on Checkmate 9ER RCT data.</p>
+<p>Odds ratios were used for adverse events instead of hazard ratios, as these were only reported by trials as having happened or not, with no detail on when they occurred or how many. Hence, the NMA is referred to as a time invariant NMA. Meanwhile, treatment effectiveness is via hazard ratios, which are based on time-to-event data.</p>
+<p>Whilst this describes the method used in the base case, a scenario analysis was performed to explore use of treatment-related naive adverse event rates instead.</p>
 <p>For more information, see section 1.24 “Adverse events” in the Pathway Model Report <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_renal_2024">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_renal_2024" role="doc-biblioref">6</a>]</span> and 4.3.6 “Adverse events” in the Assessment Report. <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span></p>
 </section>
 <section id="utility-values" class="level3">
@@ -1128,7 +1132,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/model_overview.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"openEffect":"zoom","closeEffect":"zoom","loop":false,"descPosition":"bottom","selector":".lightbox"});
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/model_overview.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","descPosition":"bottom","loop":false,"openEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

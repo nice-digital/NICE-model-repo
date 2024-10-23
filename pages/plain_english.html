@@ -96,6 +96,11 @@ ul.task-list li input[type="checkbox"] {
   </li>  
 </ul>
           <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
             <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
@@ -211,7 +216,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/walkthrough/code2_extrapolate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Extrapolate real-world evidence</span></a>
+ <span class="menu-text">Extrapolate reference curves</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -255,7 +260,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">License</span></a>
+ <span class="menu-text">Licence</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -367,12 +372,15 @@ ul.task-list li input[type="checkbox"] {
 <p>For each treatment against advanced RCC, further studies were identified which reported either:</p>
 <ul>
 <li>The costs of each treatment for the healthcare system (e.g.&nbsp;costs of drugs, appointments, care)</li>
-<li>The quality of life for patients on or off each treatment at each line of therapy (first-line through to fourth-line). This is described using a measure called a “health utility value”.</li>
+<li>The quality of life for patients on or off each treatment at each line of therapy (first-line through to fourth-line). This is described using a measure called a “health utility value”.
+<ul>
+<li>Utility values describe the health status of a person. They typically range from 1 (representing perfect health) to 0 (representing death). In some cases, values can fall below 0 (representing health states perceived to be worse than death). These values are determined by surveying people about their preferences between different health scenarios.</li>
+</ul></li>
 </ul>
 </section>
 <section id="construct-an-economic-model" class="level2">
 <h2 class="anchored" data-anchor-id="construct-an-economic-model">(6) Construct an economic model</h2>
-<p>The data from steps (3), (4) and (5) were then fed into a computer model. The model simulates what happens to groups of patients who receive each treatment: how long they live, how much their treatments cost, and what their quality of life is like. By comparing these results, decisions can be made as to which treatments offer the best combination of effectiveness and value for money.</p>
+<p>The data from steps (3), (4) and (5) were then fed into a computer model. The model simulates what happens to groups of patients who receive each sequence of treatments: how long they live, how much their treatments cost, and what their quality of life is like. By comparing these results, decisions can be made as to which treatments offer the best combination of effectiveness and value for money.</p>
 
 
 </section>
@@ -799,7 +807,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/plain_english.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"openEffect":"zoom","loop":false,"closeEffect":"zoom","selector":".lightbox","descPosition":"bottom"});
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/plain_english.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","openEffect":"zoom","selector":".lightbox","loop":false,"descPosition":"bottom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

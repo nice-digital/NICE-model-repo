@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Extrapolate real-world evidence – &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exeter Oncology Model: Renal Cell Carcinoma edition</title>
+<title>Extrapolate reference curves – &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exeter Oncology Model: Renal Cell Carcinoma edition</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -127,6 +127,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
 </ul>
           <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
             <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
@@ -136,7 +141,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../pages/walkthrough_preface.html">Code walkthrough</a></li><li class="breadcrumb-item"><a href="../../pages/walkthrough/code2_extrapolate.html">Extrapolate real-world evidence</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../pages/walkthrough_preface.html">Code walkthrough</a></li><li class="breadcrumb-item"><a href="../../pages/walkthrough/code2_extrapolate.html">Extrapolate reference curves</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -242,7 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../pages/walkthrough/code2_extrapolate.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Extrapolate real-world evidence</span></a>
+ <span class="menu-text">Extrapolate reference curves</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -286,7 +291,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../pages/license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">License</span></a>
+ <span class="menu-text">Licence</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -329,9 +334,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../pages/walkthrough_preface.html">Code walkthrough</a></li><li class="breadcrumb-item"><a href="../../pages/walkthrough/code2_extrapolate.html">Extrapolate real-world evidence</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../pages/walkthrough_preface.html">Code walkthrough</a></li><li class="breadcrumb-item"><a href="../../pages/walkthrough/code2_extrapolate.html">Extrapolate reference curves</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Extrapolate real-world evidence</h1>
+<h1 class="title">Extrapolate reference curves</h1>
 </div>
 
 
@@ -348,7 +353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This page performs a <strong>partitioned survival analysis</strong> on the patient-level data, which is <strong>real-world evidence (RWE)</strong>. The analysis is performed in order to <strong>extrapolate the survival curves</strong> so they cover the full time horizon of the economic model (40 years).</p>
+<p>This page performs a <strong>survival analysis</strong> on the patient-level data, which uses <strong>real-world evidence (RWE)</strong> in the <strong>base case</strong>. The analysis is performed in order to <strong>extrapolate the survival curves</strong> so they cover the full time horizon of the economic model (40 years).</p>
 <section id="import-patient-level-data" class="level2">
 <h2 class="anchored" data-anchor-id="import-patient-level-data">Import patient-level data</h2>
 <p>The patient-level data (or individual patient data (IPD)) is imported from <code>IPD_R_input_noACIC.xlsx</code>. This data has a row for each patient which states their population, line, treatment and trial, and then the time taken for them to experience an endpoint (e.g.&nbsp;overall survival) or be censored (i.e.&nbsp;stopped timing for some other reason). For more information, see the <a href="../../pages/input_data.html">Input data</a> page.</p>

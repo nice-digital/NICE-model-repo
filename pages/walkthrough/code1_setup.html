@@ -121,35 +121,6 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -176,6 +147,11 @@ window.Quarto = {
   </li>  
 </ul>
           <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
             <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
@@ -291,7 +267,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../pages/walkthrough/code2_extrapolate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Extrapolate real-world evidence</span></a>
+ <span class="menu-text">Extrapolate reference curves</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -335,7 +311,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../pages/license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">License</span></a>
+ <span class="menu-text">Licence</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -520,20 +496,18 @@ window.Quarto = {
 <p>The three settings in this code block:</p>
 <ul>
 <li><code>progressr::handlers("progress")</code> - one of the settings for how progress is reported whilst code is running</li>
-<li><code>crosstable::options(crosstable_units="cm")</code> - the <code>crosstable</code> package generates descriptive statistics with function <code>crosstable()</code>, and this sets the unit for it, although it should be noted that this appears to be legacy code as it doesn’t appear that <code>crosstable()</code> is used anywhere in the repository</li>
 <li><code>qc_mode</code> - the input for <code>verbose</code> in <code>f_NMA_AddAssumptionsToNetwork()</code> which, if true, will mean that extra outputs are printed to the console</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Other generic settings for the progress bar and units for table widths</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">handlers</span>(<span class="st">"progress"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">crosstable_units=</span><span class="st">"cm"</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="do">#### 2. Loading functions ###########</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="do">#### 2. Loading functions ###########</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># This variable is used throughout the model to define whether to provide additional outputs useful for QC or not</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># The model will take longer to run when this is set to TRUE</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>qc_mode <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># This variable is used throughout the model to define whether to provide additional outputs useful for QC or not</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># The model will take longer to run when this is set to TRUE</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>qc_mode <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="import-model-functions" class="level2">
@@ -645,7 +619,6 @@ window.Quarto = {
 <li>That survival analysis will be conducted using state transition (markov) models and partitioned survival analysis (partSA)</li>
 <li>The five input files, which are detailed within the documentation on the page <a href="../../pages/input_data.html">Input data</a></li>
 </ul>
-<p>There is a line of code to define <code>User_types</code>, but this appears to be legacy as it is not used anywhere.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Model inputs structure --------------------------------------------------</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -682,34 +655,28 @@ window.Quarto = {
 <span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co"># (cabo+nivo, defined as molecule 1) starting at 1st line</span></span>
 <span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="co"># During Phase 2 we will adapt this code to evaluate the cost-effectiveness of sequences starting at a user-defined line</span></span>
 <span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Inputs to this model need to be downloaded from NICEdocs </span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Users can either use the files provided in the repository in which confidential data is redacted by replacing the original numbers with dummy values or, upload their own files using the same format</span></span>
 <span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>User_types <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Submitting company"</span>, <span class="st">"NICE"</span>, <span class="st">"EAG"</span>, <span class="st">"Committee"</span>, <span class="st">"NHSE"</span>, <span class="st">"Clinical expert"</span>, <span class="st">"Patient expert"</span>, <span class="st">"Non-intervention stakeholder"</span>, <span class="st">"Public"</span>)</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="co"># The submitting company are able to see their own CIC and AIC data (marked up blue / yellow in reporting but not anything else: green marking</span></span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="co"># green marked data has been either be replaced with 0 [PAS discounts, RWE IPD] or dummy data)</span></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="co"># NICE users will be able to see everything</span></span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Other users will not be able to see any marked data, this is replaced with dummy data</span></span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="co"># The way raw data is fed into the model currently works as follows</span></span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the path to where the data file lives using the select file functionality</span></span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="co"># The model then processes the file the user selected</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="co"># The way raw data is fed into the model currently works as follows</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the path to where the data file lives using the select file functionality</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="co"># The model then processes the file the user selected</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="co"># There are a number of files which contain raw or intermediate inputs:</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. The Excel user interface - this contains information from company data and the UK RWE</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. The proportional hazards NMA CODA RDS file - this contains information from company data</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. The fractional polynomials NMA RDS file - this contains information from company data </span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Either the raw data file containing the pseudo-IPD for all trials for survival analysis (RWE and company data included); or</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. The RDS output from the survival analysis using both RWE and company data</span></span>
 <span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="co"># There are a number of files which contain raw or intermediate inputs:</span></span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. The Excel user interface - this contains information from company data and the UK RWE</span></span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. The proportional hazards NMA CODA RDS file - this contains information from company data</span></span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. The fractional polynomials NMA RDS file - this contains information from company data </span></span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Either the raw data file containing the pseudo-IPD for all trials for survival analysis (RWE and company data included); or</span></span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. The RDS output from the survival analysis using both RWE and company data</span></span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="co"># You will need to manually select the inputs file relevant to your user type, this is not stored on Github as access to CIC information differs by user type</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="co"># You will need to manually select the inputs file relevant to your user type, this is not stored on Github as access to CIC information differs by user type</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="get-inputs-from-excel-workbook-and-save-as-list-i" class="level3">
 <h3 class="anchored" data-anchor-id="get-inputs-from-excel-workbook-and-save-as-list-i">Get inputs from excel workbook and save as list <code>i</code></h3>
 <p>Import the file at <code>excel_path</code> using <code>f_excel_extract()</code>, and then tidy <code>i$R_table_param</code> using <code>f_excel_cleanParams()</code>.</p>
 <p>If the file doesn’t exist, assuming the user is in RStudio, a dialog box will appear with the system files, and the user should then select a file from their directory. The dialog will open in <code>1_Data/</code>, show only <code>.xlsm</code> files, and the accept/ok button has the text <code>ID6184_RCC_model inputs....xlsm</code>.</p>
+<p><strong>Note:</strong> The typical naming convention used for this was that variables starting with <code>R_</code>, <code>List_</code>, <code>i_</code>, <code>ui_</code> or <code>dd_</code> are likely used within the R scripts. Some of the variables imported from excel are intermediate for calculations within excels, and so - though imported - not necessarily used in the scripts.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The first part of this code pulls all of the named ranges from the excel workbook, expand the parameters table</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -762,31 +729,15 @@ What does <code>f_excel_extract()</code> do?
 </div>
 <p>The exception is the first element which is a copy of the named ranges sheet:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i[[<span class="dv">1</span>]]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 48%">
-<col style="width: 51%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Name</th>
-<th style="text-align: left;">Cell.Range</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">apply_waning_to</td>
-<td style="text-align: left;">=Lists!$Y<span class="math inline">\(10:\)</span>Y<span class="math inline">\(11      |
-|bc_settings_rng        |=Lists!\)</span>B<span class="math inline">\(99:\)</span>B<span class="math inline">\(174     |
-|cabo_nivo_outcome_from |=Lists!\)</span>W<span class="math inline">\(10            |
-|cabo_nivo_outcomes     |=Lists!\)</span>X<span class="math inline">\(10:\)</span>X<span class="math inline">\(12      |
-|count_bc_settings      |=Lists!\)</span>B<span class="math inline">\(97            |
-|dd_2ndline_NMA         |='Model settings'!\)</span>G$40</td>
-</tr>
-</tbody>
-</table>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(i[[<span class="dv">1</span>]]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    Name              Cell.Range
+1        apply_waning_to      =Lists!$Y$10:$Y$11
+2        bc_settings_rng     =Lists!$B$99:$B$174
+3 cabo_nivo_outcome_from            =Lists!$W$10
+4     cabo_nivo_outcomes      =Lists!$X$10:$X$12
+5      count_bc_settings            =Lists!$B$97
+6         dd_2ndline_NMA ='Model settings'!$G$40</code></pre>
 </div>
 </div>
 </div>
@@ -806,7 +757,7 @@ What does <code>f_excel_cleanParams()</code> do?
 <div class="callout-body-container callout-body">
 <p>This function is applied to <code>i$R_table_param</code> which is the full table from the sheet <code>All parameters</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i<span class="sc">$</span>R_table_param))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i<span class="sc">$</span>R_table_param))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
@@ -863,7 +814,7 @@ What does <code>f_excel_cleanParams()</code> do?
 </ul>
 <p>These lists were then concatenated with <code>i</code>, so we can access them from <code>i</code> as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>cabo_nivo_include</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>cabo_nivo_include</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$Parameter.description
 [1] "Include cabo nivo? (1=yes, 0=no)"
@@ -885,52 +836,52 @@ $Mean
 <section id="manually-add-some-extra-inputs-to-i" class="level3">
 <h3 class="anchored" data-anchor-id="manually-add-some-extra-inputs-to-i">Manually add some extra inputs to <code>i</code></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set which decision problem to look at, initially functionality has been geared towards the decision problem for cabozantinib plus nivolumab</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>decision_problem <span class="ot">&lt;-</span> <span class="st">"cabo+nivo"</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># We then create a place for identifiers. Adding in an object to i full of lookup tables makes automated translation</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># possible even when one doesn't know the number of items ex ante, or how they combine.</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># If the lookup table is correct one can translate id numbers to text strings which are</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># consistent throughout the entire model. This is extremely useful as the model can</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># be expanded to any number of treatments and potentially even any number of lines </span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># (up to a reasonable maximum)</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>id     <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">ipd =</span> <span class="fu">list</span>())</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>lookup <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">ipd =</span> <span class="fu">list</span>())</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Add distribution names to i</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co"># This model only includes standard parametric distributions as more complex distributions were not deemed to be required for the included treatments</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>distnames <span class="ot">&lt;-</span> </span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">gengamma      =</span> <span class="st">"gengamma"</span>,</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">exp           =</span> <span class="st">"exp"</span>,</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">weibull       =</span> <span class="st">"weibull"</span>,</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">lnorm         =</span> <span class="st">"lnorm"</span>,</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">gamma         =</span> <span class="st">"gamma"</span>,</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">gompertz      =</span> <span class="st">"gompertz"</span>,</span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">llogis        =</span> <span class="st">"llogis"</span></span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set which decision problem to look at, initially functionality has been geared towards the decision problem for cabozantinib plus nivolumab</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>decision_problem <span class="ot">&lt;-</span> <span class="st">"cabo+nivo"</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># We then create a place for identifiers. Adding in an object to i full of lookup tables makes automated translation</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># possible even when one doesn't know the number of items ex ante, or how they combine.</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># If the lookup table is correct one can translate id numbers to text strings which are</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># consistent throughout the entire model. This is extremely useful as the model can</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># be expanded to any number of treatments and potentially even any number of lines </span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># (up to a reasonable maximum)</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>id     <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">ipd =</span> <span class="fu">list</span>())</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>lookup <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">ipd =</span> <span class="fu">list</span>())</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Add distribution names to i</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co"># This model only includes standard parametric distributions as more complex distributions were not deemed to be required for the included treatments</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>distnames <span class="ot">&lt;-</span> </span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">gengamma      =</span> <span class="st">"gengamma"</span>,</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">exp           =</span> <span class="st">"exp"</span>,</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">weibull       =</span> <span class="st">"weibull"</span>,</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">lnorm         =</span> <span class="st">"lnorm"</span>,</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">gamma         =</span> <span class="st">"gamma"</span>,</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">gompertz      =</span> <span class="st">"gompertz"</span>,</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">llogis        =</span> <span class="st">"llogis"</span></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="use-i-to-make-another-list-p" class="level3">
 <h3 class="anchored" data-anchor-id="use-i-to-make-another-list-p">Use <code>i</code> to make another list <code>p</code></h3>
 <p>The list <code>p</code> is based on <code>i</code>, either copying over parameters or using them to calculate new parameters. The list is first created by <code>f_misc_param_generate_p()</code>. A few extra additions are then made to <code>p</code> in this code block, such as to set a maximum of 4 treatment lines before best supportive care.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The next step is to then "tidy up" i into another object, p. p doesn't necessarily</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># have to house everything, only things that will change in PSA</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">f_misc_param_generate_p</span>(i)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed for PSA - note this is done in the script to run the PSA, not here!</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># set.seed(1475)</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Max lines within the R model</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>basic<span class="sc">$</span>R_maxlines <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Pass this into p so that p can be used to exclusively compute the model:</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>basic<span class="sc">$</span>decision_problem <span class="ot">&lt;-</span> i<span class="sc">$</span>decision_problem</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The next step is to then "tidy up" i into another object, p. p doesn't necessarily</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># have to house everything, only things that will change in PSA</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">f_misc_param_generate_p</span>(i)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed for PSA - note this is done in the script to run the PSA, not here!</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># set.seed(1475)</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Max lines within the R model</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>basic<span class="sc">$</span>R_maxlines <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Pass this into p so that p can be used to exclusively compute the model:</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>basic<span class="sc">$</span>decision_problem <span class="ot">&lt;-</span> i<span class="sc">$</span>decision_problem</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
@@ -955,15 +906,15 @@ What does <code>f_misc_param_generate_p()</code> do?
 )</code></pre>
 <p>In this example, we can see that is makes a copy of <code>i$ui_time_horizon</code> which has time horizon of model in years (40 years) (<code>p$basic$th_y</code>). It also converts the time horizon into weeks (<code>p$basic$th</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>ui_time_horizon</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>ui_time_horizon</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 40</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>basic<span class="sc">$</span>th</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>basic<span class="sc">$</span>th</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2088</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>basic<span class="sc">$</span>th_y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>basic<span class="sc">$</span>th_y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 40</code></pre>
 </div>
@@ -979,18 +930,18 @@ What does <code>f_misc_param_generate_p()</code> do?
 <h3 class="anchored" data-anchor-id="find-all-possible-sequences">Find all possible sequences</h3>
 <p>The first step in determining the possible treatment sequences is to determine all possible combinations and orders of treatment, saving this as <code>i$sequences</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">#### 3.2 Define sequences  ###########</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="do">#### This code produces a list of possible sequences per population based upon the rules defined for RCC</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="do">#### and the user input number of lines</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Add drug names to comparators vector extracted from inputs list.</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>sequences <span class="ot">&lt;-</span> <span class="fu">f_generate_sequences</span>(</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">comparators =</span> i<span class="sc">$</span>List_comparators, </span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxlines    =</span> p<span class="sc">$</span>basic<span class="sc">$</span>R_maxlines</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">#### 3.2 Define sequences  ###########</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="do">#### This code produces a list of possible sequences per population based upon the rules defined for RCC</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="do">#### and the user input number of lines</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Add drug names to comparators vector extracted from inputs list.</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>sequences <span class="ot">&lt;-</span> <span class="fu">f_generate_sequences</span>(</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">comparators =</span> i<span class="sc">$</span>List_comparators, </span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxlines    =</span> p<span class="sc">$</span>basic<span class="sc">$</span>R_maxlines</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
@@ -1006,7 +957,7 @@ What does <code>f_generate_sequences()</code> do?
 <div class="callout-body-container callout-body">
 <p>The input to this function is a list of all the possible treatments (14 options), and the maximum number of treatment lines (4).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>List_comparators</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>List_comparators</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "nivolumab_monotherapy"         "cabozantinib_plus_nivolumab"  
  [3] "nivolumab_plus_ipilimumab"     "lenvatinib_plus_pembrolizumab"
@@ -1019,7 +970,7 @@ What does <code>f_generate_sequences()</code> do?
 </div>
 <p>The function <code>f_generate_sequences()</code> outputs a table saved as <code>i$sequences</code>. This contains every possible order and combination of treatments.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i<span class="sc">$</span>sequences, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i<span class="sc">$</span>sequences, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
@@ -1063,14 +1014,14 @@ What does <code>f_generate_sequences()</code> do?
 </tbody>
 </table>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(i<span class="sc">$</span>sequences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(i<span class="sc">$</span>sequences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 26404     5</code></pre>
 </div>
 </div>
 <p>These varied from a single treatment to up to four subsequent treatments, but always ended with best supportive case (BSC).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i<span class="sc">$</span>sequences[i<span class="sc">$</span>sequences<span class="sc">$</span>V3<span class="sc">==</span><span class="st">""</span>,], <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(i<span class="sc">$</span>sequences[i<span class="sc">$</span>sequences<span class="sc">$</span>V3<span class="sc">==</span><span class="st">""</span>,], <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -1117,47 +1068,47 @@ What does <code>f_generate_sequences()</code> do?
 <p>The table of all possible treatment sequences is then filtered down to valid sequences (for example, removing drugs if not allowed for a given population, or after another particular drug).</p>
 <!-- This section is set to eval FALSE as the progress statements are from cat() so cannot suppress output. Instead, actually run in dropdown below, where there, hide the code but can still see the output -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># restrict the pathways to those that are possible and permitted.</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>sequences <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(i<span class="sc">$</span>sequences)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>populations <span class="ot">&lt;-</span> i<span class="sc">$</span>i_nr_populations</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>seqs <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a> <span class="cf">for</span> (population <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>populations) {</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Applying sequence restrictions to population"</span>, population,<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="fu">f_path_tx_restrict</span>(</span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">sequences                =</span> i<span class="sc">$</span>sequences,</span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">allowed                  =</span> <span class="fu">f_get_allowed_lists</span>(i, population), <span class="co">#overall list of allowed drugs in this popn</span></span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">L1                       =</span> <span class="fu">f_get_L1_lists</span>(i, population), <span class="co"># 1L drugs allowed in this popn</span></span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">L2                       =</span> <span class="fu">f_get_L2_lists</span>(i, population), <span class="co"># 2L drugs allowed in this popn</span></span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">L3                       =</span> <span class="fu">f_get_L3_lists</span>(i, population), <span class="co"># 3L drugs allowed in this popn</span></span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">L4                       =</span> <span class="fu">f_get_L4_lists</span>(i, population), <span class="co"># 4L drugs allowed in this popn</span></span>
-<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">only_after               =</span> <span class="fu">f_get_only_after_lists</span>(i, population), <span class="co">#list of restrictions where tx can be only after the listed txs</span></span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">not_immediate_after      =</span> <span class="fu">f_get_not_immediate_after_lists</span>(i, population), <span class="co">#list of restrictions where tx can be only immediately before the listed txs</span></span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">one_in_list              =</span> <span class="fu">f_get_one_in_list_lists</span>(i, population), <span class="co">#list of restrictions where only one of the tx in each list is allowed </span></span>
-<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">only_after_one           =</span> <span class="fu">f_get_only_after_one_lists</span>(i, population), <span class="co">#list of restrictions where only one of the listed treatments is allowed prior to current therapy </span></span>
-<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">L2_only_after            =</span> <span class="fu">f_get_2L_only_after_lists</span>(i, population), <span class="co">#list of 2L+ restrictions: if drug is used 2L, 3L or 4L, can only be after drug x</span></span>
-<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">L2_only_immediate_after  =</span> <span class="fu">f_get_2L_only_immediate_after_lists</span>(i, population), <span class="co">#list of 2L+ restrictions: if drug is used 2L, 3L or 4L, can only be immediately after drug x</span></span>
-<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">L2_only_one              =</span> <span class="fu">f_get_2L_only_one_lists</span>(i, population) <span class="co">#list of 2L+ drugs where only one of them allowed in a given sequence</span></span>
-<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="fu">paste0</span>(<span class="st">"pop"</span>, population),<span class="fu">nrow</span>(s)), s)</span>
-<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(s) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">'V'</span>, <span class="fu">seq_len</span>(<span class="fu">ncol</span>(s))) <span class="co"># rbind no longer likes un-named columns so added this</span></span>
-<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>  seqs <span class="ot">&lt;-</span> <span class="fu">rbind</span>(seqs, s)</span>
-<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>} </span>
-<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(seqs) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>sequences <span class="ot">&lt;-</span> seqs</span>
-<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a><span class="do">#### Uncomment this code to view the sequences and write the sequences defined to csv</span></span>
-<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a><span class="co"># i$sequences</span></span>
-<span id="cb30-38"><a href="#cb30-38" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(seqs, "4_Output/sequences.csv", row.names = F)</span></span>
-<span id="cb30-39"><a href="#cb30-39" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(s, seqs, populations)</span>
-<span id="cb30-40"><a href="#cb30-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-41"><a href="#cb30-41" aria-hidden="true" tabindex="-1"></a><span class="co"># define number of cycles and a vector of the cycles </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># restrict the pathways to those that are possible and permitted.</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>sequences <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(i<span class="sc">$</span>sequences)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>populations <span class="ot">&lt;-</span> i<span class="sc">$</span>i_nr_populations</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>seqs <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a> <span class="cf">for</span> (population <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>populations) {</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Applying sequence restrictions to population"</span>, population,<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="fu">f_path_tx_restrict</span>(</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">sequences                =</span> i<span class="sc">$</span>sequences,</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">allowed                  =</span> <span class="fu">f_get_allowed_lists</span>(i, population), <span class="co">#overall list of allowed drugs in this popn</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">L1                       =</span> <span class="fu">f_get_L1_lists</span>(i, population), <span class="co"># 1L drugs allowed in this popn</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">L2                       =</span> <span class="fu">f_get_L2_lists</span>(i, population), <span class="co"># 2L drugs allowed in this popn</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">L3                       =</span> <span class="fu">f_get_L3_lists</span>(i, population), <span class="co"># 3L drugs allowed in this popn</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">L4                       =</span> <span class="fu">f_get_L4_lists</span>(i, population), <span class="co"># 4L drugs allowed in this popn</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">only_after               =</span> <span class="fu">f_get_only_after_lists</span>(i, population), <span class="co">#list of restrictions where tx can be only after the listed txs</span></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">not_immediate_after      =</span> <span class="fu">f_get_not_immediate_after_lists</span>(i, population), <span class="co">#list of restrictions where tx can be only immediately before the listed txs</span></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">one_in_list              =</span> <span class="fu">f_get_one_in_list_lists</span>(i, population), <span class="co">#list of restrictions where only one of the tx in each list is allowed </span></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">only_after_one           =</span> <span class="fu">f_get_only_after_one_lists</span>(i, population), <span class="co">#list of restrictions where only one of the listed treatments is allowed prior to current therapy </span></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">L2_only_after            =</span> <span class="fu">f_get_2L_only_after_lists</span>(i, population), <span class="co">#list of 2L+ restrictions: if drug is used 2L, 3L or 4L, can only be after drug x</span></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">L2_only_immediate_after  =</span> <span class="fu">f_get_2L_only_immediate_after_lists</span>(i, population), <span class="co">#list of 2L+ restrictions: if drug is used 2L, 3L or 4L, can only be immediately after drug x</span></span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">L2_only_one              =</span> <span class="fu">f_get_2L_only_one_lists</span>(i, population) <span class="co">#list of 2L+ drugs where only one of them allowed in a given sequence</span></span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="fu">paste0</span>(<span class="st">"pop"</span>, population),<span class="fu">nrow</span>(s)), s)</span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(s) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">'V'</span>, <span class="fu">seq_len</span>(<span class="fu">ncol</span>(s))) <span class="co"># rbind no longer likes un-named columns so added this</span></span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>  seqs <span class="ot">&lt;-</span> <span class="fu">rbind</span>(seqs, s)</span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>} </span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(seqs) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a>i<span class="sc">$</span>sequences <span class="ot">&lt;-</span> seqs</span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a><span class="do">#### Uncomment this code to view the sequences and write the sequences defined to csv</span></span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a><span class="co"># i$sequences</span></span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(seqs, "4_Output/sequences.csv", row.names = F)</span></span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(s, seqs, populations)</span>
+<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a><span class="co"># define number of cycles and a vector of the cycles </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
@@ -1198,8 +1149,8 @@ What criteria are there for valid treatments?
 <h3 class="anchored" data-anchor-id="by-population-and-line">By population and line</h3>
 <p>For <strong>each population</strong>, there are a list of valid treatments at <strong>each line</strong> of therapy (first-line through to fourth). For example, valid first-line treatments for population 1 are:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pop1 1L treatments</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">f_get_L1_lists</span>(i, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pop1 1L treatments</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">f_get_L1_lists</span>(i, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "avelumab_plus_axitinib"      "cabozantinib_plus_nivolumab"
 [3] "pazopanib"                   "sunitinib"                  
@@ -1216,7 +1167,7 @@ What criteria are there for valid treatments?
 <li>At 2L 3L or 4L, cabozantinib can only be administered <strong>after</strong> one of the listed treatments</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_get_only_after_lists</span>(i, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_get_only_after_lists</span>(i, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$axitinib
 [1] "avelumab_plus_axitinib"        "cabozantinib"                 
@@ -1231,7 +1182,7 @@ $everolimus
 [7] "lenvatinib_plus_pembrolizumab" "sunitinib"                    
 [9] "tivozanib"                    </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_get_2L_only_after_lists</span>(i, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_get_2L_only_after_lists</span>(i, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$cabozantinib
 [1] "avelumab_plus_axitinib"        "axitinib"                     
@@ -1249,12 +1200,12 @@ $everolimus
 <li>At 2L 3L or 4L, pazopanib and sunitinib and tivozanib must <strong>not come immediately after</strong> their respective listed treatments</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_get_not_immediate_after_lists</span>(i, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_get_not_immediate_after_lists</span>(i, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$lenvatinib_plus_everolimus
 [1] "nivolumab_plus_ipilimumab"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_get_2L_only_immediate_after_lists</span>(i, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_get_2L_only_immediate_after_lists</span>(i, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$pazopanib
 [1] "avelumab_plus_axitinib"        "lenvatinib_plus_pembrolizumab"
@@ -1276,7 +1227,7 @@ $tivozanib
 <p>For example, for population 1 there are five lists of treatments where <strong>only one treatment from each list</strong> is allowed.</p>
 <p>There are no restrictions like this for population 1 specific to just 2L 3L or 4L treatments (hence, empty list).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_get_one_in_list_lists</span>(i, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_get_one_in_list_lists</span>(i, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$axitinib
 [1] "avelumab_plus_axitinib" "axitinib"              
@@ -1299,7 +1250,7 @@ $nivolumab
 $TKIs
 [1] "sunitinib" "pazopanib" "tivozanib"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_get_2L_only_one_lists</span>(i, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_get_2L_only_one_lists</span>(i, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>named list()</code></pre>
 </div>
@@ -1312,7 +1263,7 @@ $TKIs
 <li>Of the listed treatments, <strong>only one is allowed before</strong> lenvatinib plus everolimus</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_get_only_after_one_lists</span>(i, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_get_only_after_one_lists</span>(i, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$lenvatinib_plus_everolimus
 [1] "avelumab_plus_axitinib"        "axitinib"                     
@@ -1340,7 +1291,7 @@ What does <code>f_path_tx_restrict()</code> do?
 <p>The function <code>f_path_tx_restrict()</code> is defined in <code>sequences.R</code> (there is also a function of the same name in <code>rccFunctions.R</code> but this is not sourced).</p>
 <p>Its purpose is to restrict the table of all possible sequences to just the valid sequences for each population, restricting it from <strong>26404</strong> rows with possible treatment sequences to just <strong>744</strong>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(i<span class="sc">$</span>sequences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(i<span class="sc">$</span>sequences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 26404     5</code></pre>
 </div>

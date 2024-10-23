@@ -147,6 +147,11 @@ div.csl-indent {
   </li>  
 </ul>
           <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
             <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
@@ -262,7 +267,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/walkthrough/code2_extrapolate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Extrapolate real-world evidence</span></a>
+ <span class="menu-text">Extrapolate reference curves</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -306,7 +311,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">License</span></a>
+ <span class="menu-text">Licence</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -333,6 +338,7 @@ div.csl-indent {
   <ul>
   <li><a href="#what-scenario-analyses-were-conducted" id="toc-what-scenario-analyses-were-conducted" class="nav-link active" data-scroll-target="#what-scenario-analyses-were-conducted">What scenario analyses were conducted?</a></li>
   <li><a href="#how-can-these-scenarios-be-run" id="toc-how-can-these-scenarios-be-run" class="nav-link" data-scroll-target="#how-can-these-scenarios-be-run">How can these scenarios be run?</a></li>
+  <li><a href="#where-are-scenarios-in-excel" id="toc-where-are-scenarios-in-excel" class="nav-link" data-scroll-target="#where-are-scenarios-in-excel">Where are scenarios in excel?</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/edit/main/pages/scenarios.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/pythonhealthdatascience/stars-eom-rcc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -391,7 +397,18 @@ div.csl-indent {
 </section>
 <section id="how-can-these-scenarios-be-run" class="level2">
 <h2 class="anchored" data-anchor-id="how-can-these-scenarios-be-run">How can these scenarios be run?</h2>
-<p>To run these scenarios, you’ll need to alter the model script (for example, altering <code>Model_Structure.R</code>).</p>
+<p>To run these scenarios, simply alter the <strong>Excel</strong> input parameter sheet. In the <code>Model settings</code> sheet, you’ll see there is a row named “<strong>Scenario #</strong>” which is set to 0 (the base case) by default. If you click on the cell, you’ll see a drop down list of numbers from 0 to 89. On selecting each, you will find the box above titled “Scenario name” will give a description of the scenario associated with each number. For example:</p>
+<ul>
+<li>1 - “PartSA 4 lines”</li>
+<li>2 - “State transition 3 lines”</li>
+<li>3 - “State transition 2 lines”</li>
+<li>…</li>
+<li>88 - “Applying the NMA results for the all-risk NMA to the favourable risk reference curve”</li>
+<li>89 - “Company approach to utilities”</li>
+</ul>
+</section>
+<section id="where-are-scenarios-in-excel" class="level2">
+<h2 class="anchored" data-anchor-id="where-are-scenarios-in-excel">Where are scenarios in excel?</h2>
 <p>A table of scenarios is provided in the excel input sheet and imported into <code>i</code> as <code>i$R_table_scenarios</code>. This outlines the inputs that will need to be changed in order to run the scenario analysis. Each row in this table has:</p>
 <ul>
 <li><strong>Scenario category</strong> (e.g.&nbsp;“Model structure”)</li>

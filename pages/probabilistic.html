@@ -113,6 +113,11 @@ div.csl-indent {
   </li>  
 </ul>
           <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
             <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
@@ -228,7 +233,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/walkthrough/code2_extrapolate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Extrapolate real-world evidence</span></a>
+ <span class="menu-text">Extrapolate reference curves</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -272,7 +277,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">License</span></a>
+ <span class="menu-text">Licence</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -326,7 +331,7 @@ div.csl-indent {
 </header>
 
 
-<p>So far, this documentation has described <code>Model_Structure.R</code>, which is a deterministic analysis. However, a probabilistic sensitivity analysis (PSA) is run using <code>probabilistic_model.R</code> - and, as described in the NICE documentation related to this model <span class="citation" data-cites="lee_treatments_2023-1">[<a href="#ref-lee_treatments_2023-1" role="doc-biblioref">1</a>]</span> <span class="citation" data-cites="lee_treatments_2023">[<a href="#ref-lee_treatments_2023" role="doc-biblioref">2</a>]</span>, the base case analysis for the technology appraisal was <strong>probabilistic</strong> (as recommended in the NICE manual <span class="citation" data-cites="national_institute_for_health_and_care_excellence_nice_nice_2022">[<a href="#ref-national_institute_for_health_and_care_excellence_nice_nice_2022" role="doc-biblioref">3</a>]</span>).</p>
+<p>So far, this documentation has described <code>Model_Structure.R</code>, which is a deterministic analysis. The base case analysis for this technology appraisal was deterministic due to the long time required to run the probabilistic analysis for the state transition model and the large number of scenario analysis required. The external assessment group (EAG) considered that the benefits of modelling the full pathway and impact of treatment sequences on effectiveness outweighed benefits of characterising parameter uncertainty with probabilistic sensitivity analysis. Probabilistic analysis was therefore only presented for the EAG base case.</p>
 <section id="what-is-the-difference-between-deterministic-and-probabilistic-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-the-difference-between-deterministic-and-probabilistic-analysis">What is the difference between deterministic and probabilistic analysis?</h2>
 <p>In a <strong>deterministic analysis</strong>, the model inputs are fixed values, with the output being the same given the same inputs.</p>
@@ -374,24 +379,15 @@ div.csl-indent {
 </section>
 <section id="note-about-utility-values-in-probablistic-model" class="level2">
 <h2 class="anchored" data-anchor-id="note-about-utility-values-in-probablistic-model">Note about utility values in probablistic model</h2>
-<p>It was not possible to adjust utilities values in the probablistic models, as the interactions between age and sex would need to be accounted for, but Ara and Brazier et al.&nbsp;2011 <span class="citation" data-cites="ara_using_2011">[<a href="#ref-ara_using_2011" role="doc-biblioref">4</a>]</span> do not report the variance-covariance matrix that would have described how the variations correlate with each other. Varying age and sex separately could lead to spurious results or inference due to non-linear interactions between the parameters (some of which are transformed).</p>
+<p>It was not possible to adjust utilities values in the probablistic models, as the interactions between age and sex would need to be accounted for, but Ara and Brazier et al.&nbsp;2011 <span class="citation" data-cites="ara_using_2011">[<a href="#ref-ara_using_2011" role="doc-biblioref">1</a>]</span> do not report the variance-covariance matrix that would have described how the variations correlate with each other. Varying age and sex separately could lead to spurious results or inference due to non-linear interactions between the parameters (some of which are transformed).</p>
 
 
 
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
-<div id="ref-lee_treatments_2023-1" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Lee D, Muthukumar M, Lovell A, Farmer C, Burns D, Matthews J, et al. <a href="https://www.nice.org.uk/guidance/ta964/documents/assessment-report">Treatments for renal cell carcinoma [<span>ID6186</span>]: <span>A</span> <span>Pathways</span> <span>Pilot</span> <span>Appraisal</span> <span>Assessment</span> <span>Report</span></a>. Peninsula Technology Assessment Group (PenTAG) 2023.</div>
-</div>
-<div id="ref-lee_treatments_2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">Lee D, Muthukumar M, Robinson S, Lovell A, Coelho H, Matthews J, et al. <a href="https://www.nice.org.uk/guidance/gid-ta11186/documents/assessment-report-3">Treatments for renal cell carcinoma [<span>ID6186</span>]. <span>Final</span> <span>Analysis</span> <span>Plan</span>.</a> 2023.</div>
-</div>
-<div id="ref-national_institute_for_health_and_care_excellence_nice_nice_2022" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">National Institute for Health and Care Excellence (NICE). <a href="https://www.nice.org.uk/process/pmg36"><span>NICE</span> health technology evaluations: The manual. <span>Porcess</span> and methods [<span>PMG36</span>]</a>. NICE 2022.</div>
-</div>
 <div id="ref-ara_using_2011" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">Ara R, Brazier JE. Using health state utility values from the general population to approximate baselines in decision analytic models when condition-specific data are not available. Value in Health: The Journal of the International Society for Pharmacoeconomics and Outcomes Research 2011;14:539–45. <a href="https://doi.org/10.1016/j.jval.2010.10.029">https://doi.org/10.1016/j.jval.2010.10.029</a>.</div>
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Ara R, Brazier JE. Using health state utility values from the general population to approximate baselines in decision analytic models when condition-specific data are not available. Value in Health: The Journal of the International Society for Pharmacoeconomics and Outcomes Research 2011;14:539–45. <a href="https://doi.org/10.1016/j.jval.2010.10.029">https://doi.org/10.1016/j.jval.2010.10.029</a>.</div>
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
