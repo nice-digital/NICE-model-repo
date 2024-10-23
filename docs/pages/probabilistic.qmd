@@ -4,7 +4,7 @@ bibliography: ../references.bib
 csl: ../elsvan.csl
 ---
 
-So far, this documentation has described `Model_Structure.R`, which is a deterministic analysis. However, a probabilistic sensitivity analysis (PSA) is run using `probabilistic_model.R` - and, as described in the NICE documentation related to this model @lee_treatments_2023-1 @lee_treatments_2023, the base case analysis for the technology appraisal was **probabilistic** (as recommended in the NICE manual @national_institute_for_health_and_care_excellence_nice_nice_2022).
+So far, this documentation has described `Model_Structure.R`, which is a deterministic analysis. The base case analysis for this technology appraisal was deterministic due to the long time required to run the probabilistic analysis for the state transition model and the large number of scenario analysis required. The external assessment group (EAG) considered that the benefits of modelling the full pathway and impact of treatment sequences on effectiveness outweighed benefits of characterising parameter uncertainty with probabilistic sensitivity analysis. Probabilistic analysis was therefore only presented for the EAG base case.
 
 ## What is the difference between deterministic and probabilistic analysis?
 

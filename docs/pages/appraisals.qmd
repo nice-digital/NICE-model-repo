@@ -4,7 +4,7 @@ bibliography: ../references.bib
 csl: ../elsvan.csl
 ---
 
-This model was developed by the **Peninsula Technology Assessment Group (PenTAG)** at the **University of Exeter**. This was in collaboration with the **National Institute for Health and Care Excellence (NICE)** as part of two appraisals, described below.
+This model was developed by the [**Peninsula Technology Assessment Group (PenTAG)**](https://medicine.exeter.ac.uk/phss/research/pentag/) at the **University of Exeter**. This was in collaboration with the **National Institute for Health and Care Excellence (NICE)** as part of two appraisals, described below.
 
 ## Renal cell carcinoma Pathways Pilot (ID6186, GID-TA11186)
 

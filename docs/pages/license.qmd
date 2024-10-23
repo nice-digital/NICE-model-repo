@@ -1,5 +1,5 @@
 ---
-title: "License"
+title: "Licence"
 ---
 
 This repository is licensed under an MIT license:

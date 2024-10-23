@@ -20,7 +20,16 @@ In addition to the scenarios described in Table 95, there was also an explorator
 
 ## How can these scenarios be run?
 
-To run these scenarios, you'll need to alter the model script (for example, altering `Model_Structure.R`).
+To run these scenarios, simply alter the **Excel** input parameter sheet. In the `Model settings` sheet, you'll see there is a row named "**Scenario #**" which is set to 0 (the base case) by default. If you click on the cell, you'll see a drop down list of numbers from 0 to 89. On selecting each, you will find the box above titled "Scenario name" will give a description of the scenario associated with each number. For example:
+
+* 1 - "PartSA 4 lines"
+* 2 - "State transition 3 lines"
+* 3 - "State transition 2 lines"
+* ...
+* 88 - "Applying the NMA results for the all-risk NMA to the favourable risk reference curve"
+* 89 - "Company approach to utilities"
+
+## Where are scenarios in excel?
 
 A table of scenarios is provided in the excel input sheet and imported into `i` as `i$R_table_scenarios`. This outlines the inputs that will need to be changed in order to run the scenario analysis. Each row in this table has:
 

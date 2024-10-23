@@ -33,6 +33,8 @@ An **article describing the pathways pilot** was published (along with a later c
 * NICE's Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances - Lee et al. 2024 @lee_nices_2024
 * Correction: NICE’s Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances - Lee et al. 2024 @lee_correction_2024
 
+There is also a forthcoming monograph, though this is currently with a journal: Lee, Muthukumar, Lovell, et al. Treatments for renal cell carcinoma [ID6186]: A NICE Pilot Treatment Pathways Appraisal, HTA Monograph [Submitted].
+
 ::: {.callout-note collapse="true"}
 
 ## View Lee et al. 2024 (article) @lee_nices_2024

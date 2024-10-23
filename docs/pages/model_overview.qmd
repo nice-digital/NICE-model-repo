@@ -77,16 +77,15 @@ In order to estimate the comparative effectiveness of interventions that may not
 
 For each RCT, requests were made to the company that owned each trial's data, asking for grouped survival data (in time intervals of 1 or 4 weeks), for used in the NMAs. If this was not received, then the published curves were digitised to estimate the grouped survival data.
 
-NMA were performed for:
-
-* **OS and PFS** in the all-risk group, favourable-risk and intermediate- and poor-risk subgroups
-* **Safety** for the all-risk group
+NMA were performed for **OS and PFS** in the all-risk group, favourable-risk and intermediate- and poor-risk subgroups.
 
 PH NMA and FP NMA were both conducted, but the chosen models used were:
 
 * **FP NMA** for 1L efficacy - as the "flexible time-varying hazard ratios... provided a better, more plausible fit to observed short-term data" @national_institute_for_health_and_care_excellence_nice_renal_2024 and as the proportional hazards was violated for some 1L treatments. However, PH NMA was used for pembrolizumab plus lenvatinib, as FP NMA produced implausible results.
 * **PH NMA** was used for 2L and 3L efficacy due to the "sparsity of the available network and extreme results within the fitted models" @lee_treatments_2023-1
 * 4L efficacy was based on 3L outcomes, applying the hazard ratio for the difference between pooled 3L and 4L outcomes
+
+The description of NMA above pertains to the treatment effectiveness NMA, but NMA were also performed for **safety** data (adverse events). This is discussed in more detail below, but is referred to as using a **time invariant NMA** since adverse events were not available as time-to-event data, and so odds ratios were estimated.
 
 For more information, see section 1.16 "Relative effectiveness" in the Pathway Model Report @national_institute_for_health_and_care_excellence_nice_renal_2024 and 4.3.5.2 "Calculation of relative treatment effectiveness" in the Assessment Report. @lee_treatments_2023-1
 
@@ -182,12 +181,16 @@ For more information, see section 4.3.5.5 "Adjustment for curves crossing" in th
 
 ### Adverse events
 
-As for the effectiveness outcomes from the NMA, the hazard ratios for grade 3+ adverse events calculated in the NMA were applied to reference curves. For all grade adverse events, hazard ratios from an NMA in a cochrane review were used. The reference curves (i.e. the baseline adverse event risk in the model) were:
+As for the effectiveness outcomes from the NMA, the odds ratios for grade 3+ adverse events calculated in the NMA were applied to reference curves. For all grade adverse events, odds ratios from an NMA in a cochrane review were used. The reference curves (i.e. the baseline adverse event risk in the model) were:
 
 * 1L - sunitib from Checkmate 9ER RCT
 * 2L and 3L - everolimus from CheckMate 025 RCT
 
 This is with the exception of cabozantinib plus nivolumab, whose rates were based directly on Checkmate 9ER RCT data.
+
+Odds ratios were used for adverse events instead of hazard ratios, as these were only reported by trials as having happened or not, with no detail on when they occurred or how many. Hence, the NMA is referred to as a time invariant NMA. Meanwhile, treatment effectiveness is via hazard ratios, which are based on time-to-event data.
+
+Whilst this describes the method used in the base case, a scenario analysis was performed to explore use of treatment-related naive adverse event rates instead.
 
 For more information, see section 1.24 "Adverse events" in the Pathway Model Report @national_institute_for_health_and_care_excellence_nice_renal_2024 and 4.3.6 "Adverse events" in the Assessment Report. @lee_treatments_2023-1
 

@@ -52,7 +52,8 @@ For each treatment against advanced RCC, further studies were identified which r
 
 * The costs of each treatment for the healthcare system (e.g. costs of drugs, appointments, care)
 * The quality of life for patients on or off each treatment at each line of therapy (first-line through to fourth-line). This is described using a measure called a "health utility value".
+    * Utility values describe the health status of a person. They typically range from 1 (representing perfect health) to 0 (representing death). In some cases, values can fall below 0 (representing health states perceived to be worse than death). These values are determined by surveying people about their preferences between different health scenarios.
 
 ## (6) Construct an economic model
 
-The data from steps (3), (4) and (5) were then fed into a computer model. The model simulates what happens to groups of patients who receive each treatment: how long they live, how much their treatments cost, and what their quality of life is like. By comparing these results, decisions can be made as to which treatments offer the best combination of effectiveness and value for money.
+The data from steps (3), (4) and (5) were then fed into a computer model. The model simulates what happens to groups of patients who receive each sequence of treatments: how long they live, how much their treatments cost, and what their quality of life is like. By comparing these results, decisions can be made as to which treatments offer the best combination of effectiveness and value for money.
