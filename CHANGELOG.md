@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Dates formatted as YYYY-MM-DD as per [ISO standard](https://www.iso.org/iso-8601-date-and-time-format.html).
 
+## v1.4.0 - 2024-10-23
+
+Add interactive sequence explorer to the shiny application, and made amendments elsewhere to the documentation, as per feedback from PenTAG team.
+
+### Added
+
+* Interactive sequence explorer tab within the shiny app
+* GitHub action to convert `CITATION.cff` into a `.bib` citation that can easily download and use with reference managers
+
+### Changed
+
+* Amendments to the text and diagrams across several different pages, as per feedback from the PenTAG team
+* Add Amy Heather to citation
+* Add PenTAG email to licence
+* Add reader mode so sidebar and table of contents can be toggled to hide
+* Improved image quality of the draw.io diagrams
+* Update list of packages in renv for shiny app
+
+### Removed
+
+* Deleted old draw.io diagrams
+
+### Fixed
+
+* Corrected display of survival and hazard curves
+
 ## v1.3.0 - 2024-09-27
 
 Produced pilot shiny web application to find valid treatment sequences.
@@ -66,7 +92,7 @@ Implemented the essential components of the STARS framework (exc. open science a
 
 ### Changed
 
-* Extended `README.md` to include some instructions for installing and running the model, more detailed repositoriy overview, citation information, ORCID IDs, acknowledgements, license and funding information
+* Extended `README.md` to include some instructions for installing and running the model, more detailed repository overview, citation information, ORCID IDs, acknowledgements, license and funding information
 
 ### Fixed
 
