@@ -1,0 +1,61 @@
+project:
+  type: website
+  render:
+    - "*.qmd"
+    - "!pages/walkthrough/code0a_walkthrough.qmd"
+    - "!pages/walkthrough/code0b_splitmd.qmd"
+
+website:
+  title: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exeter Oncology Model: Renal Cell Carcinoma edition"
+  # Adds edit and issue buttons to footer
+  repo-url: https://github.com/pythonhealthdatascience/stars-eom-rcc/
+  repo-actions: [edit, issue]
+  # Toggle to enable readers to hide the sidebar and table of contents
+  reader-mode: true
+  # Create navbar across top of page
+  navbar:
+    collapse: false
+    logo: "images/exeter_pentag_small.png"
+    logo-alt: "Exeter PenTAG"
+    right:
+      - icon: github
+        href: https://github.com/pythonhealthdatascience/stars-eom-rcc/
+  # Create sidebar with page navigation
+  sidebar:
+    style: "docked"
+    contents:
+      - text: "Home"
+        href: index.qmd
+      - pages/acronyms.qmd
+      - section: "Context"
+        contents:
+          - pages/appraisals.qmd
+          - pages/publication.qmd
+      - section: "Model overview"
+        contents:
+          - pages/model_overview.qmd
+          - pages/plain_english.qmd
+      - pages/installation.qmd
+      - section: "Code walkthrough"
+        contents:
+          - pages/walkthrough_preface.qmd
+          - pages/input_data.qmd
+          - pages/walkthrough/code1_setup.qmd
+          - pages/walkthrough/code2_extrapolate.qmd
+          - pages/walkthrough/code3_hr.qmd
+          - pages/walkthrough/code4_prep.qmd
+          - pages/walkthrough/code5_model.qmd
+          - pages/report.qmd
+      - pages/probabilistic.qmd
+      - pages/scenarios.qmd
+      - pages/license.qmd
+      - pages/citation.qmd
+      - text: "Changelog"
+        href: pages/changelog.qmd
+
+format:
+  html:
+    code-overflow: wrap
+    theme: cosmo
+    toc: true
+    css: styles.css

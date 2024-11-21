@@ -1,0 +1,98 @@
+---
+title: "Installation"
+bibliography: ../references.bib
+csl: ../elsvan.csl
+format:
+  html:
+    code-copy: true
+---
+
+To install and run this model, you will need to have the following on your machine:
+
+<a href="https://www.r-project.org/" style="text-decoration:none; margin:0; padding:0;">
+  <img src="https://img.shields.io/badge/-r≥4.3-black?style=for-the-badge&logoColor=white&logo=r&color=276DC3" alt="R"/>
+</a>
+<a href="https://posit.co/download/rstudio-desktop/" style="text-decoration:none; margin:0; padding:0;">
+  <img src="https://img.shields.io/badge/-RStudio-black?style=for-the-badge&logoColor=white&logo=rstudioide&color=75AADB" alt="RStudio"/>
+</a>
+<a href="https://cran.r-project.org/bin/windows/Rtools/" style="text-decoration:none; margin:0; padding:0;">
+  <img src="https://img.shields.io/badge/-Rtools-black?style=for-the-badge&color=04AA6D" alt="Rtools"/>
+</a>
+<a href="https://git-scm.com/" style="text-decoration:none; margin:0; padding:0;">
+  <img src="https://img.shields.io/badge/-Git-black?style=for-the-badge&logoColor=white&logo=git&color=F05032" alt="Git"/>
+</a>
+
+
+## Installing the model
+
+There are a few options for installing this model.
+
+### Accessing the code via Git (version control)
+
+To access the model using Git the easiest method is to create a new project in RStudio which links to the NICE github website. Simply click `New Project` in the right hand of your RStudio screen:
+
+![](../images/rstudio_git_1.png){.lightbox}
+
+Then select `Version Control`:
+
+![](../images/rstudio_git_2.png){.lightbox}
+
+Then choose `Git`:
+
+![](../images/rstudio_git_3.png){.lightbox}
+
+Paste in the URL of the NICE repository (<https://github.com/nice-digital/NICE-model-repo>) in the repository URL and decide where you want the project to be saved on your computer using the `Browse` functionality. All of your team can access the code then in the same way.
+
+If there is more than one branch of code available as the model is updated you can select what branch of the code to look at on the top right of your screen.
+
+![](../images/rstudio_git_4.png){.lightbox}
+
+### Accessing the code by downloading the model
+
+If you do not wish to access the model via Git you can instead download the code and run the model on your local machine either using RStudio or R.
+
+To do this click the `Code` button and then `Download ZIP`:
+
+![](../images/zip_1.png){.lightbox}
+
+Extract the zip file to wherever on your machine you want to store the model. We would suggest saving it somewhere other than the `Downloads/` folder. Open RStudio and press `File` then `New Project`:
+
+![](../images/zip_2.png){.lightbox}
+
+Click `Existing Directory`:
+
+![](../images/zip_3.png){.lightbox}
+
+Click on the folder where you have saved the model. Make sure you click fully through until you can see the sub folders. Then press `Open` and then `Create Project`.
+
+![](../images/zip_4.png){.lightbox}
+
+## Installing the model dependencies
+
+You'll also need to install the model dependencies. Your options for this include:
+
+### Installing into current environment
+
+In `Model_Structure.R`, lines 6 to 28 contain instructions for installing the relevant packages. You can use `ctrl+shift+c` to uncomment these lines and `ctrl+enter` to run a line or a group of highlighted lines. You only need to do this once and then should recomment the lines using `ctrl+shift+c`.
+
+This will install the packages into your current environment. If you want to create an isolated environment to install these packages into, then you can set up an R environment with `renv` by running:
+
+```yaml
+install.packages("renv")
+renv::init()
+```
+
+Install your packages as above, and then keep a record of what you installed by running:
+
+```yaml
+renv::snapshot()
+```
+
+### Restoring provided `renv`
+
+We have created an R environment with all the required packages and the versions we used. You can see the version of R this was set up with in the `renv.lock` file. To install the dependencies by copying this environment, run the following commands in your R console:
+
+```yaml
+install.packages("renv")
+renv::restore()
+```

@@ -1,0 +1,5 @@
+---
+title: "Economic modelling"
+---
+
+{{< include code5.md >}}

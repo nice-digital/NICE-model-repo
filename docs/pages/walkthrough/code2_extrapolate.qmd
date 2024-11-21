@@ -1,0 +1,5 @@
+---
+title: "Extrapolate reference curves"
+---
+
+{{< include code2.md >}}

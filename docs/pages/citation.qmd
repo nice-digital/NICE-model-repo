@@ -1,0 +1,31 @@
+---
+title: "Citation"
+---
+
+## How to cite this model?
+
+If you re-use this model please appropriately credit PenTAG and collaborators for the work and refer to it as the Exeter Oncology Model: RCC edition:
+
+> Lee D., Muthukumar M., Lovell A., Farmer C., Burns D., Matthews J., Coelho H., O'Toole B., Trigg L., Snowsill T., Barnish M., Nikoglou T., Brand A., Ahmad Z., Abdelsabour A., Robinson S., Heather A., Wilson E., Melendez-Torres G. Exeter Oncology Model: RCC edition URL: https://github.com/pythonhealthdatascience/stars-eom-rcc
+
+This repository has also been archived on **Zenodo** and that can be cited as:
+
+> Lee, D., Muthukumar, M., Lovell, A., Farmer, C., Burns, D., Matthews, J., Coelho, H., O'Toole, B., Trigg, L., Snowsill, T., Barnish, M., Nikoglou, T., Brand, A., Ahmad, Z., Abdelsabour, A., Robinson, S., Heather, A., Wilson, E., & Melendez-Torres, G. J. (2024). Exeter Oncology Model: RCC edition. Zenodo. https://doi.org/10.5281/zenodo.13969124
+
+Below is a bibtex citation for the GitHub repository, which can be imported into reference managers like endnote. It is available on Github as `citation_bibtex.bib`, where [it can be downloaded](https://github.com/pythonhealthdatascience/stars-eom-rcc/blob/main/citation_bibtex.bib).
+
+```
+{{< include  ../../citation_bibtex.bib >}}
+```
+
+[![](../images/exeter_pentag.png)](https://medicine.exeter.ac.uk/phss/research/pentag/)
+
+## Acknowledgements
+
+<!-- ORCID icon CC 1.0 from https://figshare.com/articles/figure/ORCID_iD_icon_graphics/5008697/4 -->
+
+This modified repository was developed by [Amy Heather](https://github.com/amyheather) [![ORCID 0000-0002-6596-347](../images/ORCIDiD_icon16x16.png)](https://orcid.org/0000-0002-6596-3479). Changes from the original repository can be viewed in the [changelog](changelog.qmd).
+
+These modifications were made to improve the clarity and open science credentials of the EOM:RCC model, as part of the project [STARS](https://github.com/pythonhealthdatascience).
+
+[![](../images/stars_banner.png)](https://github.com/pythonhealthdatascience)

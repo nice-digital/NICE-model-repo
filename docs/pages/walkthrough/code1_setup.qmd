@@ -1,0 +1,7 @@
+---
+title: "Set-up"
+bibliography: ../../references.bib
+csl: ../../elsvan.csl
+---
+
+{{< include code1.md >}}

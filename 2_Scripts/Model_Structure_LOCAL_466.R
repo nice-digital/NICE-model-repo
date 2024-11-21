@@ -87,16 +87,19 @@ library(microbenchmark, quietly = TRUE)
 #
 #
 # IF YOU DO NOT WANT MULTICORE SET keep_free_cores TO NA
-keep_free_cores <- NA
+#
+#
+keep_free_cores <- 4
 if (any(is.na(keep_free_cores), keep_free_cores < 0)) {
   plan(sequential)
 } else {
   plan(multisession(workers = max(availableCores() - keep_free_cores, 1)))
 }
 
-# Other generic settings for the progress bar
+# Other generic settings for the progress bar and units for table widths
 handlers("progress")
 options(crosstable_units = "cm")
+
 
 #### 2. Loading functions ###########
 
@@ -242,23 +245,21 @@ source("./3_Functions/reporting/word_document_output.R")
 # movement between lines) and PartSA with 3 health states (pre-progression,
 # post-progression and death)
 
-# During Phase 1 of this pilot we used the model to evaluate the decision
+# During Phase 1 of this pilot we use the model to evaluate the decision
 # problem for a single therapy (cabo+nivo, defined as molecule 1) starting at
 # 1st line During Phase 2 we will adapt this code to evaluate the
 # cost-effectiveness of sequences starting at a user-defined line
 
+# Inputs to this model need to be downloaded from NICEdocs
+
 User_types <- c("Submitting company", "NICE", "EAG", "Committee", "NHSE", "Clinical expert", "Patient expert", "Non-intervention stakeholder", "Public")
 
-# Plan for future development: Different users will have different visibility.
-# The above is a list of the potential stakeholders as an example to
-# demonstrate how this variable will be used. The variable will feed into any
-# graphical user interface to restrict visibility for some users and provide
-# full visibility to a stakeholder like the EAG, NICE, Committee, submitting
-# company and so on.
-#
-# Users can either use the files provided in the repository in which
-# confidential data is redacted by replacing the original numbers with dummy
-# values or, upload their own files using the same format
+# The submitting company are able to see their own CIC and AIC data (marked up
+# blue / yellow in reporting but not other materials: green marking green marked
+# data has been either be replaced with 0 [PAS discounts, RWE IPD] or dummy
+# data) NICE users will be able to see everything
+# Other users will not be able to see any marked data, this is replaced with
+# dummy data
 
 # The way raw data is fed into the model currently works as follows
 # Define the path to where the data file lives using the select file
