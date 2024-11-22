@@ -1,0 +1,5 @@
+---
+title: "Apply hazard ratios to reference curves"
+---
+
+{{< include code3.md >}}

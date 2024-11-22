@@ -1,0 +1,194 @@
+---
+title: "Input data"
+bibliography: ../references.bib
+csl: ../elsvan.csl
+---
+
+```{r}
+#| echo: FALSE
+#| include: FALSE
+
+# Load the libraries required
+
+library(openxlsx, quiet = TRUE)
+library(data.table, quiet = TRUE)
+library(knitr, quiet = TRUE)
+```
+
+There are five input data files (stored in `1_Data/`) that are used by `2_Scripts/Model_Structure.R`.
+
+These are each described below.
+
+## Excel user interface
+
+::: {.callout-note appearance="minimal" collapse=true}
+
+## `ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm`
+
+The majority of inputs for the code are made using an excel spreadsheet. This is currently populated with inputs that align with the final appraisal document (FAD) for TA964/ID6184, which is the appraisal of cabozantinib with nivolumab for untreated advanced renal cell carcinoma. Some of the inputs have been redacted in the publicly available spreadsheet as they are either academic and commercial in confidence (ACIC) or relate to the confident patient access scheme (cPAS). Hence, this version does not contain confidential company data, confidential price discounts or company individual patient data and treatment sequence data. The model does now contain UK real-world evidence (RWE) data which was redacted at the time of the appraisal at the request of the UK real-world evidence (RWE) data holders.
+
+The data in the excel workbook will be imported to R using the sheet `named ranges`. In R, a nested list will be created where the `Name` is the reference for each item and the `Cell Range` is the content of the list.
+
+To illustrate how this works, this example works through the parameter which contains a list of treatments allowed for population 1.
+
+On the `named ranges` sheet, row 184 has Name `List_pop1_allowed` and Cell Range `=Lists!$BA$11:$BA$22`.
+
+![](../images/excel_named_range.png)
+
+On the `Lists` sheet, we can see the list of allowed treatments.
+
+![](../images/excel_list.png)
+
+Then, if we import the excel spreadsheet, we can view that same parameter within the nested list `i`.
+
+```{r}
+# Import the functions required
+source(file.path("../../3_Functions/excel/extract.R"))
+
+# Import the excel file
+excel_path <- "../../1_Data/ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm"
+i <- f_excel_extract(excel_path, verbose = FALSE)
+
+# Tidy the imported parameters
+i <- c(i,f_excel_cleanParams(i$R_table_param))
+
+# View the parameter
+i$List_pop1_allowed
+```
+
+:::
+
+## Hazard ratios (HR) from the network meta-analyses (NMA)
+
+::: {.callout-note appearance="minimal" collapse=true}
+
+## `PH_NMA_CODA.rds` and `FPNMA_means.rds`
+
+These files contain the outputs of the proportional hazards NMA (PH NMA) and the fractional polynomial NMA (FP NMA). In the publicly available versions, time to next treatment as a surrogate for nivolumab plus ipilimumab is not available to the public as this data was marked as confidential by the data holders.
+
+```{r}
+# Import the NMA results
+RDS_path2 <- "../../1_Data/PH_NMA_CODA.rds"
+RDS_path3 <- "../../1_Data/FPNMA_means.rds"
+i$PHNMA <- readRDS(RDS_path2)
+i$FPNMA$means  <- readRDS(RDS_path3)
+```
+
+```{r}
+# Preview the PH NMA results
+kable(head(i$PHNMA$data))
+
+# Preview the FP NMA results
+kable(head(i$FPNMA$means))
+```
+
+In both tables, you can see that each row has a **HR** (`hr`/`V1`), and that these are for each combination of:
+
+* **Population** (`population`)
+* **Line** (`line`)
+* **Treatment** (`molecule`/`intervention_code`)
+* **Endpoint** (`endpoint`)
+* **Reference treatment** (`referencetreatment`/`reference_treatment_code`)
+* **Reference trial** (`referencetrial`/`ref_trial_code`)
+
+The PH NMA results are from a Bayesian analysis and so has lots of samples for each HR (10,000). Hence, the filename is `PH_NMA_CODA.rds`, with CODA referring to "Convergence Diagnosis and Output Analysis". When you run a Bayesian analysis, CODA samples are samples from the posterior distribution of your model parameters - in this case, the HRs.
+
+```{r}
+max(i$PHNMA$data$run)
+```
+
+The FP NMA results are also from a Bayesian analysis, but a mean has been taken of each sample. Hence, the filename `FPNMA_means.rds`. However, it does have another column `time`, which is present as FP NMA generates time-varying HR.
+
+:::
+
+## Individual patient data (IPD) from the real-world evidence (RWE)
+
+::: {.callout-note appearance="minimal" collapse=true}
+
+## `IPD_R_input_noACIC.xlsx`
+
+This data represents the results from the RWE study by Challapalli et al. 2022, @challapalli_1463p_2022 with the patient-level data from that study shared by the owners of the dataset. In the publicly available version, data has been simulated to replaced data considered confidential by either the UK RWE dataholders or involved companies. The workbook has a sheet `IPD` which contains the patient-level data we want to import.
+
+```{r}
+# Import data from excel
+excel_path2 <- "../../1_Data/IPD_R_input_noACIC.xlsx"
+wb <- f_excel_extract(excel_path2, verbose = FALSE)
+
+# Save to `i` as a data table
+# (`surv` as will use this data in survival analysis, and `pld` as it is
+# patient-level data)
+i$surv$pld <- as.data.table(wb$`_xlnm._FilterDatabase`)
+
+# Preview data table
+kable(head(i$surv$pld))
+```
+
+Each row represents a patient. It states their:
+
+* Population, line, treatment and trial
+* Endpoint (e.g. overall survival (OS), progression-free survival (PFS))
+* At the timepoint given by `timew` (which is the time in weeks), whether they have experienced the event (`event_censor`). This can either be:
+  * 1 - indicating the event occurred (e.g. patient died)
+  * 0 - meaning their point is censored, so at the point when timing stopped (for whatever reason), the event had not occurred
+
+:::
+
+## Results from the survival analysis on the RWE IPD data
+
+::: {.callout-note appearance="minimal" collapse=true}
+
+## `survival_analysis_no_ipd_CompanyTTDTTPPPS_redacted.rds`
+
+This R data file contains the results from a pre-run survival analysis on the patient-level RWE data (i.e. the output of the if statement run if `i$dd_run_surv_reg == "Yes"` in `Model_Structure.R`). In the publicly available version, time to discontinuation (TTD) and time to progression (TTP) are set equal to PFS in order to protect data considered confidential by the involved companies, and post-progression survival (PPS) is set equal to the UK RWE
+
+The R data file is a large nested list from which you can select a:
+
+* Population (`pop_0` to `pop_2`)
+* Line (`line_1` to `line_5`)
+* Molecule (`mol_0` to `mol_12` and `mol_990`)
+* Trial (`trial_0` to `trial_2)
+* Endpoint (`endpoint_0` to `endpoint_4`)
+
+There are then results with:
+
+* `fs_fits`
+* `gof`
+* `st`
+* `plot`
+
+```{r}
+RDS_path <- "../../1_Data/survival_analysis_no_ipd_CompanyTTDTTPPPS_redacted.rds"
+i$surv$reg <- readRDS(RDS_path)
+```
+
+Example with no result from survival analysis:
+
+```{r}
+i$surv$reg$pop_0$line_1$mol_0$trial_0$endpoint_0
+```
+
+Example with a result - PFS on avelumab plus axitinib as a 1L treatment in a favourable risk population based on the real world evidence.
+
+```{r}
+lapply(c("pop", "line", "mol", "tr", "endpoint"), function(x) i$surv$reg$pop_2$line_1$mol_4$trial_2$endpoint_1[[x]])
+```
+
+Various distributions were fit - for example, exponential...
+
+```{r}
+i$surv$reg$pop_2$line_1$mol_4$trial_2$endpoint_1$fs_fits$exp
+```
+
+The goodness of fit for each distribution is described...
+
+```{r}
+kable(i$surv$reg$pop_2$line_1$mol_4$trial_2$endpoint_1$gof)
+```
+
+And the extrapolated survival times are provided from survival analysis using each distribution...
+
+```{r}
+kable(head(i$surv$reg$pop_2$line_1$mol_4$trial_2$endpoint_1$st, 10))
+```
+
+:::

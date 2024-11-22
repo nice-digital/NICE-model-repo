@@ -1,0 +1,75 @@
+---
+title: "Scenario analysis"
+bibliography: ../references.bib
+csl: ../elsvan.csl
+---
+
+## What scenario analyses were conducted?
+
+In the assessment report, @lee_treatments_2023-1 **Table 95** provides a very clear overview of the scenarios explored. It details how these differ from the base case, and justification for the scenario. Further description is also offered elsewhere in the report.
+
+As an example, one of the scenarios is:
+
+| Parameter | Base case | Scenario | Justification |
+| - | - | - | - |
+| Baseline risk | UK RWE | CheckMate 9ER | Testing impact of baseline risk |
+
+In this scenario, the reference surival curves providing baseline risk for the reference treatments are calculated using clinical trial data, rather than using the real-world evidence.
+
+In addition to the scenarios described in Table 95, there was also an exploratory analysis on the impact of prior adjuvant therapy. This is detailed in section **4.3.5.8** of the assessment report. @lee_treatments_2023-1
+
+## How can these scenarios be run?
+
+To run these scenarios, simply alter the **Excel** input parameter sheet. In the `Model settings` sheet, you'll see there is a row named "**Scenario #**" which is set to 0 (the base case) by default. If you click on the cell, you'll see a drop down list of numbers from 0 to 89. On selecting each, you will find the box above titled "Scenario name" will give a description of the scenario associated with each number. For example:
+
+* 1 - "PartSA 4 lines"
+* 2 - "State transition 3 lines"
+* 3 - "State transition 2 lines"
+* ...
+* 88 - "Applying the NMA results for the all-risk NMA to the favourable risk reference curve"
+* 89 - "Company approach to utilities"
+
+## Where are scenarios in excel?
+
+A table of scenarios is provided in the excel input sheet and imported into `i` as `i$R_table_scenarios`. This outlines the inputs that will need to be changed in order to run the scenario analysis. Each row in this table has:
+
+* **Scenario category** (e.g. "Model structure")
+* **Scenario number** (e.g. 1)
+* **Scenario label** (e.g. "PartSA 4 lines" - i.e. using a partitioned survival model instead of state transition)
+* **Inputs.required** (i.e. number of inputs to be altered) (e.g. 2)
+* A set of columns for each input with:
+  * **Sheet** (i.e. source of input in excel) (e.g. "Model settings")
+  * **Range** (i.e. named range in excel that imports the input) (e.g. "dd_model_struct")
+  * **Value** (e.g. "Partitioned survival)
+  * In this example, the second input (as detailed in the subsequent columns) was sheet "Model settings", range "R_max_trt_lines" and value 4
+
+::: {.callout-note collapse="true"}
+
+## View `i$R_table_scenarios`
+
+```{r}
+#| echo: FALSE
+#| output: FALSE
+# This section reuses code from Model_Structure.R to import i from excel
+# It cannot use `i <- readRDS("../../2_Scripts/standalone scripts/QC/i.rds")`
+# This is because that file does not get uploaded to GitHub
+
+library(openxlsx, quiet = TRUE)
+library(knitr, quiet = TRUE)
+
+d_path = "../../1_Data"
+f_path = "../../3_Functions"
+
+source(file.path(f_path, "excel/extract.R"))
+
+excel_path <- file.path(d_path, "ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm")
+
+i <- f_excel_extract(excel_path, verbose = FALSE)
+
+i <- c(i, f_excel_cleanParams(i$R_table_param))
+```
+```{r}
+kable(i$R_table_scenarios)
+```
+
+:::

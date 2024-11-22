@@ -1,0 +1,96 @@
+---
+title: "List of articles and reports"
+bibliography: ../references.bib
+csl: ../elsvan.csl
+---
+
+As referred to in the [description of the NICE appraisals](appraisals.qmd), there are several articles and reports that have been published in relation to this model. Several of these are listed below.
+
+## Web pages
+
+The pathways pilot is mentioned as part of [NICE's webpage](https://www.nice.org.uk/about/what-we-do/proportionate-approach-to-technology-appraisals) on **taking a proportion approach to technology appraisals**. @national_institute_for_health_and_care_excellence_nice_taking_nodate There are also then webpages available for each of the appraisals: the [pathways pilot](https://www.nice.org.uk/guidance/indevelopment/gid-ta11186) @national_institute_for_health_and_care_excellence_nice_renal_nodate and the [appraisal of cabozatinib with nivolumab](https://www.nice.org.uk/guidance/ta964) @national_institute_for_health_and_care_excellence_nice_cabozantinib_2024
+
+## Reports
+
+The above web pages link to relevant NICE reports, and these include....
+
+* **Final analysis plan** for the model available as a [PDF](https://www.nice.org.uk/guidance/gid-ta11186/documents/assessment-report-3) @lee_treatments_2023
+* **Renal cell carcinoma pathway model report**, which is "a summary of the external assessment group's model and assumptions on renal cell carcinoma, discussed by NICE's technology appraisal committee B". Available as a [PDF](https://www.nice.org.uk/guidance/ta964/resources/renal-cell-carcinoma-pathway-model-report-pdf-17325260829637) or [within their website](https://www.nice.org.uk/guidance/ta964/resources/renal-cell-carcinoma-pathway-model-report-13368256813/chapter/Purpose-of-this-document) @national_institute_for_health_and_care_excellence_nice_renal_2024
+* **NICE's technology appraisal guidance on cabozatinib with nivolumab for untreated advanced renal cell carcinoma**. Avaliable as a [PDF](https://www.nice.org.uk/guidance/ta964/resources/cabozantinib-with-nivolumab-for-untreated-advanced-renal-cell-carcinoma-pdf-82615789468357) or [within their website](https://www.nice.org.uk/guidance/ta964) @national_institute_for_health_and_care_excellence_nice_cabozantinib_2024
+
+And others from the appraisal history like:
+
+* Assessment report plain english summary - [PDF](https://www.nice.org.uk/guidance/ta964/documents/assessment-report-3)
+* Assessment report final analysis plan - this appears the same as that from the alternative link above - [PDF](https://www.nice.org.uk/guidance/ta964/documents/assessment-report-2)
+* Assessment report - [PDF](https://www.nice.org.uk/guidance/ta964/documents/assessment-report)
+
+## Publications
+
+There are several publications related to this analysis. When they are available under a permissive license, they have been embedded below.
+
+An **article describing the pathways pilot** was published (along with a later correction):
+
+* NICE's Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances - Lee et al. 2024 @lee_nices_2024
+* Correction: NICE’s Pathways Pilot: Pursuing Good Decision Making in Difficult Circumstances - Lee et al. 2024 @lee_correction_2024
+
+There is also a forthcoming monograph, though this is currently with a journal: Lee, Muthukumar, Lovell, et al. Treatments for renal cell carcinoma [ID6186]: A NICE Pilot Treatment Pathways Appraisal, HTA Monograph [Submitted].
+
+::: {.callout-note collapse="true"}
+
+## View Lee et al. 2024 (article) @lee_nices_2024
+
+Licensed under a CC-BY-NC-4.0 license.
+
+<iframe width="100%" height="800" src="../pdf/lee_2024_nice_pathways_pilot.pdf"></iframe>
+
+:::
+
+::: {.callout-note collapse="true"}
+
+## View Lee et al. 2024 (correction) @lee_correction_2024:
+
+Licensed under a CC-BY-NC-4.0 license.
+
+<iframe width="100%" height="800" src="../pdf/lee_2024_correction.pdf"></iframe>
+
+:::
+
+A number of **publications related to the UK Renal Oncology Collaborative (UK ROC) dataset** used to inform baseline risk in the pathways model have also now been produced:
+
+* Real world, multicentre patterns of treatment and survival in metastatic renal cell carcinoma with the UK Renal Oncology Collaborative (UK ROC): Is it time to look favourably on first-line immunotherapy containing combinations in all IMDC groups? - McGrane et al. 2024 @mcgrane_real_2024
+* Real-world patterns of treatment and response in metastatic renal cell carcinoma: a multicentre UK-wide review with UK Renal Oncology Collaborative (UK ROC) - Frazer et al. 2024 @frazer_real-world_2024
+* Efficacy of cabozantinib and sunitinib for the treatment of intermediate/poor risk renal cell carcinoma based upon UK real-world data - Lee et al. 2024 @lee_efficacy_2024
+
+::: {.callout-note collapse="true"}
+
+## View McGrane et al. 2024 @mcgrane_real_2024
+
+Licensed under a CC BY 4.0 license.
+
+<iframe width="100%" height="800" src="../pdf/mcgrane_2024_realworld.pdf"></iframe>
+
+:::
+
+::: {.callout-note collapse="true"}
+
+## View Frazer et al. 2024 @frazer_real-world_2024
+
+Licensed under a CC BY-NC-ND 4.0 license.
+
+<iframe width="100%" height="800" src="../pdf/frazer_2024_realworld.pdf"></iframe>
+
+:::
+
+::: {.callout-note collapse="true"}
+
+## View Lee et al. 2024 @lee_efficacy_2024
+
+Licensed under a CC BY 4.0 license.
+
+<iframe width="100%" height="800" src="../pdf/lee_2024_efficacy.pdf"></iframe>
+
+:::
+
+In addition, a **publication investigating the issue of slippage in hazard ratios** (tending towards the null over subsequent datacuts) for immune-oncology and TKI treatment combination treatment in first-line RCC has been produced:
+
+* Slipping Away: Slippage in hazard ratios over datacuts and its impact on immuno-oncology combination economic evaluations - Lee et al. 2024 @lee_slipping_2024

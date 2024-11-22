@@ -1,0 +1,32 @@
+---
+title: "NICE appraisals"
+bibliography: ../references.bib
+csl: ../elsvan.csl
+---
+
+This model was developed by the [**Peninsula Technology Assessment Group (PenTAG)**](https://medicine.exeter.ac.uk/phss/research/pentag/) at the **University of Exeter**. This was in collaboration with the **National Institute for Health and Care Excellence (NICE)** as part of two appraisals, described below.
+
+## Renal cell carcinoma Pathways Pilot (ID6186, GID-TA11186)
+
+In 2022, NICE announced a programme aimed at taking a "proportionate approach to technology appraisals" (PATT). In the first phase of the programme, they "simplified, removed, or reconfigured parts of the appraisals process". This was to enable the production of rapid guidance for simpler low-risk decisions by allowing "light-touch, faster evaluations" for those topics. In the second phase of the programme, they have been exploring several other ways of working, one of which being to take a "**pathways approach** to technology appraisals." @national_institute_for_health_and_care_excellence_nice_taking_nodate
+
+The pathways approach involves the production of a reusable **platform/reference model** for each disease area. The rationale for this that many NICE appraisals are in only a few disease areas, with almost half of health technology assessments within ten disease areas. Hence, developing a single reference model for each disease area should help "reduce repetition and improve consistency in decision making". @lee_nices_2024
+
+In their analysis plan, Lee et al. 2023 @lee_treatments_2023 emphasise the importance of these models being **open-source** so they can be reused and maintained without restriction. They give the example of the **Innovation and Value Initiative (IVI)** Open-Source Value project which started in 2018 and has since produced three disease models which are freely shared on their GitHub. @lee_treatments_2023 Each of these models are developed in R, with the first two being **R packages** with **hosted documentation** and supporting **web applications** (created with a commercial organisation, <https://clarityviz.com/>):
+
+* Non-small cell lung cancer - [GitHub](https://github.com/InnovationValueInitiative/IVI-NSCLC), [documentation](https://innovationvalueinitiative.github.io/IVI-NSCLC/), [basic web app](https://vt-nsclc.clarityviz.com/), [advanced web app](https://et-nsclc.clarityviz.com/) (note: these web apps are not working currently)
+* Rheumatoid arthritis - [GitHub](https://github.com/InnovationValueInitiative/IVI-RA), [documentation](https://innovationvalueinitiative.github.io/IVI-RA/), [model interface (advanced app)](https://ivi-ra-expert.clarityviz.com/), [value tool (basic app)](https://ivi-ra.clarityviz.com/)
+* Major depressive disorder - [GitHub](https://github.com/InnovationValueInitiative/IVI-MDD)
+
+The NICE pilot of the pathways approach was in **renal cell carcinoma** (ID6186, GID-TA11186). @national_institute_for_health_and_care_excellence_nice_renal_nodate This pilot was the **Exeter Oncology Model: Renal Cell Carcinoma edition (EOM:RCC)**, as described and presented in this repository. In 2024, Lee et al. published an article describing their experience of developing this model (see [publication](publication.qmd) page). @lee_nices_2024 A final report from NICE on the pilot will be released in 2024/25. @national_institute_for_health_and_care_excellence_nice_taking_nodate
+
+## Cabozantinib with nivolumab for untreated advanced renal cell carcinoma (TA964, formerly ID6184)
+
+The technology appraisal guidance for cabozantinib with nivolumab for untreated advanced renal cell carcinoma was published on 10 April 2024. When developing this guidance, the evaluation comittee considered:
+
+* Evidence submitted by Ipsen
+* A revise of Ipsen's submission by the external assessment group (EAG)
+* The EAG's economic model (EOM:RCC)
+* Responses from stakeholders
+
+The main source of evidence for clinical effectiveness was the results of "**CheckMate 9ER**, a single-blind randomised controlled trial comparing cabozantinib plus nivolumab with sunitinib". The economic model was the **EOM:RCC**, and the preferred assumptions for this model from the committee and from the company are outlined in the appraisal guidance. @national_institute_for_health_and_care_excellence_nice_cabozantinib_2024 The model itself is then further described in a pathway model report. @national_institute_for_health_and_care_excellence_nice_renal_2024

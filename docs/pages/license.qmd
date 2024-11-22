@@ -1,0 +1,11 @@
+---
+title: "Licence"
+---
+
+This repository is licensed under an MIT licence:
+
+::: {.callout-note appearance="minimal"}
+
+{{< include  ../../LICENSE >}}
+
+:::

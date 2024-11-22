@@ -1,0 +1,65 @@
+---
+title: "Probabilistic analysis"
+bibliography: ../references.bib
+csl: ../elsvan.csl
+---
+
+So far, this documentation has described `Model_Structure.R`, which is a deterministic analysis. The base case analysis for this technology appraisal was deterministic due to the long time required to run the probabilistic analysis for the state transition model and the large number of scenario analysis required. The external assessment group (EAG) considered that the benefits of modelling the full pathway and impact of treatment sequences on effectiveness outweighed benefits of characterising parameter uncertainty with probabilistic sensitivity analysis. Probabilistic analysis was therefore only presented for the EAG base case.
+
+## What is the difference between deterministic and probabilistic analysis?
+
+In a **deterministic analysis**, the model inputs are fixed values, with the output being the same given the same inputs.
+
+In a **probabilistic analysis**, the model inputs are random values (repeatedly drawn from distributions). This incorporates uncertainty into the model, reflecting the variability and uncertainty in real-world scenarios.
+
+In other words, as described in `probabilistic_model.R`:
+
+> "The primary difference with the probabilistic model is that the survival analysis (along with several of the other input parameters) are drawn probabilistically repeatedly and those randomly drawn numbers are fed through the SAME functions that have been used in Model_structure.R to ensure consistency.
+> 
+> This is analogous to generating values in an excel model and passing it throughthe same calculation chain as the deterministic model via the patient flow sheet."
+
+## How can you run the probabilistic analysis?
+
+To run the probabilistic analysis, use the file `probabilistic_model.R`.
+
+This script uses `2_Scripts/standalone scripts/QC/p.rds` and `2_Scripts/standalone scripts/QC/i.rds`. These are each output by `Model_Structure.R`, just before it runs the economic model by calling `f_pf_computePF()`.
+
+It first replaces many of the values in `p` with probabilistic versions. The list `p` is generated repeatedly, with the same structure each time, but with random numbers used as inputs.
+
+Then, in a section titled "PSA trace process", it runs through a similar process as in `Model_Structure.R` with similar functions - e.g.
+
+* `f_NMA_linkPHNMA()`
+* `f_NMA_linkFPNMA()`
+* `f_NMA_AddAssumptionsToNetwork()`
+* `f_releff_PropNetwork()`
+* `f_surv_twaning_apply()`
+* `f_surv_gpopadjust()`
+* `f_surv_PFSxOS()`, `f_surv_TTDxOS()`, `f_surv_PFSxTTP()`
+
+There are also some additional functions, such as `f_psa_collapse_st_lambda2lplus()`, which is used to help reduce the size of the `st` object. Alternative functions are then used for patient flow and analysis, such as:
+
+* `f_psa_pf_computePF_mkLambda()`
+* `f_pf_mk_summary()`
+* `f_psa_computeWAModelRes()`
+
+Patient flow in calculated in the same way as in the deterministic analysis, just instead using lambda approximation to simplify the computation of the Markov trace, removing all tunnel states from the model and removing the need for sparse matrix multiplications.
+
+There is then a follow-up script `process PSA output.R` which runs some analysis on the outputs of the probabilistic analysis.
+
+## Note about run time
+
+As described in `probabilistic_model.R`, the probabilistic analysis is very computationally intensive. For example, to run the model for the "all risk" population for the 4 active treatment lines, computing only the Markov trace, it would take approximately 37.5 hours and require 24GB RAM running on 8 cores.
+
+There are therefore three options for generating probabilistic results:
+
+1. "Use a supercomputer or high-performance computing cluster (HPC). This would reduce runtime to a few hours but requires outsourcing of the computations. There are many options available including commercial (Microsoft Azure, Amazon AWS), academic (Exeter university, Sheffield university, UEA, others) to satisfy this. This would produce the most accurate results and would ensure the use of identical code for determinstic and iterative analyses."
+
+2. Calculate "approximate time in state using exponentional approximation for the current decision problem. In this specific case, there are no stopping rules or complicated cost dynamics in any 2L+ state. Consequently, the tunnels are not actually required in this specific simple case. We therefore define a non-tunnel trace calculator which operates with vastly reduced computation".
+
+3. Forego a probabilistic analysis - although preference is to avoid this option.
+
+The provided script `probabilistic_model.R` implements option 2 and was run by the PenTAG team on the University of Exeter HPC.
+
+## Note about utility values in probablistic model
+
+It was not possible to adjust utilities values in the probablistic models, as the interactions between age and sex would need to be accounted for, but Ara and Brazier et al. 2011 @ara_using_2011 do not report the variance-covariance matrix that would have described how the variations correlate with each other. Varying age and sex separately could lead to spurious results or inference due to non-linear interactions between the parameters (some of which are transformed).
