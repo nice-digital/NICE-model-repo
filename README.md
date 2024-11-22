@@ -56,7 +56,7 @@ This website provides:
 * Acronyms
 * Context on the associated NICE appraisals, articles and reports
 * A detailed summary of the analysis
-* A plain english summary of the analysis
+* A plain English summary of the analysis
 * Installation instructions
 * A step-by-step walkthrough of the code in `Model_Structure.R`
 * Descriptions of the probabilistic analysis and scenario analysis
@@ -96,7 +96,7 @@ The Pathways Pilot aims both at reducing the long-term resource requirements for
 
 R was ideal for this model due to its ability to handle the extensive computations required. With 744 potential treatment sequences across various populations, the model efficiently executed block-diagonal sparse matrix multiplications for sequencing calculations. This would be infeasible to implement efficiently in Excel.
 
-Unfortunately, we were not able to add a graphical user-interface in the timeframes available for the model build; instead, we built the front-end in Excel allowing the stakeholders a familiar and flexible means to interact with it. 
+Unfortunately, we were not able to add a graphical user-interface in the time frames available for the model build; instead, we built the front-end in Excel allowing the stakeholders a familiar and flexible means to interact with it. 
 
 No data is contained in the code. All input data is contained in the data folder, dummy data is provided where the data used in the appraisal was marked as confidential. The model extracts all inputs directly from Excel, separating all sensitive data and inputs from the code. Consequently, no confidential information is contained in the code.
 
@@ -116,7 +116,7 @@ There are a few options for installing this model.
 <details markdown="1">
 <summary><b>Accessing the code via Git (version control)</b></summary>
 
-To access the model using Git the easiest method is to create a new project in RStudio which links to the NICE github website. Simply click `New Project` in the right hand of your RStudio screen:
+To access the model using Git the easiest method is to create a new project in RStudio which links to the NICE GitHub website. Simply click `New Project` in the right hand of your RStudio screen:
 
 ![New project](docs/images/rstudio_git_1.png)
 
@@ -164,7 +164,7 @@ You'll also need to install the model dependencies. Your options for this includ
 <details markdown="1">
 <summary><b>Installing into current environment</b></summary>
 
-In `Model_Structure.R`, lines 6 to 28 contain instructions for installing the relevant packages. You can use `ctrl+shift+c` to uncomment these lines and `ctrl+enter` to run a line or a group of highlighted lines. You only need to do this once and then should recomment the lines using `ctrl+shift+c`.
+In `Model_Structure.R`, lines 6 to 28 contain instructions for installing the relevant packages. You can use `ctrl+shift+c` to uncomment these lines and `ctrl+enter` to run a line or a group of highlighted lines. You only need to do this once and then should re-comment the lines using `ctrl+shift+c`.
 
 This will install the packages into your current environment. If you want to create an isolated environment to install these packages into, then you can set up an R environment with `renv` by running:
 
@@ -283,7 +283,7 @@ There are a number of files which contain raw or intermediate inputs, which are 
 
 3. **Fractional polynomials NMA RDS file** (`FPNMA_means.rds`): Note the version of this using time to next treatment as a surrogate for nivolumab plus ipilimumab is not available to the public as this data was marked as confidential by the data holders. 
 
-4. **Raw data file containing the pseudo-IPD for all trials for survival analysis** (`IPD_R_input_noACIC.xlsx`): Note in the publicly available version data has been simulated to replaced data considered confidential by either the UK RWE dataholders or involved companies; or
+4. **Raw data file containing the pseudo-IPD for all trials for survival analysis** (`IPD_R_input_noACIC.xlsx`): Note in the publicly available version data has been simulated to replaced data considered confidential by either the UK RWE data holders or involved companies; or
 
 5. **RDS output from the survival analysis using company data** (`Survival_analysis_noTTDorTTPorPPS[NoACIC].rds`): Note in the publicly available version TTD and TTP are set equal to PFS in order to protect data considered confidential by the involved companies, and PPS is set equal to the UK RWE.
 
@@ -437,7 +437,7 @@ The publicly accessible version of the model aligns with the final appraisal det
 Additional changes were originally planned following use for the initial decision problem including:
 
 * Addition of Shiny user interface
-* Genericisation of the code to allow wider use as the Exeter Oncology Model is not fundamentally specific to RCC and could be adapted to any oncology indication 
+* Generalisation of the code to allow wider use as the Exeter Oncology Model is not fundamentally specific to RCC and could be adapted to any oncology indication 
 * Programming and analysis of model outputs related specifically to sequencing, this may include value of information analyses
 
 Unfortunately funding for this has not been confirmed currently.  If you are interested in discussing further development, please contact the PenTAG team at pentag@exeter.ac.uk. 
