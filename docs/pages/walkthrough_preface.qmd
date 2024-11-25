@@ -1,0 +1,47 @@
+---
+title: "Preface"
+---
+
+## Aim of the walkthrough
+
+The following pages will provide a walk-through for running the Base Case EOM:RCC model, including an explanation of the:
+
+* **Input data**
+* **Code in `Model_Structure.R`**
+* **Output report**
+
+::: {.callout-note collapse="false"}
+
+## Bonus information
+
+These drop-down boxes appear throughout the walkthrough, and contain additional code to help walk you through what is happening (for example, explaining a function or section of code).
+
+:::
+
+## Adjustments
+
+In order to run the code from `Model_Structure.R` within this documentation, **minor adjustments** have been made such as to:
+
+* Amend file paths
+* Include additional pre-run results, enabling:
+  * Quicker run times
+  * The code to be split across multiple pages
+
+Hence, it is advised that you use the original R script when running the model for yourself, rather than these `.qmd` files.
+
+::: {.callout-warning}
+
+## Full list of adjustments
+
+* Changed the path to the folders - e.g. "./3_Functions" to "../../../3_Functions".
+  * Instead of amending this in each string, I created `path_` variables to store the path to the folder, and then imported individual files using `file.path()` to combine the folder path with the file name.
+  * These folder paths are all set-up in a code chunk `paths` after we load the required packages.
+* Set `f_excel_extract()` from `verbose = TRUE` to `verbose = FALSE`, as it otherwise repeatedly prints "Extracting named range X from ../../1_Data/ID6184_RCC_model inputs FAD version [UK RWE unredacted, ACIC redacted, cPAS redacted].xlsm" where X is the name of each parameter
+* Add `library(knitr)` so can use `kable()`
+* Prevent `f_pf_computePF()` from running, and instead load some pre-run results
+* Don't need to keep saving copies of the data/report since running with the same dataset each time so:
+  * Prevented from saving an `.rds` file with the results (3.6.4)
+  * Still set `Run_Date` to current date despite using old pre-run
+  * Set `autosave` to FALSE in `f_res_ProduceWordDoc()` as don't need to keep saving copies of the report since running with the same data each time
+
+:::

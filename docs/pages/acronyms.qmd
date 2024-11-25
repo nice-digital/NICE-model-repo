@@ -1,0 +1,107 @@
+---
+title: "Acryonyms"
+---
+
+| Acronym | Meaning |
+| - | - |
+| 1L | First line |
+| 2L | Second line |
+| 3L | Third line |
+| 4L | Fourth line |
+| Abs | Absolute |
+| ACIC | Academic and commercial in confidence |
+| ADaM | Analysis Data Model |
+| AE | Adverse event |
+| ASCO | American Society Of Clinical Oncology |
+| aRCC | Advanced renal cell carcinoma |
+| AUC | Area under the curve |
+| BSC | Best supportive care |
+| cabo | cabozantinib |
+| CIC | Commercial in confidence |
+| CDF | Cancer Drugs Fund |
+| CE | Cost effectiveness |
+| CEA | Cost effectiveness analysis |
+| CODA | Convergence diagnosis and output analysis  |
+| cPAS | Confident patient access scheme |
+| DSU | Decision support unit |
+| EAG | External assessment group |
+| EOL | End of life |
+| EOM-RCC | Exeter Oncology Model: Renal Cell Carcinoma edition |
+| ERG | Evidence Review Group |
+| evero | Everolimus |
+| FAD | Final appraisal document |
+| fav | Favourable |
+| FP | Fractional polynomial |
+| FP NMA | Fractional polynomial network meta-analysis |
+| Gen | general |
+| HFS | Hand-foot syndrome |
+| HPC | High-performance computing |
+| HR | Hazard ratio |
+| HRQL | Health-related quality of life |
+| HTA | Health technology assessment |
+| ICER | Incremental Cost-Effectiveness Ratio |
+| int | Intermediate |
+| IMDC | International Metastatic Renal Cell Carcinoma Database Consortium |
+| IO | Immuno-oncology |
+| IPD | Individual patient data |
+| ipi | Ipilimumab |
+| IV | Intravenous |
+| KM | Kaplan-Meier |
+| lenv | Lenvatinib |
+| LY | Life year(s) |
+| LYG | Life year(s) gained |
+| MRC | Medical Research Council |
+| MRU | Medical Resource Use |
+| MTA | Multiple technology appraisal |
+| NHS | National Health Service |
+| NHSE | National Health ServiceEngland |
+| NICE | National Institute for Health and Care Excellence |
+| NIHR | National Institute for Health and Care Research |
+| nivo | Nivolumab |
+| NMA | Network meta-analysis |
+| ONS | Office for National Statistics |
+| OS | Overall survival |
+| PartSA | Partitioned-survival analysis |
+| PAS | Patient access scheme |
+| PATT | Proportionate approach to technology appraisals |
+| pazo | pazopanib |
+| PD | Progressed disease |
+| pem | Pembrolizumab |
+| PenTAG | Peninsula Technology Assessment Group |
+| PFS | Progression-free survival |
+| PH | Proportional hazards |
+| PH NMA | Proportional hazards network meta-analysis |
+| PLD | Patient-level data |
+| PLMT | Population + Line + Molecule + Trial |
+| PLMTE | Population + Line + Molecule + Trial + Endpoint |
+| pop | Population |
+| PPS | Post-progression survival |
+| prop | Proportional |
+| PSA | Probablistic sensitivity analysis |
+| PSM | Progressed state membership |
+| QALY | Quality-adjusted life year(s) |
+| QC | Quality check |
+| RCC | Renal cell carcinoma |
+| RDI | Relative dosing intensity |
+| RE | Relative efficacy |
+| ROC | Renal Oncology Collaborative |
+| RWE | Real-world evidence |
+| SF | Shortfall |
+| SOC | Standard of care |
+| st | Survival at time t |
+| STA | Single technology appraisal |
+| suni | Sunitinib |
+| TA | Technology appraisal |
+| tivo | Tivozanib |
+| TKI | Tyrosine Kinase Inhibitor |
+| TP matrices | Treatment pathway matrices |
+| TSD | Technical Support Document |
+| TTD | Time to discontinuation |
+| TOT | Time on treatment |
+| TTNT | Time to next treatment |
+| TTP | Time to progression |
+| TuotA | Time unit of the analysis |
+| UK | United Kingdom |
+| VEGF | Vascular endothelial growth factor |
+| vs | Versus |
+| WTP | Willingness to pay |
