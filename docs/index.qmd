@@ -16,4 +16,4 @@ If you are interested in discussing or funding further development of this model
 Other resources related to this model include:
 
 * [Web application](https://amyheather.shinyapps.io/shinyapp/): The ambition for EOM:RCC is to create a shiny interface that allows users to interact and run the full economic model from a web application. A pilot example web app has been created which allows users to run one part of the analysis: creating a table of possible treatment sequences.
-* [GitHub repository](https://github.com/pythonhealthdatascience/stars-eom-rcc): All code for the model, documentation and app are contained in this repository. The `README.md` file (which is displayed when you open the repository on GitHub) provides key information about the model and repository.
+* [GitHub repository](https://github.com/nice-digital/NICE-model-repo): All code for the model, documentation and app are contained in this repository. The `README.md` file (which is displayed when you open the repository on GitHub) provides key information about the model and repository.
