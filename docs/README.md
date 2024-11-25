@@ -1,6 +1,6 @@
 # Model documentation
 
-This folder contains documentation for the Exeter Oncology Model: Renal Cell Carcinoma edition (EOM:RCC). It is structured as a **quarto website** and hosted on **GitHub pages**, available at: <https://pythonhealthdatascience.github.io/stars-eom-rcc/>
+This folder contains documentation for the Exeter Oncology Model: Renal Cell Carcinoma edition (EOM:RCC). It is structured as a **quarto website** and hosted on **GitHub pages**, available at: <https://nice-digital.github.io/NICE-model-repo/>
 
 ## View documentation locally
 
