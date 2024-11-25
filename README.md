@@ -1,8 +1,6 @@
-<!--TODO: If you use this header, update to your repository URL-->
-
 <h1 align="center">
   <br>
-    <a href="https://medicine.exeter.ac.uk/phss/research/pentag/"><img src="https://raw.githubusercontent.com/pythonhealthdatascience/stars-eom-rcc/main/docs/images/exeter_pentag.png" alt="University of Exeter Medical School. PenTAG."></a>
+    <a href="https://medicine.exeter.ac.uk/phss/research/pentag/"><img src="docs/images/exeter_pentag.png" alt="University of Exeter Medical School. PenTAG."></a>
   <br>
   Exeter Oncology Model: Renal Cell Carcinoma edition
   <br>
@@ -12,17 +10,15 @@
   <i align="center">Produced as part of NICE's pathways pilot</i>
 </p>
 
-<!--I've used HTML for badges as this allows them to be centered and default to open in new tab.
-
-TODO: If you use the badges, update to your repository URL where relevant-->
+<!--I've used HTML for badges as this allows them to be centered and default to open in new tab.-->
 
 <p align="center">
     <a target="_blank" href="https://doi.org/10.5281/zenodo.13969124"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.13969124.svg" alt="DOI 10.5281/zenodo.13969124"/></a>
     <a target="_blank" href="https://www.r-project.org/"><img src="https://img.shields.io/badge/language-R-239120" alt="Language"/></a>
-    <a href="#"><img src="https://img.shields.io/github/v/release/pythonhealthdatascience/stars-eom-rcc" alt="GitHub release" /></a>
-    <a href="#"><img src="https://img.shields.io/github/release-date/pythonhealthdatascience/stars-eom-rcc" alt="GitHub release date" /></a>
-    <a href="#"><img src="https://img.shields.io/github/last-commit/pythonhealthdatascience/stars-eom-rcc" alt="GitHub last commit" /></a>
-    <a target="_blank" href="https://github.com/pythonhealthdatascience/stars-eom-rcc/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license"/></a>
+    <a href="#"><img src="https://img.shields.io/github/v/release/nice-digital/NICE-model-repo" alt="GitHub release" /></a>
+    <a href="#"><img src="https://img.shields.io/github/release-date/nice-digital/NICE-model-repo" alt="GitHub release date" /></a>
+    <a href="#"><img src="https://img.shields.io/github/last-commit/nice-digital/NICE-model-repo" alt="GitHub last commit" /></a>
+    <a target="_blank" href="https://github.com/nice-digital/NICE-model-repo/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license"/></a>
 </p>
 
 ## Table of contents
@@ -49,7 +45,7 @@ This **README** provides an introduction to the model and how to run the code in
 
 It is recommended that you also referred to the more **detailed documentation** available at:
 
-**<https://pythonhealthdatascience.github.io/stars-eom-rcc/>**
+**<https://nice-digital.github.io/NICE-model-repo/>**
 
 This website provides:
 
@@ -64,7 +60,7 @@ This website provides:
 
 <br>
 
-<a href="https://pythonhealthdatascience.github.io/stars-eom-rcc/"><img src="https://raw.githubusercontent.com/pythonhealthdatascience/stars-eom-rcc/main/docs/images/website_preview.png" alt="Website preview."></a>
+<a href="https://nice-digital.github.io/NICE-model-repo/"><img src="docs/images/website_preview.png" alt="Website preview."></a>
 
 <br><br>
 
@@ -76,9 +72,9 @@ The ambition for EOM:RCC is to create a shiny interface that allows users to int
 
 <br>
 
-<a href="https://amyheather.shinyapps.io/shinyapp/"><img src="https://raw.githubusercontent.com/pythonhealthdatascience/stars-eom-rcc/main/docs/images/webapp_preview.png" alt="Web application preview - main tab."></a>
+<a href="https://amyheather.shinyapps.io/shinyapp/"><img src="docs/images/webapp_preview.png" alt="Web application preview - main tab."></a>
 
-<a href="https://amyheather.shinyapps.io/shinyapp/"><img src="https://raw.githubusercontent.com/pythonhealthdatascience/stars-eom-rcc/main/docs/images/webapp_preview2.png" alt="Web application preview - explorer tab."></a>
+<a href="https://amyheather.shinyapps.io/shinyapp/"><img src="docs/images/webapp_preview2.png" alt="Web application preview - explorer tab."></a>
 
 <br><br>
 
@@ -350,27 +346,11 @@ The other files are folders are:
 
 <br><br>
 
-## 🐙 GitHub actions
-
-This project uses GitHub actions to automate a few tasks. The workflows are described below and can be found in `.github.workflows/`.
-
-<!--TODO: If you keep this table, update URL to your repository-->
-
-| Name | Description and status | Triggered by... |
-| - | - | - |
-| [Valid CITATION.cff](https://github.com/pythonhealthdatascience/stars-eom-rcc/blob/main/.github/workflows/cff_validation.yaml) | Checks if the CITATION.cff file is valid<br><a target="_blank" href="https://github.com/pythonhealthdatascience/stars-eom-rcc/actions/workflows/cff_validation.yaml"><img src="https://github.com/pythonhealthdatascience/stars-eom-rcc/actions/workflows/cff_validation.yaml/badge.svg" alt="Valid CITATION.cff"/></a> | `push` on `main` to `CITATION.cff` |
-
-<br><br>
-
 ## 📝 Citation
 
 If you re-use this model please appropriately credit PenTAG and collaborators for the work and refer to it as the Exeter Oncology Model: RCC edition:
 
-> Lee D., Muthukumar M., Lovell A., Farmer C., Burns D., Matthews J., Coelho H., O'Toole B., Trigg L., Snowsill T., Barnish M., Nikoglou T., Brand A., Ahmad Z., Abdelsabour A., Robinson S., Heather A., Wilson E., Melendez-Torres G. Exeter Oncology Model: RCC edition URL: https://github.com/pythonhealthdatascience/stars-eom-rcc
-
-This repository has been archived on **Zenodo** and that can be cited as:
-
-> Lee, D., Muthukumar, M., Lovell, A., Farmer, C., Burns, D., Matthews, J., Coelho, H., O'Toole, B., Trigg, L., Snowsill, T., Barnish, M., Nikoglou, T., Brand, A., Ahmad, Z., Abdelsabour, A., Robinson, S., Heather, A., Wilson, E., & Melendez-Torres, G. J. (2024). Exeter Oncology Model: RCC edition. Zenodo. https://doi.org/10.5281/zenodo.13969124
+> Lee D., Muthukumar M., Lovell A., Farmer C., Burns D., Matthews J., Coelho H., O'Toole B., Trigg L., Snowsill T., Barnish M., Nikoglou T., Brand A., Ahmad Z., Abdelsabour A., Robinson S., Heather A., Wilson E., Melendez-Torres G. Exeter Oncology Model: RCC edition URL: https://github.com/nice-digital/NICE-model-repo
 
 The author ORCID IDs (where available) are:
 
@@ -388,19 +368,11 @@ The author ORCID IDs (where available) are:
 
 <br><br>
 
-## 🧍 Acknowledgements
-
-This modified repository was developed by [**Amy Heather**](https://github.com/amyheather) as part of work package 3 on the project "STARS: Sharing Tools and Artefacts for Reproducible Simulations". Changes from the original repository are described in the `CHANGELOG.md`.
-
-[![ORCID: Heather](https://img.shields.io/badge/Amy_Heather-0000--0002--6596--3479-brightgreen)](https://orcid.org/0000-0002-6596-3479)
-
-<br><br>
-
 ## 📜 License
 
 This repository is licensed under an MIT license as follows:
 
->Copyright (c) 2024 University of Exeter, Exeter Oncology Model; RCC edition
+>Copyright (c) 2024 University of Exeter, Exeter Oncology Model; RCC edition (pentag@exeter.ac.uk)
 >
 >Permission is hereby granted, free of charge, to any person obtaining a copy
 of this model and associated documentation files (the "RCC Model"), to deal
@@ -425,8 +397,6 @@ RCC MODEL.
 ## 💰 Funding
 
 The development of the EOM-RCC model for NICE, as part of the pathways pilot, was funded by the National Institute for Health and Care Research (NIHR) Evidence Synthesis Programme as project number [NIHR136008](https://www.dev.fundingawards.nihr.ac.uk/award/NIHR136008).
-
-STARS is supported by the Medical Research Council [grant number [MR/Z503915/1](https://gtr.ukri.org/projects?ref=MR%2FZ503915%2F1)].
 
 <br><br>
 
