@@ -312,7 +312,7 @@
     "href": "pages/citation.html",
     "title": "Citation",
     "section": "",
-    "text": "If you re-use this model please appropriately credit PenTAG and collaborators for the work and refer to it as the Exeter Oncology Model: RCC edition:\n\nLee D., Muthukumar M., Lovell A., Farmer C., Burns D., Matthews J., Coelho H., O’Toole B., Trigg L., Snowsill T., Barnish M., Nikoglou T., Brand A., Ahmad Z., Abdelsabour A., Robinson S., Heather A., Wilson E., Melendez-Torres G. Exeter Oncology Model: RCC edition URL: https://github.com/pythonhealthdatascience/stars-eom-rcc\n\nThis repository has also been archived on Zenodo and that can be cited as:\n\nLee, D., Muthukumar, M., Lovell, A., Farmer, C., Burns, D., Matthews, J., Coelho, H., O’Toole, B., Trigg, L., Snowsill, T., Barnish, M., Nikoglou, T., Brand, A., Ahmad, Z., Abdelsabour, A., Robinson, S., Heather, A., Wilson, E., & Melendez-Torres, G. J. (2024). Exeter Oncology Model: RCC edition. Zenodo. https://doi.org/10.5281/zenodo.13969124\n\nBelow is a bibtex citation for the GitHub repository, which can be imported into reference managers like endnote. It is available on Github as citation_bibtex.bib, where it can be downloaded.\n@software{pentag_eomrcc,\nauthor = {Lee, Dawn and Muthukumar, Madhusubramanian and Lovell, Alan and Farmer, Caroline and Burns, Darren and Matthews, Justin and Coelho, Helen and O'Toole, Brian and Trigg, Laura and Snowsill, Tristan and Barnish, Maxwell and Nikoglou, Thalia and Brand, Amanda and Ahmad, Zain and Abdelsabour, Ahmed and Robinson, Sophie and Heather, Amy and Wilson, Edward and Melendez-Torres, G.J.},\nmonth = {9},\ntitle = {Exeter Oncology Model: RCC edition},\nurl = {https://github.com/nice-digital/NICE-model-repo},\nyear = {2024}\n}",
+    "text": "If you re-use this model please appropriately credit PenTAG and collaborators for the work and refer to it as the Exeter Oncology Model: RCC edition:\n\nLee D., Muthukumar M., Lovell A., Farmer C., Burns D., Matthews J., Coelho H., O’Toole B., Trigg L., Snowsill T., Barnish M., Nikoglou T., Brand A., Ahmad Z., Abdelsabour A., Robinson S., Heather A., Wilson E., Melendez-Torres G. Exeter Oncology Model: RCC edition URL: https://github.com/nice-digital/NICE-model-repo\n\nBelow is a bibtex citation for the GitHub repository, which can be imported into reference managers like endnote. It is available on Github as citation_bibtex.bib, where it can be downloaded.\n@software{pentag_eomrcc,\nauthor = {Lee, Dawn and Muthukumar, Madhusubramanian and Lovell, Alan and Farmer, Caroline and Burns, Darren and Matthews, Justin and Coelho, Helen and O'Toole, Brian and Trigg, Laura and Snowsill, Tristan and Barnish, Maxwell and Nikoglou, Thalia and Brand, Amanda and Ahmad, Zain and Abdelsabour, Ahmed and Robinson, Sophie and Heather, Amy and Wilson, Edward and Melendez-Torres, G.J.},\nmonth = {11},\ntitle = {Exeter Oncology Model: RCC edition},\nurl = {https://github.com/nice-digital/NICE-model-repo},\nyear = {2024}\n}",
     "crumbs": [
       "Citation"
     ]
@@ -322,7 +322,7 @@
     "href": "pages/citation.html#how-to-cite-this-model",
     "title": "Citation",
     "section": "",
-    "text": "If you re-use this model please appropriately credit PenTAG and collaborators for the work and refer to it as the Exeter Oncology Model: RCC edition:\n\nLee D., Muthukumar M., Lovell A., Farmer C., Burns D., Matthews J., Coelho H., O’Toole B., Trigg L., Snowsill T., Barnish M., Nikoglou T., Brand A., Ahmad Z., Abdelsabour A., Robinson S., Heather A., Wilson E., Melendez-Torres G. Exeter Oncology Model: RCC edition URL: https://github.com/pythonhealthdatascience/stars-eom-rcc\n\nThis repository has also been archived on Zenodo and that can be cited as:\n\nLee, D., Muthukumar, M., Lovell, A., Farmer, C., Burns, D., Matthews, J., Coelho, H., O’Toole, B., Trigg, L., Snowsill, T., Barnish, M., Nikoglou, T., Brand, A., Ahmad, Z., Abdelsabour, A., Robinson, S., Heather, A., Wilson, E., & Melendez-Torres, G. J. (2024). Exeter Oncology Model: RCC edition. Zenodo. https://doi.org/10.5281/zenodo.13969124\n\nBelow is a bibtex citation for the GitHub repository, which can be imported into reference managers like endnote. It is available on Github as citation_bibtex.bib, where it can be downloaded.\n@software{pentag_eomrcc,\nauthor = {Lee, Dawn and Muthukumar, Madhusubramanian and Lovell, Alan and Farmer, Caroline and Burns, Darren and Matthews, Justin and Coelho, Helen and O'Toole, Brian and Trigg, Laura and Snowsill, Tristan and Barnish, Maxwell and Nikoglou, Thalia and Brand, Amanda and Ahmad, Zain and Abdelsabour, Ahmed and Robinson, Sophie and Heather, Amy and Wilson, Edward and Melendez-Torres, G.J.},\nmonth = {9},\ntitle = {Exeter Oncology Model: RCC edition},\nurl = {https://github.com/nice-digital/NICE-model-repo},\nyear = {2024}\n}",
+    "text": "If you re-use this model please appropriately credit PenTAG and collaborators for the work and refer to it as the Exeter Oncology Model: RCC edition:\n\nLee D., Muthukumar M., Lovell A., Farmer C., Burns D., Matthews J., Coelho H., O’Toole B., Trigg L., Snowsill T., Barnish M., Nikoglou T., Brand A., Ahmad Z., Abdelsabour A., Robinson S., Heather A., Wilson E., Melendez-Torres G. Exeter Oncology Model: RCC edition URL: https://github.com/nice-digital/NICE-model-repo\n\nBelow is a bibtex citation for the GitHub repository, which can be imported into reference managers like endnote. It is available on Github as citation_bibtex.bib, where it can be downloaded.\n@software{pentag_eomrcc,\nauthor = {Lee, Dawn and Muthukumar, Madhusubramanian and Lovell, Alan and Farmer, Caroline and Burns, Darren and Matthews, Justin and Coelho, Helen and O'Toole, Brian and Trigg, Laura and Snowsill, Tristan and Barnish, Maxwell and Nikoglou, Thalia and Brand, Amanda and Ahmad, Zain and Abdelsabour, Ahmed and Robinson, Sophie and Heather, Amy and Wilson, Edward and Melendez-Torres, G.J.},\nmonth = {11},\ntitle = {Exeter Oncology Model: RCC edition},\nurl = {https://github.com/nice-digital/NICE-model-repo},\nyear = {2024}\n}",
     "crumbs": [
       "Citation"
     ]
@@ -332,7 +332,7 @@
     "href": "pages/citation.html#acknowledgements",
     "title": "Citation",
     "section": "Acknowledgements",
-    "text": "Acknowledgements\n\nThis modified repository was developed by Amy Heather . Changes from the original repository can be viewed in the changelog.\nThese modifications were made to improve the clarity and open science credentials of the EOM:RCC model, as part of the project STARS.",
+    "text": "Acknowledgements\n\nThis documentation was developed by Amy Heather . These modifications were made to improve the clarity and open science credentials of the EOM:RCC model, as part of the project STARS.",
     "crumbs": [
       "Citation"
     ]
@@ -814,67 +814,27 @@
     "href": "pages/changelog.html",
     "title": "CHANGELOG",
     "section": "",
-    "text": "All notable changes to this project will be documented in this file.\nThe format is based on Keep a Changelog, and this project adheres to Semantic Versioning. Dates formatted as YYYY-MM-DD as per ISO standard.\n\n\nAdd interactive sequence explorer to the shiny application, and made amendments elsewhere to the documentation, as per feedback from PenTAG team.\n\n\n\nInteractive sequence explorer tab within the shiny app\nGitHub action to convert CITATION.cff into a .bib citation that can easily download and use with reference managers\n\n\n\n\n\nAmendments to the text and diagrams across several different pages, as per feedback from the PenTAG team\nAdd Amy Heather to citation\nAdd PenTAG email to licence\nAdd reader mode so sidebar and table of contents can be toggled to hide\nImproved image quality of the draw.io diagrams\nUpdate list of packages in renv for shiny app\n\n\n\n\n\nDeleted old draw.io diagrams\n\n\n\n\n\nCorrected display of survival and hazard curves\n\n\n\n\n\nProduced pilot shiny web application to find valid treatment sequences.\n\n\n\nShiny web application (in shinyapp/), which is also hosted on shinyapps.io\n\n\n\n\n\nAdd required packages for app to the renv\nAdd description of app to the main README file\n\n\n\n\n\nDetailed model documentation via a quarto site hosted with GitHub pages.\n\n\n\nQuarto site with detailed documentation for the model including:\n\nAcronyms\nContext on the associated NICE appraisals, articles and reports\nA detailed summary of the analysis\nA plain english summary of the analysis\nInstallation instructions\nA step-by-step walkthrough of the code in Model_Structure.R\nDescriptions of the probabilistic analysis and scenario analysis\nDetails about the license, citation instructions and the changelog\n\n\n\n\n\n\nAdd folder input to f_res_ProduceWordDoc() to allow specification of the output folder to save the word document too (as previously hard coded ./4_Output)\nAdd information about quarto website and run time to README.md\nMoved images from img/ to docs/images/\n\n\n\n\n\nRemoved unused template README and citation files from 1_Data/ 3_Functions/ and 4_Output/. The paragraph that had been entered into the template README in the data folder was moved onto the probabilistic analysis page in the quarto documentation\n\n\n\n\n\nEmbellished README\n\n\n\nAdd files produced by model run to .gitignore\n\n\n\n\n\nExtended README.md to include banner image with logos, extra badges, table of contents, all the information from ID6184 Using the R decision model.. (e.g. installation guide with images, overview of input files, future versions)\n\n\n\n\n\nImplemented the essential components of the STARS framework (exc. open science archive).\n\n\n\nCITATION.cff and GitHub action to check validity (cff_validation.yaml)\n\n\n\n\n\nExtended README.md to include some instructions for installing and running the model, more detailed repository overview, citation information, ORCID IDs, acknowledgements, license and funding information\n\n\n\n\n\nFormatting of copyright statement in LICENSE\n\n\n\n\n\n🌱 First release. EOM-RCC model as shared by the PenTAG team, with minor changes that enabled us to run the model.\n\n\n\nCode from the original repository - https://github.com/nice-digital/NICE-model-repo\nR environment for dependency management (renv)\n\n\n\n\n\nSet model to run sequentially (in 2_Scripts/Model_Structure.R)",
+    "text": "All notable changes to this project will be documented in this file.\nThe format is based on Keep a Changelog, and this project adheres to Semantic Versioning. Dates formatted as YYYY-MM-DD as per ISO standard.\n\n\nMerged modifications by Amy Heather made as part of the project STARS (Sharing Tools and Artefacts for Reproducible Simulations in healthcare). These changes included improvements to the README, creating detailed documentation hosted via GitHub pages, and creation of a pilot shiny web application to find valid treatment sequences (including an interactive sequence explorer).\n\n\n\nDocumentation (docs/) hosted on GitHub pages\nWeb application (shinyapp/) hosted on shinyapps.io\nCHANGELOG.md to provide reader-friendly explanation of differences between versions\nCITATION.cff to provide instructions on how to cite the repository\n\n\n\n\n\nExtended and improved details in README\nAdd PenTAG email to licence\nAdd folder input to f_res_ProduceWordDoc() to allow specification of the output folder to save the word document too (as previously hard coded ./4_Output)\n\n\n\n\n\nFormatting of copyright statement in LICENSE\n\n\n\n\n\nRemoved unused template README and citation files from 1_Data/ 3_Functions/ and 4_Output/. The paragraph that had been entered into the template README in the data folder was moved onto the probabilistic analysis page in the quarto documentation\n\n\n\n\n\n🌱 First release of EOM-RCC model.",
     "crumbs": [
       "Changelog"
     ]
   },
   {
-    "objectID": "pages/changelog.html#v1.4.0---2024-10-23",
-    "href": "pages/changelog.html#v1.4.0---2024-10-23",
+    "objectID": "pages/changelog.html#v1.1.0---2024-11-25",
+    "href": "pages/changelog.html#v1.1.0---2024-11-25",
     "title": "CHANGELOG",
     "section": "",
-    "text": "Add interactive sequence explorer to the shiny application, and made amendments elsewhere to the documentation, as per feedback from PenTAG team.\n\n\n\nInteractive sequence explorer tab within the shiny app\nGitHub action to convert CITATION.cff into a .bib citation that can easily download and use with reference managers\n\n\n\n\n\nAmendments to the text and diagrams across several different pages, as per feedback from the PenTAG team\nAdd Amy Heather to citation\nAdd PenTAG email to licence\nAdd reader mode so sidebar and table of contents can be toggled to hide\nImproved image quality of the draw.io diagrams\nUpdate list of packages in renv for shiny app\n\n\n\n\n\nDeleted old draw.io diagrams\n\n\n\n\n\nCorrected display of survival and hazard curves",
+    "text": "Merged modifications by Amy Heather made as part of the project STARS (Sharing Tools and Artefacts for Reproducible Simulations in healthcare). These changes included improvements to the README, creating detailed documentation hosted via GitHub pages, and creation of a pilot shiny web application to find valid treatment sequences (including an interactive sequence explorer).\n\n\n\nDocumentation (docs/) hosted on GitHub pages\nWeb application (shinyapp/) hosted on shinyapps.io\nCHANGELOG.md to provide reader-friendly explanation of differences between versions\nCITATION.cff to provide instructions on how to cite the repository\n\n\n\n\n\nExtended and improved details in README\nAdd PenTAG email to licence\nAdd folder input to f_res_ProduceWordDoc() to allow specification of the output folder to save the word document too (as previously hard coded ./4_Output)\n\n\n\n\n\nFormatting of copyright statement in LICENSE\n\n\n\n\n\nRemoved unused template README and citation files from 1_Data/ 3_Functions/ and 4_Output/. The paragraph that had been entered into the template README in the data folder was moved onto the probabilistic analysis page in the quarto documentation",
     "crumbs": [
       "Changelog"
     ]
   },
   {
-    "objectID": "pages/changelog.html#v1.3.0---2024-09-27",
-    "href": "pages/changelog.html#v1.3.0---2024-09-27",
+    "objectID": "pages/changelog.html#v1.0.0---2024-07-30",
+    "href": "pages/changelog.html#v1.0.0---2024-07-30",
     "title": "CHANGELOG",
     "section": "",
-    "text": "Produced pilot shiny web application to find valid treatment sequences.\n\n\n\nShiny web application (in shinyapp/), which is also hosted on shinyapps.io\n\n\n\n\n\nAdd required packages for app to the renv\nAdd description of app to the main README file",
-    "crumbs": [
-      "Changelog"
-    ]
-  },
-  {
-    "objectID": "pages/changelog.html#v1.2.0---2024-09-23",
-    "href": "pages/changelog.html#v1.2.0---2024-09-23",
-    "title": "CHANGELOG",
-    "section": "",
-    "text": "Detailed model documentation via a quarto site hosted with GitHub pages.\n\n\n\nQuarto site with detailed documentation for the model including:\n\nAcronyms\nContext on the associated NICE appraisals, articles and reports\nA detailed summary of the analysis\nA plain english summary of the analysis\nInstallation instructions\nA step-by-step walkthrough of the code in Model_Structure.R\nDescriptions of the probabilistic analysis and scenario analysis\nDetails about the license, citation instructions and the changelog\n\n\n\n\n\n\nAdd folder input to f_res_ProduceWordDoc() to allow specification of the output folder to save the word document too (as previously hard coded ./4_Output)\nAdd information about quarto website and run time to README.md\nMoved images from img/ to docs/images/\n\n\n\n\n\nRemoved unused template README and citation files from 1_Data/ 3_Functions/ and 4_Output/. The paragraph that had been entered into the template README in the data folder was moved onto the probabilistic analysis page in the quarto documentation",
-    "crumbs": [
-      "Changelog"
-    ]
-  },
-  {
-    "objectID": "pages/changelog.html#v1.1.1---2024-08-20",
-    "href": "pages/changelog.html#v1.1.1---2024-08-20",
-    "title": "CHANGELOG",
-    "section": "",
-    "text": "Embellished README\n\n\n\nAdd files produced by model run to .gitignore\n\n\n\n\n\nExtended README.md to include banner image with logos, extra badges, table of contents, all the information from ID6184 Using the R decision model.. (e.g. installation guide with images, overview of input files, future versions)",
-    "crumbs": [
-      "Changelog"
-    ]
-  },
-  {
-    "objectID": "pages/changelog.html#v1.1.0---2024-08-16",
-    "href": "pages/changelog.html#v1.1.0---2024-08-16",
-    "title": "CHANGELOG",
-    "section": "",
-    "text": "Implemented the essential components of the STARS framework (exc. open science archive).\n\n\n\nCITATION.cff and GitHub action to check validity (cff_validation.yaml)\n\n\n\n\n\nExtended README.md to include some instructions for installing and running the model, more detailed repository overview, citation information, ORCID IDs, acknowledgements, license and funding information\n\n\n\n\n\nFormatting of copyright statement in LICENSE",
-    "crumbs": [
-      "Changelog"
-    ]
-  },
-  {
-    "objectID": "pages/changelog.html#v1.0.0---2024-08-16",
-    "href": "pages/changelog.html#v1.0.0---2024-08-16",
-    "title": "CHANGELOG",
-    "section": "",
-    "text": "🌱 First release. EOM-RCC model as shared by the PenTAG team, with minor changes that enabled us to run the model.\n\n\n\nCode from the original repository - https://github.com/nice-digital/NICE-model-repo\nR environment for dependency management (renv)\n\n\n\n\n\nSet model to run sequentially (in 2_Scripts/Model_Structure.R)",
+    "text": "🌱 First release of EOM-RCC model.",
     "crumbs": [
       "Changelog"
     ]
