@@ -1,0 +1,25 @@
+name: "Valid CITATION.cff"
+# Name of this action (else will name after the commits)
+run-name: Check if CITATION.cff is still valid
+
+# Source: https://github.com/marketplace/actions/cff-validator
+
+on:
+  push:
+    branches: main
+    paths: CITATION.cff
+  workflow_dispatch:
+
+jobs:
+  Validate-CITATION-cff:
+    runs-on: ubuntu-latest
+    name: Validate CITATION.cff
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Validate CITATION.cff
+        uses: dieghernan/cff-validator@v3

@@ -15,6 +15,7 @@
 #' @param word_template_location location of the word document to start from. does not control styles (see `flextable` package). default `./3_Functions/reporting/empty results doc.docx`
 #' @param Word_width_inches paragraph width in word document, used for table column distribution. default `29.7*0.3937=11.6721`
 #' @param auto_save whether or not to automatically output a word document with automatic naming. if not, the word document object is returned within the R session
+#' @param folder string path to output folder to save word document in
 #' 
 #' 
 f_res_ProduceWordDoc <- function(
@@ -27,7 +28,8 @@ f_res_ProduceWordDoc <- function(
     word_template_location = "./3_Functions/reporting/empty results doc.docx",
     Word_width_inches = 29.7*0.3937,
     auto_save = FALSE,
-    verbose = FALSE
+    verbose = FALSE,
+    folder = "./4_Output"
 ) {
   
   # preamble
@@ -92,7 +94,7 @@ f_res_ProduceWordDoc <- function(
   # If the user wants to save the document with automatic naming, then do so. Otherwise
   # return the updated doc so the user can save it themselves.
   if (auto_save) {
-    doc_target <- gsub(" ", "_",paste0("./4_Output/Scenario ",Scenario_number,"_",price_options,"_",gsub(":","_",Run_date),".docx"))
+    doc_target <- gsub(" ", "_", paste0(folder, "/Scenario ",Scenario_number,"_",price_options,"_",gsub(":","_",Run_date),".docx"))
     print(doc_res, target = doc_target)
     rm(doc_res)
     cat(paste0("Document automatically saved in location: ", doc_target,"\n"))

@@ -1,0 +1,74 @@
+# Illustrative plots
+
+These functions make some illustrative plots used in the documentation for demonstration purposes.
+
+```{r}
+library(ggplot2)
+library(survival)
+```
+
+## Simple survival plot
+
+```{r}
+# Divide survival's provided lung dataset by sex
+lung1 = lung[lung$sex==1,]
+lung2 = lung[lung$sex==2,]
+
+# Fit survival models
+surv_fit1 <- survfit(Surv(time, status) ~ 1, data = lung1)
+surv_fit2 <- survfit(Surv(time, status) ~ 1, data = lung2)
+
+# Convert into dataframe
+surv_data1 <- data.frame(time = surv_fit1$time,
+                         surv_prob = surv_fit1$surv,
+                         group = 1)
+surv_data2 <- data.frame(time = surv_fit2$time,
+                         surv_prob = surv_fit2$surv,
+                         group = 2)
+surv_data <- rbind(surv_data1, surv_data2)
+
+# Plot the survival curves
+simple_plot <- function(df, colour){
+  #' Create a simple survival curve plot for illustrative purposes
+  #' 
+  #' @param df Dataframe with survival data
+  #' @param colour String with colour for line
+
+  ggplot(df, aes(x = time, y = surv_prob)) +
+    geom_step(color=colour) +
+    labs(x = "Time", y = "Overall survival") +
+    theme_classic() +
+    theme(axis.text.x=element_blank(), axis.text.y=element_blank(),
+          axis.ticks.x=element_blank(), axis.ticks.y=element_blank(),
+          axis.title.x=element_text(size=14), axis.title.y=element_text(size=14),
+          legend.position="none")
+}
+
+simple_plot(surv_data1, "blue")
+ggsave("../images/simple_survival_blue.png", height=50, width=80, units="mm")
+simple_plot(surv_data2, "orange")
+ggsave("../images/simple_survival_orange.png", height=50, width=80, units="mm")
+simple_plot(surv_data1, "red")
+ggsave("../images/simple_survival_red.png", height=50, width=80, units="mm")
+simple_plot(surv_data2, "darkgreen")
+ggsave("../images/simple_survival_green.png", height=50, width=80, units="mm")
+```
+
+```{r}
+# Fit survival model by sex on survival's lung dataset
+surv_fit <- survfit(Surv(time, status) ~ sex, data = lung)
+# Convert into dataframe
+surv_data <- data.frame(
+  time = rep(surv_fit$time, times = length(surv_fit$strata)),
+  surv_prob = unlist(surv_fit$surv),
+  group = rep(names(surv_fit$strata), times = length(surv_fit$time))
+)
+# Plot the survival curve
+ggplot(surv_data, aes(x = time, y = surv_prob, color = group)) +
+  geom_line() +
+  labs(x = "Time", y = "Overall survival") +
+  theme_classic() +
+  theme(axis.text.x=element_blank(), axis.text.y=element_blank(),
+        axis.ticks.x=element_blank(), axis.ticks.y=element_blank(),
+        axis.title.x=element_text(size=14), axis.title.y=element_text(size=14))
+```
