@@ -410,7 +410,7 @@ f_path_2L_only_immediate_after <- function(perms, trt, rule) {
     trt_at_line_n <- perms[,n] == trt
     rule_not_at_line_n_minus_1 <- !(perms[,(n-1)] %in% rule)
   
-    violators <- perms_with_trt_AND_rule & trt_at_line_n & rule_not_at_line_n_minus_1 
+    violators <- trt_at_line_n & rule_not_at_line_n_minus_1
     
     # #temp lines for testing only
     # perms[,6] <- perms_with_trt_AND_rule
