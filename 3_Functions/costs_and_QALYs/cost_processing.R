@@ -289,11 +289,11 @@ f_process_cost_data <- function(drug_and_admin,
               
               # when costs are incurred:
               if (current_row$Type == "per cycle") {
-                dose_at_cycles <- seq(
+                dose_at_cycles <- floor(seq(
                   floor(current_row$Time.from),
                   ceiling(current_row$Time.to..cycles.),
-                  by = floor(current_row$Applied.every.x.cycles)
-                )
+                  by = current_row$Applied.every.x.cycles
+                ))
               } else if (current_row$Type == "one-off") {
                 dose_at_cycles <- 1
               }
@@ -470,11 +470,11 @@ f_process_cost_data <- function(drug_and_admin,
           
           # when costs are incurred:
           if (current_row$Type == "per cycle") {
-            dose_at_cycles <- seq(
+            dose_at_cycles <- floor(seq(
               floor(current_row$Time.from),
               ceiling(current_row$Time.to..cycles.),
-              by = floor(current_row$Applied.every.x.cycles)
-            )
+              by = current_row$Applied.every.x.cycles
+            ))
           } else if (current_row$Type == "one-off") {
             dose_at_cycles <- 1
           }
