@@ -856,16 +856,9 @@ f_psa_pf_computePF_mkLambda <- function(pops,
         # costs/QALY losses.
         ENTRANTS <- matrix(
           unlist(lapply(1:ncol(tTRACE), function(cyc) {
-            dm <- dim(M[[cyc]])[1]
-            coord <- rbind(
-              cbind(1:(dm-1),2:dm),
-              cbind(seq(1,dm-2,2),seq(1,dm-2,2)+2)
-            )
-            coord <- coord[order(coord[,1]),]
-            coord <- cbind(coord,M[[cyc]][coord])
-            up_one_trans <- unlist(lapply(unique(coord[,2]), function(x) sum(coord[coord[,2]==x,3])))
-            p_tm1 <- tTRACE[1:(nrow(tTRACE)-1),cyc]
-            return(as.numeric(p_tm1 * up_one_trans))
+            m_no_diag <- M[[cyc]]
+            diag(m_no_diag) <- 0
+            return(as.numeric(tTRACE[, cyc] %*% m_no_diag[, -1, drop = FALSE]))
           }),use.names = FALSE),
           nrow = ncol(tTRACE),
           byrow = TRUE,
