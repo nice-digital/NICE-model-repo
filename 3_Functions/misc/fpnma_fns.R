@@ -17,7 +17,9 @@ f_HRs_by_cycle <- function(TH, wks_per_month = 4.348214, exponents, coeffs) {
   coeffs    <- as.numeric(unlist(coeffs))
   t         <- 0:TH
   t_month   <- t / wks_per_month
-  return(exp(coeffs[1] + coeffs[2] * t_month ^ exponents[1] + coeffs[3] * t_month ^ exponents[2]))
+  t1 <- if (exponents[1] == 0) log(t_month) else t_month ^ exponents[1]
+  t2 <- if (exponents[2] == 0) log(t_month) else t_month ^ exponents[2]
+  return(exp(coeffs[1] + coeffs[2] * t1 + coeffs[3] * t2))
 }
 
 
@@ -67,7 +69,7 @@ f_generate_FPNMA_coda <- function(coeffs, TH, wks_per_month) {
     )
     # correct for non-finite HRs. These are usually in time 0 where the HR is 1
     # in all contexts as no events are possible yet.
-    id$HR[!is.finite(id$HR)] <- 1
+    id$HR[id$time == 0 | !is.finite(id$HR)] <- 1
     return(id)
   }))
 }
