@@ -638,10 +638,10 @@ psa_results <- with_progress({
     p_psa$releff$fp_dest <- f_gen_destinations(fp_data = p_psa$releff$CODA$FP)
     
     # add in reference.trial 2
-    p_psa$releff$CODA$FP <- f_add_reference_trial_2(fp_data = p_psa$releff$CODA$FP)
+    p_psa$releff$CODA$FP <- unique(f_add_reference_trial_2(fp_data = p_psa$releff$CODA$FP))
     
     #eliminate NAs in molecule
-    p_psa$releff$fp_dest <- i$FPNMA$destinations[!is.na(Molecule), ]
+    p_psa$releff$fp_dest <- unique(p_psa$releff$fp_dest[!is.na(Molecule), ])
     
     pr(paste0("PSA iteration #",psa_iteration))
     # Make empty network
@@ -653,16 +653,16 @@ psa_results <- with_progress({
     # TEMPORARY: put in the FPNMA sample
     network <- f_NMA_linkFPNMA(
       network       = network,
-      destinations  = p$releff$fp_dest,
-      hr_table      = p$releff$CODA$FP,
+      destinations  = p_psa$releff$fp_dest,
+      hr_table      = p_psa$releff$CODA$FP,
       time_horizon  = p$basic$th
     )
     
     network <- f_NMA_AddAssumptionsToNetwork(
       network            = network,
       phnma_table        = phnma_coda_run,
-      fpnma_table        = p$releff$CODA$FP,
-      fpnma_destinations = p$releff$fp_dest,
+      fpnma_table        = p_psa$releff$CODA$FP,
+      fpnma_destinations = p_psa$releff$fp_dest,
       excel_table        = i_psa$releff$table,
       trial_flag         = i$List_eff_datasources[1],
       fpnma_flag         = i$List_eff_datasources[3],
