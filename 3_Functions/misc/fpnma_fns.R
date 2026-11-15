@@ -101,7 +101,7 @@ f_rebase_for_cabo_as_ref_in_2L <- function(FPNMAdata) {
       Endpoint = rep(0, 2079),
       Population = rep(0, 2079),
       Reference.trial = rep(1, 2079),
-      HR = EvevscaboHROS$HR
+      HR = 1 / EvevscaboHROS$HR
     )
   EvePFSHRs <-
     cbind(
@@ -112,7 +112,7 @@ f_rebase_for_cabo_as_ref_in_2L <- function(FPNMAdata) {
       Endpoint = rep(1, 2079),
       Population = rep(0, 2079),
       Reference.trial = rep(1, 2079),
-      HR = EvevscaboHRPFS$HR
+      HR = 1 / EvevscaboHRPFS$HR
     )
   
   FPNMArebasecabo <- rbind(FPNMArebasecabo, EveOSHRs, EvePFSHRs)
